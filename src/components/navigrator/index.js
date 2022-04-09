@@ -81,6 +81,21 @@ export default function Navigator() {
             <li className="has-sub-nav main-navigator-link">
                 查看
 
+
+            </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
+                    to="/status"
+                    key="/status"
+                >
+                    流转状态
+                </NavLink>
             </li>
         </ul>
     )
