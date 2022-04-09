@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form } from './pages';
+import { Home, NotFound, Form, Login } from './pages';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
             <Outlet />
           </div>
         }>
+          <Route path="login" element={<Login />} />
           <Route index element={<Home />} />
           {/* <Route path="home" element={<Home />} /> */}
           <Route path="forms" element={<div><Outlet /></div>}>

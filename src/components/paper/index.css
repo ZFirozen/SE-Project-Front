@@ -1,15 +1,11 @@
 .paper{
-    width: 90%;
+    width: 100%;
     max-width: 1500px;
     margin: 20px auto;
-    box-shadow:3px 3px 3px gray,1px 1px 5px gray;
+    box-shadow:3px 3px 10px gray;
     border-radius: 5px;
     display: flex;
     justify-content:center;
     align-items: center;
     padding: 20px;
-}
-.paper>div{
-    overflow-x: scroll;
-    width: 90%;
 }

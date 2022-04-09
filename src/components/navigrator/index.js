@@ -26,6 +26,19 @@ export default function Navigator() {
                             background: isActive ? '#8282e3' : '#494998'
                         }
                     }}
+                    to="/login"
+                >
+                    登录
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
                     to="/"
                     key="/"
                 >
@@ -54,7 +67,6 @@ export default function Navigator() {
                         )
                     })}
                 </ul>
-
             </li>
             <li className="has-sub-nav main-navigator-link">
                 查询
@@ -68,12 +80,6 @@ export default function Navigator() {
             </li>
             <li className="has-sub-nav main-navigator-link">
                 查看
-
-
-            </li>
-            <li className="has-sub-nav main-navigator-link">
-                登陆
-
 
             </li>
         </ul>
