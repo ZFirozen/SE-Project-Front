@@ -1,0 +1,43 @@
+.form-table,th,td{
+    border: 1px solid gray;
+    border-collapse:collapse;
+}
+.form-table th{
+    padding: 0 10px;
+}
+.form-table td{
+    padding: 0;
+}
+.arraytable-delete-button{
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    width: 30px;
+    background-color: rgba(255, 0, 0,1);
+    border:none;
+    transition:background-color 1s;
+}
+
+.arraytable-delete-button:hover{
+    background-color: rgb(155, 3, 3);
+}
+
+.arraytable-add{
+    margin: 10px auto;
+    width: 100%;
+}
+.arraytable-add>button{
+    display: inline-block;
+    width: 100%;
+    padding: 5px 0;
+    font-size: 20px;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #008cba;
+    transition:background-color 1s;
+}
+.arraytable-add>button:hover{
+    background-color: #026f93;
+}
