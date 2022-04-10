@@ -63,6 +63,19 @@ export default function Navigator() {
                             background: isActive ? '#8282e3' : '#494998'
                         }
                     }}
+                    to="/formfill"
+                >
+                    表单填写
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
                     to="/search"
                 >
                     查询
