@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form,Login,Status} from './pages';
+import { Home, NotFound, Form, Login, SearchPage, Status } from './pages';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           <Route path="forms" element={<div><Outlet /></div>}>
             <Route path=":formId" element={<Form />} />
           </Route>
+          <Route path="search" element={<SearchPage />} />
           <Route path="status" element={<Status />} />
           <Route path="*" element={<NotFound />} />
         </Route>

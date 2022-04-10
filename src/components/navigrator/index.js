@@ -55,10 +55,18 @@ export default function Navigator() {
                     })}
                 </ul>
             </li>
-            <li className="has-sub-nav main-navigator-link">
-                查询
-
-
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
+                    to="/search"
+                >
+                    查询
+                </NavLink>
             </li>
             <li className="has-sub-nav main-navigator-link">
                 查看

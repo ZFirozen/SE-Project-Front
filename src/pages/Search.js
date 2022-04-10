@@ -1,14 +1,14 @@
-import './App.css';
+import './Search.css';
 import React from 'react';
 import { Button, Input, List, Space } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 
 const { Search } = Input;
 
-function App() {
+export default function SearchPage() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="SearchPage">
+      <header className="SearchPage-header">
         <SearchBox />
       </header>
     </div>
