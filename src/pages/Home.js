@@ -3,10 +3,10 @@ import axios from "axios";
 
 export default function Home(){
     const SearchResultDisplay = () => { 
-        //     async () => {
-        //         const {data} = await axios.get("http://localhost:3000/people");
-        //         console.log(data);
-        //     }
+             async () => {
+                 const {data} = await axios.get("http://localhost:3000/people");
+                 console.log(data);
+             }
         console.log(2);
     }
     
@@ -29,7 +29,7 @@ export default function Home(){
                 Demo
             </h1>
             <div>
-                <button type="button" onClick={SearchResultDisplay}>search</button>
+                <button type="button" onClick={SearchResultDisplay}>查看</button>
             </div>
         </div>
     )
