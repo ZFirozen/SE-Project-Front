@@ -3,10 +3,10 @@ import axios from "axios";
 
 export default function Home(){
     const SearchResultDisplay = () => { 
-             async () => {
-                 const {data} = await axios.get("http://localhost:3000/people");
-                 console.log(data);
-             }
+        const temp = async () => {
+            const {data} = await axios.get("http://localhost:3000/people");
+            console.log(data);
+        }
         console.log(2);
     }
     
