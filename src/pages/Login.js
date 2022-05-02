@@ -41,7 +41,6 @@ export default class Login extends React.Component {
                        </tr>
                        <tr>
                            <td>密码</td>
-
                            <td><input type="text" /></td>
                        </tr>
                     </table>
