@@ -1,7 +1,8 @@
 import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SearchPage, Status } from './pages';
+import { Home, NotFound, Form, FormFill, Login, SearchPage, Status,
+  Entrustment, Sample } from './pages';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route index element={<Home />} />
           {/* <Route path="home" element={<Home />} /> */}
+          <Route path="entrustment" element={<Entrustment />} />
+          <Route path="samples" element={<Sample />} />
           <Route path="formfill" element={<FormFill />} />
           <Route path="forms" element={<div><Outlet /></div>}>
             <Route path=":formId" element={<Form />} />

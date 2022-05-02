@@ -32,6 +32,32 @@ export default function Navigator() {
                     首页
                 </NavLink>
             </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
+                    to="/entrustment"
+                >
+                    委托
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
+                    to="/samples"
+                >
+                    样品
+                </NavLink>
+            </li>
             <li className="has-sub-nav main-navigator-link">
                 表单
                 <ul className="sub-navigator">
