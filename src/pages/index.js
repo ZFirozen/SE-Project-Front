@@ -5,5 +5,6 @@ import FormFill from "./FormFill";
 import Login from "./Login";
 import SearchPage from "./Search";
 import Status from "./Status";
+import Contract from "./Contract";
 
-export { Home, NotFound, Form, FormFill, SearchPage, Status, Login }
+export { Home, NotFound, Form, FormFill, SearchPage, Status, Login, Contract }
