@@ -1,12 +1,12 @@
 import React from "react";
-import axios from "axios";
+//import axios from "axios";
 
 export default function Home(){
     const SearchResultDisplay = () => { 
-             async () => {
-                 const {data} = await axios.get("http://localhost:3000/people");
-                 console.log(data);
-             }
+            //  async () => {
+            //      const {data} = await axios.get("http://localhost:3000/people");
+            //      console.log(data);
+            //  }
         console.log(2);
     }
     
