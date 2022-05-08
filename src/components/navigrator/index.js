@@ -119,7 +119,7 @@ export default function Navigator() {
                     to="/status"
                     key="/status"
                 >
-                    流转状态
+                    状态
                 </NavLink>
             </li>
             <li>
