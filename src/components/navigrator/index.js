@@ -4,12 +4,12 @@ import { NavLink } from "react-router-dom";
 
 const forms = [
     {
-        link: 'JS002',
-        name: 'NST－04－JS002－2011－软件项目委托测试申请表-空白表'
+        link: 'entrustment',
+        name: '委托查看'
     },
     {
-        link: 'JS011',
-        name: 'NST－04－JS011－2011－软件测试问题清单（电子记录）'
+        link: 'formfill',
+        name: '委托填写'
     },
 ];
 
@@ -33,7 +33,7 @@ export default function Navigator() {
                 </NavLink>
             </li>
             <li className="has-sub-nav main-navigator-link">
-                表单
+                委托
                 <ul className="sub-navigator">
                     {forms.map(form => {
                         return (
@@ -45,7 +45,7 @@ export default function Navigator() {
                                             background: isActive ? '#8282e3' : '#494998'
                                         }
                                     }}
-                                    to={`/forms/${form.link}`}
+                                    to={`/${form.link}`}
                                     key={form.link}
                                 >
                                     {form.name}
@@ -55,7 +55,20 @@ export default function Navigator() {
                     })}
                 </ul>
             </li>
-            <li>
+            {/* <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
+                    to="/entrustment"
+                >
+                    委托查看
+                </NavLink>
+            </li> */}
+            {/* <li>
                 <NavLink
                     className="main-navigator-link"
                     style={({ isActive }) => {
@@ -65,9 +78,9 @@ export default function Navigator() {
                     }}
                     to="/formfill"
                 >
-                    表单填写
+                    委托填写
                 </NavLink>
-            </li>
+            </li> */}
             <li>
                 <NavLink
                     className="main-navigator-link"
@@ -76,15 +89,10 @@ export default function Navigator() {
                             background: isActive ? '#8282e3' : '#494998'
                         }
                     }}
-                    to="/search"
+                    to="/samples"
                 >
-                    查询
+                    样品
                 </NavLink>
-            </li>
-            <li className="has-sub-nav main-navigator-link">
-                查看
-
-
             </li>
             <li>
                 <NavLink

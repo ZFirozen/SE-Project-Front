@@ -7,4 +7,8 @@ import SearchPage from "./Search";
 import Status from "./Status";
 import Contract from "./Contract";
 
-export { Home, NotFound, Form, FormFill, SearchPage, Status, Login, Contract }
+import Entrustment from "./Entrustment";
+import Sample from "./Sample"
+
+export { Home, NotFound, Form, FormFill, SearchPage, Status, Login, Contract ,
+    Entrustment, Sample }

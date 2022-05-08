@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SearchPage, Status, Contract} from './pages';
+import { Home, NotFound, Form, FormFill, Login, SearchPage, Status, Contract, Entrustment, Sample } from './pages';
 import SignUp from "./pages/SignUp";
 
 function App() {
@@ -18,6 +18,8 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route index element={<Home />} />
           {/* <Route path="home" element={<Home />} /> */}
+          <Route path="entrustment" element={<Entrustment />} />
+          <Route path="samples" element={<Sample />} />
           <Route path="formfill" element={<FormFill />} />
           <Route path="forms" element={<div><Outlet /></div>}>
             <Route path=":formId" element={<Form />} />

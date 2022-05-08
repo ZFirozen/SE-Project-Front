@@ -7,6 +7,10 @@ export default function Home(){
             //      const {data} = await axios.get("http://localhost:3000/people");
             //      console.log(data);
             //  }
+        const temp = async () => {
+            const {data} = await axios.get("http://localhost:3000/people");
+            console.log(data);
+        }
         console.log(2);
     }
     
@@ -28,9 +32,9 @@ export default function Home(){
                 <br></br>
                 Demo
             </h1>
-            <div>
-                <button type="button" onClick={SearchResultDisplay}>查看</button>
-            </div>
+           {/* <div>
+               <button type="button" onClick={SearchResultDisplay}>查看</button>
+           </div> */}
         </div>
     )
 }

@@ -3,4 +3,7 @@ import Paper from "./paper";
 import ApplicationForm from "./ApplicationForm";
 import JSONSchemaForm from "./JSONSchemaForm";
 
-export { Navigator, Paper, ApplicationForm, JSONSchemaForm }
+import SearchBar from "./SearchBar";
+
+export { Navigator, Paper, ApplicationForm, JSONSchemaForm,
+    SearchBar }
