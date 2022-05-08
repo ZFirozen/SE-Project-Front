@@ -2,6 +2,7 @@ import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { Home, NotFound, Form, FormFill, Login, SearchPage, Status } from './pages';
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           </div>
         }>
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
           <Route index element={<Home />} />
           {/* <Route path="home" element={<Home />} /> */}
           <Route path="formfill" element={<FormFill />} />
