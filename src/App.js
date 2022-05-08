@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SearchPage, Status } from './pages';
+import { Home, NotFound, Form, FormFill, Login, SearchPage, Status, Contract} from './pages';
 import SignUp from "./pages/SignUp";
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
           <Route path="forms" element={<div><Outlet /></div>}>
             <Route path=":formId" element={<Form />} />
           </Route>
+          <Route path="contract" element={<Contract />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="status" element={<Status />} />
           <Route path="*" element={<NotFound />} />

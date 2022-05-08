@@ -14,11 +14,13 @@ export {
     getStatus
 }
 
-const db = {
-    "G1001": {
-        "status": "testing"
+const db = [
+    {
+        name: 'G1001',
+        status: 'Testing'
     },
-    "G1002": {
-        "status": "finished"
-    }
-}
+    {
+            name: 'G1002',
+            status: 'Finished'
+        },
+]

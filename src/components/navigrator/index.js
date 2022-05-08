@@ -94,6 +94,20 @@ export default function Navigator() {
                             background: isActive ? '#8282e3' : '#494998'
                         }
                     }}
+                    to="/contract"
+                    key="/contract"
+                >
+                    合同
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
                     to="/status"
                     key="/status"
                 >
