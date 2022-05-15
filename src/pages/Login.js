@@ -1,33 +1,53 @@
+import axios from "axios";
 import React from "react";
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
+            username: "",
             password: "",
             toSignUp: false
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({ name: event.target.value });
+    onChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
-    handleSubmit(event) {
+    onSubmit(event) {
         event.preventDefault();
-        alert("用户名：" + this.state.name + "\n登录成功！");
-        window.location.href = "/";
+
+        const userName = this.state.username;
+        const userPassword = this.state.password;
+
+        axios.post("http://124.222.168.27:8080/login?userName=" + userName + "&userPassword=" + userPassword)
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("用户名：" + userName + "\n登录成功！");
+                    window.location.href = "/";
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("登陆失败！\n请尝试重新登陆。");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
     }
 
-    handleClick(event) {
+    onClick(event) {
         event.preventDefault();
         window.location.href = "/signup";
-
     }
 
     render() {
@@ -42,20 +62,22 @@ export default class Login extends React.Component {
                     fontSize: '18px',
                 }}
             >
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.onSubmit}>
                     <table>
-                        <tr>
-                            <td>用户名</td>
-                            <td><input type="text" value={this.state.value} onChange={this.handleChange} /></td>
-                        </tr>
-                        <tr>
-                            <td>密码</td>
-                            <td><input type="password" /></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>用户名</td>
+                                <td><input type="text" value={this.state.value} onChange={this.onChange} /></td>
+                            </tr>
+                            <tr>
+                                <td>密码</td>
+                                <td><input type="password" /></td>
+                            </tr>
+                        </tbody>
                     </table>
                     <br />
                     <input type="submit" value="登录" />
-                    <input type="button" value="注册" onClick={this.handleClick} />
+                    <input type="button" value="注册" onClick={this.onClick} />
                 </form>
             </div>
         )

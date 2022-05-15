@@ -1,5 +1,5 @@
 import React from "react";
-// import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 export default class SignUp extends React.Component {
     constructor(props) {
@@ -11,41 +11,59 @@ export default class SignUp extends React.Component {
             passwordConfirmation: "",
             error: {},
             isDisabled: false
-        }
+        };
+
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
-    handleChange(event) {
+    onChange(event) {
         this.setState({
             [event.target.name]: event.target.value
-        })
+        });
     }
 
-    handleSubmit(event) {
+    onSubmit(event) {
         event.preventDefault();
-        // this.setState({ error: {}, isDisabled: true });
-        alert("注册成功！");
-        window.location.href = "/";
-        // this.props.history.push("/");
-        // 存储在redux中是这样操作就结束了
-        // this.props.userSignUp(this.state);
-        // 不存储在redux时
-        // this.props.userSignUp(this.state).then(
-        //     () => {
-        //         this.setState({ isDisabled: false });
-        //         // this.props.addFlashMessage({
-        //         //     type: "success",
-        //         //     text: " 注册成功！"
-        //         // })
-        //         alert("注册成功！")
-        //         this.props.history.push("/")
-        //     },
-        //     (err) => {
-        //         this.setState({
-        //             error: err.response.data.data,
-        //             isDisabled: false
-        //         })
-        //     }
-        // )
+        this.setState({ error: {}, isDisabled: true });
+
+        const userName = this.state.username;
+        const userPassword = this.state.password;
+
+        axios.post("http://124.222.168.27:8080/register?userName=" + userName + "&userPassword=" + userPassword)
+            .then(function (response) {
+                console.log(response);
+                if (response.status === 200) {
+                    alert("注册成功！\n即将登录并跳转到首页...");
+                    axios.post("http://124.222.168.27:8080/login?userName=" + userName + "&userPassword=" + userPassword)
+                        .then(function (response) {
+                            if (response.status === 200) {
+                                window.location.href = "/";
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                        .catch(function (error) {
+                            if (error.response.status === 400) {
+                                alert("登陆失败！\n请尝试重新登陆。");
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error.response.status === 400) {
+                    alert("注册失败！\n请重新输入用户名。");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
+
+        this.setState({ error: {}, isDisabled: false });
     }
 
     render() {
@@ -64,53 +82,55 @@ export default class SignUp extends React.Component {
                         fontSize: '18px',
                     }}
                 >
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.onSubmit}>
                         {/* <h1>join our community !</h1> */}
                         <table>
-                            <tr>
-                                <td>用户名</td>
-                                <td><input
-                                    type="text"
-                                    name="username"
-                                    // className="form-control"
-                                    handleChange={this.handleChange}
-                                // value={username}
-                                />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>邮箱</td>
-                                <td><input
-                                    type="email"
-                                    name="email"
-                                    // className="form-control"
-                                    handleChange={this.handleChange}
-                                // value={email}
-                                />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>密码</td>
-                                <td><input
-                                    type="password"
-                                    name="password"
-                                    // className="form-control"
-                                    handleChange={this.handleChange}
-                                // value={password}
-                                />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>确认密码</td>
-                                <td><input
-                                    type="password"
-                                    name="passwordConfirmation"
-                                    // className="form-control"
-                                    handleChange={this.handleChange}
-                                // value={passwordConfirmation}
-                                />
-                                </td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>用户名</td>
+                                    <td><input
+                                        type="text"
+                                        name="username"
+                                        // className="form-control"
+                                        onChange={this.onChange}
+                                    // value={username}
+                                    />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱</td>
+                                    <td><input
+                                        type="email"
+                                        name="email"
+                                        // className="form-control"
+                                        onChange={this.onChange}
+                                    // value={email}
+                                    />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>密码</td>
+                                    <td><input
+                                        type="password"
+                                        name="password"
+                                        // className="form-control"
+                                        onChange={this.onChange}
+                                    // value={password}
+                                    />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>确认密码</td>
+                                    <td><input
+                                        type="password"
+                                        name="passwordConfirmation"
+                                        // className="form-control"
+                                        onChange={this.onChange}
+                                    // value={passwordConfirmation}
+                                    />
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                         <br />
                         <input type="submit" disabled={isDisabled} value={isDisabled ? "等待中" : "注册"}></input>
