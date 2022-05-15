@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="bc7feeae-c822-45dd-9041-0eb0ac9e254a" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/_2022_5_2_10_13____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2022_5_2_10_13____.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -103,6 +104,12 @@
       <change beforePath="$PROJECT_DIR$/xyz/node_modules/.cache/default-development/1.pack" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xyz/node_modules/.cache/default-development/index.pack" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/xyz/node_modules/.cache/default-development/index.pack.old" beforeDir="false" />
+=======
+    <list default="true" id="bc7feeae-c822-45dd-9041-0eb0ac9e254a" name="变更" comment="变更">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2022_5_2_10_13____.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2022_5_2_10_13_取消提交了变更_[变更]/shelved.patch" beforeDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,6 +192,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
