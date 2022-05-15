@@ -67,11 +67,11 @@ export default class Login extends React.Component {
                         <tbody>
                             <tr>
                                 <td>用户名</td>
-                                <td><input type="text" value={this.state.value} onChange={this.onChange} /></td>
+                                <td><input type="text" name="username" onChange={this.onChange} /></td>
                             </tr>
                             <tr>
                                 <td>密码</td>
-                                <td><input type="password" /></td>
+                                <td><input type="password" name="password" onChange={this.onChange} /></td>
                             </tr>
                         </tbody>
                     </table>
