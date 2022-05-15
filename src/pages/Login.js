@@ -1,10 +1,11 @@
+import axios from "axios";
 import React from "react";
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
+            username: "",
             password: "",
             toSignUp: false
         };
@@ -15,19 +16,38 @@ export default class Login extends React.Component {
     }
 
     onChange(event) {
-        this.setState({ name: event.target.value });
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
     onSubmit(event) {
         event.preventDefault();
-        alert("用户名：" + this.state.name + "\n登录成功！");
-        window.location.href = "/";
+
+        const userName = this.state.username;
+        const userPassword = this.state.password;
+
+        axios.post("http://124.222.168.27:8080/login?userName=" + userName + "&userPassword=" + userPassword)
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("用户名：" + userName + "\n登录成功！");
+                    window.location.href = "/";
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("登陆失败！\n请尝试重新登陆。");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
     }
 
     onClick(event) {
         event.preventDefault();
         window.location.href = "/signup";
-
     }
 
     render() {
