@@ -1,6 +1,12 @@
 # SE-Project-Front
 软件工程综合实验 测试中心项目 前端
 
-[c端demo](https://modao.cc/app/cw9wVplWraurp2Y0ExYIQQ)
+        npm install
 
-[b端demo](https://modao.cc/app/lp8r9FQtrb9z2r8QmtIObT)
+或
+
+        yarn install
+
+运行：
+
+        npm start
