@@ -136,6 +136,19 @@ export default function Navigator() {
                     登录
                 </NavLink>
             </li>
+            <li>
+                <NavLink
+                    className="main-navigator-link"
+                    style={({ isActive }) => {
+                        return {
+                            background: isActive ? '#8282e3' : '#494998'
+                        }
+                    }}
+                    to="/userinfo"
+                >
+                    用户信息
+                </NavLink>
+            </li>
         </ul>
     )
 }
