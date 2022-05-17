@@ -105,7 +105,8 @@ export default function Navigator() {
                     to="/contract"
                     key="/contract"
                 >
-                    合同
+                    {/*合同 */}
+                    开发中
                 </NavLink>
             </li>
             <li>
@@ -118,8 +119,8 @@ export default function Navigator() {
                     }}
                     to="/status"
                     key="/status"
-                >
-                    状态
+                > {/*状态 */}
+                    合同
                 </NavLink>
             </li>
             <li>

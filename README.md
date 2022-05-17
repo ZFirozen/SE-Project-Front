@@ -10,3 +10,7 @@
 运行：
 
         npm start
+
+json-server测试：
+
+        json-server --watch db.json --routes router.json
