@@ -1,31 +1,41 @@
 import axios from "axios";
 import React from "react";
+import { Form, Input, Checkbox, Button, Alert } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+
+import "./Login.css";
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
-            password: "",
-            toSignUp: false
+            password: ""
         };
 
-        this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.onFinish = this.onFinish.bind(this);
+        this.onFinishFailed = this.onFinishFailed.bind(this);
     }
 
     onChange(event) {
+        console.log(event.target.name, event.target.value);
         this.setState({
             [event.target.name]: event.target.value
         });
     }
 
-    onSubmit(event) {
+    onClick(event) {
         event.preventDefault();
+        window.location.href = "/signup";
+    }
 
+    onFinish(values) {
         const userName = this.state.username;
         const userPassword = this.state.password;
+
+        console.log(userName, userPassword);
 
         axios.post("http://124.222.168.27:8080/login?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
@@ -45,41 +55,69 @@ export default class Login extends React.Component {
             });
     }
 
-    onClick(event) {
-        event.preventDefault();
-        window.location.href = "/signup";
+    onFinishFailed(errorInfo) {
+        console.log('Failed:', errorInfo);
     }
 
     render() {
         return (
-            <div
-                style={{
-                    textAlign: 'center',
-                    display: "flex",
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '60vh',
-                    fontSize: '18px',
-                }}
+            <Form
+                name="login"
+                id="components-form-login"
+                className="login-form"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 8 }}
+                // initialValues={{ remember: false }}
+                onFinish={this.onFinish}
+                onFinishFailed={this.onFinishFailed}
+                autoComplete="off"
+
             >
-                <form onSubmit={this.onSubmit}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>用户名</td>
-                                <td><input type="text" name="username" onChange={this.onChange} /></td>
-                            </tr>
-                            <tr>
-                                <td>密码</td>
-                                <td><input type="password" name="password" onChange={this.onChange} /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br />
-                    <input type="submit" value="登录" />
-                    <input type="button" value="注册" onClick={this.onClick} />
-                </form>
-            </div>
+
+                <Form.Item
+                    label="用户名"
+                    name="用户名"
+                    rules={[{ required: true, message: "请输入用户名！" }]}
+                >
+                    <Input
+                        prefix={<UserOutlined className="site-form-item-icon" />}
+                        placeholder="Username"
+                        name='username'
+                        onChange={this.onChange}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label="密码"
+                    name="密码"
+                    rules={[{ required: true, message: "请输入密码！" }]}
+                >
+                    <Input.Password
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        placeholder="Password"
+                        name='password'
+                        onChange={this.onChange}
+                    />
+                </Form.Item>
+
+                {/* <Form.Item
+                    name="remember"
+                    valuePropName="checked"
+                    wrapperCol={{ offset: 8, span: 16 }}>
+                    <Checkbox>记住我</Checkbox>
+                </Form.Item> */}
+
+                <Form.Item wrapperCol={{ offset: 8, span: 8 }}>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="login-form-button"
+                    >
+                        登录
+                    </Button>
+                    还没账号？ <a onClick={this.onClick}>现在注册！</a>
+                </Form.Item>
+            </Form >
         )
     }
 }

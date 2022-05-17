@@ -1,8 +1,7 @@
 import React from "react";
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SearchPage, Status, Contract, Entrustment, Sample } from './pages';
-import SignUp from "./pages/SignUp";
+import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Status, Contract, Entrustment, Sample, UserInfo } from './pages';
 
 function App() {
   return (
@@ -16,6 +15,7 @@ function App() {
         }>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="userinfo" element={<UserInfo />} />
           <Route index element={<Home />} />
           {/* <Route path="home" element={<Home />} /> */}
           <Route path="entrustment" element={<Entrustment />} />

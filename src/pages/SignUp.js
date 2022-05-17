@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { Form, Input, Checkbox, Button, Alert } from "antd";
+
 
 export default class SignUp extends React.Component {
     constructor(props) {
@@ -71,77 +73,98 @@ export default class SignUp extends React.Component {
         // const { status, data } = this.props.singUpData || {};
         // console.log(error);
         return (
-            <React.Fragment>
-                <div
-                    style={{
-                        textAlign: 'center',
-                        display: "flex",
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '60vh',
-                        fontSize: '18px',
-                    }}
+            <Form
+                name="signup"
+                id="components-form-login"
+                className="login-form"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 8 }}
+                // initialValues={{ remember: false }}
+                onFinish={this.onFinish}
+                onFinishFailed={this.onFinishFailed}
+                autoComplete="off"
+            >
+
+                <Form.Item
+                    label="用户名"
+                    name="用户名"
+                    rules={[{ required: true, message: "请输入用户名！" }]}
                 >
-                    <form onSubmit={this.onSubmit}>
-                        {/* <h1>join our community !</h1> */}
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>用户名</td>
-                                    <td><input
-                                        type="text"
-                                        name="username"
-                                        // className="form-control"
-                                        onChange={this.onChange}
-                                    // value={username}
-                                    />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>邮箱</td>
-                                    <td><input
-                                        type="email"
-                                        name="email"
-                                        // className="form-control"
-                                        onChange={this.onChange}
-                                    // value={email}
-                                    />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>密码</td>
-                                    <td><input
-                                        type="password"
-                                        name="password"
-                                        // className="form-control"
-                                        onChange={this.onChange}
-                                    // value={password}
-                                    />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>确认密码</td>
-                                    <td><input
-                                        type="password"
-                                        name="passwordConfirmation"
-                                        // className="form-control"
-                                        onChange={this.onChange}
-                                    // value={passwordConfirmation}
-                                    />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <br />
-                        <input type="submit" disabled={isDisabled} value={isDisabled ? "等待中" : "注册"}></input>
-                        {/* <div className="form-group">
-                            <button disabled={isDisabled} className="btn btn-primary btn-lg">{isDisabled ? "等待中" : "注册"}</button>
-                        </div> */}
-                    </form>
-                </div>
-            </React.Fragment>
+                    <Input
+                        placeholder="Username"
+                        name='username'
+                        onChange={this.onChange}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label="邮箱"
+                    name="邮箱"
+                    rules={[
+                        {
+                            type: "email", message: "请输入有效邮箱！"
+                        },
+                        {
+                            required: true, message: "请输入邮箱！"
+                        }
+                    ]}
+                >
+                    <Input
+                        placeholder="E-mail"
+                        name='email'
+                        onChange={this.onChange}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label="密码"
+                    name="密码"
+                    rules={[{ required: true, message: "请输入密码！" }]}
+                    hasFeedback
+                >
+                    <Input.Password
+                        placeholder="Password"
+                        name='password'
+                        onChange={this.onChange}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label="确认密码"
+                    name="确认密码"
+                    dependencies={['密码']}
+                    hasFeedback
+                    rules={[
+                        {
+                            required: true, message: "请确认密码！"
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
+                                if (!value || getFieldValue('密码') === value) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('两次输入的密码不一致!'));
+                            },
+                        }),
+                    ]}
+                >
+                    <Input.Password
+                        placeholder="ConfirmPassword"
+                        name='passwordConfirmation'
+                        onChange={this.onChange}
+                    />
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 8 }}>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="login-form-button"
+                    >
+                        {isDisabled ? "等待中" : "注册"}
+                    </Button>
+                </Form.Item>
+            </Form>
         )
     }
 }
-
-// export default withRouter(SignUp);
