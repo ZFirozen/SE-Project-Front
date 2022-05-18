@@ -11,6 +11,12 @@
 
         npm start
 
-json-server测试：
-
-        json-server --watch db.json --routes router.json
+## json-server使用指南
+在json-server目录下打开cmd，输入以下命令
+```
+$ npm install json-server --save-dev
+```
+安装成功后
+```
+$ node server.js
+```
