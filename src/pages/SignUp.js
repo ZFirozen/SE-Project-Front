@@ -32,12 +32,12 @@ export default class SignUp extends React.Component {
         const userName = this.state.username;
         const userPassword = this.state.password;
 
-        axios.post("http://124.222.168.27:8080/register?userName=" + userName + "&userPassword=" + userPassword)
+        axios.post("http://localhost:3000/register?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
                     alert("注册成功！\n即将登录并跳转到首页...");
-                    axios.post("http://124.222.168.27:8080/login?userName=" + userName + "&userPassword=" + userPassword)
+                    axios.post("http://localhost:3000/login?userName=" + userName + "&userPassword=" + userPassword)
                         .then(function (response) {
                             if (response.status === 200) {
                                 window.location.href = "/";
