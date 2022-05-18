@@ -9,7 +9,7 @@ async function getStatus() {
     //         reject({});
     //     }
     // })
-    const data = await axios.get("http://localhost:3000/contract/individual");
+    const data = await axios.get("http://124.222.168.27:8080/contract/");
     //D组后端url: http://124.222.168.27:8080/contract/
     return data.data;
 }
