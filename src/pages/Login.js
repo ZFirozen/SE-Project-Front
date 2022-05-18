@@ -37,7 +37,7 @@ export default class Login extends React.Component {
 
         console.log(userName, userPassword);
 
-        axios.post("http://124.222.168.27:8080/login?userName=" + userName + "&userPassword=" + userPassword)
+        axios.post("http://localhost:3000/login?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 if (response.status === 200) {
                     alert("用户名：" + userName + "\n登录成功！");

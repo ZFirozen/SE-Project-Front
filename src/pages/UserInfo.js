@@ -15,11 +15,11 @@ export default class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://124.222.168.27:8080/login/status")
+        axios.get("http://localhost:3000/login/status")
             .then((response) => {
                 if (response.status === 200) {
-                    axios.get("http://124.222.168.27:8080/account")
-                        .then(function (response) {
+                    axios.get("http://localhost:3000/account")
+                        .then((response) => {
                             if (response.status === 200) {
                                 if (!this.state.isLoggedIn) {
                                     this.setState({ isLoggedIn: true });
