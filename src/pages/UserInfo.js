@@ -19,10 +19,10 @@ export default class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:3000/login/status")
+        axios.get(process.env.REACT_APP_JSON_SERVER + "/login/status")
             .then((response) => {
                 if (response.status === 200) {
-                    axios.get("http://localhost:3000/account")
+                    axios.get(process.env.REACT_APP_JSON_SERVER + "/account")
                         .then((response) => {
                             if (response.status === 200) {
                                 this.setState({
@@ -65,7 +65,7 @@ export default class UserInfo extends React.Component {
 
     onClick(event) {
         // event.preventDefault();
-        axios.post("http://localhost:3000/logout")
+        axios.post(process.env.REACT_APP_JSON_SERVER + "/logout")
             .then((response) => {
                 if (response.status === 200) {
                     alert("用户名：" + this.state.userName + "已登出！");
