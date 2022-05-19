@@ -5,6 +5,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import "./Login.css";
 
+// require('dotenv').config()
+
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -37,7 +39,7 @@ export default class Login extends React.Component {
 
         console.log(userName, userPassword);
 
-        axios.post("http://localhost:3000/login?userName=" + userName + "&userPassword=" + userPassword)
+        axios.post(process.env.REACT_APP_JSON_SERVER + "/login?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 if (response.status === 200) {
                     alert("用户名：" + userName + "\n登录成功！");

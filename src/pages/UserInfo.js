@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Descriptions } from "antd";
+import { Button, Descriptions } from "antd";
 
 axios.defaults.withCredentials = true;
 
@@ -9,22 +9,28 @@ export default class UserInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            userId: "",
+            userName: "",
+            userRole: "",
             isLoggedIn: false
         };
+
+        this.onClick = this.onClick.bind(this);
     }
 
     componentDidMount() {
-        axios.get("http://localhost:3000/login/status")
+        axios.get(process.env.REACT_APP_JSON_SERVER + "/login/status")
             .then((response) => {
                 if (response.status === 200) {
-                    axios.get("http://localhost:3000/account")
+                    axios.get(process.env.REACT_APP_JSON_SERVER + "/account")
                         .then((response) => {
                             if (response.status === 200) {
-                                if (!this.state.isLoggedIn) {
-                                    this.setState({ isLoggedIn: true });
-                                }
-                                // this.setState({username: response.})
+                                this.setState({
+                                    userId: response.data.userId,
+                                    userName: response.data.userName,
+                                    userRole: response.data.userRole,
+                                    isLoggedIn: true
+                                });
                             } else {
                                 console.log("Unknown error!");
                                 if (this.state.isLoggedIn) {
@@ -33,7 +39,7 @@ export default class UserInfo extends React.Component {
                             }
                         })
                         .catch((error) => {
-                            if (!this.state.isLoggedIn) {
+                            if (this.state.isLoggedIn) {
                                 this.setState({ isLoggedIn: false });
                             }
                             if (error.response.status === 400) {
@@ -57,21 +63,57 @@ export default class UserInfo extends React.Component {
             });
     }
 
+    onClick(event) {
+        // event.preventDefault();
+        axios.post(process.env.REACT_APP_JSON_SERVER + "/logout")
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("用户名：" + this.state.userName + "已登出！");
+                    if (this.state.isLoggedIn) {
+                        this.setState({ isLoggedIn: false });
+                    }
+                } else {
+                    console.log("Unknown error1!");
+                }
+            })
+            .catch((error) => {
+                if (this.state.isLoggedIn) {
+                    this.setState({ isLoggedIn: false });
+                }
+                if (error.status === 400) {
+                    alert("当前未登录账号！请重新登录！");
+                } else {
+                    console.log("Unknown error2!");
+                    console.log(error);
+                }
+            })
+    }
+
     render() {
+        console.log(this.state.isLoggedIn);
+        const userId = this.state.userId;
+        const userName = this.state.userName;
+        const userRole = this.state.userRole;
         const isLoggedIn = this.state.isLoggedIn;
 
         return (
             <div>
-                {isLoggedIn
-                    ? <Descriptions title="User Info" bordered >
-                        < Descriptions.Item label="UserName" > Zhou Maomao</Descriptions.Item >
-                        <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
-                        <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
-                        <Descriptions.Item label="Address" span={2}>
-                            No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Remark">empty</Descriptions.Item>
-                    </Descriptions >
+                {isLoggedIn ?
+                    <div>
+                        <Descriptions title="用户信息" bordered >
+                            < Descriptions.Item label="用户ID" >{userId}</Descriptions.Item >
+                            <Descriptions.Item label="用户名">{userName}</Descriptions.Item>
+                            <Descriptions.Item label="用户角色">{userRole}</Descriptions.Item>
+                        </Descriptions >
+                        <Button
+                            type="primary"
+                            htmlType="button"
+                            className="login-form-button"
+                            onClick={this.onClick}
+                        >
+                            登出
+                        </Button>
+                    </div>
                     : <div />
                 }
             </div>
