@@ -39,7 +39,7 @@ export default class Login extends React.Component {
 
         console.log(userName, userPassword);
 
-        axios.post(process.env.REACT_APP_JSON_SERVER + "/login?userName=" + userName + "&userPassword=" + userPassword)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/login?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 if (response.status === 200) {
                     alert("用户名：" + userName + "\n登录成功！");

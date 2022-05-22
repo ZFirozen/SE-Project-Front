@@ -32,12 +32,12 @@ export default class SignUp extends React.Component {
         const userName = this.state.username;
         const userPassword = this.state.password;
 
-        axios.post(process.env.REACT_APP_JSON_SERVER + "/register?userName=" + userName + "&userPassword=" + userPassword)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/register?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
                     alert("注册成功！\n即将登录并跳转到首页...");
-                    axios.post(process.env.REACT_APP_JSON_SERVER + "/login?userName=" + userName + "&userPassword=" + userPassword)
+                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/login?userName=" + userName + "&userPassword=" + userPassword)
                         .then(function (response) {
                             if (response.status === 200) {
                                 window.location.href = "/";

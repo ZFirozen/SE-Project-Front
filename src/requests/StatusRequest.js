@@ -1,30 +1,10 @@
 import axios from "axios";
 
 async function getStatus() {
-    // const data = await new Promise((resolve, reject) => {
-    //     const status = db
-    //     if (status) {
-    //         resolve(status);
-    //     } else {
-    //         reject({});
-    //     }
-    // })
-    const data = await axios.get("http://124.222.168.27:8080/contract/");
-    //D组后端url: http://124.222.168.27:8080/contract/
+    const data = await axios.get(process.env.REACT_APP_BACKEND_SERVER+"/api/entrust");
     return data.data;
 }
 
 export {
     getStatus
 }
-
-const db = [
-    {
-        name: 'G1001',
-        status: 'Testing'
-    },
-    {
-            name: 'G1002',
-            status: 'Finished'
-        },
-]
