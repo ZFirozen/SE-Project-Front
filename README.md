@@ -34,3 +34,38 @@
 
 修改完毕后需重新启动项目才能生效。
         
+## localStorage 使用指南
+
+首先安装依赖：
+
+        npm install localStorage --legacy-peer-deps
+
+使用前先 `import localStorage from "localStorage";`，
+
+存：
+
+        localStorage.setItem("phone", "123")
+
+        //对象
+        let obj = {"name":"xiaoming","age":"16"}
+        localStorage.setItem("phone",JSON.stringify(obj));
+
+取：
+
+        localStorage.getItem("phone")
+
+        //对象
+        let user = JSON.parse(localStorage.getItem("phone"))
+
+删：
+
+        //指定删
+        localStorage.removeItem('phone');
+
+        //全删
+        localStorage.clear(); 
+
+本项目中若想获取用户名和用户角色信息，请使用：
+
+        const userName = localStorage.getItem("userName");
+        const userRole = localStorage.getItem("userRole");

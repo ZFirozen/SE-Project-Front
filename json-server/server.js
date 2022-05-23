@@ -28,7 +28,7 @@ server.get('/account', (req, res) => {
     res.status(200).jsonp({
       "userId": 86,
       "userName": "熊强",
-      "userRole": "voluptate"
+      "userRole": "CUSTOMER"
     })
   } else {
     res.status(400).jsonp()
