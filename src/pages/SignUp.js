@@ -15,8 +15,9 @@ export default class SignUp extends React.Component {
             isDisabled: false
         };
 
-        this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onFinish = this.onFinish.bind(this);
+        this.onFinishFailed = this.onFinishFailed.bind(this);
     }
 
     onChange(event) {
@@ -25,8 +26,7 @@ export default class SignUp extends React.Component {
         });
     }
 
-    onSubmit(event) {
-        event.preventDefault();
+    onFinish(event) {
         this.setState({ error: {}, isDisabled: true });
 
         const userName = this.state.username;
@@ -66,6 +66,10 @@ export default class SignUp extends React.Component {
             });
 
         this.setState({ error: {}, isDisabled: false });
+    }
+
+    onFinishFailed(errorInfo) {
+        console.log('Failed:', errorInfo);
     }
 
     render() {
