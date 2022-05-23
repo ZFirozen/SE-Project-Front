@@ -20,50 +20,34 @@ export default class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/login/status")
+        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
             .then((response) => {
                 if (response.status === 200) {
-                    axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
-                        .then((response) => {
-                            if (response.status === 200) {
-                                this.setState({
-                                    userId: response.data.userId,
-                                    userName: response.data.userName,
-                                    userRole: response.data.userRole,
-                                    isLoggedIn: true
-                                });
-                                localStorage.setItem("userName", response.data.userName);
-                                localStorage.setItem("userRole", response.data.userRole);
-                            } else {
-                                console.log("Unknown error!");
-                                if (this.state.isLoggedIn) {
-                                    this.setState({ isLoggedIn: false });
-                                }
-                            }
-                        })
-                        .catch((error) => {
-                            if (this.state.isLoggedIn) {
-                                this.setState({ isLoggedIn: false });
-                            }
-                            if (error.response.status === 400) {
-                                alert("获取用户信息失败，请重新登录！");
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        })
+                    this.setState({
+                        userId: response.data.userId,
+                        userName: response.data.userName,
+                        userRole: response.data.userRole,
+                        isLoggedIn: true
+                    });
+                    localStorage.setItem("userName", response.data.userName);
+                    localStorage.setItem("userRole", response.data.userRole);
+                } else {
+                    console.log("Unknown error!");
+                    if (this.state.isLoggedIn) {
+                        this.setState({ isLoggedIn: false });
+                    }
                 }
             })
             .catch((error) => {
                 if (this.state.isLoggedIn) {
                     this.setState({ isLoggedIn: false });
                 }
-                if (error.response.status === 401) {
-                    alert("当前未登录账号，请先登录！");
+                if (error.response.status === 400) {
+                    alert("获取用户信息失败，请重新登录！");
                 } else {
                     console.log("Unknown error!");
                 }
-
-            });
+            })
     }
 
     onClick(event) {
