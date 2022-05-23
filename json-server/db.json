@@ -9,6 +9,11 @@
       "userName": "testName",
       "userPassword": "testPassword",
       "id": "testName"
+    },
+    {
+      "userName": "test",
+      "userPassword": "test",
+      "id": "test"
     }
   ],
   "contract": [
@@ -70,7 +75,7 @@
       }
     }
   ],
-  "entrust" :[
+  "entrust": [
     {
       "id": "20",
       "customerId": 65,
