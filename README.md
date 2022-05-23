@@ -69,3 +69,16 @@
 
         const userName = localStorage.getItem("userName");
         const userRole = localStorage.getItem("userRole");
+
+## 人员注册清单
+
+|权限|用户名|密码|
+|----|----|----|
+|管理员|admin|c3da1af8-91ef-4e3e-8c80-8c2e9d59c388|
+|用户|test|test|
+|市场部人员|MARKETER|123456|
+|测试部人员|TESTER|123456|
+|质量部人员|QA|123456|
+|市场部主管|MARKETING_SUPERVISOR|123456|
+|测试部主管|TESTING_SUPERVISOR|123456|
+|质量部主管|QA_SUPERVISOR|123456|
