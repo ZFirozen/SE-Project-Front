@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Button, Descriptions } from "antd";
+import localStorage from "localStorage";
 
 axios.defaults.withCredentials = true;
 
@@ -31,6 +32,8 @@ export default class UserInfo extends React.Component {
                                     userRole: response.data.userRole,
                                     isLoggedIn: true
                                 });
+                                localStorage.setItem("userName", response.data.userName);
+                                localStorage.setItem("userRole", response.data.userRole);
                             } else {
                                 console.log("Unknown error!");
                                 if (this.state.isLoggedIn) {

@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { Form, Input, Checkbox, Button, Alert } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import localStorage from "localStorage";
 
 import "./Login.css";
 
@@ -44,6 +45,22 @@ export default class Login extends React.Component {
                 if (response.status === 200) {
                     alert("用户名：" + userName + "\n登录成功！");
                     window.location.href = "/";
+                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
+                        .then((response) => {
+                            if (response.status === 200) {
+                                localStorage.setItem("userName", response.data.userName);
+                                localStorage.setItem("userRole", response.data.userRole);
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                        .catch((error) => {
+                            if (error.status === 400) {
+                                console.log("unlogin?");
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
                 } else {
                     console.log("Unknown error!");
                 }
@@ -73,7 +90,6 @@ export default class Login extends React.Component {
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
                 autoComplete="off"
-
             >
 
                 <Form.Item

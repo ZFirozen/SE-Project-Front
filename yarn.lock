@@ -9680,6 +9680,11 @@
   "resolved" "https://registry.npmjs.org/loader-utils/-/loader-utils-3.2.0.tgz"
   "version" "3.2.0"
 
+"localStorage@^1.0.4":
+  "integrity" "sha512-r35zrihcDiX+dqWlJSeIwS9nrF95OQTgqMFm3FB2D/+XgdmZtcutZOb7t0xXkhOEM8a9kpuu7cc28g1g36I5DQ=="
+  "resolved" "https://registry.npmmirror.com/localStorage/-/localStorage-1.0.4.tgz"
+  "version" "1.0.4"
+
 "locate-path@^2.0.0":
   "integrity" "sha512-NCI2kiDkyR7VeEKm27Kda/iQHyKJe1Bu0FlTbYp3CqJu+9IFe9bLyAjMxf5ZDDbEg+iMPzB5zYyUTSm8wVTKmA=="
   "resolved" "https://registry.npmmirror.com/locate-path/-/locate-path-2.0.0.tgz"
