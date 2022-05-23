@@ -5,6 +5,7 @@ import { getStatus } from "../requests"
 import { Table, Button, Space } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import { now, range, times } from 'lodash';
+import localStorage from 'localStorage';
 
 export default class Status extends React.Component {
   constructor(props) {
@@ -116,8 +117,8 @@ export default class Status extends React.Component {
       {
         className: 'status_stage',
         title: '委托状态',
-        dataIndex: ['status','stage'],
-        key: ['status','stage'],
+        dataIndex: ['status', 'stage'],
+        key: ['status', 'stage'],
         filters: this.makefilterArray(this.state.data, 'status.stage'),
         filteredValue: filteredInfo["status,stage"] || null,
         onFilter: (value, record) => record.status.stage === value,
@@ -125,8 +126,8 @@ export default class Status extends React.Component {
       },
       {
         title: '附加信息',
-        dataIndex: ['status','message'],
-        key: ['status','message'],
+        dataIndex: ['status', 'message'],
+        key: ['status', 'message'],
         ellipsis: false,
       },
       {
@@ -143,7 +144,7 @@ export default class Status extends React.Component {
           <Button onClick={this.clearFilters}>Clear filters</Button>
           <Button onClick={this.clearAll}>Clear filters and sorters</Button>
         </Space>
-        <Table columns={columns} dataSource={this.state.data} onChange={this.handleChange} rowKey={record => record.id} bordered title={() => '用户名'} footer={() => '委托列表'} />
+        <Table columns={columns} dataSource={this.state.data} onChange={this.handleChange} rowKey={record => record.id} bordered title={() => localStorage.getItem("userName")} footer={() => '委托列表'} />
       </>
     );
   }

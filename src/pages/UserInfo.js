@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Button, Descriptions } from "antd";
+import localStorage from "localStorage";
 
 axios.defaults.withCredentials = true;
 
@@ -19,10 +20,10 @@ export default class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/login/status")
+        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/login/status")
             .then((response) => {
                 if (response.status === 200) {
-                    axios.get(process.env.REACT_APP_BACKEND_SERVER + "/account")
+                    axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
                         .then((response) => {
                             if (response.status === 200) {
                                 this.setState({
@@ -31,6 +32,8 @@ export default class UserInfo extends React.Component {
                                     userRole: response.data.userRole,
                                     isLoggedIn: true
                                 });
+                                localStorage.setItem("userName", response.data.userName);
+                                localStorage.setItem("userRole", response.data.userRole);
                             } else {
                                 console.log("Unknown error!");
                                 if (this.state.isLoggedIn) {
@@ -65,7 +68,7 @@ export default class UserInfo extends React.Component {
 
     onClick(event) {
         // event.preventDefault();
-        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/logout")
+        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/logout")
             .then((response) => {
                 if (response.status === 200) {
                     alert("用户名：" + this.state.userName + "已登出！");

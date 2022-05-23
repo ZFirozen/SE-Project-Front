@@ -15,8 +15,9 @@ export default class SignUp extends React.Component {
             isDisabled: false
         };
 
-        this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onFinish = this.onFinish.bind(this);
+        this.onFinishFailed = this.onFinishFailed.bind(this);
     }
 
     onChange(event) {
@@ -25,19 +26,18 @@ export default class SignUp extends React.Component {
         });
     }
 
-    onSubmit(event) {
-        event.preventDefault();
+    onFinish(event) {
         this.setState({ error: {}, isDisabled: true });
 
         const userName = this.state.username;
         const userPassword = this.state.password;
 
-        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/register?userName=" + userName + "&userPassword=" + userPassword)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/register?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
                     alert("注册成功！\n即将登录并跳转到首页...");
-                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/login?userName=" + userName + "&userPassword=" + userPassword)
+                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/login?userName=" + userName + "&userPassword=" + userPassword)
                         .then(function (response) {
                             if (response.status === 200) {
                                 window.location.href = "/";
@@ -68,6 +68,10 @@ export default class SignUp extends React.Component {
         this.setState({ error: {}, isDisabled: false });
     }
 
+    onFinishFailed(errorInfo) {
+        console.log("Failed:", errorInfo);
+    }
+
     render() {
         const { username, email, password, passwordConfirmation, error, isDisabled } = this.state;
         // const { status, data } = this.props.singUpData || {};
@@ -88,11 +92,21 @@ export default class SignUp extends React.Component {
                 <Form.Item
                     label="用户名"
                     name="用户名"
-                    rules={[{ required: true, message: "请输入用户名！" }]}
+                    rules={[
+                        {
+                            required: true, message: "请输入用户名！"
+                        },
+                        {
+                            max: 32, message: "名称不得超过32个字符！"
+                        },
+                        {
+                            pattern: new RegExp("^[0-9a-zA-Z_]{1,}$", "g"), message: "只允许包含数字、字母和下划线!"
+                        }
+                    ]}
                 >
                     <Input
                         placeholder="Username"
-                        name='username'
+                        name="username"
                         onChange={this.onChange}
                     />
                 </Form.Item>
@@ -111,7 +125,7 @@ export default class SignUp extends React.Component {
                 >
                     <Input
                         placeholder="E-mail"
-                        name='email'
+                        name="email"
                         onChange={this.onChange}
                     />
                 </Form.Item>
@@ -124,7 +138,7 @@ export default class SignUp extends React.Component {
                 >
                     <Input.Password
                         placeholder="Password"
-                        name='password'
+                        name="password"
                         onChange={this.onChange}
                     />
                 </Form.Item>
@@ -132,7 +146,7 @@ export default class SignUp extends React.Component {
                 <Form.Item
                     label="确认密码"
                     name="确认密码"
-                    dependencies={['密码']}
+                    dependencies={["密码"]}
                     hasFeedback
                     rules={[
                         {
@@ -140,17 +154,17 @@ export default class SignUp extends React.Component {
                         },
                         ({ getFieldValue }) => ({
                             validator(_, value) {
-                                if (!value || getFieldValue('密码') === value) {
+                                if (!value || getFieldValue("密码") === value) {
                                     return Promise.resolve();
                                 }
-                                return Promise.reject(new Error('两次输入的密码不一致!'));
+                                return Promise.reject(new Error("两次输入的密码不一致!"));
                             },
                         }),
                     ]}
                 >
                     <Input.Password
                         placeholder="ConfirmPassword"
-                        name='passwordConfirmation'
+                        name="passwordConfirmation"
                         onChange={this.onChange}
                     />
                 </Form.Item>
