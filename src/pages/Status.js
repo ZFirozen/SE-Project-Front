@@ -133,7 +133,7 @@ export default class Status extends React.Component {
         title: 'Action',
         dataIndex: '',
         key: 'open',
-        render: (a) => <a href={"entrust/" + a.id}>open</a>
+        render: (a) => <a href={"contracts/" + a.id}>open</a>
       },
     ];
     return (
