@@ -1,4 +1,5 @@
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.css'
+import "./ContractFill.css"
 import axios from "axios";
 import React from "react";
 import { Typography, Input, InputNumber, DatePicker } from 'antd';
@@ -8,6 +9,7 @@ const Component = React.Component
 const Fragment = React.Fragment
 const { Title } = Typography;
 //注意这个类，必须继承自Component
+
 class ContractFill extends Component {
 
     constructor(props) {
@@ -16,42 +18,38 @@ class ContractFill extends Component {
         this.state = {
             //可以使用 this.state.属性在类内部使用
             projectName: "",
-            partyA: {
-                companyCN: "",
-                companyEN: "",
-                authorizedRepresentative: "",
-                sigDate: "",
-                contact: "",
-                contactPhone: "",
-                contactEmail: "",
-                address: "",
-                companyPhone: "",
-                companyWebsite: "",
-                companyAddress:"",
-                zipCode: "",
-                fax: "",
-                bankName: "",
-                account: "",
-                accountName:""
-            },
-            partyB: {
-                companyCN: "南京大学计算机软件新技术国家重点实验室",
-                companyEN: "",
-                authorizedRepresentative: "",
-                sigDate: "",
-                contact: "",
-                contactPhone: "",
-                contactEmail:"",
-                address: "",
-                companyPhone: "",
-                companyWebsite: "",
-                companyAddress: "",
-                zipCode: "",
-                fax: "",
-                bankName: "中国工商银行股份有限公司南京汉口路分理处",
-                account: "4301011309001041656",
-                accountName: "南京大学"
-            },
+            partyAcompanyCN: "",
+            partyAcompanyEN: "",
+            partyAauthorizedRepresentative: "",
+            partyAsigDate: "",
+            partyAcontact: "",
+            partyAcontactPhone: "",
+            partyAcontactEmail: "",
+            partyAaddress: "",
+            partyAcompanyPhone: "",
+            partyAcompanyWebsite: "",
+            partyAcompanyAddress:"",
+            partyAzipCode: "",
+            partyAfax: "",
+            partyAbankName: "",
+            partyAaccount: "",
+            partyAaccountName:"",
+            partyBcompanyCN: "南京大学计算机软件新技术国家重点实验室",
+            partyBcompanyEN: "",
+            partyBauthorizedRepresentative: "",
+            partyBsigDate: "",
+            partyBcontact: "",
+            partyBcontactPhone: "",
+            partyBcontactEmail:"",
+            partyBaddress: "",
+            partyBcompanyPhone: "",
+            partyBcompanyWebsite: "",
+            partyBcompanyAddress: "",
+            partyBzipCode: "",
+            partyBfax: "",
+            partyBbankName: "中国工商银行股份有限公司南京汉口路分理处",
+            partyBaccount: "4301011309001041656",
+            partyBaccountName: "南京大学",
             signedAt: "",
             signedDate: "",
             targetSoftware: "",
@@ -60,7 +58,9 @@ class ContractFill extends Component {
             rectificationLimit: 0,
             rectificationDaysEachTime:0
         }
+        this.inputChange = this.inputChange.bind(this);
     }
+
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
@@ -68,18 +68,18 @@ class ContractFill extends Component {
         return (
             <Fragment>
                 <Title level={3}>软件委托测试合同</Title>
-                <div>项目名称：<Input type="text" name="projectName" onChange={this.inputChange.bind(this)}/></div>
-                <div>委托方（甲方）：<Input type="text" name="companyCN" onChange={this.partyAChange.bind(this)} /></div>
-                <div>受托方（乙方）：<Input type="text" name="companyCN" onChange={this.partyBChange.bind(this)} /></div>
-                <div>签订地点：<Input type="text" name="signedAt" onChange={this.inputChange.bind(this)} /></div>
+                <div>项目名称：<input type="text" name="projectName" value={this.state.projectName} onChange={this.inputChange}/></div>
+                <div>委托方（甲方）：<input type="text" name="partyAcompanyCN" value={this.state.partyAcompanyCN } onChange={this.inputChange} /></div>
+                <div>受托方（乙方）：<input type="text" name="partyBcompanyCN" value={this.state.partyBcompanyCN } onChange={this.inputChange} /></div>
+                <div>签订地点：<input type="text" name="signedAt" value={this.state.signedAt} onChange={this.inputChange} /></div>
                 <div>签订日期：<br /><DatePicker name="signedDate" onChange={this.signedDateChange.bind(this)} /></div>
-                本合同由作为委托方的<input type="text" value={this.state.partyA.companyCN} name="companyCN" onChange={this.partyAChange.bind(this)} />
+                本合同由作为委托方的<input type="text" style={{ display: "inline",width: "10%"}} value={this.state.partyAcompanyCN} name="partyAcompanyCN" onChange={this.inputChange} />
                 （以下简称“甲方”）与作为受托方的南京大学计算机软件新技术国家重点实验室（以下简称“乙方”），<br />
                 在平等自愿的基础上，依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。<br />
                 <br />
                 <Title level={4}> 一、 任务表述</Title>
                 乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件
-                <input type="text" name="targetSoftware" value={this.state.targetSoftware} onChange={this.inputChange.bind(this)} />
+                <input type="text" name="targetSoftware" style={{ display: "inline",width: "10%" }} value={this.state.targetSoftware} onChange={this.inputChange} />
                 (下称受测软件)的质量特性，进行测试，并出具相应的测试报告。<br />
                 <br />
                 <Title level={4}>二、双方的主要义务</Title>
@@ -104,7 +104,7 @@ class ContractFill extends Component {
                 本合同签定后，十个工作日内甲方合同价款至乙方帐户。<br />
                 <br />
                 <Title level={4}>六、履行的期限</Title>
-                1.	本次测试的履行期限为合同生效之日起<InputNumber type="text" name="totalWorkingDays" value={this.state.totalWorkingDays} min={0} onChange={this.totalWorkingDaysChange.bind(this)} />个自然日内完成。<br />
+                1.	本次测试的履行期限为合同生效之日起<InputNumber type="text" name="totalWorkingDays" value={this.state.totalWorkingDays} min={0} value={this.state.totalWorkingDays} onChange={this.totalWorkingDaysChange.bind(this)} />个自然日内完成。<br />
                 2.	经甲乙双方同意，可对测试进度作适当修改，并以修改后的测试进度作为本合同执行的期限。<br />
                 3.	如受测软件在测试过程中出现的问题，导致继续进行测试会影响整体测试进度，则乙方暂停测试并以书面形式通知甲方进行整改。<br />
                 在整个测试过程中，整改次数限于<InputNumber type="text" name="rectificationLimit" min={0} value={this.state.rectificationLimit} onChange={this.rectificationLimitChange.bind(this)} />次，
@@ -132,41 +132,42 @@ class ContractFill extends Component {
                 <br />
                 <Title level={4}>十二、签章</Title>
                 <Title level={5}>委托方：</Title>
-                <div>单位全称（中文）：<Input type="text" name="companyCN"  onChange={this.partyAChange.bind(this)} /></div>
-                <div>单位全称（英文）：<Input type="text" name="companyEN" onChange={this.partyAChange.bind(this)} /></div>
-                <div>授权代表：<Input type="text" name="authorizedRepresentative" onChange={this.partyAChange.bind(this)} /></div>
-                <div>签章日期：<br /><DatePicker type="text" name="sigDate" onChange={this.partyAsigDateChange.bind(this)} /></div>
-                <div>联系人：<Input type="text" name="contact" onChange={this.partyAChange.bind(this)} /></div>
-                <div>联系人电话：<Input type="text" name="contactPhone" onChange={this.partyAChange.bind(this)} /></div>
-                <div>联系人邮箱：<Input type="text" name="contactEmail" onChange={this.partyAChange.bind(this)} /></div>
-                <div>通讯地址：<Input type="text" name="address" onChange={this.partyAChange.bind(this)} /></div>
-                <div>单位电话：<Input type="text" name="companyPhone" onChange={this.partyAChange.bind(this)} /></div>
-                <div>单位网址：<Input type="text" name="companyWebsite" onChange={this.partyAChange.bind(this)} /></div>
-                <div>单位地址：<Input type="text" name="companyAddress" onChange={this.partyAChange.bind(this)} /></div>
-                <div>邮编：<Input type="text" name="zipCode" onChange={this.partyAChange.bind(this)} /></div>
-                <div>传真：<Input type="text" name="fax" onChange={this.partyAChange.bind(this)} /></div>
-                <div>开户银行：<Input type="text" name="bankName" onChange={this.partyAChange.bind(this)} /></div>
-                <div>账号：<Input type="text" name="account" onChange={this.partyAChange.bind(this)} /></div>
+                <div>单位全称（中文）：<input type="text" name="partyAcompanyCN" value={this.state.partyAcompanyCN} onChange={this.inputChange} /></div>
+                <div>单位全称（英文）：<input type="text" name="partyAcompanyEN" value={this.state.partyAcompanyEN} onChange={this.inputChange} /></div>
+                <div>授权代表：<input type="text" name="partyAauthorizedRepresentative" value={this.state.partyAauthorizedRepresentative} onChange={this.inputChange} /></div>
+                <div>签章日期：<br /><DatePicker type="text" name="partyAsigDate" onChange={this.partyAsigDateChange.bind(this)} /></div>
+                <div>联系人：<input type="text" name="partyAcontact" value={this.state.partyAcontact} onChange={this.inputChange} /></div>
+                <div>联系人电话：<input type="text" name="partyAcontactPhone" value={this.state.partyAcontactPhone} onChange={this.inputChange} /></div>
+                <div>联系人邮箱：<input type="text" name="partyAcontactEmail" value={this.state.partyAcontactEmail} onChange={this.inputChange} /></div>
+                <div>通讯地址：<input type="text" name="partyAaddress" value={this.state.partyAaddress} onChange={this.inputChange} /></div>
+                <div>单位电话：<input type="text" name="partyAcompanyPhone" value={this.state.partyAccompanyPhone} onChange={this.inputChange} /></div>
+                <div>单位网址：<input type="text" name="partyAcompanyWebsite" value={this.state.partyAccompanyWebsite} onChange={this.inputChange} /></div>
+                <div>单位地址：<input type="text" name="partyAcompanyAddress" value={this.state.partyAccompanyAddress} onChange={this.inputChange} /></div>
+                <div>邮编：<input type="text" name="partyAzipCode" value={this.state.partyAzipCode} onChange={this.inputChange} /></div>
+                <div>传真：<input type="text" name="partyAfax" value={this.state.partyAfax} onChange={this.inputChange} /></div>
+                <div>开户银行：<input type="text" name="partyAbankName" value={this.state.partyAbankName} onChange={this.inputChange} /></div>
+                <div>户名：<input type="text" name="partyAaccountName" value={this.state.partyAaccountName} onChange={this.inputChange} /></div>
+                <div>账号：<input type="text" name="partyAaccount" value={this.state.partyAaccount} onChange={this.inputChange} /></div>
                 <br />
                 <Title level={5}>受托方：</Title>
-                <div>单位全称（中文）：<Input type="text" name="companyCN" onChange={this.partyBChange.bind(this)} /></div>
-                <div>单位全称（英文）：<Input type="text" name="companyEN" onChange={this.partyBChange.bind(this)} /></div>
-                <div>授权代表：<Input type="text" name="authorizedRepresentative" onChange={this.partyBChange.bind(this)} /></div>
-                <div>签章日期：<br /><DatePicker type="text" name="sigDate" onChange={this.partyBSigdateChange.bind(this)} /></div>
-                <div>联系人名称：<Input type="text" name="contact" onChange={this.partyBChange.bind(this)} /></div>
-                <div>联系人电话：<Input type="text" name="contactPhone" onChange={this.partyBChange.bind(this)} /></div>
-                <div>联系人邮箱：<Input type="text" name="contactEmail" onChange={this.partyBChange.bind(this)} /></div>
-                <div>通讯地址：<Input type="text" name="address" onChange={this.partyBChange.bind(this)} /></div>
-                <div>单位电话：<Input type="text" name="companyPhone" onChange={this.partyBChange.bind(this)} /></div>
-                <div>单位网址：<Input type="text" name="companyWebsite" onChange={this.partyBChange.bind(this)} /></div>
-                <div>单位地址：<Input type="text" name="companyAddress" onChange={this.partyBChange.bind(this)} /></div>
-                <div>邮编：<Input type="text" name="zipCode" onChange={this.partyBChange.bind(this)} /></div>
-                <div>传真：<Input type="text" name="fax" onChange={this.partyBChange.bind(this)} /></div>
-                <div>开户银行：<Input type="text" name="bankName" onChange={this.partyBChange.bind(this)} /></div>
-                <div>户名：<Input type="text" name="accountName" onChange={this.partyBChange.bind(this)} /></div>
-                <div>账号：<Input type="text" name="account" onChange={this.partyBChange.bind(this)} /></div>
+                <div>单位全称（中文）：<input type="text" name="partyBcompanyCN" value={this.state.partyBcompanyCN} onChange={this.inputChange} /></div>
+                <div>单位全称（英文）：<input type="text" name="partyBcompanyEN" value={this.state.partyBcompanyEN} onChange={this.inputChange} /></div>
+                <div>授权代表：<input type="text" name="partyBauthorizedRepresentative" value={this.state.partyBauthorizedRepresentative} onChange={this.inputChange} /></div>
+                <div>签章日期：<br /><DatePicker type="partyBtext" name="sigDate" onChange={this.partyBSigdateChange.bind(this)} /></div>
+                <div>联系人名称：<input type="text" name="partyBcontact" value={this.state.partyBcontact} onChange={this.inputChange} /></div>
+                <div>联系人电话：<input type="text" name="partyBcontactPhone" value={this.state.partyBcontactPhone} onChange={this.inputChange} /></div>
+                <div>联系人邮箱：<input type="text" name="partyBcontactEmail" value={this.state.partyBcontactEmail} onChange={this.inputChange} /></div>
+                <div>通讯地址：<input type="text" name="partyBaddress" value={this.state.partyBaddress} onChange={this.inputChange} /></div>
+                <div>单位电话：<input type="text" name="partyBcompanyPhone" value={this.state.partyBccompanyPhone} onChange={this.inputChange} /></div>
+                <div>单位网址：<input type="text" name="partyBcompanyWebsite" value={this.state.partyBccompanyWebsite} onChange={this.inputChange} /></div>
+                <div>单位地址：<input type="text" name="partyBcompanyAddress" value={this.state.partyBccompanyAddress} onChange={this.inputChange} /></div>
+                <div>邮编：<input type="text" name="partyBzipCode" value={this.state.partyBzipCode} onChange={this.inputChange} /></div>
+                <div>传真：<input type="text" name="partyBfax" value={this.state.partyBfax} onChange={this.inputChange} /></div>
+                <div>开户银行：<input type="text" name="partyBbankName" value={this.state.partyBbankName} onChange={this.inputChange} /></div>
+                <div>户名：<input type="text" name="partyBaccountName" value={this.state.partyBaccountName} onChange={this.inputChange} /></div>
+                <div>账号：<input type="text" name="partyBaccount" value={this.state.partyBaccount} onChange={this.inputChange} /></div>
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                    <Input type='submit' value='提交' />
+                    <input type='submit' value='提交' />
                 </form>
             </Fragment>
         )
@@ -176,6 +177,7 @@ class ContractFill extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
+        console.log(this.state)
     }
     signedDateChange(date) {
         this.setState({
@@ -184,16 +186,12 @@ class ContractFill extends Component {
     }
     partyAsigDateChange(date) {
         this.setState({
-            partyA: {
-                sigDate: date
-            }
+            partyAsigDate: date
         })
     }
     partyBSigdateChange(date) {
         this.setState({
-            partyB: {
-                signedDate: date
-            }
+            partyBsignedDate: date
         })
     }
     priceChange(number) {
@@ -216,18 +214,8 @@ class ContractFill extends Component {
             rectificationDaysEachTime: number
         })
     }
-    partyAChange(event) {
-        this.setState({
-            partyA: { [event.target.name]:event.target.value }
-        })
-    }
-    partyBChange(event) {
-        this.setState({
-            partyB: { [event.target.name]: event.target.value }
-        })
-    }
     handleSubmit(event) {
-        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/37", { data: this.state })
+        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/{id}", { data: this.state })
             .then(function (response) {
                 if (response.status === 200) {
                     alert("提交成功！");
