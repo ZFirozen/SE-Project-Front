@@ -11,9 +11,10 @@ import Contract from "./Contract";
 import ContractFill from "./ContractFill";
 import Entrustment from "./Entrustment";
 import EntrustmentFill from "./EntrustmentFill";
-import Sample from "./Sample"
+import Sample from "./Sample";
+import ContractDisplay from "./ContractDisplay";
 
 export {
     Home, NotFound, Form, FormFill, SearchPage, Status, Login, SignUp, UserInfo, Contract,
-    Entrustment, Sample, ContractFill, EntrustmentFill
+    Entrustment, Sample, ContractFill, ContractDisplay, EntrustmentFill
 }
