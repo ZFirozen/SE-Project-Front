@@ -146,7 +146,7 @@ export default function Navigator() {
                     }}
                     to="/userinfo"
                 >
-                    用户信息
+                    账户信息
                 </NavLink>
             </li>
         </ul>
