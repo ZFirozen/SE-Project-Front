@@ -1,6 +1,6 @@
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Status, Contract, ContractFill, Entrustment, Sample, UserInfo } from './pages';
+import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Status, Contract, ContractFill,ContractDisplay, Entrustment, Sample, UserInfo } from './pages';
 
 function App() {
   return (
@@ -24,7 +24,8 @@ function App() {
             <Route path=":formId" element={<Form />} />
           </Route>
           <Route path="contract" element={<Contract />} />
-          <Route path="contracts" element={<ContractFill />} />
+          <Route path="contractd/:id" element={<ContractDisplay />} />
+          <Route path="contracts/:id" element={<ContractFill />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="status" element={<Status />} />
           <Route path="*" element={<NotFound />} />
