@@ -4,7 +4,6 @@ import React from "react"
 import { getStatus } from "../requests"
 import { Table, Button, Space } from 'antd';
 import Title from 'antd/lib/typography/Title';
-import { now, range, times } from 'lodash';
 import localStorage from 'localStorage';
 
 export default class Status extends React.Component {

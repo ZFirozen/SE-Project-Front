@@ -68,7 +68,7 @@ export default function Navigator() {
                     委托查看
                 </NavLink>
             </li> */}
-            {/* <li>
+            <li>
                 <NavLink
                     className="main-navigator-link"
                     style={({ isActive }) => {
@@ -76,11 +76,11 @@ export default function Navigator() {
                             background: isActive ? '#8282e3' : '#494998'
                         }
                     }}
-                    to="/formfill"
+                    to="/entrustmentFill"
                 >
                     委托填写
                 </NavLink>
-            </li> */}
+            </li> 
             <li>
                 <NavLink
                     className="main-navigator-link"
