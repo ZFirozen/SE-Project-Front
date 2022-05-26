@@ -117,10 +117,10 @@ export default function Navigator() {
                             background: isActive ? '#8282e3' : '#494998'
                         }
                     }}
-                    to="/status"
-                    key="/status"
+                    to="/entrustment"
+                    key="/entrustment"
                 > {/*状态 */}
-                    合同
+                    委托
                 </NavLink>
             </li>
             <li>
