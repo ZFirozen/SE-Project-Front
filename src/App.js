@@ -1,6 +1,6 @@
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Status, Contract, ContractFill, Entrustment,EntrustmentFill, Sample, UserInfo } from './pages';
+import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Status, Contract, ContractFill, Entrustment, EntrustmentFill, Sample, UserInfo } from './pages';
 
 function App() {
   return (

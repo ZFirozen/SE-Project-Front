@@ -28,7 +28,7 @@
 目前在 .env 中已经添加了 JSON_SERVER 和 BACKEND_SERVER 的地址：
 
         REACT_APP_JSON_SERVER="http://localhost:3000"
-        REACT_APP_BACKEND_SERVER="http://124.222.168.27:8080"
+        REACT_APP_BACKEND_SERVER="http://localhost:7777"
 
 建议所有使用到这两个地址的地方统一替换成全局变量，例如 `"http://localhost:3000/xxx"` 替换为 `REACT_APP_JSON_SERVER + "/xxx"`。
 
@@ -74,8 +74,9 @@
 
 |权限|用户名|密码|
 |----|----|----|
-|管理员|admin|c3da1af8-91ef-4e3e-8c80-8c2e9d59c388|
-|用户|test|test|
+|管理员|admin|45c1089e-067c-48c8-a034-b6ca88b8ea8b|
+|测试|test|test|
+|用户|CUSTOMER|123456|
 |市场部人员|MARKETER|123456|
 |测试部人员|TESTER|123456|
 |质量部人员|QA|123456|
