@@ -14,7 +14,7 @@ import { EditableProTable } from '@ant-design/pro-table';
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
 const rowbegingap = 20
-const formitemheight = 62
+const formitemheight = 70
 const { Title, Paragraph } = Typography
 
 const EntrustmentFill = () => {
@@ -141,14 +141,16 @@ const EntrustmentFill = () => {
                   initialValues={detail}>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
-                      required
+                      required rules={[{ required: true, message: '这是必填项'}]}
                       layout='horizontal'
                       name="testType"
                       label="测试类型"
                       options={[{ value: '软件确认测试', label: '软件确认测试' },
                       { value: '成果/技术鉴定测试', label: '成果/技术鉴定测试' },
                       { value: '专项资金验收测试', label: '专项资金验收测试' },
-                      { value: replacetokenbegin + 0  + replacetokenend + 0, label: "其他" }]}
+                      { value: replacetokenbegin + 0  + replacetokenend + 0, label: "其他"}
+                      ]}
+                      
                     />
                     {/* style={{ width: 300, height: 24, marginTop: 8 }} */}
                     <ProFormText name={"toreplace_0"}></ProFormText>
@@ -158,35 +160,35 @@ const EntrustmentFill = () => {
                       <Title level={4}>委<br></br>托<br></br>单<br></br>位<br></br>信<br></br>息</Title></Col>
                     <Col style={{ width: 1448, border: '2px solid', borderRight: "none" }}>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="委托单位（中文）" width="500px" required name={["principal", "companyCH"]} ></ProFormText>
+                        <ProFormText label="委托单位（中文）" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyCH"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="委托单位（英文）" width="500px" required name={["principal", "companyEN"]} ></ProFormText>
+                        <ProFormText label="委托单位（英文）" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyEN"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="单位电话" width="lg" required name={["principal", "companyPhone"]} ></ProFormText>
-                        <ProFormText label="单位网址" width="400px" required name={["principal", "companyWebsite"]} ></ProFormText>
-                        <ProFormText label="单位地址" width="400px" required name={["principal", "companyAddress"]} ></ProFormText>
+                        <ProFormText label="单位电话" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyPhone"]} ></ProFormText>
+                        <ProFormText label="单位网址" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyWebsite"]} ></ProFormText>
+                        <ProFormText label="单位地址" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyAddress"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="联系人名称" width="lg" required name={["principal", "contact"]} ></ProFormText>
-                        <ProFormText label="联系人电话" width="lg" required name={["principal", "contactPhone"]} ></ProFormText>
-                        <ProFormText label="联系人邮箱" width="lg" required name={["principal", "contactEmail"]} ></ProFormText>
+                        <ProFormText label="联系人名称" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contact"]} ></ProFormText>
+                        <ProFormText label="联系人电话" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactPhone"]} ></ProFormText>
+                        <ProFormText label="联系人邮箱" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactEmail"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="授权代表" width="lg" required name={["principal", "representative"]} ></ProFormText>
-                        <ProFormDatePicker required name={["principal", "sigDate"]} label="签章日期" />
+                        <ProFormText label="授权代表" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "representative"]} ></ProFormText>
+                        <ProFormDatePicker required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "sigDate"]} label="签章日期" />
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="邮编" width="lg" required name={["principal", "zipCode"]} ></ProFormText>
-                        <ProFormText label="传真" width="lg" required name={["principal", "fax"]} ></ProFormText>
+                        <ProFormText label="邮编" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "zipCode"]} ></ProFormText>
+                        <ProFormText label="传真" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "fax"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="开户银行" width="500px" required name={["principal", "bankName"]} ></ProFormText>
+                        <ProFormText label="开户银行" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "bankName"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="银行账号" width="500px" required name={["principal", "account"]} ></ProFormText>
-                        <ProFormText label="银行户名" width="400px" required name={["principal", "accountName"]} ></ProFormText>
+                        <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "account"]} ></ProFormText>
+                        <ProFormText label="银行户名" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "accountName"]} ></ProFormText>
                       </Row>
                     </Col>
                   </Row>
@@ -198,13 +200,13 @@ const EntrustmentFill = () => {
                       <Title level={4}>软<br></br>件<br></br>详<br></br>情</Title></Col>
                     <Col style={{ width: 1448, border: '2px solid', borderRight: "none", borderTop: "none" }}>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="软件名称" width="400px" required name={["software", "name"]} ></ProFormText>
-                        <ProFormText label="版本号" width="lg" required name={["software", "version"]} ></ProFormText>
+                        <ProFormText label="软件名称" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "name"]} ></ProFormText>
+                        <ProFormText label="版本号" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "version"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="开发单位" width="500px" required name={["software", "developer"]} ></ProFormText>
+                        <ProFormText label="开发单位" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "developer"]} ></ProFormText>
                         <ProFormRadio.Group
-                          required
+                          required rules={[{ required: true, message: '这是必填项' }]}
                           name={["software", "developerType"]}
                           label="开发单位性质"
                           options={[{ value: '内资企业', label: '内资企业' },
@@ -216,10 +218,10 @@ const EntrustmentFill = () => {
                         ></ProFormRadio.Group>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormTextArea label="软件用户对象描述" width="800px" required name={["software", "userDescription"]} ></ProFormTextArea>
+                        <ProFormTextArea label="软件用户对象描述" width="800px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "userDescription"]} ></ProFormTextArea>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormTextArea label="主要功能简介" width="830px" required name={["software", "functionIntro"]} ></ProFormTextArea>
+                        <ProFormTextArea label="主要功能简介" width="830px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "functionIntro"]} ></ProFormTextArea>
                       </Row>
                       <Row>
                         <Col style={{ backgroundColor: whitecolor, width: 125, paddingLeft: 14, paddingTop: 55, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
@@ -241,7 +243,7 @@ const EntrustmentFill = () => {
                           name={["software", "type"]}
                           placeholder="请选择软件类型"
                           allowClear
-                          required
+                          required rules={[{ required: true, message: '这是必填项' }]}
                           width={230}
                           label="软件类型"
                           request={async () => {
@@ -390,7 +392,7 @@ const EntrustmentFill = () => {
                             <Col style={{ width: 1340, border: '2px solid', borderRight: "none", borderTop: "none" }}>
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, width: 1338, columnGap: 0 }}>
                                 <Col style={{ width: 240 }}>
-                                  <ProFormCheckbox.Group name={["software", "clientOS"]} required label='操作系统' layout='vertical'
+                                  <ProFormCheckbox.Group name={["software", "clientOS"]} required rules={[{ required: true, message: '这是必填项' }]} label='操作系统' layout='vertical'
                                     options={[{ value: 'Windows ' + replacetokenbegin + 1  + replacetokenend + 1, label: "Windows（版本）" },
                                     { value: 'Linux ' + replacetokenbegin + 2  + replacetokenend + 2, label: "Linux（版本）" },
                                     { value: replacetokenbegin + 3  + replacetokenend + 3, label: "其他" }]}>
@@ -403,10 +405,10 @@ const EntrustmentFill = () => {
                                 </Col>
                               </Row>
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1338, columnGap: 32 }}>
-                                <ProFormText label="内存要求" width='130px' required name={["software", "clientMemoryRequirement"]} addonAfter='MB' ></ProFormText>
+                                <ProFormText label="内存要求" width='130px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "clientMemoryRequirement"]} addonAfter='MB' ></ProFormText>
                               </Row>
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1338, columnGap: 32 }}>
-                                <ProFormTextArea label="其他要求" width="830px" required name={["software", "clientOtherRequirement"]} ></ProFormTextArea>
+                                <ProFormTextArea label="其他要求" width="830px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "clientOtherRequirement"]} ></ProFormTextArea>
                               </Row>
                             </Col>
                           </Row>
@@ -419,7 +421,7 @@ const EntrustmentFill = () => {
                                   <Title level={4}>硬<br></br>件</Title></Col>
                                 <Col style={{ width: 1286, border: '2px solid', borderRight: "none", borderTop: "none" }}>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: 1284, columnGap: 0 }}>
-                                    <ProFormCheckbox.Group name={["software", "serverHardArch"]} required label='架构' layout='horizontal'
+                                    <ProFormCheckbox.Group name={["software", "serverHardArch"]} required rules={[{ required: true, message: '这是必填项' }]} label='架构' layout='horizontal'
                                       options={[{ value: "PC服务器", label: "PC服务器" },
                                       { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
                                       { value: replacetokenbegin + 4  + replacetokenend + 4, label: "其他" }]}>
@@ -427,13 +429,13 @@ const EntrustmentFill = () => {
                                     <ProFormText name={"toreplace_4"}></ProFormText>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="内存要求" width='130px' required name={["software", "servHardMemoryRequirement"]} addonAfter='MB' ></ProFormText>
+                                    <ProFormText label="内存要求" width='130px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servHardMemoryRequirement"]} addonAfter='MB' ></ProFormText>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="硬盘要求" width='130px' required name={["software", "servHardDiskRequirement"]} addonAfter='MB' ></ProFormText>
+                                    <ProFormText label="硬盘要求" width='130px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servHardDiskRequirement"]} addonAfter='MB' ></ProFormText>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormTextArea label="其他要求" width="830px" required name={["software", "servHardOtherRequirement"]} ></ProFormTextArea>
+                                    <ProFormTextArea label="其他要求" width="830px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servHardOtherRequirement"]} ></ProFormTextArea>
                                   </Row>
                                 </Col>
                               </Row>
@@ -442,29 +444,29 @@ const EntrustmentFill = () => {
                                   <Title level={4}>软<br></br>件</Title></Col>
                                 <Col style={{ width: 1286, border: '2px solid', borderRight: "none", borderTop: "none", borderBottom: 'none' }}>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="操作系统" width='400px' required name={["software", "servSoftOS"]}></ProFormText>
-                                    <ProFormText label="版本" width='400px' required name={["software", "servSoftVersion"]}></ProFormText>
+                                    <ProFormText label="操作系统" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftOS"]}></ProFormText>
+                                    <ProFormText label="版本" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftVersion"]}></ProFormText>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, height: 60, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="编程语言" width='400px' required name={["software", "servSoftProgramLang"]}></ProFormText>
-                                    <ProFormCheckbox.Group label="构架" width='400px' required name={["software", "servSoftArch"]} layout='horizontal'
+                                    <ProFormText label="编程语言" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftProgramLang"]}></ProFormText>
+                                    <ProFormCheckbox.Group label="构架" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftArch"]} layout='horizontal'
                                       options={[{ value: "C/S", label: "C/S" },
                                       { value: "B/S", label: "B/S" },
                                       { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="数据库" width='400px' required name={["software", "servSoftDB"]}></ProFormText>
-                                    <ProFormText label="中间件" width='400px' required name={["software", "servSoftMiddleware"]}></ProFormText>
+                                    <ProFormText label="数据库" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftDB"]}></ProFormText>
+                                    <ProFormText label="中间件" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftMiddleware"]}></ProFormText>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormTextArea label="其他支撑软件" width="830px" required name={["software", "serverSideOtherSupport"]} ></ProFormTextArea>
+                                    <ProFormTextArea label="其他支撑软件" width="830px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "serverSideOtherSupport"]} ></ProFormTextArea>
                                   </Row>
                                 </Col>
                               </Row>
                             </Col>
                           </Row>
                           <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1392, columnGap: 32, borderBottom: '2px solid' }}>
-                            <ProFormText label="网络环境" width="700px" required name={["software", "networkEnvironment"]} ></ProFormText>
+                            <ProFormText label="网络环境" width="700px" required rules={[{ required: true, message: '这是必填项' }]} name={["software", "networkEnvironment"]} ></ProFormText>
                           </Row>
                           <div style={{ backgroundColor: graycolor }}>
                             <Title>附表：NST－04－JS003－2011－委托测试软件功能列表</Title>
@@ -543,7 +545,7 @@ const EntrustmentFill = () => {
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
-                      required
+                      required rules={[{ required: true, message: '这是必填项' }]}
                       layout='horizontal'
                       name="testStandard"
                       label="测试依据"
@@ -558,7 +560,7 @@ const EntrustmentFill = () => {
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
                       width={730}
-                      required
+                      required rules={[{ required: true, message: '这是必填项' }]}
                       name="techIndex"
                       label="测试指标"
                       options={[{ value: '功能性', label: '功能性' },
@@ -579,7 +581,7 @@ const EntrustmentFill = () => {
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
-                      required
+                      required rules={[{ required: true, message: '这是必填项' }]}
                       layout='horizontal'
                       name="softwareMedium"
                       label="软件介质"
@@ -590,10 +592,10 @@ const EntrustmentFill = () => {
                     <ProFormText name={"toreplace_7"}></ProFormText>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: 1500, columnGap: 32 }}>
-                    <ProFormTextArea label="文档资料" width="900px" required name="document" ></ProFormTextArea>
+                    <ProFormTextArea label="文档资料" width="900px" required rules={[{ required: true, message: '这是必填项' }]} name="document" ></ProFormTextArea>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
-                    <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required
+                    <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required rules={[{ required: true, message: '这是必填项' }]}
                       name="sampleHandling"
                       options={[{ value: '由本实验室销毁', label: '由本实验室销毁' },
                       { value: '退还给我们', label: '退还给我们' }]}>
@@ -601,7 +603,7 @@ const EntrustmentFill = () => {
                     </ProFormRadio.Group>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32, borderBottom:"2px solid" }}>
-                    <ProFormText label="希望完成时间" width="500px" required name="expectedTime" ></ProFormText>
+                    <ProFormText label="希望完成时间" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name="expectedTime" ></ProFormText>
                   </Row>
                   <Row style={{ height: 40}}></Row>
                 </ProForm>
