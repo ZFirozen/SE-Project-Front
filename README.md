@@ -74,7 +74,7 @@
 
 |权限|用户名|密码|
 |----|----|----|
-|管理员|admin|c3da1af8-91ef-4e3e-8c80-8c2e9d59c388|
+|管理员|admin|45c1089e-067c-48c8-a034-b6ca88b8ea8b|
 |测试|test|test|
 |用户|CUSTOMER|123456|
 |市场部人员|MARKETER|123456|

@@ -381,9 +381,9 @@ const EntrustmentFill = () => {
                         />
                       </Row>
                       <Row>
-                        <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 480, border: "2px solid", borderRight: "none", borderLeft: "none", borderBottom:"none" }}>
+                        <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 480, border: "2px solid", borderRight: "none", borderLeft: "none", borderBottom: "none" }}>
                           <Title level={4}>运<br></br>行<br></br>环<br></br>境</Title></Col>
-                        <Col style={{ width: 1394, border: '2px solid', borderRight: "none" ,borderBottom:"none" }}>
+                        <Col style={{ width: 1394, border: '2px solid', borderRight: "none", borderBottom: "none" }}>
                           <Row>
                             <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 100, borderBottom: "2px solid" }}>
                               <Title level={4}>客<br></br>户<br></br>端</Title></Col>
@@ -600,10 +600,10 @@ const EntrustmentFill = () => {
 
                     </ProFormRadio.Group>
                   </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32, borderBottom:"2px solid" }}>
+                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32, borderBottom: "2px solid" }}>
                     <ProFormText label="希望完成时间" width="500px" required name="expectedTime" ></ProFormText>
                   </Row>
-                  <Row style={{ height: 40}}></Row>
+                  <Row style={{ height: 40 }}></Row>
                 </ProForm>
               </Space>
             </Card>

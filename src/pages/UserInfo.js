@@ -68,7 +68,7 @@ const EditableCell = ({
                 rules={[
                     {
                         required: true,
-                        message: `${title} is required.`,
+                        message: `请输入${title}！`,
                     },
                 ]}
             >
@@ -263,11 +263,8 @@ export default class UserInfo extends React.Component {
                             }
                         })
                         .catch((error) => {
-                            if (error.status === 400) {
-                                alert("修改失败！请输入合法的用户角色！");
-                            } else {
-                                console.log("Unknown error!");
-                            }
+                            console.log(error.text);
+                            alert("修改失败！请输入合法的用户角色！");
                         })
                 };
 
