@@ -1,6 +1,6 @@
 import { Navigator } from "./components";
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Contract, ContractFill, ContractDisplay, Entrustment,EntrustmentFill, Sample, UserInfo } from './pages';
+import { Home, NotFound, Form, FormFill, Login, SignUp, SearchPage, Contract, ContractFill, ContractDisplay, Entrustment, EntrustmentFill, QuotationFill, Sample, UserInfo } from './pages';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           {/* <Route path="home" element={<Home />} /> */}
           <Route path="entrustmentfill" element={<EntrustmentFill />} />
           <Route path="entrustment" element={<Entrustment />} />
+          <Route path="quotationfill" element={<QuotationFill />} />
           <Route path="samples" element={<Sample />} />
           <Route path="formfill" element={<FormFill />} />
           <Route path="forms" element={<div><Outlet /></div>}>
