@@ -18,34 +18,54 @@ const formitemheight = 62
 const { Title, Paragraph } = Typography
 
 const EntrustmentFill = () => {
-  const replacetoken = "_0641#toReplaceA1C1_"
+  const replacetokenbegin = "_0641#toReplaceA1C1_"
+  const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState({});
   const [form] = ProForm.useForm()
-  var embedreg = ['']
-  if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
-    embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
-  }
+  const embedregLength = 8
+  // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
+  //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
+  // }
   useEffect(() => {
     if (localStorage.getItem('entrustmentId') !== null) {
       axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + localStorage.getItem('entrustmentId')).then(Detail => {
+        console.log("load from "+localStorage.getItem('entrustmentId'))
+        console.log(Detail.data.content)
         var keysarray = []
-        if (Detail.data.software.modules !== undefined) {
-          for (let i = 0; i < Detail.data.software.modules.length; i++) {
-            Detail.data.software.modules[i].id = Date.now() + random(100000, false)
-            if (Detail.data.software.modules[i].functions !== undefined) {
-              for (let j = 0; j < Detail.data.software.modules[i].functions.length; j++) {
-                Detail.data.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
+        if (Detail.data.content.software !== null &&Detail.data.content.software.modules !== undefined) {
+          for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
+            Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
+            if (Detail.data.content.software.modules[i].functions !== undefined) {
+              for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
+                Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
               }
-              keysarray = [...keysarray, ...Detail.data.software.modules[i].functions.map((item) => item.id)]
+              keysarray = [...keysarray, ...Detail.data.content.software.modules[i].functions.map((item) => item.id)]
             }
           }
-          keysarray = [...keysarray, ...Detail.data.software.modules.map((item) => item.id)]
+          keysarray = [...keysarray, ...Detail.data.content.software.modules.map((item) => item.id)]
           console.log(keysarray)
           setEditableRowKeys(keysarray)
         }
-        setDetail(Detail.data)
+        console.log(Detail.data.content)
+        let temp = JSON.stringify(Detail.data.content)
+        let toreplacearray = Array(embedregLength)
+        for (let i = 0; i < embedregLength; i++) {
+          let tt = temp.match("(?<="+replacetokenbegin+i+").+(?="+replacetokenend+i+")")
+          console.log(tt)
+          if(tt){
+            temp = temp.replace(replacetokenbegin+i+tt.at(0)+replacetokenend+i,replacetokenbegin+i+replacetokenend+i)
+            toreplacearray[i] = tt.at(0)
+          }
+        }
+        Detail.data.content = JSON.parse(temp)
+        for (let i = 0; i < embedregLength; i++) {
+            eval("Detail.data.content.toreplace_"+i+"= toreplacearray["+i+"]")
+        }
+        console.log("load finished")
+        console.log(Detail.data.content)
+        setDetail(Detail.data.content)
         form.resetFields()
         setLoading(false)
       }).catch(Error => {
@@ -79,29 +99,36 @@ const EntrustmentFill = () => {
                   layout="horizontal"
                   onFinish={async (values) => {
                     let temp = values
-                    if (temp.software.modules !== undefined) {
+                    if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
+                      console.log(temp)
                       for (let i = 0; i < temp.software.modules.length; i++) {
-                        temp.software.modules[i].id = undefined
-                        if (temp.software.modules[i].functions !== undefined) {
+                        delete temp.software.modules[i].id
+                        if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
                           for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
-                            temp.software.modules[i].functions[j].id = undefined
+                            delete temp.software.modules[i].functions[j].id
                           }
                         }
                       }
                     }
                     temp = JSON.stringify(temp)
-                    for (let i = 0; i < embedreg.length; i++) {
-                      temp = temp.replace(replacetoken + i, embedreg.at(i))
+                    for (let i = 0; i < embedregLength; i++) {
+                      let iisundefined = eval("values.toreplace_"+i+"=== undefined")
+                      if(iisundefined !== true){
+                        eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_"+i+" + replacetokenend + i)")
+                      }
                     }
                     temp = JSON.parse(temp)
-                    localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
+                    // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
+                    console.log(temp)
                     if (localStorage.getItem('entrustmentId') !== null) {
                       axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + localStorage.getItem('entrustmentId') + "/content", temp).then(response => {
+                        console.log(response)
                         message.success('提交修改成功');
                       })
                     } else {
                       axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/", temp).then(response => {
-                        localStorage.setItem('entrustmentId', response.data.id);
+                        localStorage.setItem('entrustmentId', response.data);
+                        console.log(response)
                         message.success('提交成功');
                       })
                     }
@@ -121,9 +148,10 @@ const EntrustmentFill = () => {
                       options={[{ value: '软件确认测试', label: '软件确认测试' },
                       { value: '成果/技术鉴定测试', label: '成果/技术鉴定测试' },
                       { value: '专项资金验收测试', label: '专项资金验收测试' },
-                      { value: replacetoken + 0, label: "其他" }]}
+                      { value: replacetokenbegin + 0  + replacetokenend + 0, label: "其他" }]}
                     />
-                    <Input type="text" defaultValue={embedreg[0]} style={{ width: 300, height: 24, marginTop: 8 }} onChange={(e) => { embedreg[0] = e.target.value }}></Input>
+                    {/* style={{ width: 300, height: 24, marginTop: 8 }} */}
+                    <ProFormText name={"toreplace_0"}></ProFormText>
                   </Row>
                   <Row>
                     <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 149, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
@@ -363,15 +391,15 @@ const EntrustmentFill = () => {
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, width: 1338, columnGap: 0 }}>
                                 <Col style={{ width: 240 }}>
                                   <ProFormCheckbox.Group name={["software", "clientOS"]} required label='操作系统' layout='vertical'
-                                    options={[{ value: 'Windows ' + replacetoken + 1, label: "Windows（版本）" },
-                                    { value: 'Linux ' + replacetoken + 2, label: "Linux（版本）" },
-                                    { value: replacetoken + 3, label: "其他" }]}>
+                                    options={[{ value: 'Windows ' + replacetokenbegin + 1  + replacetokenend + 1, label: "Windows（版本）" },
+                                    { value: 'Linux ' + replacetokenbegin + 2  + replacetokenend + 2, label: "Linux（版本）" },
+                                    { value: replacetokenbegin + 3  + replacetokenend + 3, label: "其他" }]}>
                                   </ProFormCheckbox.Group>
                                 </Col>
                                 <Col>
-                                  <Input type='text' defaultValue={embedreg[1]} onChange={(e) => { embedreg[1] = e.target.value }} size='small' ></Input>
-                                  <Input type='text' defaultValue={embedreg[2]} onChange={(e) => { embedreg[2] = e.target.value }} size='small' ></Input>
-                                  <Input type='text' defaultValue={embedreg[3]} onChange={(e) => { embedreg[3] = e.target.value }} size='small' ></Input>
+                                <ProFormText name={"toreplace_1"}></ProFormText>
+                                <ProFormText name={"toreplace_2"}></ProFormText>
+                                <ProFormText name={"toreplace_3"}></ProFormText>
                                 </Col>
                               </Row>
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1338, columnGap: 32 }}>
@@ -394,9 +422,9 @@ const EntrustmentFill = () => {
                                     <ProFormCheckbox.Group name={["software", "serverHardArch"]} required label='架构' layout='horizontal'
                                       options={[{ value: "PC服务器", label: "PC服务器" },
                                       { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
-                                      { value: replacetoken + 4, label: "其他" }]}>
+                                      { value: replacetokenbegin + 4  + replacetokenend + 4, label: "其他" }]}>
                                     </ProFormCheckbox.Group>
-                                    <Input type='text' defaultValue={embedreg[4]} onChange={(e) => { embedreg[4] = e.target.value }} style={{ width: 300, height: 24, marginTop: 8 }} size='small' ></Input>
+                                    <ProFormText name={"toreplace_4"}></ProFormText>
                                   </Row>
                                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1284, columnGap: 32 }}>
                                     <ProFormText label="内存要求" width='130px' required name={["software", "servHardMemoryRequirement"]} addonAfter='MB' ></ProFormText>
@@ -523,9 +551,9 @@ const EntrustmentFill = () => {
                       { value: 'GB/T 16260.1-2006', label: 'GB/T 16260.1-2006' },
                       { value: 'NST-03-WI12-2011', label: 'NST-03-WI12-2011' },
                       { value: 'NST-03-WI13-2011', label: 'NST-03-WI13-2011' },
-                      { value: replacetoken + 5, label: "其他" }]}
+                      { value: replacetokenbegin + 5 + replacetokenend + 5, label: "其他" }]}
                     />
-                    <Input type="text" defaultValue={embedreg[5]} style={{ width: 300, height: 24, marginTop: 8 }} onChange={(e) => { embedreg[5] = e.target.value }}></Input>
+                    <ProFormText name={"toreplace_5"}></ProFormText>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
@@ -545,9 +573,9 @@ const EntrustmentFill = () => {
                       { value: '代码不符合项检测率', label: '代码不符合项检测率' },
                       { value: '产品说明要求', label: '产品说明要求' },
                       { value: '用户文档集要求', label: '用户文档集要求' },
-                      { value: replacetoken + 6, label: "其他" }]}
+                      { value: replacetokenbegin + 6 + replacetokenend + 6, label: "其他" }]}
                     />
-                    <Input type="text" defaultValue={embedreg[6]} style={{ width: 300, height: 25, marginTop: 19 }} onChange={(e) => { embedreg[6] = e.target.value }}></Input>
+                    <ProFormText name={"toreplace_6"}></ProFormText>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
@@ -557,9 +585,9 @@ const EntrustmentFill = () => {
                       label="软件介质"
                       options={[{ value: '光盘', label: '光盘' },
                       { value: 'U盘', label: 'U盘' },
-                      { value: replacetoken + 7, label: "其他" }]}
+                      { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
                     />
-                    <Input type="text" defaultValue={embedreg[7]} style={{ width: 300, height: 24, marginTop: 8 }} onChange={(e) => { embedreg[7] = e.target.value }}></Input>
+                    <ProFormText name={"toreplace_7"}></ProFormText>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: 1500, columnGap: 32 }}>
                     <ProFormTextArea label="文档资料" width="900px" required name="document" ></ProFormTextArea>

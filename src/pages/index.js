@@ -6,14 +6,14 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import UserInfo from "./UserInfo";
 import SearchPage from "./Search";
-import Status from "./Status";
 import Contract from "./Contract";
 import ContractFill from "./ContractFill";
 import Entrustment from "./Entrustment";
 import EntrustmentFill from "./EntrustmentFill";
-import Sample from "./Sample"
+import Sample from "./Sample";
+import ContractDisplay from "./ContractDisplay";
 
 export {
-    Home, NotFound, Form, FormFill, SearchPage, Status, Login, SignUp, UserInfo, Contract,
-    Entrustment, Sample, ContractFill, EntrustmentFill
+    Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
+    Entrustment, Sample, ContractFill, ContractDisplay, EntrustmentFill
 }
