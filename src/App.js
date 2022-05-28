@@ -29,7 +29,7 @@ function App() {
           <Route path="contractd/:id" element={<ContractDisplay />} />
           <Route path="contracts/:id" element={<ContractFill />} />
           <Route path="search" element={<SearchPage />} />
-          <Route path="progress" element={<Progress />} />
+          <Route path="progress/:id" element={<Progress />} />
           <Route path="assign/:id" element={<Assign />} />
           <Route path="*" element={<NotFound />} />
         </Route>

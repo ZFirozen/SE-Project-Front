@@ -12,7 +12,6 @@ import ContractFill from "./ContractFill";
 import Entrustment from "./Entrustment";
 import EntrustmentFill from "./EntrustmentFill";
 import Sample from "./Sample";
-import ContractDisplay from "./ContractDisplay";
 import Progress from "./Progress";
 import Assign from "./Assign";
 
