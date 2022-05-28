@@ -7,6 +7,7 @@ import SignUp from "./SignUp";
 import UserInfo from "./UserInfo";
 import SearchPage from "./Search";
 import Contract from "./Contract";
+import ContractDisplay from "./ContractDisplay";
 import ContractFill from "./ContractFill";
 import Entrustment from "./Entrustment";
 import EntrustmentFill from "./EntrustmentFill";

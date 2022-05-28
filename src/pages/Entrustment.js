@@ -9,72 +9,86 @@ import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
 
-    var columns = [
-        {
-            title: '委托ID',
-            dataIndex: 'id',
-            key: 'id',
-            // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
-            render: (a) => <Link to={"entrustment/"+a}>{a}</Link>
-        },
-        {
-            title: '客户ID',
-            dataIndex: 'customerId',
-            key: 'customerId',
-        },
-        {
-            title: '市场人员ID',
-            dataIndex: 'marketerId',
-            key: 'marketerId',
-        },
-        {
-            title: '测试人员ID',
-            dataIndex: 'testerId',
-            key: 'testerId',
-        },
-        {
-            title: '软件名称',
-            dataIndex: 'softwareName',
-            key: 'softwareName',
-        },
-        {
-            title: '软件版本号',
-            dataIndex: 'softwareVersion',
-            key: 'softwareVersion',
-        },
-        {
-            title: '委托状态',
-            dataIndex: ['status', 'stage'],
-            key: ['status', 'stage'],
-        },
-        {
-            title: '附加信息',
-            dataIndex: ['status', 'message'],
-            key: ['status', 'message'],
-            ellipsis: false,
-        },
-    ];
-    switch (localStorage.getItem("userRole")) {
-        case "MARKETING_SUPERVISOR":
-            columns = [...columns,{
-                title: 'Action',
-                dataIndex: '',
-                key: 'open',
-                render: (a) => <a href={"entrustment/" + a.id}>open</a>
-            }]
-            break
-        case "CUSTOMER":
-        default:
-            console.log('customer visit')
-            break
-    }
+var columns = [
+    {
+        title: '委托ID',
+        dataIndex: 'id',
+        key: 'id',
+        // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
+        render: (a) => <Link to={"entrustment/" + a}>{a}</Link>
+    },
+    {
+        title: '客户ID',
+        dataIndex: 'customerId',
+        key: 'customerId',
+    },
+    {
+        title: '市场人员ID',
+        dataIndex: 'marketerId',
+        key: 'marketerId',
+    },
+    {
+        title: '测试人员ID',
+        dataIndex: 'testerId',
+        key: 'testerId',
+    },
+    {
+        title: '软件名称',
+        dataIndex: 'softwareName',
+        key: 'softwareName',
+    },
+    {
+        title: '软件版本号',
+        dataIndex: 'softwareVersion',
+        key: 'softwareVersion',
+    },
+    {
+        title: '委托状态',
+        dataIndex: ['status', 'stage'],
+        key: ['status', 'stage'],
+    },
+    {
+        title: '附加信息',
+        dataIndex: ['status', 'message'],
+        key: ['status', 'message'],
+        ellipsis: false,
+    },
+];
+console.log(localStorage.getItem("userRole")+' visit')
+switch (localStorage.getItem("userRole")) {
+    case "MARKETING_SUPERVISOR":
+        columns = [...columns, {
+            title: '操作',
+            search: false,
+            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
+            render: (a) => a.status.stage=="WAIT_FOR_MARKETER"?<Link to={"../assign/" + a.id}>分派</Link>:null
+}]
+        break
+    case "TESTING_SUPERVISOR":
+        columns = [...columns, {
+            title: '操作',
+            search: false,
+            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
+            render: (a) => a.status.stage=="WAIT_FOR_TESTER"?<Link to={"../assign/" + a.id}>分派</Link>:null
+}]
+        break
+    case "CUSTOMER":
+        columns = [...columns, {
+            title: '操作',
+            search: false,
+            render: (a) => <Link to={"../entrustment/" + a.id}>修改</Link>
+        }]
+        break
+    default:
+        break
+}
 
 const Entrustment = () => {
     return (
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
                 <ProTable columns={columns} style={{ margin: 20 }}
-                
+
                     request={async (params, sort, filter) => {
                         return axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,

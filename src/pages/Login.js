@@ -58,6 +58,8 @@ export default class Login extends React.Component {
                             } else {
                                 console.log("Unknown error!");
                             }
+                        }).finally(() => {
+                            window.location.href = "/";
                         })
                         .finally(() => {
                             window.location.href = "/";
