@@ -255,23 +255,23 @@ const EntrustmentFill = () => {
                                 children: [
                                   {
                                     title: '操作系统',
-                                    value: '操作系统',
+                                    value: '1',
                                   },
                                   {
                                     title: '中文操作系统',
-                                    value: '中文操作系统',
+                                    value: '2',
                                   },
                                   {
                                     title: '网络系统',
-                                    value: '网络系统',
+                                    value: '3',
                                   },
                                   {
                                     title: '嵌入式操作系统',
-                                    value: '嵌入式操作系统',
+                                    value: '4',
                                   },
                                   {
                                     title: '其他',
-                                    value: '其他系统软件',
+                                    value: '5',
                                   }
                                 ],
                               },
@@ -282,27 +282,27 @@ const EntrustmentFill = () => {
                                 children: [
                                   {
                                     title: '程序设计语言',
-                                    value: '程序设计语言',
+                                    value: '6',
                                   },
                                   {
                                     title: '数据库系统设计',
-                                    value: '数据库系统设计',
+                                    value: '7',
                                   },
                                   {
                                     title: '工具软件',
-                                    value: '工具软件',
+                                    value: '8',
                                   },
                                   {
                                     title: '网络通信软件',
-                                    value: '网络通信软件',
+                                    value: '9',
                                   },
                                   {
                                     title: '中间件',
-                                    value: '中间件',
+                                    value: '10',
                                   },
                                   {
                                     title: '其他',
-                                    value: '其他支持软件',
+                                    value: '11',
                                   }
                                 ],
                               },
@@ -313,61 +313,61 @@ const EntrustmentFill = () => {
                                 children: [
                                   {
                                     title: '行业管理软件',
-                                    value: '行业管理软件',
+                                    value: '12',
                                   },
                                   {
                                     title: '办公软件',
-                                    value: '办公软件',
+                                    value: '13',
                                   },
                                   {
                                     title: '模式识别软件',
-                                    value: '模式识别软件',
+                                    value: '14',
                                   },
                                   {
                                     title: '图形图像软件',
-                                    value: '图形图像软件',
+                                    value: '15',
                                   },
                                   {
                                     title: '控制软件',
-                                    value: '控制软件',
+                                    value: '16',
                                   },
                                   {
                                     title: '网络应用软件',
-                                    value: '网络应用软件',
+                                    value: '17',
                                   },
                                   {
                                     title: '信息管理软件',
-                                    value: '信息管理软件',
+                                    value: '18',
                                   },
                                   {
                                     title: '数据库管理应用软件',
-                                    value: '数据库管理应用软件',
+                                    value: '19',
                                   },
                                   {
                                     title: '安全与保密软件',
-                                    value: '安全与保密软件',
+                                    value: '20',
                                   },
                                   {
                                     title: '嵌入式应用软件',
-                                    value: '嵌入式应用软件',
+                                    value: '21',
                                   },
                                   {
                                     title: '教育软件',
-                                    value: '教育软件',
+                                    value: '22',
                                   },
                                   {
                                     title: '游戏软件',
-                                    value: '游戏软件',
+                                    value: '23',
                                   },
                                   {
                                     title: '其他',
-                                    value: '其他应用软件',
+                                    value: '24',
                                   },
                                 ],
                               },
                               {
                                 title: '其他',
-                                value: '其他',
+                                value: '25',
                               },
                             ];
                           }}
