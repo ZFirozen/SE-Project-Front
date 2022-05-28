@@ -209,12 +209,12 @@ const EntrustmentFill = () => {
                           required rules={[{ required: true, message: '这是必填项' }]}
                           name={["software", "developerType"]}
                           label="开发单位性质"
-                          options={[{ value: '内资企业', label: '内资企业' },
-                          { value: '外（合）资企业', label: '外（合）资企业' },
-                          { value: '港澳台（合）资企业', label: '港澳台（合）资企业' },
-                          { value: '科研院校', label: '科研院校' },
-                          { value: '政府事业团体', label: '政府事业团体' },
-                          { value: '其他', label: '其他' }]}
+                          options={[{ value: '1', label: '内资企业' },
+                          { value: '2', label: '外（合）资企业' },
+                          { value: '3', label: '港澳台（合）资企业' },
+                          { value: '4', label: '科研院校' },
+                          { value: '5', label: '政府事业团体' },
+                          { value: '6', label: '其他' }]}
                         ></ProFormRadio.Group>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1446, columnGap: 32 }}>
@@ -585,8 +585,8 @@ const EntrustmentFill = () => {
                       layout='horizontal'
                       name="softwareMedium"
                       label="软件介质"
-                      options={[{ value: '光盘', label: '光盘' },
-                      { value: 'U盘', label: 'U盘' },
+                      options={[{ value: '1', label: '光盘' },
+                      { value: '2', label: 'U盘' },
                       { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
                     />
                     <ProFormText name={"toreplace_7"}></ProFormText>
@@ -597,8 +597,8 @@ const EntrustmentFill = () => {
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
                     <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required rules={[{ required: true, message: '这是必填项' }]}
                       name="sampleHandling"
-                      options={[{ value: '由本实验室销毁', label: '由本实验室销毁' },
-                      { value: '退还给我们', label: '退还给我们' }]}>
+                      options={[{ value: '1', label: '由本实验室销毁' },
+                      { value: '2', label: '退还给我们' }]}>
 
                     </ProFormRadio.Group>
                   </Row>
