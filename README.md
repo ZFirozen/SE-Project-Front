@@ -12,6 +12,14 @@
 
         npm start
 
+或
+
+        yarn start
+
+### 迁移后可能存在的问题
+
+登录和用户信息页，由于axios访问地址的前缀不正确导致的，预计但尚无法确认修正后即能正确访问
+
 ## json-server 使用指南
 
 在 json-server 目录下打开 cmd，输入以下命令：
