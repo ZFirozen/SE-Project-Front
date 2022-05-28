@@ -2,8 +2,10 @@
 
 # dependencies
 /node_modules
+/json-server/node_modules
 /.pnp
 .pnp.js
+/src/.umi
 
 # testing
 /coverage

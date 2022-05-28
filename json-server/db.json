@@ -1,4 +1,10 @@
 {
+  "shortId": [
+    {
+      "id": "0",
+      "currentId": 103
+    }
+  ],
   "userData": [
     {
       "userName": "warcraft3",
@@ -77,28 +83,117 @@
   ],
   "entrust": [
     {
-      "id": "20",
-      "customerId": 65,
-      "marketerId": 3,
-      "testerId": 13,
-      "softwareName": "号式南成海场",
-      "softwareVersion": "ut magna voluptate ad",
-      "status": {
-        "stage": "in consequat ut Excepteur eiusmod",
-        "message": "pariatur ut"
-      }
-    },
-    {
-      "id": "99",
-      "customerId": 75,
-      "marketerId": 28,
-      "testerId": 22,
-      "softwareName": "路共石",
-      "softwareVersion": "consectetur velit ut eiusmod",
-      "status": {
-        "stage": "consectetur labore id reprehenderit est",
-        "message": "veniam Excepteur commodo ut"
-      }
+      "id": "102",
+      "testType": [
+        "软件确认测试",
+        "专项资金验收测试",
+        "996压力测试"
+      ],
+      "principal": {
+        "companyCH": "豪俊影视有限公司",
+        "companyEN": "HaojunTV",
+        "companyPhone": "0800-092",
+        "companyWebsite": "www.haojun.org",
+        "companyAddress": "广东省揭阳市榕城区S236(望江北路)",
+        "contact": "梁启超",
+        "contactPhone": "15992510344",
+        "contactEmail": "muji@caoshan.com",
+        "representative": "蜘猪侠",
+        "sigDate": "2022-05-25",
+        "zipCode": "517000",
+        "fax": "114514",
+        "bankName": "江苏省富荣农业生产合作社银行",
+        "account": "300029555028860932920221657",
+        "accountName": "蔡润发"
+      },
+      "software": {
+        "name": "疫演盯帧舆情监控软件",
+        "version": "Beta0.3",
+        "developer": "江苏省公安厅网络信息中心",
+        "developerType": "内资企业",
+        "userDescription": "在座的各位",
+        "functionIntro": "你访问的信息涉嫌**",
+        "functionNums": "12",
+        "functionPoint": "108",
+        "codeLine": "2000",
+        "type": "嵌入式操作系统",
+        "clientOS": [
+          "Windows v10.1",
+          "Linux v9.8",
+          "小霸王学习机"
+        ],
+        "clientMemoryRequirement": "4096",
+        "clientOtherRequirement": "暂无",
+        "serverHardArch": [
+          "PC服务器",
+          "UNIX/Linux服务器",
+          "单片机"
+        ],
+        "servHardMemoryRequirement": "100000",
+        "servHardDiskRequirement": "100000",
+        "servHardOtherRequirement": "吞吐量2TB/s",
+        "servSoftOS": "XP",
+        "servSoftVersion": "10",
+        "servSoftProgramLang": "Ruby",
+        "servSoftArch": [
+          "C/S",
+          "B/S"
+        ],
+        "servSoftDB": "mysql",
+        "servSoftMiddleware": "k8s",
+        "networkEnvironment": "太阳风",
+        "modules": [
+          {
+            "title": "海鸥",
+            "functions": [
+              {
+                "functionName": "会飞的代码",
+                "functionDescription": "请用头转成螺旋桨。"
+              },
+              {
+                "functionName": "思考人生",
+                "functionDescription": "去码头整点薯条。"
+              }
+            ],
+            "moduleName": "海鸥"
+          },
+          {
+            "functions": [
+              {
+                "functionName": "哈人的注入",
+                "functionDescription": "rm -rf /*"
+              },
+              {
+                "functionName": "奇怪的输入",
+                "functionDescription": "🤡🐟"
+              }
+            ],
+            "moduleName": "😱"
+          }
+        ],
+        "serverSideOtherSupport": "小天才儿童画画版"
+      },
+      "testStandard": [
+        "GB/T 16260.1-2006",
+        "NST-03-WI13-2011"
+      ],
+      "techIndex": [
+        "可靠性",
+        "易用性",
+        "效率",
+        "缺陷检测率",
+        "产品说明要求",
+        "用户文档集要求",
+        "美观性"
+      ],
+      "softwareMedium": [
+        "光盘",
+        "U盘",
+        "gene"
+      ],
+      "document": "目前为字符串",
+      "sampleHandling": "由本实验室销毁",
+      "expectedTime": "就在今天"
     }
   ]
 }

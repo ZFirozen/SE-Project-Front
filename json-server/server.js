@@ -6,6 +6,13 @@ const adapter = new FileSync('db.json')
 const db = low(adapter)
 const router = jsonServer.router(db)
 const middlewares = jsonServer.defaults()
+
+const getNewId = () => {
+  let number = db.get("shortId").find({id:"0"}).value().currentId
+  db.get("shortId").find({id:"0"}).assign({id:"0",currentId:number+1}).write()
+  return number+""
+}
+
 server.set('haslogin', false)
 
 server.use(middlewares)
@@ -81,6 +88,16 @@ server.use((req, res, next) => {
       res.status(200).jsonp({})
     } else {
       res.status(400).jsonp({})
+    }
+  } else if (req.method === 'POST' && req.url.match('/entrust') !== null) {
+    if(req.url.match('/entrust/.+') !== null){
+      let entrustid = req.url.match('(?<=/entrust/)[^/]+').at(0)
+      db.get('entrust').find({ id: entrustid }).assign(req.body).write()
+      res.status(200).jsonp({id: entrustid})
+    } else {
+      req.body.id = getNewId()
+      db.get('entrust').push(req.body).write()
+      res.status(200).jsonp({id: req.body.id})
     }
   } else {
     // Continue to JSON Server router
