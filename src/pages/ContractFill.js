@@ -227,7 +227,7 @@ class ContractFill extends Component {
         })
     }
     handleSubmit(event) {
-        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/37", { data: this.state })
+        axios.post("/api/contract/37", { data: this.state })
             .then(function (response) {
                 if (response.status === 200) {
                     alert("提交成功！");

@@ -327,6 +327,13 @@ export default defineConfig({
           path: '/entrustment/fill',
           component: './EntrustmentFill',
         },
+        {
+          name: 'progress',
+          icon: 'smile',
+          path: '/entrustment/progress/:id',
+          component: './Progress',
+          hideInMenu: true,
+        },
       ],
     },
     {

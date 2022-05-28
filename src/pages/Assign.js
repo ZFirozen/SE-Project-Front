@@ -48,7 +48,7 @@ const Assign = () => {
                     content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
                         console.log(a.userId + ' is assigned to ' + entrustmentId)
-                        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/"+entrustmentId+"/marketer?marketerId="+a.userId,{
+                        axios.post("/api/entrust/"+entrustmentId+"/marketer?marketerId="+a.userId,{
                             marketerId : a.userId
                         }).then(response=>{
                             //外部跳转
@@ -71,7 +71,7 @@ const Assign = () => {
                 <ProTable columns={columns} style={{ margin: 20 }}
 
                     request={async (params, sort, filter) => {
-                        return axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/user/search?userRole=MARKETER", {
+                        return axios.get("/api/user/search?userRole=MARKETER", {
                             userRole: "MARKETER"
                         }).then(response => {
                             console.log(response)
