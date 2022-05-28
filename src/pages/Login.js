@@ -6,8 +6,6 @@ import localStorage from "localStorage";
 
 import "./Login.css";
 
-// require("dotenv").config()
-
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -44,10 +42,10 @@ export default class Login extends React.Component {
             .then(function (response) {
                 if (response.status === 200) {
                     alert("用户名：" + userName + "\n登录成功！");
-                    window.location.href = "/";
-                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
+                    axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
                         .then((response) => {
                             if (response.status === 200) {
+                                // console.log(response.data);
                                 localStorage.setItem("userName", response.data.userName);
                                 localStorage.setItem("userRole", response.data.userRole);
                             } else {
@@ -60,6 +58,9 @@ export default class Login extends React.Component {
                             } else {
                                 console.log("Unknown error!");
                             }
+                        })
+                        .finally(() => {
+                            window.location.href = "/";
                         })
                 } else {
                     console.log("Unknown error!");
