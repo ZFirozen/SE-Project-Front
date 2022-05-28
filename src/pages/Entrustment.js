@@ -67,7 +67,14 @@ switch (localStorage.getItem("userRole")) {
         columns = [...columns, {
             title: '操作',
             search: false,
-            render: (a) => <Link to={"entrustment/" + a.id}>修改</Link>
+            render: (a) => {
+                return (
+                    <>
+                        <Link to={"entrustment/" + a.id}>修改</Link>
+                        <Link to={"progress/" + a.id}>查看</Link>
+                    </>
+                )
+            }
         }]
         break
     default:
@@ -81,7 +88,7 @@ const Entrustment = () => {
                 <ProTable columns={columns} style={{ margin: 20 }}
 
                     request={async (params, sort, filter) => {
-                        return axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
+                        return axios.get("/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
                             pageSize: params.pageSize,
                         }).then(response => {

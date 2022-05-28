@@ -30,7 +30,7 @@ const EntrustmentFill = () => {
   // }
   useEffect(() => {
     if (localStorage.getItem('entrustmentId') !== null) {
-      axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + localStorage.getItem('entrustmentId')).then(Detail => {
+      axios.get("/api/entrust/" + localStorage.getItem('entrustmentId')).then(Detail => {
         console.log("load from "+localStorage.getItem('entrustmentId'))
         console.log(Detail.data.content)
         var keysarray = []
@@ -121,12 +121,12 @@ const EntrustmentFill = () => {
                     // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
                     console.log(temp)
                     if (localStorage.getItem('entrustmentId') !== null) {
-                      axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + localStorage.getItem('entrustmentId') + "/content", temp).then(response => {
+                      axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content", temp).then(response => {
                         console.log(response)
                         message.success('提交修改成功');
                       })
                     } else {
-                      axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/", temp).then(response => {
+                      axios.post("/api/entrust/", temp).then(response => {
                         localStorage.setItem('entrustmentId', response.data);
                         console.log(response)
                         message.success('提交成功');
