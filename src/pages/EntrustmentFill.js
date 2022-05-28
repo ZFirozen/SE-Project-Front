@@ -580,7 +580,7 @@ const EntrustmentFill = () => {
                     <ProFormText name={"toreplace_6"}></ProFormText>
                   </Row>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
-                    <ProFormCheckbox.Group
+                    <ProFormRadio.Group
                       required rules={[{ required: true, message: '这是必填项' }]}
                       layout='horizontal'
                       name="softwareMedium"

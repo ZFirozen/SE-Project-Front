@@ -19,7 +19,7 @@ function App() {
           {/* <Route path="home" element={<Home />} /> */}
           <Route path="entrustmentfill" element={<EntrustmentFill />} />
           <Route path="entrustment" element={<Entrustment />} />
-          <Route path="assign/:id" element={<Assign />} />
+          <Route path="assign/:id" exact element={<Assign />} />
           <Route path="samples" element={<Sample />} />
           <Route path="formfill" element={<FormFill />} />
           <Route path="forms" element={<div><Outlet /></div>}>

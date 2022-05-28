@@ -43,9 +43,8 @@ export default class Login extends React.Component {
         axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/login?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 if (response.status === 200) {
-                    alert("用户名：" + userName + "\n登录成功！");
-                    window.location.href = "/";
-                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
+                    alert("用户名：" + userName + "\n登录成功！"); 
+                    axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
                         .then((response) => {
                             if (response.status === 200) {
                                 localStorage.setItem("userName", response.data.userName);
@@ -60,6 +59,8 @@ export default class Login extends React.Component {
                             } else {
                                 console.log("Unknown error!");
                             }
+                        }).finally(()=>{
+                            window.location.href = "/";
                         })
                 } else {
                     console.log("Unknown error!");
