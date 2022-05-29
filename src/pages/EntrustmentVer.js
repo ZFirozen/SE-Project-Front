@@ -17,7 +17,7 @@ const rowbegingap = 20
 const formitemheight = 70
 const { Title, Paragraph } = Typography
 
-const EntrustmentFill = () => {
+const EntrustmentVer = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
@@ -25,8 +25,8 @@ const EntrustmentFill = () => {
   const [detail, setDetail] = useState({});
   const [form] = ProForm.useForm()
   const embedregLength = 8
-  // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
-  //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
+  // if (localStorage.getItem("entrustmentVer_embedreg") !== null) {
+  //   embedreg = JSON.parse(localStorage.getItem("entrustmentVer_embedreg"))
   // }
   useEffect(() => {
     if (localStorage.getItem('entrustmentId') !== null) {
@@ -80,15 +80,9 @@ const EntrustmentFill = () => {
     <>
       <Spin spinning={loading}>
         <div style={{ margin: 100 }}>
-          <PageContainer title="输入表单">
+          <PageContainer title="审核委托">
             <Card>
               <Space direction='vertical' size={44}>
-                <Button type="primary" size='large'
-                  onClick={() => {
-                    localStorage.removeItem("entrustmentId")
-                    setDetail({})
-                    form.resetFields()
-                  }}>新建委托</Button>
                 <ProForm
                   form={form}
                   size='large'
@@ -118,7 +112,7 @@ const EntrustmentFill = () => {
                       }
                     }
                     temp = JSON.parse(temp)
-                    // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
+                    // localStorage.setItem('entrustmentVer_embedreg', JSON.stringify(embedreg))
                     console.log(temp)
                     if (localStorage.getItem('entrustmentId') !== null) {
                       axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content", temp).then(response => {
@@ -607,6 +601,73 @@ const EntrustmentFill = () => {
                   </Row>
                   <Row style={{ height: 40 }}></Row>
                 </ProForm>
+
+                <ProForm
+                onFinish={async (values) => {
+                  let temp = values
+                  if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
+                    console.log(temp)
+                    for (let i = 0; i < temp.software.modules.length; i++) {
+                      delete temp.software.modules[i].id
+                      if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
+                        for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
+                          delete temp.software.modules[i].functions[j].id
+                        }
+                      }
+                    }
+                  }
+                  temp = JSON.stringify(temp)
+                  for (let i = 0; i < embedregLength; i++) {
+                    let iisundefined = eval("values.toreplace_"+i+"=== undefined")
+                    if(iisundefined !== true){
+                      eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_"+i+" + replacetokenend + i)")
+                    }
+                  }
+                  temp = JSON.parse(temp)
+                  // localStorage.setItem('entrustmentVer_embedreg', JSON.stringify(embedreg))
+                  console.log(temp)
+                  console.log(temp.isverify)
+                  console.log(temp.verifyMes)
+                  if (temp.isverify === "1") {
+                    axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content/acceptance").then(response => {
+                      console.log(response)
+                      message.success('审核通过！');
+                    })
+                  console.log("suc")
+                  console.log(temp.isverify)
+                  console.log(temp.verifyMes)
+                  } else {
+                    axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content/denial"+temp.verifyMes).then(response => {
+                      console.log(response)
+                      message.success('审核不通过！');
+                    })
+                  console.log("dis")
+                  console.log(temp.isverify)
+                  console.log(temp.verifyMes)
+                  }
+                }}
+                onReset={async (values) => {
+                  setDetail({})
+                  form.resetFields()
+                }}
+                >
+
+                  <Col>
+                    <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+                      <ProFormRadio.Group label="审核是否通过" required rules={[{ required: true, message: '这是必填项' }]}
+                        name="isverify"
+                        options={[{ value: '1', label: '审核通过' },
+                        { value: '0', label: '审核不通过' }]}>
+
+                      </ProFormRadio.Group>
+                    </Row>
+                    <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 900, columnGap: 32}}>
+                      <ProFormText label="审核意见：" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name="verifyMes" ></ProFormText>
+                    </Row>      
+                    <Row style={{ height: 40 }}></Row>      
+                  </Col>  
+                </ProForm>
+                
               </Space>
             </Card>
           </PageContainer>
@@ -616,4 +677,4 @@ const EntrustmentFill = () => {
   );
 }
 
-export default EntrustmentFill;
+export default EntrustmentVer;

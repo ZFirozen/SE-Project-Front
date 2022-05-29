@@ -77,6 +77,19 @@ switch (localStorage.getItem("userRole")) {
             }
         }]
         break
+    case "MARKETER":
+    columns = [...columns, {
+        title: '操作',
+        search: false,
+        render: (a) => {
+            return (
+                <>
+                    <Link to={"progress/" + a.id}>查看</Link>
+                </>
+            )
+        }
+    }]
+    break
     default:
         break
 }

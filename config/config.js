@@ -334,6 +334,20 @@ export default defineConfig({
           component: './Progress',
           hideInMenu: true,
         },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/entrustment/quotation/fill',
+          component: './QuotationFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'verify',
+          icon: 'smile',
+          path: '/entrustment/verify',
+          component: './EntrustmentVer',
+          hideInMenu: true,
+        },
       ],
     },
     {
