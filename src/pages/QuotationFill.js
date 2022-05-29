@@ -1,617 +1,325 @@
+import "./QuotationFill.css";
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect } from 'antd';
-import { BorderBottomOutlined, PlusOutlined } from '@ant-design/icons';
-import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from '@ant-design/pro-form';
+import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect,InputNumber, DatePicker } from 'antd';
+
 import axios from 'axios';
-import DescriptionsItem from 'antd/lib/descriptions/Item';
-import { Color } from '@antv/l7-react/lib/component/LayerAttribute';
-import { FieldLabel } from '@ant-design/pro-utils';
-import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { SmileOutlined } from '@ant-design/icons';
-import { random, size } from 'lodash';
-import { EditableProTable } from '@ant-design/pro-table';
+import localStorage from "localStorage";
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
+const userRole = localStorage.getItem("userRole");
 const rowbegingap = 20
 const formitemheight = 62
 const { Title, Paragraph } = Typography
+// 将引入类变成常量，用来继承
+const Component = React.Component
+const Fragment = React.Fragment
+const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
+const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11,width: "100%", columnGap: 32 }
 
-const QuotationFill = () => {
-  const replacetokenbegin = "_0641#toReplaceA1C1_"
-  const replacetokenend = "_0641#toReplaceA2C2_"
-  const [editableKeys, setEditableRowKeys] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [detail, setDetail] = useState({});
-  const [form] = ProForm.useForm()
-  const embedregLength = 8
-  // if (localStorage.getItem("quotationFill_embedreg") !== null) {
-  //   embedreg = JSON.parse(localStorage.getItem("quotationFill_embedreg"))
-  // }
-  useEffect(() => {
-    if (localStorage.getItem('entrustmentId') !== null) {
-      axios.get("/api/entrust/" + localStorage.getItem('entrustmentId')).then(Detail => {
-        console.log("load from "+localStorage.getItem('entrustmentId'))
-        console.log(Detail.data.content)
-        var keysarray = []
-        if (Detail.data.content.software !== null &&Detail.data.content.software.modules !== undefined) {
-          for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
-            Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-            if (Detail.data.content.software.modules[i].functions !== undefined) {
-              for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
-                Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
-              }
-              keysarray = [...keysarray, ...Detail.data.content.software.modules[i].functions.map((item) => item.id)]
+class QuotationFill extends Component {
+    //注意这个类，必须继承自Component
+    constructor(props) {
+        super(props)//调用父类的构造
+        //设置属性，this.state,这是类的属性，为一个对象
+        this.state = {
+            //可以使用 this.state.属性在类内部使用
+            entrustmentId: props.match.params.id,
+            quotationDate: "",
+            effectiveDate: "",
+            bankName: "中国工商银行股份有限公司南京汉口路分理处",
+            account: "4301011309001041656",
+            accountName: "南京大学",
+            softwareName: "",
+            rowList: [{
+                    projectName: "",
+                    subProject: "",
+                    price: "",
+                    description: "",
+                    rowTotal: ""
+                },
+                {
+                    projectName: "",
+                    subProject: "",
+                    price: "",
+                    description: "",
+                    rowTotal: ""
+                },
+                {
+                    projectName: "",
+                    subProject: "",
+                    price: "",
+                    description: "",
+                    rowTotal: ""
+                },
+                {
+                    projectName: "",
+                    subProject: "",
+                    price: "",
+                    description: "",
+                    rowTotal: ""
+                },
+                {
+                    projectName: "",
+                    subProject: "",
+                    price: "",
+                    description: "",
+                    rowTotal: ""
+                }],
+            subTotal: "",
+            taxRate: "",
+            total: "",
+            provider: "",
+            signature: "",
+            error: {
+                rowList: {}
             }
-          }
-          keysarray = [...keysarray, ...Detail.data.content.software.modules.map((item) => item.id)]
-          console.log(keysarray)
-          setEditableRowKeys(keysarray)
         }
-        console.log(Detail.data.content)
-        let temp = JSON.stringify(Detail.data.content)
-        let toreplacearray = Array(embedregLength)
-        for (let i = 0; i < embedregLength; i++) {
-          let tt = temp.match("(?<="+replacetokenbegin+i+").+(?="+replacetokenend+i+")")
-          console.log(tt)
-          if(tt){
-            temp = temp.replace(replacetokenbegin+i+tt.at(0)+replacetokenend+i,replacetokenbegin+i+replacetokenend+i)
-            toreplacearray[i] = tt.at(0)
-          }
+        this.InputChange = this.InputChange.bind(this);
+        this.rowListChange = this.rowListChange.bind(this);
         }
-        Detail.data.content = JSON.parse(temp)
-        for (let i = 0; i < embedregLength; i++) {
-            eval("Detail.data.content.toreplace_"+i+"= toreplacearray["+i+"]")
-        }
-        console.log("load finished")
-        console.log(Detail.data.content)
-        setDetail(Detail.data.content)
-        form.resetFields()
-        setLoading(false)
-      }).catch(Error => {
-        setLoading(false)
-      })
-    } else {
-      console.log("new Quotation")
-      setLoading(false)
+
+
+    //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
+    render() {
+        // console.log(this.state.Input_value)
+        return (
+            <Fragment>
+                <Card>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                        <Title level={3}>报价单</Title>
+                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
+                            报价有效期：<DatePicker name="effectiveDate" status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
+                        <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.bankName} value={this.state.bankName} onChange={this.InputChange} disabled />
+                            户名：<Input type="text" name="accountName" status={this.state.error.accountName} value={this.state.accountName} onChange={this.InputChange} disabled />
+                            账号：<Input type="text" name="account" status={this.state.error.account} value={this.state.account} onChange={this.InputChange} disabled /></div></Row>
+                        <Row style={gray}><div>
+                            软件名称：<Input type="text" name="softwareName" status={this.state.error.softwareName} value={this.state.softwareName} onChange={this.InputChange} /></div></Row>
+                        <Row style={white} justify="center">
+                            <Col className="gutter-row" span={4}>
+                                项目</Col> 
+                            <Col className="gutter-row" span={4}>
+                                分项</Col> 
+                            <Col className="gutter-row" span={4}>
+                                单价</Col> 
+                            <Col className="gutter-row" span={4}>
+                                说明</Col> 
+                            <Col className="gutter-row" span={4}>
+                                行合计</Col> 
+                        </Row>
+                        <Row style={gray} justify="center">
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="projectName" id="0" status={this.state.error.rowList.projectName} value={this.state.rowList[0].projectName} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="subProject" id="0" status={this.state.error.rowList.subProject} value={this.state.rowList[0].subProject} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="price" id="0" status={this.state.error.rowList.price} value={this.state.rowList[0].price} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="description" id="0" status={this.state.error.rowList.description} value={this.state.rowList[0].description} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="rowTotal" id="0" status={this.state.error.rowList.rowTotal} value={this.state.rowList[0].rowTotal} onChange={this.rowListChange} /></Col> </div>
+                        </Row>
+                        <Row style={white} justify="center">
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="projectName" id="1" value={this.state.rowList[1].projectName} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="subProject" id="1" value={this.state.rowList[1].subProject} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="price" id="1" value={this.state.rowList[1].price} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="description" id="1" value={this.state.rowList[1].description} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="rowTotal" id="1" value={this.state.rowList[1].rowTotal} onChange={this.rowListChange} /></Col> </div>
+                        </Row>
+                        <Row style={gray} justify="center">
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="projectName" id="2" value={this.state.rowList[2].projectName} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="subProject" id="2" value={this.state.rowList[2].subProject} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="price" id="2" value={this.state.rowList[2].price} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="description" id="2" value={this.state.rowList[2].description} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="rowTotal" id="2" value={this.state.rowList[2].rowTotal} onChange={this.rowListChange} /></Col> </div>
+                        </Row>
+                        <Row style={white} justify="center">
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="projectName" id="3" value={this.state.rowList[3].projectName} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="subProject" id="3" value={this.state.rowList[3].subProject} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="price" id="3" value={this.state.rowList[3].price} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="description" id="3" value={this.state.rowList[3].description} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="rowTotal" id="3" value={this.state.rowList[3].rowTotal} onChange={this.rowListChange} /></Col> </div>
+                        </Row>
+                        <Row style={gray} justify="center">
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="projectName" id="4" value={this.state.rowList[4].projectName} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="subProject" id="4" value={this.state.rowList[4].subProject} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="price" id="4" value={this.state.rowList[4].price} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="description" id="4" value={this.state.rowList[4].description} onChange={this.rowListChange} /></Col> </div>
+                            <div><Col className="gutter-row" span={4}>
+                                <Input type="text" name="rowTotal" id="4" value={this.state.rowList[4].rowTotal} onChange={this.rowListChange} /></Col> </div>
+                        </Row>
+                        <Row style={white}><div>
+                            小计：<Input type="text" name="subTotal" status={this.state.error.subTotal} value={this.state.subTotal} onChange={this.InputChange} /></div></Row>
+                        <Row style={gray}><div>
+                            税率（8%）：<Input type="text" name="taxRate" status={this.state.error.taxRate} value={this.state.taxRate} onChange={this.InputChange} /></div></Row>
+                        <Row style={white}><div>
+                            总计：<Input type="text" name="total" status={this.state.error.total} value={this.state.total} onChange={this.InputChange} /></div></Row>
+                        <Row style={gray}><div>
+                            报价提供人：<Input type="text" name="provider" status={this.state.error.provider} value={this.state.provider} onChange={this.InputChange} /></div></Row>
+                        <Row style={white}><div>
+                            签字：<Input type="text" name="signature" status={this.state.error.signature} value={this.state.signature} onChange={this.InputChange} /></div></Row>
+                        <Input type='submit' value='提交' />
+                    </form>
+                    {userRole === "CUSTOMER" ?
+                        <form onSubmit={this.denial.bind(this)}>
+                            <Input type='submit' value='拒绝报价' />
+                        </form>
+                        : ""}
+                </Card>
+            </Fragment>
+        )
     }
-  }, [])
-  return (
-    <>
-      <Spin spinning={loading}>
-        <div style={{ margin: 100 }}>
-          <PageContainer title="输入表单">
-            <Card>
-              <Space direction='vertical' size={44}>
-                <Button type="primary" size='large'
-                  onClick={() => {
-                    localStorage.removeItem("quotationId")
-                    setDetail({})
-                    form.resetFields()
-                  }}>新建委托</Button>
-                <ProForm
-                  form={form}
-                  size='large'
-                  style={{ font: 'initial', border: '3px solid' }}
-                  submitter={{
-                    render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
-                  }}
-                  layout="horizontal"
-                  onFinish={async (values) => {
-                    let temp = values
-                    if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
-                      console.log(temp)
-                      for (let i = 0; i < temp.software.modules.length; i++) {
-                        delete temp.software.modules[i].id
-                        if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
-                          for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
-                            delete temp.software.modules[i].functions[j].id
-                          }
-                        }
-                      }
+    //自定义方法
+    isEmpty(str) {
+        if (str === "") return true;
+        return false;
+    }
+    isError(str) {
+        if (str === "error") return true;
+        return false;
+    }
+    isNumber(str) {
+        var result = str.match(/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/);
+        if (result === null) return false;
+        return true;
+    }
+    InputChange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+    rowListChange(event) {
+        let rowList = this.state.rowList;
+        rowList[event.target.id][event.target.name] = event.target.value;
+        this.setState({
+            rowList
+        })
+    }
+    quotationDateChange(date) {
+        this.setState({
+            quotationDate: date
+        })
+    }
+    effectiveDateChange(date) {
+        this.setState({
+            effectiveDate: date
+        })
+    }
+    denial(event) {
+        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/entrust/" + this.state.entrustmentId + "/quote/denial", this.state.entrustmentId)
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("拒绝成功！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("拒绝失败！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
+    }
+    handleSubmit(event) {
+        var flag = 0;
+        for (var item in this.state) {
+            if (this.isEmpty(this.state[item])) {
+                flag += 1;
+                let error = this.state.error;
+                error[item] = "error";
+                this.setState({ error });
+                event.preventDefault();
+            }
+            else {
+                if (item !== "rowList") {
+                    let error = this.state.error;
+                    error[item] = "";
+                    this.setState({ error });
+                }
+                if (item === "subTotal" || item === "taxRate" || item === "total") {
+                    if (!this.isNumber(this.state[item])) {
+                        flag += 1;
+                        let error = this.state.error;
+                        error[item] = "error";
+                        this.setState({ error });
+                        event.preventDefault();
                     }
-                    temp = JSON.stringify(temp)
-                    for (let i = 0; i < embedregLength; i++) {
-                      let iisundefined = eval("values.toreplace_"+i+"=== undefined")
-                      if(iisundefined !== true){
-                        eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_"+i+" + replacetokenend + i)")
-                      }
+                    else if (this.isError(this.state.error[item])) {
+                        let error = this.state.error;
+                        error[item] = "";
+                        this.setState({ error });
                     }
-                    temp = JSON.parse(temp)
-                    // localStorage.setItem('quotationFill_embedreg', JSON.stringify(embedreg))
-                    console.log(temp)
-                    if (localStorage.getItem('quotationId') !== null) {
-                      axios.post("/api/entrust/" + localStorage.getItem('quotationId') + "/content", temp).then(response => {
-                        console.log(response)
-                        message.success('提交修改成功');
-                      })
-                    } else {
-                      axios.post("/api/entrust/", temp).then(response => {
-                        localStorage.setItem('quotationId', response.data);
-                        console.log(response)
-                        message.success('提交成功');
-                      })
+                }
+            } 
+        }
+        for (var item in this.state.rowList[0]) {
+            if (this.isEmpty(this.state.rowList[0][item])) {
+                flag += 1;
+                let error = this.state.error;
+                error.rowList[item] = "error";
+                this.setState({ error });
+                event.preventDefault()
+            }
+            else {
+                let error = this.state.error;
+                error.rowList[item] = "";
+                this.setState({ error });
+                if (item === "price" || item === "rowTotal") {
+                    if (!this.isNumber(this.state.rowList[0][item])) {
+                        flag += 1;
+                        let error = this.state.error;
+                        error.rowList[item] = "error";
+                        this.setState({ error });
+                        event.preventDefault();
                     }
-                  }}
-                  onReset={async (values) => {
-                    setDetail({})
-                    form.resetFields()
-                  }}
-                  submitter={{ submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } }, resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } } }}
-                  initialValues={detail}>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
-                    <ProFormCheckbox.Group
-                      required
-                      layout='horizontal'
-                      name="testType"
-                      label="测试类型"
-                      options={[{ value: '软件确认测试', label: '软件确认测试' },
-                      { value: '成果/技术鉴定测试', label: '成果/技术鉴定测试' },
-                      { value: '专项资金验收测试', label: '专项资金验收测试' },
-                      { value: replacetokenbegin + 0  + replacetokenend + 0, label: "其他" }]}
-                    />
-                    {/* style={{ width: 300, height: 24, marginTop: 8 }} */}
-                    <ProFormText name={"toreplace_0"}></ProFormText>
-                  </Row>
-                  <Row>
-                    <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 149, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
-                      <Title level={4}>委<br></br>托<br></br>单<br></br>位<br></br>信<br></br>息</Title></Col>
-                    <Col style={{ width: 1448, border: '2px solid', borderRight: "none" }}>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="委托单位（中文）" width="500px" required name={["principal", "companyCH"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="委托单位（英文）" width="500px" required name={["principal", "companyEN"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="单位电话" width="lg" required name={["principal", "companyPhone"]} ></ProFormText>
-                        <ProFormText label="单位网址" width="400px" required name={["principal", "companyWebsite"]} ></ProFormText>
-                        <ProFormText label="单位地址" width="400px" required name={["principal", "companyAddress"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="联系人名称" width="lg" required name={["principal", "contact"]} ></ProFormText>
-                        <ProFormText label="联系人电话" width="lg" required name={["principal", "contactPhone"]} ></ProFormText>
-                        <ProFormText label="联系人邮箱" width="lg" required name={["principal", "contactEmail"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="授权代表" width="lg" required name={["principal", "representative"]} ></ProFormText>
-                        <ProFormDatePicker required name={["principal", "sigDate"]} label="签章日期" />
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="邮编" width="lg" required name={["principal", "zipCode"]} ></ProFormText>
-                        <ProFormText label="传真" width="lg" required name={["principal", "fax"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="开户银行" width="500px" required name={["principal", "bankName"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="银行账号" width="500px" required name={["principal", "account"]} ></ProFormText>
-                        <ProFormText label="银行户名" width="400px" required name={["principal", "accountName"]} ></ProFormText>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col style={{
-                      backgroundColor: whitecolor, width: 52, paddingLeft: 14,
-                      paddingTop: 519, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none"
-                    }}>
-                      <Title level={4}>软<br></br>件<br></br>详<br></br>情</Title></Col>
-                    <Col style={{ width: 1448, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="软件名称" width="400px" required name={["software", "name"]} ></ProFormText>
-                        <ProFormText label="版本号" width="lg" required name={["software", "version"]} ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormText label="开发单位" width="500px" required name={["software", "developer"]} ></ProFormText>
-                        <ProFormRadio.Group
-                          required
-                          name={["software", "developerType"]}
-                          label="开发单位性质"
-                          options={[{ value: '内资企业', label: '内资企业' },
-                          { value: '外（合）资企业', label: '外（合）资企业' },
-                          { value: '港澳台（合）资企业', label: '港澳台（合）资企业' },
-                          { value: '科研院校', label: '科研院校' },
-                          { value: '政府事业团体', label: '政府事业团体' },
-                          { value: '其他', label: '其他' }]}
-                        ></ProFormRadio.Group>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormTextArea label="软件用户对象描述" width="800px" required name={["software", "userDescription"]} ></ProFormTextArea>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormTextArea label="主要功能简介" width="830px" required name={["software", "functionIntro"]} ></ProFormTextArea>
-                      </Row>
-                      <Row>
-                        <Col style={{ backgroundColor: whitecolor, width: 125, paddingLeft: 14, paddingTop: 55, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
-                          <Row style={{ paddingLeft: 15 }}><Title level={5}>软件规模</Title></Row><Row><Title level={5}>（至少一种）</Title></Row></Col>
-                        <Col style={{ width: 1321, border: '2px solid', borderRight: "none" }}>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1319, columnGap: 32 }}>
-                            <ProFormText label="功能数（到最后一级菜单）" width="lg" name={["software", "functionNums"]} ></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1319, columnGap: 32 }}>
-                            <ProFormText label="功能点数" width="lg" name={["software", "functionPoint"]} ></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1319, columnGap: 32 }}>
-                            <ProFormText label="代码行数（不包括注释行、空行）" width="lg" name={["software", "codeLine"]} ></ProFormText>
-                          </Row>
-                        </Col>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
-                        <ProFormTreeSelect
-                          name={["software", "type"]}
-                          placeholder="请选择软件类型"
-                          allowClear
-                          required
-                          width={230}
-                          label="软件类型"
-                          request={async () => {
-                            return [
-                              {
-                                title: '系统软件',
-                                value: '系统软件',
-                                selectable: false,
-                                children: [
-                                  {
-                                    title: '操作系统',
-                                    value: '操作系统',
-                                  },
-                                  {
-                                    title: '中文操作系统',
-                                    value: '中文操作系统',
-                                  },
-                                  {
-                                    title: '网络系统',
-                                    value: '网络系统',
-                                  },
-                                  {
-                                    title: '嵌入式操作系统',
-                                    value: '嵌入式操作系统',
-                                  },
-                                  {
-                                    title: '其他',
-                                    value: '其他系统软件',
-                                  }
-                                ],
-                              },
-                              {
-                                title: '支持软件',
-                                value: '支持软件',
-                                selectable: false,
-                                children: [
-                                  {
-                                    title: '程序设计语言',
-                                    value: '程序设计语言',
-                                  },
-                                  {
-                                    title: '数据库系统设计',
-                                    value: '数据库系统设计',
-                                  },
-                                  {
-                                    title: '工具软件',
-                                    value: '工具软件',
-                                  },
-                                  {
-                                    title: '网络通信软件',
-                                    value: '网络通信软件',
-                                  },
-                                  {
-                                    title: '中间件',
-                                    value: '中间件',
-                                  },
-                                  {
-                                    title: '其他',
-                                    value: '其他支持软件',
-                                  }
-                                ],
-                              },
-                              {
-                                title: '应用软件',
-                                value: '应用软件',
-                                selectable: false,
-                                children: [
-                                  {
-                                    title: '行业管理软件',
-                                    value: '行业管理软件',
-                                  },
-                                  {
-                                    title: '办公软件',
-                                    value: '办公软件',
-                                  },
-                                  {
-                                    title: '模式识别软件',
-                                    value: '模式识别软件',
-                                  },
-                                  {
-                                    title: '图形图像软件',
-                                    value: '图形图像软件',
-                                  },
-                                  {
-                                    title: '控制软件',
-                                    value: '控制软件',
-                                  },
-                                  {
-                                    title: '网络应用软件',
-                                    value: '网络应用软件',
-                                  },
-                                  {
-                                    title: '信息管理软件',
-                                    value: '信息管理软件',
-                                  },
-                                  {
-                                    title: '数据库管理应用软件',
-                                    value: '数据库管理应用软件',
-                                  },
-                                  {
-                                    title: '安全与保密软件',
-                                    value: '安全与保密软件',
-                                  },
-                                  {
-                                    title: '嵌入式应用软件',
-                                    value: '嵌入式应用软件',
-                                  },
-                                  {
-                                    title: '教育软件',
-                                    value: '教育软件',
-                                  },
-                                  {
-                                    title: '游戏软件',
-                                    value: '游戏软件',
-                                  },
-                                  {
-                                    title: '其他',
-                                    value: '其他应用软件',
-                                  },
-                                ],
-                              },
-                              {
-                                title: '其他',
-                                value: '其他',
-                              },
-                            ];
-                          }}
-                          fieldProps={{
-                            showArrow: true,
-                            filterTreeNode: true,
-                            showSearch: true,
-                            dropdownMatchSelectWidth: false,
-                            autoClearSearchValue: true,
-                            treeNodeFilterProp: 'title',
-                            showCheckedStrategy: TreeSelect.SHOW_PARENT
-                          }}
-                        />
-                      </Row>
-                      <Row>
-                        <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 480, border: "2px solid", borderRight: "none", borderLeft: "none", borderBottom: "none" }}>
-                          <Title level={4}>运<br></br>行<br></br>环<br></br>境</Title></Col>
-                        <Col style={{ width: 1394, border: '2px solid', borderRight: "none", borderBottom: "none" }}>
-                          <Row>
-                            <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 100, borderBottom: "2px solid" }}>
-                              <Title level={4}>客<br></br>户<br></br>端</Title></Col>
-                            <Col style={{ width: 1340, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, width: 1338, columnGap: 0 }}>
-                                <Col style={{ width: 240 }}>
-                                  <ProFormCheckbox.Group name={["software", "clientOS"]} required label='操作系统' layout='vertical'
-                                    options={[{ value: 'Windows ' + replacetokenbegin + 1  + replacetokenend + 1, label: "Windows（版本）" },
-                                    { value: 'Linux ' + replacetokenbegin + 2  + replacetokenend + 2, label: "Linux（版本）" },
-                                    { value: replacetokenbegin + 3  + replacetokenend + 3, label: "其他" }]}>
-                                  </ProFormCheckbox.Group>
-                                </Col>
-                                <Col>
-                                <ProFormText name={"toreplace_1"}></ProFormText>
-                                <ProFormText name={"toreplace_2"}></ProFormText>
-                                <ProFormText name={"toreplace_3"}></ProFormText>
-                                </Col>
-                              </Row>
-                              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1338, columnGap: 32 }}>
-                                <ProFormText label="内存要求" width='130px' required name={["software", "clientMemoryRequirement"]} addonAfter='MB' ></ProFormText>
-                              </Row>
-                              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1338, columnGap: 32 }}>
-                                <ProFormTextArea label="其他要求" width="830px" required name={["software", "clientOtherRequirement"]} ></ProFormTextArea>
-                              </Row>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 263, borderBottom: "2px solid" }}>
-                              <Title level={4}>服<br></br>务<br></br>端</Title></Col>
-                            <Col style={{ width: 1340, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                              <Row>
-                                <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 118, borderBottom: '2px solid' }}>
-                                  <Title level={4}>硬<br></br>件</Title></Col>
-                                <Col style={{ width: 1286, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: 1284, columnGap: 0 }}>
-                                    <ProFormCheckbox.Group name={["software", "serverHardArch"]} required label='架构' layout='horizontal'
-                                      options={[{ value: "PC服务器", label: "PC服务器" },
-                                      { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
-                                      { value: replacetokenbegin + 4  + replacetokenend + 4, label: "其他" }]}>
-                                    </ProFormCheckbox.Group>
-                                    <ProFormText name={"toreplace_4"}></ProFormText>
-                                  </Row>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="内存要求" width='130px' required name={["software", "servHardMemoryRequirement"]} addonAfter='MB' ></ProFormText>
-                                  </Row>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="硬盘要求" width='130px' required name={["software", "servHardDiskRequirement"]} addonAfter='MB' ></ProFormText>
-                                  </Row>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormTextArea label="其他要求" width="830px" required name={["software", "servHardOtherRequirement"]} ></ProFormTextArea>
-                                  </Row>
-                                </Col>
-                              </Row>
-                              <Row>
-                                <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 113 }}>
-                                  <Title level={4}>软<br></br>件</Title></Col>
-                                <Col style={{ width: 1286, border: '2px solid', borderRight: "none", borderTop: "none", borderBottom: 'none' }}>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="操作系统" width='400px' required name={["software", "servSoftOS"]}></ProFormText>
-                                    <ProFormText label="版本" width='400px' required name={["software", "servSoftVersion"]}></ProFormText>
-                                  </Row>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, height: 60, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="编程语言" width='400px' required name={["software", "servSoftProgramLang"]}></ProFormText>
-                                    <ProFormCheckbox.Group label="构架" width='400px' required name={["software", "servSoftArch"]} layout='horizontal'
-                                      options={[{ value: "C/S", label: "C/S" },
-                                      { value: "B/S", label: "B/S" },
-                                      { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
-                                  </Row>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: 1284, columnGap: 32 }}>
-                                    <ProFormText label="数据库" width='400px' required name={["software", "servSoftDB"]}></ProFormText>
-                                    <ProFormText label="中间件" width='400px' required name={["software", "servSoftMiddleware"]}></ProFormText>
-                                  </Row>
-                                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1284, columnGap: 32 }}>
-                                    <ProFormTextArea label="其他支撑软件" width="830px" required name={["software", "serverSideOtherSupport"]} ></ProFormTextArea>
-                                  </Row>
-                                </Col>
-                              </Row>
-                            </Col>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1392, columnGap: 32, borderBottom: '2px solid' }}>
-                            <ProFormText label="网络环境" width="700px" required name={["software", "networkEnvironment"]} ></ProFormText>
-                          </Row>
-                          <div style={{ backgroundColor: graycolor }}>
-                            <Title>附表：NST－04－JS003－2011－委托测试软件功能列表</Title>
-                            <ProForm.Item name={["software", "modules"]} trigger="onValuesChange">
-                              <EditableProTable rowKey="id" ond toolBarRender={false} columns={[
-                                {
-                                  title: '模块名称',
-                                  dataIndex: 'moduleName',
-                                  width: '10%',
-                                },
-                                {
-                                  title: '模块功能列表',
-                                  dataIndex: 'functions',
-                                  renderFormItem: (dataSource) => {
-                                    return (<EditableProTable style={{ paddingRight: '0px', paddingLeft: '0px', paddingTop: 4, paddingBottom: 4 }} dataSource={dataSource} rowKey='id' toolBarRender={false} columns={[
-                                      {
-                                        title: '功能名称',
-                                        dataIndex: 'functionName',
-                                        width: '20%',
-                                      },
-                                      {
-                                        title: '功能说明',
-                                        dataIndex: 'functionDescription',
-                                        valueType: 'textarea',
-                                        width: '74%',
-                                      },
-                                      {
-                                        title: '操作',
-                                        valueType: 'option',
-                                      },
-                                    ]}
-                                      controlled={true}
-                                      recordCreatorProps={{
-                                        newRecordType: 'dataSource',
-                                        position: 'top',
-                                        record: () => ({
-                                          id: Date.now(),
-                                        })
-                                      }}
-                                      editable={{
-                                        type: 'multiple',
-                                        editableKeys,
-                                        onChange: setEditableRowKeys,
-                                        actionRender: (row, _, dom) => {
-                                          return [dom.delete];
-                                        }
-                                      }}
-                                    ></EditableProTable>)
-                                  }
-                                },
-                                {
-                                  title: '操作',
-                                  valueType: 'option',
-                                  width: '7%',
-                                },
-                              ]}
-                                recordCreatorProps={{
-                                  newRecordType: 'dataSource',
-                                  position: 'top',
-                                  record: () => ({
-                                    id: Date.now(),
-                                  }),
-                                }} editable={{
-                                  type: 'multiple',
-                                  editableKeys,
-                                  onChange: setEditableRowKeys,
-                                  actionRender: (row, _, dom) => {
-                                    return [dom.delete];
-                                  },
-                                }} />
-                            </ProForm.Item>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
-                    <ProFormCheckbox.Group
-                      required
-                      layout='horizontal'
-                      name="testStandard"
-                      label="测试依据"
-                      options={[{ value: 'GB/T 25000.51-2010', label: 'GB/T 25000.51-2010' },
-                      { value: 'GB/T 16260.1-2006', label: 'GB/T 16260.1-2006' },
-                      { value: 'NST-03-WI12-2011', label: 'NST-03-WI12-2011' },
-                      { value: 'NST-03-WI13-2011', label: 'NST-03-WI13-2011' },
-                      { value: replacetokenbegin + 5 + replacetokenend + 5, label: "其他" }]}
-                    />
-                    <ProFormText name={"toreplace_5"}></ProFormText>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
-                    <ProFormCheckbox.Group
-                      width={730}
-                      required
-                      name="techIndex"
-                      label="测试指标"
-                      options={[{ value: '功能性', label: '功能性' },
-                      { value: '可靠性', label: '可靠性' },
-                      { value: '易用性', label: '易用性' },
-                      { value: '效率', label: '效率' },
-                      { value: '可维护性', label: '可维护性' },
-                      { value: '可移植性', label: '可移植性' },
-                      { value: '代码覆盖度', label: '代码覆盖度' },
-                      { value: '缺陷检测率', label: '缺陷检测率' },
-                      { value: '代码风格符合度', label: '代码风格符合度' },
-                      { value: '代码不符合项检测率', label: '代码不符合项检测率' },
-                      { value: '产品说明要求', label: '产品说明要求' },
-                      { value: '用户文档集要求', label: '用户文档集要求' },
-                      { value: replacetokenbegin + 6 + replacetokenend + 6, label: "其他" }]}
-                    />
-                    <ProFormText name={"toreplace_6"}></ProFormText>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
-                    <ProFormCheckbox.Group
-                      required
-                      layout='horizontal'
-                      name="softwareMedium"
-                      label="软件介质"
-                      options={[{ value: '光盘', label: '光盘' },
-                      { value: 'U盘', label: 'U盘' },
-                      { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
-                    />
-                    <ProFormText name={"toreplace_7"}></ProFormText>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: 1500, columnGap: 32 }}>
-                    <ProFormTextArea label="文档资料" width="900px" required name="document" ></ProFormTextArea>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
-                    <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required
-                      name="sampleHandling"
-                      options={[{ value: '由本实验室销毁', label: '由本实验室销毁' },
-                      { value: '退还给我们', label: '退还给我们' }]}>
-
-                    </ProFormRadio.Group>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32, borderBottom: "2px solid" }}>
-                    <ProFormText label="希望完成时间" width="500px" required name="expectedTime" ></ProFormText>
-                  </Row>
-                  <Row style={{ height: 40 }}></Row>
-                </ProForm>
-              </Space>
-            </Card>
-          </PageContainer>
-        </div>
-      </Spin>
-    </>
-  );
+                    else if (this.isError(this.state.error.rowList[item])) {
+                        let error = this.state.error;
+                        error.rowList[item] = "";
+                        this.setState({ error });
+                    }
+                }//判断是否是数字
+            }
+        }
+        console.log(flag);
+        console.log(this.state);
+        if (flag === 0) {
+            axios.post(process.env.REACT_APP_JSON_SERVER + "/api/entrust/" + this.state.entrustmentId+"/quote", JSON.stringify(this.state))
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("提交成功！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("提交失败！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
+        }
+    }
 }
-
 export default QuotationFill;
