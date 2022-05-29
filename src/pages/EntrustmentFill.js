@@ -61,7 +61,7 @@ const EntrustmentFill = (props) => {
                   temp = JSON.parse(temp)
                   // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
                   console.log(temp)
-                  if (entrustmentId !== null) {
+                  if (typeof entrustmentId !== "undefined") {
                     axios.post("/api/entrust/" + entrustmentId + "/content", temp).then(response => {
                       console.log(response)
                       message.success('提交修改成功');
