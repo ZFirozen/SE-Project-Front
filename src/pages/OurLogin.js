@@ -39,7 +39,28 @@ export default class Login extends React.Component {
         const userPassword = this.state.password;
 
         console.log(userName, userPassword);
-
+        axios.post("/api/logout")
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("用户名：" + this.state.userName + "已登出！");
+                    if (this.state.isLoggedIn) {
+                        this.setState({ isLoggedIn: false });
+                    }
+                } else {
+                    console.log("Unknown error1!");
+                }
+            })
+            .catch((error) => {
+                if (this.state.isLoggedIn) {
+                    this.setState({ isLoggedIn: false });
+                }
+                if (error.status === 400) {
+                    console.log("当前未登录账号！请重新登录！");
+                } else {
+                    console.log("Unknown error2!");
+                    console.log(error);
+                }
+            })
         axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 if (response.status === 200) {
