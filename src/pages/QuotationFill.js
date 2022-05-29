@@ -95,19 +95,19 @@ class QuotationFill extends Component {
                             账号：<Input type="text" name="account" status={this.state.error.account} value={this.state.account} onChange={this.InputChange} disabled /></div></Row>
                         <Row style={gray}><div>
                             软件名称：<Input type="text" name="softwareName" status={this.state.error.softwareName} value={this.state.softwareName} onChange={this.InputChange} /></div></Row>
-                        <Row style={white} justify="center">
-                            <Col className="gutter-row" span={4}>
+                        <Row style={white} justify="space-around">
+                            <Col className="gutter-row" >
                                 项目</Col> 
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" >
                                 分项</Col> 
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" >
                                 单价</Col> 
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" >
                                 说明</Col> 
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" >
                                 行合计</Col> 
                         </Row>
-                        <Row style={gray} justify="center">
+                        <Row style={gray} justify="space-evenly">
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="projectName" id="0" status={this.state.error.rowList.projectName} value={this.state.rowList[0].projectName} onChange={this.rowListChange} /></Col> </div>
                             <div><Col className="gutter-row" span={4}>
@@ -119,7 +119,7 @@ class QuotationFill extends Component {
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="rowTotal" id="0" status={this.state.error.rowList.rowTotal} value={this.state.rowList[0].rowTotal} onChange={this.rowListChange} /></Col> </div>
                         </Row>
-                        <Row style={white} justify="center">
+                        <Row style={white} justify="space-evenly">
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="projectName" id="1" value={this.state.rowList[1].projectName} onChange={this.rowListChange} /></Col> </div>
                             <div><Col className="gutter-row" span={4}>
@@ -131,7 +131,7 @@ class QuotationFill extends Component {
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="rowTotal" id="1" value={this.state.rowList[1].rowTotal} onChange={this.rowListChange} /></Col> </div>
                         </Row>
-                        <Row style={gray} justify="center">
+                        <Row style={gray} justify="space-evenly">
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="projectName" id="2" value={this.state.rowList[2].projectName} onChange={this.rowListChange} /></Col> </div>
                             <div><Col className="gutter-row" span={4}>
@@ -143,7 +143,7 @@ class QuotationFill extends Component {
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="rowTotal" id="2" value={this.state.rowList[2].rowTotal} onChange={this.rowListChange} /></Col> </div>
                         </Row>
-                        <Row style={white} justify="center">
+                        <Row style={white} justify="space-evenly">
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="projectName" id="3" value={this.state.rowList[3].projectName} onChange={this.rowListChange} /></Col> </div>
                             <div><Col className="gutter-row" span={4}>
@@ -155,7 +155,7 @@ class QuotationFill extends Component {
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="rowTotal" id="3" value={this.state.rowList[3].rowTotal} onChange={this.rowListChange} /></Col> </div>
                         </Row>
-                        <Row style={gray} justify="center">
+                        <Row style={gray} justify="space-evenly">
                             <div><Col className="gutter-row" span={4}>
                                 <Input type="text" name="projectName" id="4" value={this.state.rowList[4].projectName} onChange={this.rowListChange} /></Col> </div>
                             <div><Col className="gutter-row" span={4}>

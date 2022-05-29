@@ -17,7 +17,7 @@ const Attachment = () => {
                 <ProTable columns={columns} style={{ margin: 20 }}
 
                     request={async () => {
-                        return axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
+                        return axios.get("/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
                             pageSize: params.pageSize,
                         }).then(response => {
