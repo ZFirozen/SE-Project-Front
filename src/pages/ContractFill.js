@@ -28,10 +28,10 @@ const entid = ( props ) => {
     console.log(entrustmentId);
     
     const getStatus = () => {
-        const conid=axios.get("/api/entrust/" + entrustmentId)
+        axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response.data.contractId);
+                    const conid=response.data.contractId;
                 }
             })
             .catch((error) => {
@@ -106,6 +106,9 @@ class ContractFill extends Component {
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
         // console.log(this.state.Input_value)
+        // console.log(entid);
+        // console.log(entid.getStatus);
+        // console.log(entid.getStatus.conid);
         return (
             <Fragment>
                 <Card>
@@ -212,6 +215,7 @@ class ContractFill extends Component {
                     </form>
                 </Card>
             </Fragment>
+            
         )
     }
     //自定义方法
@@ -410,9 +414,9 @@ class ContractFill extends Component {
 
         console.log(flag);
         console.log(this.state);
-        console.log(entid);
-        console.log(entid.getStatus);
-        console.log(entid.getStatus.conid);
+        // console.log(entid);
+        // console.log(entid.getStatus);
+        // console.log(entid.getStatus);
         if (flag === 0) {
             axios.post("/api/contract/{id}", { data: this.state })
                 .then(function (response) {
