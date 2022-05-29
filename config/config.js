@@ -382,9 +382,12 @@ export default defineConfig({
           icon: 'smile',
           path: '/entrustment/contract/fill/:id',
           component: './ContractFill',
+          hideInMenu: true,
+        },
+        {
           name: 'ducumentVerify',
           icon: 'smile',
-          path: '/entrustment/documentVerify',
+          path: '/entrustment/documentVerify/:id',
           component: './DocumentVerify',
           hideInMenu: true,
         },
