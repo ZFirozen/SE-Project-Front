@@ -67,7 +67,7 @@ export default defineConfig({
     {
       path: '/home',
       name: 'home',
-      icon: 'smile',
+      icon: 'home',
       component: './home',
     },
     {
@@ -323,7 +323,7 @@ export default defineConfig({
     },
     {
       name: 'entrustment',
-      icon: 'highlight',
+      icon: 'edit',
       path: '/entrustment',
       routes: [
         {
@@ -382,6 +382,9 @@ export default defineConfig({
           icon: 'smile',
           path: '/entrustment/contract/fill/:id',
           component: './ContractFill',
+          hideInMenu: true,
+        },
+        {
           name: 'ducumentVerify',
           icon: 'smile',
           path: '/entrustment/documentVerify',
@@ -395,46 +398,42 @@ export default defineConfig({
       icon: 'highlight',
       path: '/sample',
       component: './Sample',
+      hideInMenu: true,
     },
     
     {
       name: 'contract',
       icon: 'highlight',
       path: '/contract',
+      hideInMenu: true,
       routes: [
         {
           path: '/contract',
-          redirect: '/contract/fill',
+          redirect: '/contract/display/:id',
         },
         {
           name: 'display',
           icon: 'smile',
-          path: '/contract/display',
+          path: '/contract/display/:id',
           component: './ContractDisplay',
-        },
-        {
-          name: 'fill',
-          icon: 'smile',
-          path: '/contract/fill',
-          component: './ContractFill',
         },
         {
           name: 'review',
           icon: 'smile',
-          path: '/contract/review',
+          path: '/contract/review/:id',
           component: './ContractReview',
         },
       ],
 },
     {
       name: 'ourlogin',
-      icon: 'highlight',
+      icon: 'login',
       path: '/ourlogin',
       component: './OurLogin',
     },
     {
       name: 'userinfo',
-      icon: 'highlight',
+      icon: 'user',
       path: '/userinfo',
       component: './UserInfo',
     },
