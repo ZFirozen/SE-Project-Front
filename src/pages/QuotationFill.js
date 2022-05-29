@@ -180,6 +180,11 @@ class QuotationFill extends Component {
                         <Input type='submit' value='提交' />
                     </form>
                     {userRole === "CUSTOMER" ?
+                        <form onSubmit={this.accept.bind(this)}>
+                            <Input type='submit' value='同意报价' />
+                        </form>
+                        : ""}
+                    {userRole === "CUSTOMER" ?
                         <form onSubmit={this.denial.bind(this)}>
                             <Input type='submit' value='拒绝报价' />
                         </form>
@@ -225,11 +230,12 @@ class QuotationFill extends Component {
         })
     }
     denial(event) {
-        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/denial", this.state.entrustmentId)
+        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/denial")
             .then(function (response) {
                 if (response.status === 200) {
                     alert("拒绝成功！");
                 } else {
+                    alert("拒绝失败！");
                     console.log("Unknown error!");
                 }
             })
@@ -237,6 +243,43 @@ class QuotationFill extends Component {
                 if (error.response.status === 400) {
                     alert("拒绝失败！");
                 } else {
+                    alert("拒绝失败！");
+                    console.log("Unknown error!");
+                }
+            });
+    }
+    accept(event) {
+        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/acceptance")
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("同意成功！");
+
+                    axios.post("/api/contract/?entrustId=" + this.state.entrustmentId)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            console.log("create contract success");
+                        } else {
+                            console.log("Unknown error!");
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response.status === 400) {
+                            console.log(error);
+                        } else {
+                            console.log("Unknown error!");
+                        }
+                    });
+
+                } else {
+                    alert("同意失败！");
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("同意失败！");
+                } else {
+                    alert("同意失败！");
                     console.log("Unknown error!");
                 }
             });

@@ -42,7 +42,19 @@ class ContractFill extends Component {
         //设置属性，this.state,这是类的属性，为一个对象
         this.state = {
             //可以使用 this.state.属性在类内部使用
-            contractId:props.match.params.id,
+            contractId:axios.get("/api/entrust/" + props.match.params.id)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("success");
+                }
+                else
+                {
+                    console.log(response);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            }),
             projectName: "",
             partyA: {
                 companyCN: "",
@@ -296,7 +308,7 @@ class ContractFill extends Component {
         })
     }
     denial(event) {
-        axios.post("/api/contract/" + this.state.contractId + "/denial", this.state.contractId)
+        axios.post("/api/contract/" + this.state.contractId + "/denial")
             .then(function (response) {
                 if (response.status === 200) {
                     alert("拒绝成功！");
@@ -435,7 +447,22 @@ class ContractFill extends Component {
         // console.log(entid.getStatus);
         // console.log(entid.getStatus);
         if (flag === 0) {
-            axios.post("/api/contract/" + this.state.contractId, { data: this.state })
+            axios.post("/api/contract/" + this.state.contractId + "/acceptance")
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("同意合同！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("同意失败！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
+            axios.post("/api/contract/" + this.state.contractId, JSON.stringify(this.state))
                 .then(function (response) {
                     if (response.status === 200) {
                         alert("提交成功！");

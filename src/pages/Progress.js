@@ -133,7 +133,7 @@ const Progress = ( props ) => {
         switch (value) {
             case 0:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
+                    window.location.href = "/entrustment/quotation/fill/"+ entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -141,7 +141,7 @@ const Progress = ( props ) => {
                 break;
             case 1:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
+                    window.location.href = "/entrustment/quotation/fill/"+ entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -149,6 +149,7 @@ const Progress = ( props ) => {
                 break;
             case 2:
                 if (userRole === "MARKETER") {
+                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -156,6 +157,7 @@ const Progress = ( props ) => {
                 break;
             case 3:
                 if (userRole === "CUSTOMER") {
+                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -164,6 +166,7 @@ const Progress = ( props ) => {
             case 4:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
+                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }

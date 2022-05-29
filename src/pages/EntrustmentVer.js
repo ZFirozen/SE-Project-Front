@@ -637,7 +637,7 @@ const EntrustmentVer = () => {
                   console.log(temp.isverify)
                   console.log(temp.verifyMes)
                   } else {
-                    axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content/denial"+temp.verifyMes).then(response => {
+                    axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content/denial/?message="+temp.verifyMes).then(response => {
                       console.log(response)
                       message.success('审核不通过！');
                     })
