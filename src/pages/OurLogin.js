@@ -44,7 +44,6 @@ export default class Login extends React.Component {
             .then(function (response) {
                 if (response.status === 200) {
                     alert("用户名：" + userName + "\n登录成功！");
-                    window.location.href = "/";
                     axios.get("/api/account")
                         .then((response) => {
                             if (response.status === 200) {
@@ -60,6 +59,8 @@ export default class Login extends React.Component {
                             } else {
                                 console.log("Unknown error!");
                             }
+                        }).finally(() => {
+                            window.location.href = "/";
                         })
                 } else {
                     console.log("Unknown error!");

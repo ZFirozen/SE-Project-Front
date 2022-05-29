@@ -67,7 +67,14 @@ switch (localStorage.getItem("userRole")) {
         columns = [...columns, {
             title: '操作',
             search: false,
-            render: (a) => <Link to={"entrustment/" + a.id}>修改</Link>
+            render: (a) => {
+                return (
+                    <>
+                        <Link to={"entrustment/" + a.id}>修改</Link>
+                        <Link to={"progress/" + a.id}>查看</Link>
+                    </>
+                )
+            }
         }]
         break
     default:
