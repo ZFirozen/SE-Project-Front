@@ -54,13 +54,22 @@ var columns = [
         ellipsis: false,
     },
 ];
-console.log(localStorage.getItem("userRole")+' visit')
+console.log(localStorage.getItem("userRole") + ' visit')
 switch (localStorage.getItem("userRole")) {
     case "MARKETING_SUPERVISOR":
         columns = [...columns, {
             title: '操作',
             search: false,
-            render: (a) => <Link to={"assign/" + a}>分派</Link>
+            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
+            render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Link to={"../assign/" + a.id}>分派</Link> : null
+        }]
+        break
+    case "TESTING_SUPERVISOR":
+        columns = [...columns, {
+            title: '操作',
+            search: false,
+            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
+            render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Link to={"../assign/" + a.id}>分派</Link> : null
         }]
         break
     case "CUSTOMER":
@@ -70,11 +79,13 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"entrustment/" + a.id}>修改</Link>
-                        <Link to={"progress/" + a.id}>查看</Link>
+                        <Link to={"../entrustment/" + a.id}>修改委托</Link>
+                        <br />
+                        <Link to={"../progress/" + a.id}>查看进度</Link>
                     </>
                 )
             }
+
         }]
         break
     case "MARKETER":

@@ -34,9 +34,10 @@ const defaultColumns = [
 console.log(localStorage.getItem("userRole") + ' visit')
 
 const Assign = () => {
-    const entrustmentId = useLocation().pathname.match('(?<=/assign/)[0-9]+').at(0)
+    const entrustmentId = useLocation().pathname.match('(?<=/assign/).+').at(0)
     console.log(entrustmentId)
     var columns = defaultColumns
+    var targetRole = ''
     switch (localStorage.getItem("userRole")) {
         case "MARKETING_SUPERVISOR":
             columns = [...columns, {
@@ -48,9 +49,9 @@ const Assign = () => {
                     content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
                         console.log(a.userId + ' is assigned to ' + entrustmentId)
-                        axios.post("/api/entrust/"+entrustmentId+"/marketer?marketerId="+a.userId,{
-                            marketerId : a.userId
-                        }).then(response=>{
+                        axios.post("/api/entrust/" + entrustmentId + "/marketer?marketerId=" + a.userId, {
+                            marketerId: a.userId
+                        }).then(response => {
                             //外部跳转
                             window.location.href = '../entrustment'
                         })
@@ -60,6 +61,31 @@ const Assign = () => {
                     },
                 })}>分派</Button>
             }]
+            targetRole = "MARKETER"
+            break
+        case "TESTING_SUPERVISOR":
+            columns = [...columns, {
+                title: '操作',
+                search: false,
+                render: (a) => <Button type="primary" onClick={(b) => confirm({
+                    title: '是否将委托委派给该员工?',
+                    icon: <ExclamationCircleOutlined />,
+                    content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
+                    onOk() {
+                        console.log(a.userId + ' is assigned to ' + entrustmentId)
+                        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + entrustmentId + "/tester?testerId=" + a.userId, {
+                            testerId: a.userId
+                        }).then(response => {
+                            //外部跳转
+                            window.location.href = '../entrustment'
+                        })
+                    },
+                    onCancel() {
+                        console.log('Cancel');
+                    },
+                })}>分派</Button>
+            }]
+            targetRole = "TESTER"
             break
         default:
             console.log('unkown visit')
@@ -71,7 +97,7 @@ const Assign = () => {
                 <ProTable columns={columns} style={{ margin: 20 }}
 
                     request={async (params, sort, filter) => {
-                        return axios.get("/api/user/search?userRole=MARKETER", {
+                        return axios.get("/api/user/search?userRole=" + targetRole, {
                             userRole: "MARKETER"
                         }).then(response => {
                             console.log(response)
