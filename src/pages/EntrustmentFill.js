@@ -31,10 +31,10 @@ const EntrustmentFill = () => {
   useEffect(() => {
     if (localStorage.getItem('entrustmentId') !== null) {
       axios.get("/api/entrust/" + localStorage.getItem('entrustmentId')).then(Detail => {
-        console.log("load from "+localStorage.getItem('entrustmentId'))
+        console.log("load from " + localStorage.getItem('entrustmentId'))
         console.log(Detail.data.content)
         var keysarray = []
-        if (Detail.data.content.software !== null &&Detail.data.content.software.modules !== undefined) {
+        if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
           for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
             Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
             if (Detail.data.content.software.modules[i].functions !== undefined) {
@@ -52,16 +52,16 @@ const EntrustmentFill = () => {
         let temp = JSON.stringify(Detail.data.content)
         let toreplacearray = Array(embedregLength)
         for (let i = 0; i < embedregLength; i++) {
-          let tt = temp.match("(?<="+replacetokenbegin+i+").+(?="+replacetokenend+i+")")
+          let tt = temp.match("(?<=" + replacetokenbegin + i + ").+(?=" + replacetokenend + i + ")")
           console.log(tt)
-          if(tt){
-            temp = temp.replace(replacetokenbegin+i+tt.at(0)+replacetokenend+i,replacetokenbegin+i+replacetokenend+i)
+          if (tt) {
+            temp = temp.replace(replacetokenbegin + i + tt.at(0) + replacetokenend + i, replacetokenbegin + i + replacetokenend + i)
             toreplacearray[i] = tt.at(0)
           }
         }
         Detail.data.content = JSON.parse(temp)
         for (let i = 0; i < embedregLength; i++) {
-            eval("Detail.data.content.toreplace_"+i+"= toreplacearray["+i+"]")
+          eval("Detail.data.content.toreplace_" + i + "= toreplacearray[" + i + "]")
         }
         console.log("load finished")
         console.log(Detail.data.content)
@@ -94,7 +94,9 @@ const EntrustmentFill = () => {
                   size='large'
                   style={{ font: 'initial', border: '3px solid' }}
                   submitter={{
-                    render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
+                    submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } },
+                    resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } },
+                    // render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
                   }}
                   layout="horizontal"
                   onFinish={async (values) => {
@@ -112,9 +114,9 @@ const EntrustmentFill = () => {
                     }
                     temp = JSON.stringify(temp)
                     for (let i = 0; i < embedregLength; i++) {
-                      let iisundefined = eval("values.toreplace_"+i+"=== undefined")
-                      if(iisundefined !== true){
-                        eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_"+i+" + replacetokenend + i)")
+                      let iisundefined = eval("values.toreplace_" + i + "=== undefined")
+                      if (iisundefined !== true) {
+                        eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_" + i + " + replacetokenend + i)")
                       }
                     }
                     temp = JSON.parse(temp)
@@ -137,20 +139,20 @@ const EntrustmentFill = () => {
                     setDetail({})
                     form.resetFields()
                   }}
-                  submitter={{ submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } }, resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } } }}
+                  // submitter={{ submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } }, resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } } }}
                   initialValues={detail}>
                   <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 0 }}>
                     <ProFormCheckbox.Group
-                      required rules={[{ required: true, message: '这是必填项'}]}
+                      required rules={[{ required: true, message: '这是必填项' }]}
                       layout='horizontal'
                       name="testType"
                       label="测试类型"
                       options={[{ value: '软件确认测试', label: '软件确认测试' },
                       { value: '成果/技术鉴定测试', label: '成果/技术鉴定测试' },
                       { value: '专项资金验收测试', label: '专项资金验收测试' },
-                      { value: replacetokenbegin + 0  + replacetokenend + 0, label: "其他"}
+                      { value: replacetokenbegin + 0 + replacetokenend + 0, label: "其他" }
                       ]}
-                      
+
                     />
                     {/* style={{ width: 300, height: 24, marginTop: 8 }} */}
                     <ProFormText name={"toreplace_0"}></ProFormText>
@@ -168,25 +170,27 @@ const EntrustmentFill = () => {
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
                         <ProFormText label="单位电话" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyPhone"]} ></ProFormText>
                         <ProFormText label="单位网址" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyWebsite"]} ></ProFormText>
-                        <ProFormText label="单位地址" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyAddress"]} ></ProFormText>
                       </Row>
                       <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
+                        <ProFormText label="单位地址" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyAddress"]} ></ProFormText>
                         <ProFormText label="联系人名称" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contact"]} ></ProFormText>
+                      </Row>
+                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
                         <ProFormText label="联系人电话" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactPhone"]} ></ProFormText>
                         <ProFormText label="联系人邮箱" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactEmail"]} ></ProFormText>
                       </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
+                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
                         <ProFormText label="授权代表" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "representative"]} ></ProFormText>
                         <ProFormDatePicker required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "sigDate"]} label="签章日期" />
                       </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
+                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
                         <ProFormText label="邮编" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "zipCode"]} ></ProFormText>
                         <ProFormText label="传真" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "fax"]} ></ProFormText>
                       </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
+                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
                         <ProFormText label="开户银行" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "bankName"]} ></ProFormText>
                       </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
+                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1446, columnGap: 32 }}>
                         <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "account"]} ></ProFormText>
                         <ProFormText label="银行户名" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "accountName"]} ></ProFormText>
                       </Row>
@@ -393,15 +397,15 @@ const EntrustmentFill = () => {
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, width: 1338, columnGap: 0 }}>
                                 <Col style={{ width: 240 }}>
                                   <ProFormCheckbox.Group name={["software", "clientOS"]} required rules={[{ required: true, message: '这是必填项' }]} label='操作系统' layout='vertical'
-                                    options={[{ value: 'Windows ' + replacetokenbegin + 1  + replacetokenend + 1, label: "Windows（版本）" },
-                                    { value: 'Linux ' + replacetokenbegin + 2  + replacetokenend + 2, label: "Linux（版本）" },
-                                    { value: replacetokenbegin + 3  + replacetokenend + 3, label: "其他" }]}>
+                                    options={[{ value: 'Windows ' + replacetokenbegin + 1 + replacetokenend + 1, label: "Windows（版本）" },
+                                    { value: 'Linux ' + replacetokenbegin + 2 + replacetokenend + 2, label: "Linux（版本）" },
+                                    { value: replacetokenbegin + 3 + replacetokenend + 3, label: "其他" }]}>
                                   </ProFormCheckbox.Group>
                                 </Col>
                                 <Col>
-                                <ProFormText name={"toreplace_1"}></ProFormText>
-                                <ProFormText name={"toreplace_2"}></ProFormText>
-                                <ProFormText name={"toreplace_3"}></ProFormText>
+                                  <ProFormText name={"toreplace_1"}></ProFormText>
+                                  <ProFormText name={"toreplace_2"}></ProFormText>
+                                  <ProFormText name={"toreplace_3"}></ProFormText>
                                 </Col>
                               </Row>
                               <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1338, columnGap: 32 }}>
@@ -424,7 +428,7 @@ const EntrustmentFill = () => {
                                     <ProFormCheckbox.Group name={["software", "serverHardArch"]} required rules={[{ required: true, message: '这是必填项' }]} label='架构' layout='horizontal'
                                       options={[{ value: "PC服务器", label: "PC服务器" },
                                       { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
-                                      { value: replacetokenbegin + 4  + replacetokenend + 4, label: "其他" }]}>
+                                      { value: replacetokenbegin + 4 + replacetokenend + 4, label: "其他" }]}>
                                     </ProFormCheckbox.Group>
                                     <ProFormText name={"toreplace_4"}></ProFormText>
                                   </Row>
@@ -602,7 +606,7 @@ const EntrustmentFill = () => {
 
                     </ProFormRadio.Group>
                   </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32, borderBottom:"2px solid" }}>
+                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32, borderBottom: "2px solid" }}>
                     <ProFormText label="希望完成时间" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name="expectedTime" ></ProFormText>
                   </Row>
                   <Row style={{ height: 40 }}></Row>

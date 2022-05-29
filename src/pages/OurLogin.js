@@ -91,6 +91,7 @@ export default class Login extends React.Component {
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
                 autoComplete="off"
+
             >
                 <br />
                 <Form.Item
@@ -116,6 +117,7 @@ export default class Login extends React.Component {
                         placeholder="Password"
                         name="password"
                         onChange={this.onChange}
+                        onPressEnter={this.onFinish}
                     />
                 </Form.Item>
 

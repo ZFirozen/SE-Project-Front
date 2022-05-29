@@ -30,7 +30,7 @@ export default class SignUp extends React.Component {
     }
 
     onFinish(event) {
-        // this.setState({ error: {}, isDisabled: true });
+        this.setState({ error: {}, isDisabled: true });
 
         const userName = this.state.username;
         const userPassword = this.state.password;
@@ -73,7 +73,7 @@ export default class SignUp extends React.Component {
                 }
             });
 
-        // this.setState({ error: {}, isDisabled: false });
+        this.setState({ error: {}, isDisabled: false });
     }
 
     onFinishFailed(errorInfo) {

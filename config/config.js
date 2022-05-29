@@ -334,6 +334,13 @@ export default defineConfig({
           component: './Progress',
           hideInMenu: true,
         },
+        {
+          name: 'ducumentVerify',
+          icon: 'smile',
+          path: '/entrustment/documentVerify',
+          component: './DocumentVerify',
+          hideInMenu: true,
+        },
       ],
     },
     {
