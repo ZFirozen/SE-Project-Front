@@ -328,6 +328,283 @@ const DocumentVerify = (props) => {
                     <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
                   </Col>
                 </Row>
+
+                <Row style={{ paddingLeft: 18, paddingTop: 10, }}>
+                  <Title level={4}>  二、软件文档集评审</Title>
+                </Row>
+                <Row>
+                  <Col style={{ backgroundColor: whitecolor, width: 50, height: 240, paddingLeft: 15, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>1</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 150, height: 240, paddingLeft: 50, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>完备性</Title>
+                  </Col>        
+                  <Col>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>包含所有必需信息</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>包含产品说明中所有功能以及可调用功能的说明</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>包含可靠性特征及其操作</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>包含已处理的和可造成系统失效终止的差错和失效</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>必要的数据备份与恢复指南</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>所有关键功能的完备的细则信息和参考信息</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>陈述产品说明中所有限制</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>陈述最大最小磁盘空间</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>关于应用管理职能的所有必要信息</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>让用户验证是否完成应用管理职能的信息</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>文档集分若干部分，需给出完整标识</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col style={{ backgroundColor: whitecolor, width: 50, height: 240, paddingLeft: 15, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>2</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 150, height: 240, paddingLeft: 50, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>正确性</Title>
+                  </Col>        
+                  <Col>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>文档中所有的信息都是正确的。</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>没有歧义的信息。</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row >
+                  <Col style={{ backgroundColor: whitecolor, width: 50, paddingLeft: 15, paddingTop: 23, border: "2px solid", borderLeft: "none" }}>
+                    <Title level={4}>3</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 150, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none" }}>
+                    <Title level={4}>一致性</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none" }}>
+                    <Title level={4}>文档集中的各文档不相互矛盾, 与产品说明也不矛盾. </Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none" }}>
+                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 703, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
+                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col style={{ backgroundColor: whitecolor, width: 50, height: 240, paddingLeft: 15, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>4</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 150, height: 240, paddingLeft: 50, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>易理解性</Title>
+                  </Col>        
+                  <Col>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>使用用户可理解的术语和文体。</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>文档集为用户使用该软件提供必要的信息</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>                    
+                  </Col>
+                </Row>
+                <Row >
+                  <Col style={{ backgroundColor: whitecolor, width: 50, paddingLeft: 15, paddingTop: 23, border: "2px solid", borderLeft: "none" }}>
+                    <Title level={4}>5</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 150, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none" }}>
+                    <Title level={4}>易学性</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none" }}>
+                    <Title level={4}>为如何使用该软件提供了足够的信息 </Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none" }}>
+                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 703, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
+                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                  </Col>
+                </Row>                             
+                <Row>
+                  <Col style={{ backgroundColor: whitecolor, width: 50, height: 240, paddingLeft: 15, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>6</Title>
+                  </Col>
+                  <Col style={{ backgroundColor: whitecolor, width: 150, height: 240, paddingLeft: 50, paddingTop: 103, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                    <Title level={4}>可操作性</Title>
+                  </Col>        
+                  <Col>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>电子文档可打印</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>有目次(主题词列表)和索引</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>
+                    <Row style={{ width: 1303, height: 80, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                      <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <Title level={4}>不常用术语缩略语有定义</Title>
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 400, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["result"]} />
+                      </Col>
+                      <Col style={{ backgroundColor: whitecolor, width: 700, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none" }}>
+                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["description"]} />
+                      </Col>
+                    </Row>                       
+                  </Col>
+                </Row>
+                
               </ProForm>
             </Space>
           </Card>
