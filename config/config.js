@@ -350,6 +350,13 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'assign',
+          icon: 'smile',
+          path: '/entrustment/assign/:id',
+          component: './Assign',
+          hideInMenu: true,
+        },
+        {
           name: 'fill',
           icon: 'smile',
           path: '/entrustment/quotation/fill',

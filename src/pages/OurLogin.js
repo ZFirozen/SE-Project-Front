@@ -101,6 +101,7 @@ export default class Login extends React.Component {
     onFinishFailed(errorInfo) {
         console.log("Failed:", errorInfo);
     }
+    
 
     render() {
         return (

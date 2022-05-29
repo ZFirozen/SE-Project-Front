@@ -33,8 +33,8 @@ const defaultColumns = [
 
 console.log(localStorage.getItem("userRole") + ' visit')
 
-const Assign = () => {
-    const entrustmentId = useLocation().pathname.match('(?<=/assign/).+').at(0)
+const Assign = (props ) => {
+    const entrustmentId = props.match.params.id;
     console.log(entrustmentId)
     var columns = defaultColumns
     var targetRole = ''
@@ -73,7 +73,7 @@ const Assign = () => {
                     content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
                         console.log(a.userId + ' is assigned to ' + entrustmentId)
-                        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + entrustmentId + "/tester?testerId=" + a.userId, {
+                        axios.post("/api/entrust/" + entrustmentId + "/tester?testerId=" + a.userId, {
                             testerId: a.userId
                         }).then(response => {
                             //外部跳转

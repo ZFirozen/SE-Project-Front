@@ -96,7 +96,7 @@ const Progress = ( props ) => {
                 break;
             case 1:
                 if (userRole === "MARKETING_SUPERVISOR") {
-                    window.location.href = "/assign/1";
+                    window.location.href = "/assign/"+entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -110,7 +110,7 @@ const Progress = ( props ) => {
                 break;
             case 3:
                 if (userRole === "TESTING_SUPERVISOR") {
-                    window.location.href = "/assign/1";
+                    window.location.href = "/assign/"+entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
