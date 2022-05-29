@@ -36,6 +36,7 @@ export default class ContractDisplay extends React.Component {
                 // console.log("abc");
 
             }).catch(err=>{ 
+                console.log("abc");
                 console.log(err);
             })
     }

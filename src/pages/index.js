@@ -8,6 +8,8 @@ import UserInfo from "./UserInfo";
 import SearchPage from "./Search";
 import Contract from "./Contract";
 import ContractFill from "./ContractFill";
+import ContractDisplay from "./ContractDisplay";
+import ContractReview from "./ContractReview";
 import Entrustment from "./Entrustment";
 import EntrustmentFill from "./EntrustmentFill";
 import Assign from "./Assign";
@@ -15,5 +17,5 @@ import Sample from "./Sample"
 
 export {
     Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
-    Entrustment, Sample, ContractFill, EntrustmentFill, Assign, ContractDisplay
+    Entrustment, Sample, ContractFill, EntrustmentFill, Assign, ContractDisplay, ContractReview
 }

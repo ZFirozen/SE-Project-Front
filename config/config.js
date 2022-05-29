@@ -342,12 +342,36 @@ export default defineConfig({
       path: '/sample',
       component: './Sample',
     },
+    
     {
       name: 'contract',
       icon: 'highlight',
       path: '/contract',
-      component: './Contract',
-    },
+      routes: [
+        {
+          path: '/contract',
+          redirect: '/contract/fill',
+        },
+        {
+          name: 'display',
+          icon: 'smile',
+          path: '/contract/display',
+          component: './ContractDisplay',
+        },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/contract/fill',
+          component: './ContractFill',
+        },
+        {
+          name: 'review',
+          icon: 'smile',
+          path: '/contract/review',
+          component: './ContractReview',
+        },
+      ],
+},
     {
       name: 'ourlogin',
       icon: 'highlight',
