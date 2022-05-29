@@ -28,7 +28,7 @@ const entid = ( props ) => {
     console.log(entrustmentId);
     
     const getStatus = () => {
-        axios.get("/api/entrust/" + entrustmentId)
+        const conid=axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
                 if (response.status === 200) {
                     console.log(response.data.contractId);
@@ -412,6 +412,7 @@ class ContractFill extends Component {
         console.log(this.state);
         console.log(entid);
         console.log(entid.getStatus);
+        console.log(entid.getStatus.conid);
         if (flag === 0) {
             axios.post("/api/contract/{id}", { data: this.state })
                 .then(function (response) {
