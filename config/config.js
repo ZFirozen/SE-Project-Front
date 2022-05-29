@@ -387,7 +387,7 @@ export default defineConfig({
         {
           name: 'ducumentVerify',
           icon: 'smile',
-          path: '/entrustment/documentVerify',
+          path: '/entrustment/documentVerify/:id',
           component: './DocumentVerify',
           hideInMenu: true,
         },
