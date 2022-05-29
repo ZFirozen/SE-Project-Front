@@ -596,59 +596,152 @@ const EntrustmentVer = (props) => {
         <ProForm
           onFinish={async (values) => {
             let temp = values
-            if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
-              console.log(temp)
-              for (let i = 0; i < temp.software.modules.length; i++) {
-                delete temp.software.modules[i].id
-                if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
-                  for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
-                    delete temp.software.modules[i].functions[j].id
-                  }
-                  temp = JSON.stringify(temp)
-                  for (let i = 0; i < embedregLength; i++) {
-                    let iisundefined = eval("values.toreplace_" + i + "=== undefined")
-                    if (iisundefined !== true) {
-                      eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_" + i + " + replacetokenend + i)")
-                    }
-                  }
-                  temp = JSON.parse(temp)
-                  // localStorage.setItem('entrustmentVer_embedreg', JSON.stringify(embedreg))
-                  console.log(temp)
-                  console.log(temp.isverify)
-                  console.log(temp.verifyMes)
-                  if (temp.isverify === "1") {
-                    axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content/acceptance").then(response => {
-                      console.log(response)
-                      message.success('审核通过！');
-                    })
-                    console.log("suc")
-                    console.log(temp.isverify)
-                    console.log(temp.verifyMes)
-                  } else {
-                    axios.post("/api/entrust/" + localStorage.getItem('entrustmentId') + "/content/denial/?message=" + temp.verifyMes).then(response => {
-                      console.log(response)
-                      message.success('审核不通过！');
-                    })
-                    console.log("dis")
-                    console.log(temp.isverify)
-                    console.log(temp.verifyMes)
-                  }
-                }
-              }
+            console.log(temp)
+            temp.checkVirus += temp.virusScantoolName
+            temp.checkMaterial = []
+            temp.checkMaterial.push(...temp.testSample)
+            temp.checkMaterial.push(...temp.requirementDocument)
+            temp.checkMaterial.push(...temp.userDocument)
+            temp.checkMaterial.push(...temp.operationDocument)
+            temp.checkMaterial.push(temp.materialCheckOther)
+            delete temp.virusScantoolName
+            delete temp.testSample
+            delete temp.requirementDocument
+            delete temp.userDocument
+            delete temp.operationDocument
+            delete temp.materialCheckOther
+            temp = JSON.stringify(temp)
+            temp = JSON.parse(temp)
+            // localStorage.setItem('entrustmentVer_embedreg', JSON.stringify(embedreg))
+            console.log(temp)
+            console.log(temp.acceptance)
+
+            axios.post("/api/entrust/" + entrustmentId + "/review", temp).then(response => {
+              console.log(response)
+            })
+            if (temp.acceptance === "2") {
+              axios.post("/api/entrust/" + entrustmentId + "/content/acceptance").then(response => {
+                console.log(response)
+                message.success('已受理委托');
+              })
+            } else if (temp.acceptance === "1") {
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial/?message=denied with" + temp.confirmation).then(response => {
+                console.log(response)
+                message.success('已拒绝受理');
+              })
+            } else {
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial/?message=keep contact with" + temp.confirmation).then(response => {
+                console.log(response)
+                message.success('进一步联系');
+              })
             }
           }} >
 
           <Col>
             <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
-              <ProFormRadio.Group label="审核是否通过" requiredrules={[{ required: true, message: '这是必填项' }]}
-                name="isverify"
-                options={[{ value: '1', label: '审核通过' },
-                { value: '0', label: '审核不通过' }]}>
-
+              <ProFormRadio.Group label="密级" required rules={[{ required: true, message: '这是必填项' }]}
+                name="securityLevel"
+                options={[
+                  { value: '机密', label: '机密' },
+                  { value: '秘密', label: '秘密' },
+                  { value: '无密级', label: '无密级' }
+                ]}>
+              </ProFormRadio.Group>
+            </Row>
+            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+              <ProFormRadio.Group label="查杀病毒" required rules={[{ required: true, message: '这是必填项' }]}
+                name="checkVirus"
+                options={[
+                  { value: '已完成', label: '已完成' },
+                  { value: '无法完成', label: '无法完成' }
+                ]}>
+              </ProFormRadio.Group>
+              <ProFormText label="所用查杀工具：" width="300px" required rules={[{ required: true, message: '这是必填项' }]} name="virusScantoolName" ></ProFormText>
+            </Row>
+            <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight * 6, paddingTop: 11, width: 1500, columnGap: 32 }}>
+              <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 0, paddingTop: 0, borderBottom: "2px solid" }}>
+                <Title level={4}>材料检查</Title>
+              </Col>
+              <Col style={{ width: 1300, border: '2px solid', borderRight: "none", borderTop: "none" }}>
+                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                  <ProFormCheckbox.Group
+                    width={730}
+                    required rules={[{ required: true, message: '这是必填项' }]}
+                    name="testSample"
+                    label="测试样品"
+                    options={[
+                      { value: '源代码', label: '源代码' },
+                      { value: '可执行文件', label: '可执行文件' }
+                    ]}
+                  />
+                </Row>
+                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                  <ProFormCheckbox.Group
+                    width={730}
+                    required rules={[{ required: true, message: '这是必填项' }]}
+                    name="requirementDocument"
+                    label="需求文档"
+                    options={[
+                      { value: '项目计划任务书', label: '项目计划任务书' },
+                      { value: '需求分析报告', label: '需求分析报告' },
+                      { value: '合同', label: '合同' }
+                    ]}
+                  />
+                </Row>
+                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                  <ProFormCheckbox.Group
+                    width={730}
+                    required rules={[{ required: true, message: '这是必填项' }]}
+                    name="userDocument"
+                    label="用户文档"
+                    options={[
+                      { value: '用户手册', label: '用户手册' },
+                      { value: '用户指南', label: '用户指南' }
+                    ]}
+                  />
+                </Row>
+                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                  <ProFormCheckbox.Group
+                    width={730}
+                    required rules={[{ required: true, message: '这是必填项' }]}
+                    name="operationDocument"
+                    label="操作文档"
+                    options={[
+                      { value: '操作员手册', label: '操作员手册' },
+                      { value: '安装手册', label: '安装手册' },
+                      { value: '诊断手册', label: '诊断手册' },
+                      { value: '支持手册', label: '支持手册' }
+                    ]}
+                  />
+                </Row>
+                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                  <ProFormText label="其他：" width="500px" name="materialCheckOther" ></ProFormText>
+                </Row>
+              </Col>
+            </Row>
+            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+              <ProFormRadio.Group label="确认意见" required rules={[{ required: true, message: '这是必填项' }]}
+                name="confirmation"
+                options={[
+                  { value: '0', label: '测试所需材料不全，未达到受理条件。' },
+                  { value: '1', label: '属依据国家标准或自编非标规范进行的常规检测，有资质、能力和资源满足委托方要求。' },
+                  { value: '2', label: '无国家标准和规范依据，或实验室缺乏检测设备和工具，无法完成检测。' },
+                  { value: '3', label: '超出实验室能力和资质范围，无法完成检测。' }
+                ]}>
+              </ProFormRadio.Group>
+            </Row>
+            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+              <ProFormRadio.Group label="受理意见" required rules={[{ required: true, message: '这是必填项' }]}
+                name="acceptance"
+                options={[
+                  { value: '2', label: '受理—进入项目立项和合同评审流程' },
+                  { value: '1', label: '不受理' },
+                  { value: '0', label: '进一步联系' }
+                ]}>
               </ProFormRadio.Group>
             </Row>
             <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 900, columnGap: 32 }}>
-              <ProFormText label="审核意见：" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name="verifyMes" ></ProFormText>
+              <ProFormText label="测试项目编号" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name="serialNumber" ></ProFormText>
             </Row>
             <Row style={{ height: 40 }}></Row>
           </Col>
