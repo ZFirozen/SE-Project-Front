@@ -1,19 +1,13 @@
-import "./ContractFill.css"
+import "./ContractFill.css";
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
-import { BorderBottomOutlined, PlusOutlined } from '@ant-design/icons';
-import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from '@ant-design/pro-form';
+import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect,InputNumber, DatePicker } from 'antd';
+
 import axios from 'axios';
-import DescriptionsItem from 'antd/lib/descriptions/Item';
-import { Color } from '@antv/l7-react/lib/component/LayerAttribute';
-import { FieldLabel } from '@ant-design/pro-utils';
-import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { SmileOutlined } from '@ant-design/icons';
-import { random, size } from 'lodash';
-import { EditableProTable } from '@ant-design/pro-table';
+import localStorage from "localStorage";
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
+const userRole = localStorage.getItem("userRole");
 const rowbegingap = 20
 const formitemheight = 62
 const { Title, Paragraph } = Typography
@@ -21,16 +15,16 @@ const { Title, Paragraph } = Typography
 const Component = React.Component
 const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
-const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
-//注意这个类，必须继承自Component
+const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11,width: "100%", columnGap: 32 }
 
 class ContractFill extends Component {
-
+    //注意这个类，必须继承自Component
     constructor(props) {
         super(props)//调用父类的构造
         //设置属性，this.state,这是类的属性，为一个对象
         this.state = {
             //可以使用 this.state.属性在类内部使用
+            contractId:props.match.params.id,
             projectName: "",
             partyA: {
                 companyCN: "",
@@ -83,7 +77,7 @@ class ContractFill extends Component {
         this.InputChange = this.InputChange.bind(this);
         this.partyAChange = this.partyAChange.bind(this);
         this.partyBChange = this.partyBChange.bind(this);
-    }
+        }
 
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
@@ -175,7 +169,7 @@ class ContractFill extends Component {
                             账号：<Input type="text" name="account" status={this.state.error.partyA.account} value={this.state.partyA.account} onChange={this.partyAChange} /></div></Row>
                         <br />
                         <Title level={5}>受托方：</Title>
-                        <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCN" status={this.state.error.partyB.companyCN} value={this.state.partyB.companyCN} onChange={this.partyBChange} disabled />
+                        <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCN" status={this.state.error.partyB.companyCN} value={this.state.partyB.companyCN} onChange={this.partyBChange} disabled/>
                             单位全称（英文）：<Input type="text" name="companyEN" status={this.state.error.partyB.companyEN} value={this.state.partyB.companyEN} onChange={this.partyBChange} /></div></Row>
                         <Row style={white}><div>授权代表：<Input type="text" name="authorizedRepresentative" status={this.state.error.partyB.authorizedRepresentative} value={this.state.partyB.authorizedRepresentative} onChange={this.partyBChange} />
                             签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyB.sigDate} onChange={this.partyBsigDateChange.bind(this)} /></div></Row>
@@ -188,11 +182,16 @@ class ContractFill extends Component {
                         <Row style={gray}><div>通讯地址：<Input type="text" name="address" status={this.state.error.partyB.address} value={this.state.partyB.address} onChange={this.partyBChange} />
                             邮编：<Input type="text" name="zipCode" status={this.state.error.partyB.zipCode} value={this.state.partyB.zipCode} onChange={this.partyBChange} />
                             传真：<Input type="text" name="fax" status={this.state.error.partyB.fax} value={this.state.partyB.fax} onChange={this.partyBChange} /></div></Row>
-                        <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.partyB.bankName} value={this.state.partyB.bankName} onChange={this.partyBChange} disabled />
-                            户名：<Input type="text" name="accountName" status={this.state.error.partyB.accountName} value={this.state.partyB.accountName} onChange={this.partyBChange} disabled />
-                            账号：<Input type="text" name="account" status={this.state.error.partyB.account} value={this.state.partyB.account} onChange={this.partyBChange} disabled /></div></Row>
-                        <Input type='submit' value='提交' />
+                        <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.partyB.bankName} value={this.state.partyB.bankName} onChange={this.partyBChange} disabled/>
+                            户名：<Input type="text" name="accountName" status={this.state.error.partyB.accountName} value={this.state.partyB.accountName} onChange={this.partyBChange} disabled/>
+                            账号：<Input type="text" name="account" status={this.state.error.partyB.account} value={this.state.partyB.account} onChange={this.partyBChange} disabled/></div></Row>
+                    <Input type='submit' value='提交' />
                     </form>
+                    {userRole==="CUSTOMER"?
+                        <form onSubmit={this.denial.bind(this)}>
+                            <Input type='submit' value='拒绝合同' />
+                        </form>
+                        : ""}
                 </Card>
             </Fragment>
         )
@@ -208,8 +207,8 @@ class ContractFill extends Component {
     }
     isEmail(str) {
         var result = str.match(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(com|cn|net)$/);
-        if (result === null) return false;
-        return true;
+    if (result === null) return false;
+    return true;
     }
     isNumber(str) {
         var result = str.match(/^[0-9]*$/);
@@ -274,6 +273,23 @@ class ContractFill extends Component {
             rectificationDaysEachTime: number
         })
     }
+    denial(event) {
+        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/" + this.state.contractId + "/denial", this.state.contractId)
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("拒绝成功！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("拒绝失败！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
+    }
     handleSubmit(event) {
         var flag = 0;
         for (var item in this.state) {
@@ -304,7 +320,7 @@ class ContractFill extends Component {
                         this.setState({ error });
                     }
                 }
-            }
+            } 
         }
         for (var item in this.state.partyA) {
             if (this.isEmpty(this.state.partyA[item])) {
@@ -356,7 +372,7 @@ class ContractFill extends Component {
                 this.setState({ error });
                 event.preventDefault()
             }
-            else {
+            else{
                 let error = this.state.error;
                 error.partyB[item] = "";
                 this.setState({ error });
@@ -394,21 +410,21 @@ class ContractFill extends Component {
         console.log(flag);
         console.log(this.state);
         if (flag === 0) {
-            axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/{id}", { data: this.state })
-                .then(function (response) {
-                    if (response.status === 200) {
-                        alert("提交成功！");
-                    } else {
-                        console.log("Unknown error!");
-                    }
-                })
-                .catch(function (error) {
-                    if (error.response.status === 400) {
-                        alert("提交失败！");
-                    } else {
-                        console.log("Unknown error!");
-                    }
-                });
+            axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/"+this.state.contractId, JSON.stringify(this.state))
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("提交成功！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("提交失败！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
         }
     }
 }
