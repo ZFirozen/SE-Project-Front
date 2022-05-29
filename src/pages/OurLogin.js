@@ -47,6 +47,45 @@ export default class Login extends React.Component {
                 } else {
                     console.log("Unknown error1!");
                 }
+                axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            alert("用户名：" + userName + "\n登录成功！");
+                            axios.get("/api/account")
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        // console.log(response.data);
+                                        localStorage.setItem("userName", response.data.userName);
+                                        localStorage.setItem("userRole", response.data.userRole);
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.status === 400) {
+                                        console.log("unlogin?");
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                }).finally(() => {
+                                    window.location.href = "/";
+                                })
+                                .finally(() => {
+                                    window.location.href = "/";
+                                })
+                        } else {
+                            alert("登陆失败！\n请尝试重新登陆。");
+                            console.log("Unknown error!");
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response.status === 400) {
+                            alert("登陆失败！\n请尝试重新登陆。");
+                        } else {
+                            alert("登陆失败！\n请尝试重新登陆。");
+                            console.log("Unknown error!");
+                        }
+                    });
             })
             .catch((error) => {
                 if (this.state.isLoggedIn) {
@@ -58,44 +97,46 @@ export default class Login extends React.Component {
                     console.log("Unknown error2!");
                     console.log(error);
                 }
+                axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            alert("用户名：" + userName + "\n登录成功！");
+                            axios.get("/api/account")
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        // console.log(response.data);
+                                        localStorage.setItem("userName", response.data.userName);
+                                        localStorage.setItem("userRole", response.data.userRole);
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.status === 400) {
+                                        console.log("unlogin?");
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                }).finally(() => {
+                                    window.location.href = "/";
+                                })
+                                .finally(() => {
+                                    window.location.href = "/";
+                                })
+                        } else {
+                            alert("登陆失败！\n请尝试重新登陆。");
+                            console.log("Unknown error!");
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response.status === 400) {
+                            alert("登陆失败！\n请尝试重新登陆。");
+                        } else {
+                            alert("登陆失败！\n请尝试重新登陆。");
+                            console.log("Unknown error!");
+                        }
+                    });
             })
-        axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
-            .then(function (response) {
-                if (response.status === 200) {
-                    alert("用户名：" + userName + "\n登录成功！");
-                    axios.get("/api/account")
-                        .then((response) => {
-                            if (response.status === 200) {
-                                // console.log(response.data);
-                                localStorage.setItem("userName", response.data.userName);
-                                localStorage.setItem("userRole", response.data.userRole);
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        })
-                        .catch((error) => {
-                            if (error.status === 400) {
-                                console.log("unlogin?");
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        }).finally(() => {
-                            window.location.href = "/";
-                        })
-                        .finally(() => {
-                            window.location.href = "/";
-                        })
-                } else {
-                    console.log("Unknown error!");
-                }
-            })
-            .catch(function (error) {
-                if (error.response.status === 400) {
-                    alert("登陆失败！\n请尝试重新登陆。");
-                } else {
-                    console.log("Unknown error!");
-                }
-            });
     }
 
     onFinishFailed(errorInfo) {

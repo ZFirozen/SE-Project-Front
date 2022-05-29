@@ -333,7 +333,7 @@ export default defineConfig({
         {
           name: 'view',
           icon: 'smile',
-          path: '/entrustment/view/',
+          path: '/entrustment/view',
           component: './Entrustment',
         },
         {

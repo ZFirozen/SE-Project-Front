@@ -178,9 +178,7 @@ class QuotationFill extends Component {
                         <Row style={white}><div>
                             签字：<Input type="text" name="signature" status={this.state.error.signature} value={this.state.signature} onChange={this.InputChange} /></div></Row>
                         {userRole !== "CUSTOMER" ?
-                        <form onSubmit={this.accept.bind(this)}>
                             <Input type='submit' value='提交' />
-                        </form>
                         : ""}
                     </form>
                     {userRole === "CUSTOMER" ?
@@ -290,6 +288,7 @@ class QuotationFill extends Component {
     }
     handleSubmit(event) {
         var flag = 0;
+        console.log(flag)
         for (var item in this.state) {
             if (this.isEmpty(this.state[item])) {
                 flag += 1;
@@ -351,7 +350,7 @@ class QuotationFill extends Component {
         console.log(flag);
         console.log(this.state);
         if (flag === 0) {
-            axios.post("/api/entrust/" + this.state.entrustmentId+"/quote", JSON.stringify(this.state))
+            axios.post("/api/entrust/" + this.state.entrustmentId+"/quote",this.state)
             .then(function (response) {
                 if (response.status === 200) {
                     alert("提交成功！");

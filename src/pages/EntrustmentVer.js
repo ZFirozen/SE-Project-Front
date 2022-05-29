@@ -596,23 +596,6 @@ const EntrustmentVer = (props) => {
         <ProForm
           onFinish={async (values) => {
             let temp = values
-            if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
-              console.log(temp)
-              for (let i = 0; i < temp.software.modules.length; i++) {
-                delete temp.software.modules[i].id
-                if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
-                  for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
-                    delete temp.software.modules[i].functions[j].id
-                  }
-                  temp = JSON.stringify(temp)
-                  for (let i = 0; i < embedregLength; i++) {
-                    let iisundefined = eval("values.toreplace_" + i + "=== undefined")
-                    if (iisundefined !== true) {
-                      eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_" + i + " + replacetokenend + i)")
-                    }
-                  }
-                  temp = JSON.parse(temp)
-                  // localStorage.setItem('entrustmentVer_embedreg', JSON.stringify(embedreg))
                   console.log(temp)
                   console.log(temp.isverify)
                   console.log(temp.verifyMes)
@@ -634,9 +617,7 @@ const EntrustmentVer = (props) => {
                     console.log(temp.verifyMes)
                   }
                 }
-              }
-            }
-          }} >
+              }>
 
           <Col>
             <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>

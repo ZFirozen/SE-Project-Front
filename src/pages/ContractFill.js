@@ -445,7 +445,7 @@ class ContractFill extends Component {
                     console.log("Unknown error!");
                 }
             });
-            axios.post("/api/contract/" + this.state.contractId, JSON.stringify(this.state))
+            axios.post("/api/contract/" + this.state.contractId,this.state)
                 .then(function (response) {
                     if (response.status === 200) {
                         alert("提交成功！");
