@@ -17,23 +17,6 @@ const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 //注意这个类，必须继承自Component
-const entid = ( props ) => {
-    const entrustmentId = props.match.params.id;
-    console.log(entrustmentId);
-    
-    const getStatus = () => {
-        axios.get("/api/entrust/" + entrustmentId)
-            .then((response) => {
-                if (response.status === 200) {
-                    const conid=response.data.contractId;
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-}
 
 class ContractFill extends Component {
     //注意这个类，必须继承自Component

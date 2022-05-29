@@ -89,7 +89,7 @@ const Progress = ( props ) => {
         switch (value) {
             case 0:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/fill";
+                    window.location.href = "/entrustment/fill/"+entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -103,7 +103,7 @@ const Progress = ( props ) => {
                 break;
             case 2:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/verify";
+                    window.location.href = "/entrustment/verify/"+entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }

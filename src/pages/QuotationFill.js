@@ -177,7 +177,11 @@ class QuotationFill extends Component {
                             报价提供人：<Input type="text" name="provider" status={this.state.error.provider} value={this.state.provider} onChange={this.InputChange} /></div></Row>
                         <Row style={white}><div>
                             签字：<Input type="text" name="signature" status={this.state.error.signature} value={this.state.signature} onChange={this.InputChange} /></div></Row>
-                        <Input type='submit' value='提交' />
+                        {userRole !== "CUSTOMER" ?
+                        <form onSubmit={this.accept.bind(this)}>
+                            <Input type='submit' value='提交' />
+                        </form>
+                        : ""}
                     </form>
                     {userRole === "CUSTOMER" ?
                         <form onSubmit={this.accept.bind(this)}>
