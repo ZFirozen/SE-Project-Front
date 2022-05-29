@@ -169,7 +169,7 @@ export default {
       success: true,
     });
   },
-  'POST /api/register': (req, res) => {
+  'POST /api/antdproregister': (req, res) => {
     res.send({
       status: 'ok',
       currentAuthority: 'user',

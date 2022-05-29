@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 export default {
-  'POST  /api/register': (_, res) => {
+  'POST  /api/antdproregister': (_, res) => {
     res.send({
       data: {
         status: 'ok',

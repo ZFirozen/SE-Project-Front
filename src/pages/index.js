@@ -17,8 +17,9 @@ import QuotationFill from "./QuotationFill";
 import Sample from "./Sample";
 import Progress from "./Progress";
 import Assign from "./Assign";
+import DocumentVerify from "./DocumentVerify";
 
 export {
     Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
-    Entrustment, Sample, ContractFill, EntrustmentFill, EntrustmentVer, Assign, Progress, ContractDisplay, QuotationFill
+    Entrustment, Sample, ContractFill, EntrustmentFill, EntrustmentVer, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify
 }
