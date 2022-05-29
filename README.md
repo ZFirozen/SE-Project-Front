@@ -1,3 +1,6 @@
+#两个表里的this.state.contractId和this.state.entrustmentId可能有问题，对prop的传参还没怎么搞明白...
+
+
 # SE-Project-Front
 
 软件工程综合实验 测试中心项目 前端
