@@ -101,9 +101,9 @@ class ContractFill extends Component {
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
         // console.log(this.state.Input_value)
-        // console.log(entid);
-        // console.log(entid.getStatus);
+        //console.log(entid.getStatus);
         // console.log(entid.getStatus.conid);
+        console.log("cid="+this.state.contractId);
         return (
             <Fragment>
                 <Card>
@@ -296,7 +296,7 @@ class ContractFill extends Component {
         })
     }
     denial(event) {
-        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/contract/" + this.state.contractId + "/denial", this.state.contractId)
+        axios.post("/api/contract/" + this.state.contractId + "/denial", this.state.contractId)
             .then(function (response) {
                 if (response.status === 200) {
                     alert("拒绝成功！");
@@ -429,24 +429,30 @@ class ContractFill extends Component {
             }
         }//判断是否为空
 
-        console.log(flag);
-        console.log(this.state);
+        console.log("flag:"+flag);
+        console.log("state:"+this.state);
         // console.log(entid);
         // console.log(entid.getStatus);
         // console.log(entid.getStatus);
         if (flag === 0) {
-            axios.post("/api/contract/{id}", { data: this.state })
+            axios.post("/api/contract/" + this.state.contractId, { data: this.state })
                 .then(function (response) {
                     if (response.status === 200) {
                         alert("提交成功！");
+                        console.log("flag:"+flag);
+                        console.log("state:"+this.state);
                     } else {
+                        alert("提交失败！");
                         console.log("Unknown error!");
                     }
                 })
                 .catch(function (error) {
                     if (error.response.status === 400) {
                         alert("提交失败！");
+                        console.log("flag:"+flag);
+                        console.log("state:"+this.state);
                     } else {
+                        alert("提交失败！");
                         console.log("Unknown error!");
                     }
                 });

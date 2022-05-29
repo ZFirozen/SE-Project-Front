@@ -359,7 +359,7 @@ export default defineConfig({
         {
           name: 'fill',
           icon: 'smile',
-          path: '/entrustment/quotation/fill',
+          path: '/entrustment/quotation/fill/:id',
           component: './QuotationFill',
           hideInMenu: true,
         },

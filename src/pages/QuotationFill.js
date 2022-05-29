@@ -225,7 +225,7 @@ class QuotationFill extends Component {
         })
     }
     denial(event) {
-        axios.post(process.env.REACT_APP_JSON_SERVER + "/api/entrust/" + this.state.entrustmentId + "/quote/denial", this.state.entrustmentId)
+        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/denial", this.state.entrustmentId)
             .then(function (response) {
                 if (response.status === 200) {
                     alert("拒绝成功！");
@@ -304,11 +304,12 @@ class QuotationFill extends Component {
         console.log(flag);
         console.log(this.state);
         if (flag === 0) {
-            axios.post(process.env.REACT_APP_JSON_SERVER + "/api/entrust/" + this.state.entrustmentId+"/quote", JSON.stringify(this.state))
+            axios.post("/api/entrust/" + this.state.entrustmentId+"/quote", JSON.stringify(this.state))
             .then(function (response) {
                 if (response.status === 200) {
                     alert("提交成功！");
                 } else {
+                  alert("提交失败！");
                     console.log("Unknown error!");
                 }
             })
@@ -316,6 +317,7 @@ class QuotationFill extends Component {
                 if (error.response.status === 400) {
                     alert("提交失败！");
                 } else {
+                  alert("提交失败！");
                     console.log("Unknown error!");
                 }
             });
