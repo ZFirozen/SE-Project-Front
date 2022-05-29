@@ -112,7 +112,7 @@ export default class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/account")
+        axios.get("/api/account")
             .then((response) => {
                 if (response.status === 200) {
                     this.setState({
@@ -144,7 +144,7 @@ export default class UserInfo extends React.Component {
 
     onClick(event) {
         // event.preventDefault();
-        axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/logout")
+        axios.post("/api/logout")
             .then((response) => {
                 if (response.status === 200) {
                     alert("用户名：" + this.state.userName + "已登出！");
@@ -181,7 +181,7 @@ export default class UserInfo extends React.Component {
     onSearch(value) {
         const searchMode = this.state.searchMode;
         const searchText = this.state.searchText;
-        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/user/search?" + searchMode + "=" + searchText)
+        axios.get("/api/user/search?" + searchMode + "=" + searchText)
             .then((response) => {
                 if (response.status === 200) {
                     this.setState({ data: response.data });
@@ -248,7 +248,7 @@ export default class UserInfo extends React.Component {
 
                 const handleSave = (row) => {
                     console.log(row.userName, row.userRole);
-                    axios.post(process.env.REACT_APP_BACKEND_SERVER + "/api/account/role?userName=" + row.userName + "&newValue=" + row.userRole)
+                    axios.post("/api/account/role?userName=" + row.userName + "&newValue=" + row.userRole)
                         .then((response) => {
                             if (response.status === 200) {
                                 // console.log(row, row.key);
