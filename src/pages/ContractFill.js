@@ -23,6 +23,23 @@ const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 //注意这个类，必须继承自Component
+const entid = ( props ) => {
+    const entrustmentId = props.match.params.id;
+    console.log(entrustmentId);
+    
+    const getStatus = () => {
+        axios.get("/api/entrust/" + entrustmentId)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(response.data.contractId);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+}
 
 class ContractFill extends Component {
 
@@ -129,7 +146,7 @@ class ContractFill extends Component {
                         本合同签定后，十个工作日内甲方合同价款至乙方帐户。<br />
                         <br />
                         <Title level={4}>六、履行的期限</Title>
-                        1.	本次测试的履行期限为合同生效之日起<InputNumber name="totalWorkingDays" min={0} status={this.state.error.totalWorkingDays} value={this.state.totalWorkingDays} min={0} value={this.state.totalWorkingDays} onChange={this.totalWorkingDaysChange.bind(this)} />个自然日内完成。<br />
+                        1.	本次测试的履行期限为合同生效之日起<InputNumber name="totalWorkingDays" min={0} status={this.state.error.totalWorkingDays} value={this.state.totalWorkingDays} onChange={this.totalWorkingDaysChange.bind(this)} />个自然日内完成。<br />
                         2.	经甲乙双方同意，可对测试进度作适当修改，并以修改后的测试进度作为本合同执行的期限。<br />
                         3.	如受测软件在测试过程中出现的问题，导致继续进行测试会影响整体测试进度，则乙方暂停测试并以书面形式通知甲方进行整改。<br />
                         在整个测试过程中，整改次数限于<InputNumber name="rectificationLimit" min={0} status={this.state.error.rectificationLimit} value={this.state.rectificationLimit} onChange={this.rectificationLimitChange.bind(this)} />次，
@@ -393,6 +410,8 @@ class ContractFill extends Component {
 
         console.log(flag);
         console.log(this.state);
+        console.log(entid);
+        console.log(entid.getStatus);
         if (flag === 0) {
             axios.post("/api/contract/{id}", { data: this.state })
                 .then(function (response) {

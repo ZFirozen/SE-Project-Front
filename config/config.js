@@ -65,6 +65,12 @@ export default defineConfig({
       ],
     },
     {
+      path: '/home',
+      name: 'home',
+      icon: 'smile',
+      component: './home',
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       icon: 'dashboard',
@@ -357,6 +363,13 @@ export default defineConfig({
           component: './EntrustmentVer',
           hideInMenu: true,
         },
+        {
+          name: 'cfill',
+          icon: 'smile',
+          path: '/entrustment/contract/fill/:id',
+          component: './ContractFill',
+          hideInMenu: true,
+        },
       ],
     },
     {
@@ -389,7 +402,7 @@ export default defineConfig({
     },
     {
       path: '/',
-      redirect: '/dashboard/analysis',
+      redirect: '/home',
     },
     {
       component: '404',

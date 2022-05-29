@@ -31,7 +31,28 @@ export default class SignUp extends React.Component {
 
         const userName = this.state.username;
         const userPassword = this.state.password;
-
+        axios.post("/api/logout")
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("用户名：" + this.state.userName + "已登出！");
+                    if (this.state.isLoggedIn) {
+                        this.setState({ isLoggedIn: false });
+                    }
+                } else {
+                    console.log("Unknown error1!");
+                }
+            })
+            .catch((error) => {
+                if (this.state.isLoggedIn) {
+                    this.setState({ isLoggedIn: false });
+                }
+                if (error.status === 400) {
+                    console.log("当前未登录账号！请重新登录！");
+                } else {
+                    console.log("Unknown error2!");
+                    console.log(error);
+                }
+            })
         axios.post("/api/register?userName=" + userName + "&userPassword=" + userPassword)
             .then(function (response) {
                 console.log(response);
@@ -66,6 +87,7 @@ export default class SignUp extends React.Component {
             });
 
         this.setState({ error: {}, isDisabled: false });
+        window.location.href = "/home";
     }
 
     onFinishFailed(errorInfo) {

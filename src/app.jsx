@@ -21,7 +21,7 @@ export async function getInitialState() {
       const msg = await queryCurrentUser();
       return msg.data;
     } catch (error) {
-      history.push(loginPath);
+      //history.push(loginPath);
     }
 
     return undefined;
