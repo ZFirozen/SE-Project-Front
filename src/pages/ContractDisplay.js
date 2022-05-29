@@ -21,7 +21,7 @@ export default class ContractDisplay extends React.Component {
 
     fetchState = () => {
         let varthis = this;
-        axios.get(process.env.REACT_APP_JSON_SERVER + "/api/contract/37")
+        axios.get("/api/contract/37")
             .then(function(res) {
                 
                 console.log("cba")

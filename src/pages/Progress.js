@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
@@ -7,15 +8,18 @@ axios.defaults.withCredentials = true;
 
 const { Step } = Steps;
 
-const Progress = (entrustmentId) => {
+const Progress = ( props ) => {
+    const entrustmentId = props.match.params.id;
+    console.log(entrustmentId);
+    // const entrustmentId = useLocation().pathname.match('(?<=/progress/).+').at(0)
     const [currentStage, setCurrentStage] = useState(0);
-    const [currentStep, setCurrentStep] = useState(4);
+    const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
 
     const getStatus = () => {
-        axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust/" + entrustmentId)
+        axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
                 if (response.status === 200) {
                     switch (response.data.status.stage) {
