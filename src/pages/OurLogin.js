@@ -6,7 +6,7 @@ import localStorage from "localStorage";
 
 import "./OurLogin.css";
 
-// require("dotenv").config()
+axios.defaults.withCredentials = true;
 
 export default class Login extends React.Component {
     constructor(props) {

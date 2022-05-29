@@ -2,6 +2,9 @@ import React from "react";
 import axios from "axios";
 import { Form, Input, Checkbox, Button, Alert } from "antd";
 
+import localStorage from "localStorage";
+
+axios.defaults.withCredentials = true;
 
 export default class SignUp extends React.Component {
     constructor(props) {
@@ -27,25 +30,30 @@ export default class SignUp extends React.Component {
     }
 
     onFinish(event) {
-        this.setState({ error: {}, isDisabled: true });
+        // this.setState({ error: {}, isDisabled: true });
 
         const userName = this.state.username;
         const userPassword = this.state.password;
 
         axios.post("/api/register?userName=" + userName + "&userPassword=" + userPassword)
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 if (response.status === 200) {
                     alert("注册成功！\n即将登录并跳转到首页...");
+                    console.log(userName, userPassword);
                     axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
-                        .then(function (response) {
+                        .then((response) => {
                             if (response.status === 200) {
+
+                                localStorage.setItem("userName", userName);
+                                localStorage.setItem("userRole", "CUSTOMER");
+
                                 window.location.href = "/";
                             } else {
                                 console.log("Unknown error!");
                             }
                         })
-                        .catch(function (error) {
+                        .catch((error) => {
                             if (error.response.status === 400) {
                                 alert("登陆失败！\n请尝试重新登陆。");
                             } else {
@@ -56,7 +64,7 @@ export default class SignUp extends React.Component {
                     console.log("Unknown error!");
                 }
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
                 if (error.response.status === 400) {
                     alert("注册失败！\n请重新输入用户名。");
@@ -65,7 +73,7 @@ export default class SignUp extends React.Component {
                 }
             });
 
-        this.setState({ error: {}, isDisabled: false });
+        // this.setState({ error: {}, isDisabled: false });
     }
 
     onFinishFailed(errorInfo) {
