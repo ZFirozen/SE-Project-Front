@@ -62,7 +62,7 @@ switch (localStorage.getItem("userRole")) {
             search: false,
             //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
             render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Link to={"./assign/" + a.id}>分派</Link> : null
-        }]
+}]
         break
     case "TESTING_SUPERVISOR":
         columns = [...columns, {
@@ -70,17 +70,24 @@ switch (localStorage.getItem("userRole")) {
             search: false,
             //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
             render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Link to={"./assign/" + a.id}>分派</Link> : null
-        }]
+}]
         break
     case "CUSTOMER":
         columns = [...columns, {
             title: '操作',
             search: false,
             render: (a) => {
+                if(a.status.stage == "MARKETER_DENIED" || a.status.stage == "TESTER_DENIED" ){
+                    return (
+                        <>
+                            <Link to={"fill/"+a.id}>修改委托</Link>
+                            <br />
+                            <Link to={"progress/" + a.id}>查看进度</Link>
+                        </>
+                    )
+                }
                 return (
                     <>
-                        <Link to={"fill/"}>修改委托</Link>
-                        <br />
                         <Link to={"progress/" + a.id}>查看进度</Link>
                     </>
                 )
@@ -112,8 +119,8 @@ switch (localStorage.getItem("userRole")) {
                 </>
             )
         }
-    }]
-    break
+        }]
+        break
     default:
         break
 }

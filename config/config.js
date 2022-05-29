@@ -339,6 +339,13 @@ export default defineConfig({
         {
           name: 'fill',
           icon: 'smile',
+          path: '/entrustment/fill/:id',
+          component: './EntrustmentFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'fill',
+          icon: 'smile',
           path: '/entrustment/fill',
           component: './EntrustmentFill',
         },
@@ -366,7 +373,7 @@ export default defineConfig({
         {
           name: 'verify',
           icon: 'smile',
-          path: '/entrustment/verify',
+          path: '/entrustment/verify/:id',
           component: './EntrustmentVer',
           hideInMenu: true,
         },
