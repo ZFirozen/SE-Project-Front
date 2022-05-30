@@ -10,7 +10,6 @@ const { Step } = Steps;
 
 const Progress = (props) => {
     const entrustmentId = props.match.params.id;
-   // const [contractId, setContractId] = useState("");
     const [marketerId, setMarketerId] = useState("");
     const [customerId, setCustomerId] = useState("");
     console.log(entrustmentId);
@@ -175,7 +174,7 @@ const Progress = (props) => {
                                 console.log("Unknown error!");
                             }
                         });
-                    // window.location.href = "/entrustment/contract/fill/" + entrustmentId;
+                    window.location.href = "/entrustment/contract/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
