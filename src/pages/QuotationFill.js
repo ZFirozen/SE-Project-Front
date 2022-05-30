@@ -1,7 +1,8 @@
 import "./QuotationFill.css";
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect,InputNumber, DatePicker } from 'antd';
+import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
+import moment from "moment";
 
 import axios from 'axios';
 import localStorage from "localStorage";
@@ -15,7 +16,7 @@ const { Title, Paragraph } = Typography
 const Component = React.Component
 const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
-const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11,width: "100%", columnGap: 32 }
+const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 
 class QuotationFill extends Component {
     //注意这个类，必须继承自Component
@@ -32,40 +33,40 @@ class QuotationFill extends Component {
             accountName: "南京大学",
             softwareName: "",
             rowList: [{
-                    projectName: "",
-                    subProject: "",
-                    price: "",
-                    description: "",
-                    rowTotal: ""
-                },
-                {
-                    projectName: "",
-                    subProject: "",
-                    price: "",
-                    description: "",
-                    rowTotal: ""
-                },
-                {
-                    projectName: "",
-                    subProject: "",
-                    price: "",
-                    description: "",
-                    rowTotal: ""
-                },
-                {
-                    projectName: "",
-                    subProject: "",
-                    price: "",
-                    description: "",
-                    rowTotal: ""
-                },
-                {
-                    projectName: "",
-                    subProject: "",
-                    price: "",
-                    description: "",
-                    rowTotal: ""
-                }],
+                projectName: "",
+                subProject: "",
+                price: "",
+                description: "",
+                rowTotal: ""
+            },
+            {
+                projectName: "",
+                subProject: "",
+                price: "",
+                description: "",
+                rowTotal: ""
+            },
+            {
+                projectName: "",
+                subProject: "",
+                price: "",
+                description: "",
+                rowTotal: ""
+            },
+            {
+                projectName: "",
+                subProject: "",
+                price: "",
+                description: "",
+                rowTotal: ""
+            },
+            {
+                projectName: "",
+                subProject: "",
+                price: "",
+                description: "",
+                rowTotal: ""
+            }],
             subTotal: "",
             taxRate: "",
             total: "",
@@ -77,19 +78,41 @@ class QuotationFill extends Component {
         }
         this.InputChange = this.InputChange.bind(this);
         this.rowListChange = this.rowListChange.bind(this);
+    }
+
+
+    componentDidMount() {
+        console.log(this.state.entrustmentId);
+        if (this.state.entrustmentId !== undefined || this.state.entrustmentId !== null) {
+            axios.get("/api/entrust/" + this.state.entrustmentId)
+                .then((response) => {
+                    if (response.status === 200) {
+                        console.log(response.data);
+                        this.setState(response.data.quote);
+                        // this.setState({
+                        //     quotationDate: 
+                        // })
+                    }
+                })
+                .catch((error) => {
+                    console.log("error!");
+                })
         }
+    }
+
+
 
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
-        // console.log(this.state.Input_value)
+        // console.log(this.state)
         return (
             <Fragment>
                 <Card>
                     <form onSubmit={this.handleSubmit.bind(this)}>
                         <Title level={3}>报价单</Title>
-                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
-                            报价有效期：<DatePicker name="effectiveDate" status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
+                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" defaultValue={moment(Date(this.state.quotationDate))} status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
+                            报价有效期：<DatePicker name="effectiveDate" defaultValue={moment(Date(this.state.effectiveDate))} status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
                         <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.bankName} value={this.state.bankName} onChange={this.InputChange} disabled />
                             户名：<Input type="text" name="accountName" status={this.state.error.accountName} value={this.state.accountName} onChange={this.InputChange} disabled />
                             账号：<Input type="text" name="account" status={this.state.error.account} value={this.state.account} onChange={this.InputChange} disabled /></div></Row>
@@ -97,15 +120,15 @@ class QuotationFill extends Component {
                             软件名称：<Input type="text" name="softwareName" status={this.state.error.softwareName} value={this.state.softwareName} onChange={this.InputChange} /></div></Row>
                         <Row style={white} justify="space-around">
                             <Col className="gutter-row" >
-                                项目</Col> 
+                                项目</Col>
                             <Col className="gutter-row" >
-                                分项</Col> 
+                                分项</Col>
                             <Col className="gutter-row" >
-                                单价</Col> 
+                                单价</Col>
                             <Col className="gutter-row" >
-                                说明</Col> 
+                                说明</Col>
                             <Col className="gutter-row" >
-                                行合计</Col> 
+                                行合计</Col>
                         </Row>
                         <Row style={gray} justify="space-evenly">
                             <div><Col className="gutter-row" span={4}>
@@ -179,7 +202,7 @@ class QuotationFill extends Component {
                             签字：<Input type="text" name="signature" status={this.state.error.signature} value={this.state.signature} onChange={this.InputChange} /></div></Row>
                         {userRole !== "CUSTOMER" ?
                             <Input type='submit' value='提交' />
-                        : ""}
+                            : ""}
                     </form>
                     {userRole === "CUSTOMER" ?
                         <form onSubmit={this.accept.bind(this)}>
@@ -272,7 +295,7 @@ class QuotationFill extends Component {
                 if (response.status === 200) {
                     alert("同意成功！");
 
-                    
+
 
                 } else {
                     alert("同意失败！");
@@ -319,7 +342,7 @@ class QuotationFill extends Component {
                         this.setState({ error });
                     }
                 }
-            } 
+            }
         }
         for (var item in this.state.rowList[0]) {
             if (this.isEmpty(this.state.rowList[0][item])) {
@@ -352,23 +375,23 @@ class QuotationFill extends Component {
         console.log(flag);
         console.log(this.state);
         if (flag === 0) {
-            axios.post("/api/entrust/" + this.state.entrustmentId+"/quote",this.state)
-            .then(function (response) {
-                if (response.status === 200) {
-                    alert("提交成功！");
-                } else {
-                  alert("提交失败！");
-                    console.log("Unknown error!");
-                }
-            })
-            .catch(function (error) {
-                if (error.response.status === 400) {
-                    alert("提交失败！");
-                } else {
-                  alert("提交失败！");
-                    console.log("Unknown error!");
-                }
-            });
+            axios.post("/api/entrust/" + this.state.entrustmentId + "/quote", this.state)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        alert("提交成功！");
+                    } else {
+                        alert("提交失败！");
+                        console.log("Unknown error!");
+                    }
+                })
+                .catch(function (error) {
+                    if (error.response.status === 400) {
+                        alert("提交失败！");
+                    } else {
+                        alert("提交失败！");
+                        console.log("Unknown error!");
+                    }
+                });
         }
     }
 }

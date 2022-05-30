@@ -1,7 +1,7 @@
 import "./ContractFill.css";
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect,InputNumber, DatePicker } from 'antd';
+import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 
 import axios from 'axios';
 import localStorage from "localStorage";
@@ -11,6 +11,9 @@ const userRole = localStorage.getItem("userRole");
 const rowbegingap = 20
 const formitemheight = 62
 const { Title, Paragraph } = Typography
+
+axios.defaults.withCredentials = true;
+
 // 将引入类变成常量，用来继承
 const Component = React.Component
 const Fragment = React.Fragment
@@ -25,8 +28,10 @@ class ContractFill extends Component {
         //设置属性，this.state,这是类的属性，为一个对象
         this.state = {
             //可以使用 this.state.属性在类内部使用
-            contractId:undefined,
-            eid:props.match.params.id,
+            id: undefined,
+            marketerId: 0,
+            customerId: 0,
+            entrustId: props.match.params.id,
             projectName: "",
             partyA: {
                 companyCN: "",
@@ -79,15 +84,35 @@ class ContractFill extends Component {
         this.InputChange = this.InputChange.bind(this);
         this.partyAChange = this.partyAChange.bind(this);
         this.partyBChange = this.partyBChange.bind(this);
-        }
+    }
 
+    componentDidMount() {
+        axios.get("/api/entrust/" + this.state.eid)
+            .then((response) => {
+                if (response.status === 200) {
+                    this.setState({
+                        id: response.data.contractId,
+                        marketerId: response.data.marketerId,
+                        customerId: response.data.customerId,
+                    });
+                    console.log("success");
+                }
+                else {
+                    console.log(response);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
         // console.log(this.state.Input_value)
         //console.log(entid.getStatus);
         // console.log(entid.getStatus.conid);
-        console.log("cid="+this.state.contractId);
+        console.log("1 cid=" + this.state.id);
         return (
             <Fragment>
                 <Card>
@@ -174,7 +199,7 @@ class ContractFill extends Component {
                             账号：<Input type="text" name="account" status={this.state.error.partyA.account} value={this.state.partyA.account} onChange={this.partyAChange} /></div></Row>
                         <br />
                         <Title level={5}>受托方：</Title>
-                        <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCN" status={this.state.error.partyB.companyCN} value={this.state.partyB.companyCN} onChange={this.partyBChange} disabled/>
+                        <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCN" status={this.state.error.partyB.companyCN} value={this.state.partyB.companyCN} onChange={this.partyBChange} disabled />
                             单位全称（英文）：<Input type="text" name="companyEN" status={this.state.error.partyB.companyEN} value={this.state.partyB.companyEN} onChange={this.partyBChange} /></div></Row>
                         <Row style={white}><div>授权代表：<Input type="text" name="authorizedRepresentative" status={this.state.error.partyB.authorizedRepresentative} value={this.state.partyB.authorizedRepresentative} onChange={this.partyBChange} />
                             签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyB.sigDate} onChange={this.partyBsigDateChange.bind(this)} /></div></Row>
@@ -187,23 +212,23 @@ class ContractFill extends Component {
                         <Row style={gray}><div>通讯地址：<Input type="text" name="address" status={this.state.error.partyB.address} value={this.state.partyB.address} onChange={this.partyBChange} />
                             邮编：<Input type="text" name="zipCode" status={this.state.error.partyB.zipCode} value={this.state.partyB.zipCode} onChange={this.partyBChange} />
                             传真：<Input type="text" name="fax" status={this.state.error.partyB.fax} value={this.state.partyB.fax} onChange={this.partyBChange} /></div></Row>
-                        <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.partyB.bankName} value={this.state.partyB.bankName} onChange={this.partyBChange} disabled/>
-                            户名：<Input type="text" name="accountName" status={this.state.error.partyB.accountName} value={this.state.partyB.accountName} onChange={this.partyBChange} disabled/>
-                            账号：<Input type="text" name="account" status={this.state.error.partyB.account} value={this.state.partyB.account} onChange={this.partyBChange} disabled/></div></Row>
-                    <Input type='submit' value='提交' />
+                        <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.partyB.bankName} value={this.state.partyB.bankName} onChange={this.partyBChange} disabled />
+                            户名：<Input type="text" name="accountName" status={this.state.error.partyB.accountName} value={this.state.partyB.accountName} onChange={this.partyBChange} disabled />
+                            账号：<Input type="text" name="account" status={this.state.error.partyB.account} value={this.state.partyB.account} onChange={this.partyBChange} disabled /></div></Row>
+                        <Input type='submit' value='提交' />
                     </form>
-                    {userRole==="CUSTOMER"?
+                    {userRole === "CUSTOMER" ?
                         <form onSubmit={this.denial.bind(this)}>
                             <Input type='submit' value='拒绝合同' />
                         </form>
                         : ""}
                 </Card>
             </Fragment>
-            
+
         )
     }
     //自定义方法
-    
+
     isEmpty(str) {
         if (str === "") return true;
         return false;
@@ -214,8 +239,8 @@ class ContractFill extends Component {
     }
     isEmail(str) {
         var result = str.match(/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(com|cn|net)$/);
-    if (result === null) return false;
-    return true;
+        if (result === null) return false;
+        return true;
     }
     isNumber(str) {
         var result = str.match(/^[0-9]*$/);
@@ -281,7 +306,8 @@ class ContractFill extends Component {
         })
     }
     denial(event) {
-        axios.post("/api/contract/" + this.state.contractId + "/denial")
+        const id = this.state.id;
+        axios.post("/api/contract/" + id + "/denial")
             .then(function (response) {
                 if (response.status === 200) {
                     alert("拒绝成功！");
@@ -298,23 +324,9 @@ class ContractFill extends Component {
             });
     }
     handleSubmit(event) {
-        var cid;
-        axios.get("/api/entrust/" + this.state.eid)
-        .then((response) => {
-            if (response.status === 200) {
-                cid=response.contractId;
-                console.log("success");
-            }
-            else
-            {
-                console.log(response);
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-        console.log("cid="+cid);
+        // event.preventDefault();
+        const id = this.state.id;
+        console.log("2 cid=" + id);
         var flag = 0;
         for (var item in this.state) {
             if (this.isEmpty(this.state[item])) {
@@ -344,7 +356,7 @@ class ContractFill extends Component {
                         this.setState({ error });
                     }
                 }
-            } 
+            }
         }
         for (var item in this.state.partyA) {
             if (this.isEmpty(this.state.partyA[item])) {
@@ -396,7 +408,7 @@ class ContractFill extends Component {
                 this.setState({ error });
                 event.preventDefault()
             }
-            else{
+            else {
                 let error = this.state.error;
                 error.partyB[item] = "";
                 this.setState({ error });
@@ -431,48 +443,55 @@ class ContractFill extends Component {
             }
         }//判断是否为空
 
-        console.log("flag:"+flag);
-        console.log("state:"+this.state);
+        console.log("flag:" + flag);
+        console.log("state:" + this.state);
         // console.log(entid);
         // console.log(entid.getStatus);
         // console.log(entid.getStatus);
         if (flag === 0) {
-            axios.post("/api/contract/" + this.state.contractId + "/acceptance")
-            .then(function (response) {
-                if (response.status === 200) {
-                    alert("同意合同！");
-                } else {
-                    console.log("Unknown error!");
-                }
-            })
-            .catch(function (error) {
-                if (error.response.status === 400) {
-                    alert("同意失败！");
-                } else {
-                    console.log("Unknown error!");
-                }
-            });
-            axios.post("/api/contract/" + this.state.contractId,this.state)
-                .then(function (response) {
-                    if (response.status === 200) {
-                        alert("提交成功！");
-                        console.log("flag:"+flag);
-                        console.log("state:"+this.state);
-                    } else {
-                        alert("提交失败！");
-                        console.log("Unknown error!");
-                    }
-                })
-                .catch(function (error) {
-                    if (error.response.status === 400) {
-                        alert("提交失败！");
-                        console.log("flag:"+flag);
-                        console.log("state:"+this.state);
-                    } else {
-                        alert("提交失败！");
-                        console.log("Unknown error!");
-                    }
-                });
+            const userRole = localStorage.getItem("userRole");
+            if (userRole === "MARKETER") {
+                axios.post("/api/contract/" + id, this.state)
+                    .then((response) => {
+                        if (response.status === 200) {
+                            alert("提交成功！");
+                            console.log("flag:" + flag);
+                            console.log("state:" + this.state);
+                        } else {
+                            alert("提交成功?");
+                            console.log("Unknown error!");
+                        }
+                    })
+                    .catch((error) => {
+                        if (error.status === 400) {
+                            alert("提交失败！");
+                            console.log("flag:" + flag);
+                            console.log("state:" + this.state);
+                        } else {
+                            console.log(error);
+                            alert("提交失败？");
+                            console.log("Unknown error!");
+                        }
+                    });
+            } else if (userRole === "CUSTOMER") {
+                axios.post("/api/contract/" + id + "/acceptance")
+                    .then((response) => {
+                        if (response.status === 200) {
+                            alert("同意合同！");
+
+                        } else {
+                            console.log("Unknown error!");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        if (error.status === 400) {
+                            alert("同意失败！");
+                        } else {
+                            console.log("Unknown error!");
+                        }
+                    });
+            }
         }
     }
 }
