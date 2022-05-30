@@ -49,7 +49,6 @@ const EntrustmentFill = (props) => {
                           delete temp.software.modules[i].functions[j].id
                         }
                       }
-                      keysarray = [...keysarray, ...Detail.data.content.software.modules[i].functions.map((item) => item.id)]
                     }
                   }
                   temp = JSON.stringify(temp)

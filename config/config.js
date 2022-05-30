@@ -423,6 +423,12 @@ export default defineConfig({
           path: '/contract/review/:id',
           component: './ContractReview',
         },
+        {
+          name: 'upload',
+          icon: 'smile',
+          path: '/contract/upload/:id',
+          component: './ContractUpload',
+        },
       ],
 },
     {

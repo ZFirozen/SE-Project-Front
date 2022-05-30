@@ -17,11 +17,12 @@ const Progress = ( props ) => {
     const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
-
+    var contractId = '';
     const getStatus = () => {
         axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
                 if (response.status === 200) {
+                    contractId = response.data.contractId
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
@@ -190,6 +191,7 @@ const Progress = ( props ) => {
             case 5:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
+                    window.location.href = "/entrustment/contract/upload/"+ contractId;
                 } else {
                     alert("您没有权限访问！");
                 }
