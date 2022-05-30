@@ -8,8 +8,11 @@ axios.defaults.withCredentials = true;
 
 const { Step } = Steps;
 
-const Progress = ( props ) => {
+const Progress = (props) => {
     const entrustmentId = props.match.params.id;
+    const [contractId, setContractId] = useState("");
+    const [marketerId, setMarketerId] = useState("");
+    const [customerId, setCustomerId] = useState("");
     console.log(entrustmentId);
     // const entrustmentId = useLocation().pathname.match('(?<=/progress/).+').at(0)
     const [currentStage, setCurrentStage] = useState(0);
@@ -72,6 +75,7 @@ const Progress = ( props ) => {
                         default:
                             break;
                     }
+                    // setShowStage(currentStage);
                 }
             })
             .catch((error) => {
@@ -90,35 +94,35 @@ const Progress = ( props ) => {
         switch (value) {
             case 0:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/fill/"+entrustmentId;
+                    window.location.href = "/entrustment/fill/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 1:
                 if (userRole === "MARKETING_SUPERVISOR") {
-                    window.location.href = "/assign/"+entrustmentId;
+                    window.location.href = "/assign/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 2:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/verify/"+entrustmentId;
+                    window.location.href = "/entrustment/verify/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 3:
                 if (userRole === "TESTING_SUPERVISOR") {
-                    window.location.href = "/assign/"+entrustmentId;
+                    window.location.href = "/assign/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 4:
                 if (userRole === "TESTER") {
-                    window.location.href = "/entrustment/documentVerify/"+entrustmentId;
+                    window.location.href = "/entrustment/documentVerify/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -134,7 +138,7 @@ const Progress = ( props ) => {
         switch (value) {
             case 0:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/quotation/fill/"+ entrustmentId;
+                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -142,7 +146,7 @@ const Progress = ( props ) => {
                 break;
             case 1:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/quotation/fill/"+ entrustmentId;
+                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -151,22 +155,25 @@ const Progress = ( props ) => {
             case 2:
                 if (userRole === "MARKETER") {
                     axios.post("/api/contract?entrustId=" + entrustmentId)
-                    .then(function (response) {
-                        if (response.status === 200) {
-                            alert("合同创建成功！");
-                            console.log("create contract success");
-                        } else {
-                            console.log("Unknown error!");
-                        }
-                    })
-                    .catch(function (error) {
-                        if (error.response.status === 400) {
-                            console.log(error);
-                        } else {
-                            console.log("Unknown error!");
-                        }
-                    });
-                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
+                        .then(function (response) {
+                            if (response.status === 200) {
+                                alert("合同创建成功！");
+                                // setContractId(response.data.contractId);
+                                // setMarketerId(response.data.marketerId);
+                                // setCustomerId(response.data.customerId);
+                                console.log("create contract success");
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                        .catch(function (error) {
+                            if (error.response.status === 400) {
+                                console.log(error);
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        });
+                    // window.location.href = "/entrustment/contract/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -174,7 +181,7 @@ const Progress = ( props ) => {
                 break;
             case 3:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
+                    window.location.href = "/entrustment/contract/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -183,7 +190,7 @@ const Progress = ( props ) => {
             case 4:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
-                    window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
+                    window.location.href = "/entrustment/contract/fill/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
