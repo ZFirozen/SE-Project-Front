@@ -197,7 +197,7 @@ const Progress = (props) => {
             case 5:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
-                    window.location.href = "/entrustment/contract/upload/"+ contractId;
+                    window.location.href = "/contract/upload/"+ contractId;
                 } else {
                     alert("您没有权限访问！");
                 }
