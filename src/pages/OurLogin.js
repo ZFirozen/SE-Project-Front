@@ -82,9 +82,7 @@ export default class Login extends React.Component {
                     })
                     .catch(function (error) {
                         if (error.response.status === 400) {
-                            alert("登陆失败！\n请尝试重新登陆。");
                         } else {
-                            alert("登陆失败！\n请尝试重新登陆。");
                             console.log("Unknown error!");
                         }
                     });

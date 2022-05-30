@@ -441,7 +441,7 @@ const EntrustmentFill = (props) => {
                                     { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
                                 </Row>
                                 <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: basewidth - 216, columnGap: 32 }}>
-                                  <ProFormText label="数据库" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftDB"]}></ProFormText>
+                                  <ProFormText label="数据库" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftDatabase"]}></ProFormText>
                                   <ProFormText label="中间件" width='400px' required rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftMiddleware"]}></ProFormText>
                                 </Row>
                                 <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: basewidth - 216, columnGap: 32 }}>

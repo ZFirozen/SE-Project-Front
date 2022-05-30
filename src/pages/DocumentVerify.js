@@ -42,6 +42,13 @@ const DocumentVerify = (props) => {
         <PageContainer title="软件文档评审表">
           <Card>
             <Space direction="vertical" size={44}>
+            <Button type="primary" size='large'
+                  onClick={() => {
+                    axios.post("/api/entrust/" + entrustmentId + "/content/denial").then(response => {
+                      console.log(response)
+                      message.success('已拒绝委托');
+                    });
+                  }}>拒绝委托</Button>
               <ProForm
                 form={form}
                 size="large"
@@ -61,6 +68,10 @@ const DocumentVerify = (props) => {
                   temp = JSON.parse(JSON.stringify(values));
                   console.log(temp);
                   if (typeof entrustmentId !== "undefined") {
+                    axios.post("/api/entrust/" + entrustmentId + "/content/acceptance").then(response => {
+                      console.log(response)
+                      message.success('已受理委托');
+                    });
                     axios.post("/api/entrust/" + entrustmentId + "/software_doc_review", temp)
                       .then((response) => {
                         console.log(response)

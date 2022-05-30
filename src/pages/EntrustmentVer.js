@@ -440,7 +440,7 @@ const EntrustmentVer = (props) => {
                               { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
                           </Row>
                           <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormText label="数据库" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftDB"]}></ProFormText>
+                            <ProFormText label="数据库" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftDatabase"]}></ProFormText>
                             <ProFormText label="中间件" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftMiddleware"]}></ProFormText>
                           </Row>
                           <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: basewidth - 216, columnGap: 32 }}>
@@ -625,12 +625,12 @@ const EntrustmentVer = (props) => {
                 message.success('已受理委托');
               })
             } else if (temp.acceptance === "1") {
-              axios.post("/api/entrust/" + entrustmentId + "/content/denial/?message=denied with" + temp.confirmation).then(response => {
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=denied with" + temp.confirmation).then(response => {
                 console.log(response)
                 message.success('已拒绝受理');
               })
             } else {
-              axios.post("/api/entrust/" + entrustmentId + "/content/denial/?message=keep contact with" + temp.confirmation).then(response => {
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=keep contact with" + temp.confirmation).then(response => {
                 console.log(response)
                 message.success('进一步联系');
               })

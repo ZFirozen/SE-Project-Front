@@ -427,7 +427,7 @@ export default defineConfig({
 },
     {
       name: 'ourlogin',
-      icon: 'login',
+      icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
     },

@@ -33,7 +33,7 @@ const Progress = ( props ) => {
                             break;
                         case "MARKETER_DENIED":
                             setCurrentStage(0);
-                            setCurrentStep(2);
+                            setCurrentStep(0);
                             break;
                         case "WAIT_FOR_TESTER":
                             setCurrentStage(0);
@@ -45,7 +45,7 @@ const Progress = ( props ) => {
                             break;
                         case "TESTER_DENIED":
                             setCurrentStage(0);
-                            setCurrentStep(4);
+                            setCurrentStep(0);
                             setCurrentStatus(false);
                             break;
                         case "AUDITING_PASSED":
@@ -117,7 +117,7 @@ const Progress = ( props ) => {
                 break;
             case 4:
                 if (userRole === "TESTER") {
-
+                    window.location.href = "/entrustment/documentVerify/"+entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -149,6 +149,22 @@ const Progress = ( props ) => {
                 break;
             case 2:
                 if (userRole === "MARKETER") {
+                    axios.post("/api/contract?entrustId=" + entrustmentId)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            alert("合同创建成功！");
+                            console.log("create contract success");
+                        } else {
+                            console.log("Unknown error!");
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response.status === 400) {
+                            console.log(error);
+                        } else {
+                            console.log("Unknown error!");
+                        }
+                    });
                     window.location.href = "/entrustment/contract/fill/"+ entrustmentId;
                     console.log(userRole + " " + value);
                 } else {

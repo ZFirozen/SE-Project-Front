@@ -251,26 +251,28 @@ class QuotationFill extends Component {
             });
     }
     accept(event) {
+        // axios.post("/api/contract?entrustId=" + this.state.entrustmentId)
+        //             .then(function (response) {
+        //                 if (response.status === 200) {
+        //                     alert("合同创建成功！");
+        //                     console.log("create contract success");
+        //                 } else {
+        //                     console.log("Unknown error!");
+        //                 }
+        //             })
+        //             .catch(function (error) {
+        //                 if (error.response.status === 400) {
+        //                     console.log(error);
+        //                 } else {
+        //                     console.log("Unknown error!");
+        //                 }
+        //             });
         axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/acceptance")
             .then(function (response) {
                 if (response.status === 200) {
                     alert("同意成功！");
 
-                    axios.post("/api/contract/?entrustId=" + this.state.entrustmentId)
-                    .then(function (response) {
-                        if (response.status === 200) {
-                            console.log("create contract success");
-                        } else {
-                            console.log("Unknown error!");
-                        }
-                    })
-                    .catch(function (error) {
-                        if (error.response.status === 400) {
-                            console.log(error);
-                        } else {
-                            console.log("Unknown error!");
-                        }
-                    });
+                    
 
                 } else {
                     alert("同意失败！");

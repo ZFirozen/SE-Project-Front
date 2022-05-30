@@ -25,19 +25,8 @@ class ContractFill extends Component {
         //设置属性，this.state,这是类的属性，为一个对象
         this.state = {
             //可以使用 this.state.属性在类内部使用
-            contractId:axios.get("/api/entrust/" + props.match.params.id)
-            .then((response) => {
-                if (response.status === 200) {
-                    console.log("success");
-                }
-                else
-                {
-                    console.log(response);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            }),
+            contractId:undefined,
+            eid:props.match.params.id,
             projectName: "",
             partyA: {
                 companyCN: "",
@@ -214,6 +203,7 @@ class ContractFill extends Component {
         )
     }
     //自定义方法
+    
     isEmpty(str) {
         if (str === "") return true;
         return false;
@@ -308,6 +298,23 @@ class ContractFill extends Component {
             });
     }
     handleSubmit(event) {
+        var cid;
+        axios.get("/api/entrust/" + this.state.eid)
+        .then((response) => {
+            if (response.status === 200) {
+                cid=response.contractId;
+                console.log("success");
+            }
+            else
+            {
+                console.log(response);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+        console.log("cid="+cid);
         var flag = 0;
         for (var item in this.state) {
             if (this.isEmpty(this.state[item])) {
