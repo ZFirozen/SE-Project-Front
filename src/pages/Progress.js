@@ -10,7 +10,7 @@ const { Step } = Steps;
 
 const Progress = (props) => {
     const entrustmentId = props.match.params.id;
-    const [contractId, setContractId] = useState("");
+   // const [contractId, setContractId] = useState("");
     const [marketerId, setMarketerId] = useState("");
     const [customerId, setCustomerId] = useState("");
     console.log(entrustmentId);
@@ -198,7 +198,7 @@ const Progress = (props) => {
             case 5:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
-                    window.location.href = "/entrustment/contract/upload/"+ contractId;
+                    window.location.href = "/contract/upload/"+ contractId;
                 } else {
                     alert("您没有权限访问！");
                 }
