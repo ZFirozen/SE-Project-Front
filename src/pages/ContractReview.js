@@ -11,27 +11,46 @@ const Fragment = React.Fragment
 
 
 
-export default class ContractDisplay extends React.Component {
+export default class ContractReview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          data: [],
-          partyA: [],
-          partyB: [],
-          status: [],
-          stage: "",
-          massage: "",
+            contractId:undefined,
+            eid:props.match.params.id,
+            data: [],
+            partyA: [],
+            partyB: [],
+            //status: [],
+            stage: "",
+            //massage: "",
         }
         this.fetchState = this.fetchState.bind(this);
-        this.messageChange = this.messageChange.bind(this);
+        //this.messageChange = this.messageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.stageChange = this.stageChange.bind(this);
-      }
+    }
   
   
     fetchState = () => {
+        var cid;
+        console.log(this.state.eid);
+        axios.get("/api/entrust/" + this.state.eid)
+        .then((response) => {
+            if (response.status === 200) {
+                cid=response.contractId;
+                this.setState({contractId, cid})
+                console.log("success");
+            }
+            else
+            {
+                console.log(response);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         let varthis = this;
-        axios.get("/api/contract/37")
+        axios.get("/api/contract/"  + this.state.contractId)
             .then(function(res) {
                   
                 console.log("cba")
@@ -42,7 +61,7 @@ export default class ContractDisplay extends React.Component {
                 varthis.setState({data: res.data});
                 varthis.setState({partyA: varthis.state.data.partyA})
                 varthis.setState({partyB: varthis.state.data.partyB})
-                varthis.setState({status: varthis.state.data.status})
+                //varthis.setState({status: varthis.state.data.status})
                 // console.log(varthis.state.data.partyA.companyCH)
                 // console.log("abc");
   
@@ -151,12 +170,12 @@ export default class ContractDisplay extends React.Component {
                     <form onSubmit={this.handleSubmit.bind(this)}>
                         <Title level={3} align = "center">Accept or Not</Title>
                         <div>
-                            <Radio.Group  options={[ {label:"Accept", value: 1}, {label:"Not Accept", value: 0}]} size = "large" onChange= {this.stateChange}></Radio.Group>
+                            <Radio.Group  options={[ {label:"Accept", value: 1}, {label:"Not Accept", value: 2}]} onChange= {this.stageChange}></Radio.Group>
                         </div>
-                        <Title level={3} align = "center">Suggestion</Title>
+                        {/* <Title level={3} align = "center">Suggestion</Title>
                         <div>
                             <Input type="text" name="suggestion" value={this.state.status.message} onChange={this.messageChange}></Input>
-                        </div>
+                        </div> */}
                         <Input type='submit' value='提交' />
                     </form>
                 </Card>
@@ -166,38 +185,57 @@ export default class ContractDisplay extends React.Component {
     }
 
     //const [radioValue, setRadioValue] = useState(data?.radioValue);
-    messageChange(data) {
-        this.setState({message: data});
-    }
+    // messageChange(data) {
+    //     this.setState({message: data});
+    // }
     stageChange(event) {
-        if(event.target.value) {
-            this.setState({stage: "MARKETER_ACCEPT"});
-        }
-        else {
-            this.setState({stage: "MARKETER_DENY"});
-        }
+        console.log(event.target.value);
+        let t_value = event.target.value
+        this.setState({stage: event.target.value})
+        console.log("11")
+        console.log(this.state.stage)
+        return t_value;
     }
 
 
     handleSubmit(event) {
-        //console.log("123");
+        console.log("123");
         //console.log(message);
-        //console.log(stage);
-        axios.post("/api/contract/{id}/status", { data: this.status })
+        console.log(this.state.stage);
+        if(this.state.stage === 1) {
+            axios.post("/api/contract/" + this.state.contractId + "/acceptance")
             .then(function (response) {
                 if (response.status === 200) {
-                    alert("提交成功！");
+                    alert("同意合同！");
                 } else {
                     console.log("Unknown error!");
                 }
             })
             .catch(function (error) {
                 if (error.response.status === 400) {
-                    alert("提交失败！");
+                    alert("同意失败！");
                 } else {
                     console.log("Unknown error!");
                 }
             });
+        }
+        else {
+            axios.post("/api/contract/" + this.state.contractId + "/denial")
+            .then(function (response) {
+                if (response.status === 200) {
+                    alert("拒绝合同！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    alert("拒绝失败！");
+                } else {
+                    console.log("Unknown error!");
+                }
+            });
+        }
     }
 
 
