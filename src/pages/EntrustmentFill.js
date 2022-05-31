@@ -41,16 +41,16 @@ const EntrustmentFill = (props) => {
           onFinish={async (values) => {
             let temp = values
             if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
-              console.log(1, temp)
+              // console.log(1, temp)
               for (let i = 0; i < temp.software.modules.length; i++) {
                 delete temp.software.modules[i].id
-                console.log(i, "delete");
+                // console.log(i, "delete");
                 if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
                   for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
                     delete temp.software.modules[i].functions[j].id
                   }
                 }
-                console.log(i, "key");
+                // console.log(i, "key");
                 // keysarray = [...keysarray, ...Detail.data.content.software.modules[i].functions.map((item) => item.id)]
               }
             }

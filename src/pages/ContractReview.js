@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 
 import axios from "axios";
 import React, { useState } from "react";
-import { Typography, Descriptions, Badge, Card,Row, Radio, Input} from 'antd';
+import { Typography, Descriptions, Badge, Card, Row, Radio, Input } from 'antd';
 //import type { RadioChangeEvent } from 'antd';
 import { RadiusUpleftOutlined } from '@ant-design/icons';
 const { Title } = Typography;
@@ -15,43 +15,43 @@ export default class ContractDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          data: [],
-          partyA: [],
-          partyB: [],
-          status: [],
-          stage: "",
-          massage: "",
+            data: [],
+            partyA: [],
+            partyB: [],
+            status: [],
+            stage: "",
+            massage: "",
         }
         this.fetchState = this.fetchState.bind(this);
         this.messageChange = this.messageChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.stageChange = this.stageChange.bind(this);
-      }
-  
-  
+    }
+
+
     fetchState = () => {
         let varthis = this;
         axios.get("/api/contract/37")
-            .then(function(res) {
-                  
+            .then(function (res) {
+
                 console.log("cba")
                 //console.log(res.data.projectName);
                 //console.log(varthis.state.projectName);
                 // this.state.data = res.data;
-                varthis.setState({projectName: res.data.projectName})
-                varthis.setState({data: res.data});
-                varthis.setState({partyA: varthis.state.data.partyA})
-                varthis.setState({partyB: varthis.state.data.partyB})
-                varthis.setState({status: varthis.state.data.status})
+                varthis.setState({ projectName: res.data.projectName })
+                varthis.setState({ data: res.data });
+                varthis.setState({ partyA: varthis.state.data.partyA })
+                varthis.setState({ partyB: varthis.state.data.partyB })
+                varthis.setState({ status: varthis.state.data.status })
                 // console.log(varthis.state.data.partyA.companyCH)
                 // console.log("abc");
-  
-            }).catch(err=>{ 
+
+            }).catch(err => {
                 console.log("abc");
                 console.log(err);
             })
     }
-      
+
     componentDidMount() {
         this.fetchState()
     }
@@ -60,7 +60,7 @@ export default class ContractDisplay extends React.Component {
             <Fragment>
                 <Title level={1}>ContractReview</Title>
                 <Card>
-                    <Title level={3} align = "center">软件委托测试合同</Title>
+                    <Title level={3} align="center">软件委托测试合同</Title>
                     <div>项目名称：{this.state.data.projectName}</div>
                     <div>委托方（甲方）：{this.state.partyA.companyCH}</div>
                     <div>受托方（乙方）：{this.state.partyB.companyCH}</div>
@@ -120,40 +120,40 @@ export default class ContractDisplay extends React.Component {
                     本合同的正本一式肆份，双方各执两份，具有同等法律效力。<br />
                     <br />
                     <Title level={4}>十二、签章</Title>
-                    <Descriptions bordered title = "委托方" column = {4}>
-                        <Descriptions.Item label="单位全称" span = {4}>{this.state.partyA.companyCN}(签章)</Descriptions.Item>
-                        <Descriptions.Item label="授权代表" span = {2}>{this.state.partyA.representative}</Descriptions.Item>
-                        <Descriptions.Item label="签章日期" span = {2}>{this.state.partyA.sigDate}</Descriptions.Item>
-                        <Descriptions.Item label="联系人" span = {4}>{this.state.partyA.contact}</Descriptions.Item>
-                        <Descriptions.Item label="通讯地址" span = {4}>{this.state.partyA.companyAddress}</Descriptions.Item>
-                        <Descriptions.Item label="电话" span = {2}>{this.state.partyA.companyPhone}</Descriptions.Item>
-                        <Descriptions.Item label="传真" span = {2}>{this.state.partyA.fax}</Descriptions.Item>
-                        <Descriptions.Item label="开户银行" span = {4}>{this.state.partyA.bankName}</Descriptions.Item>
-                        <Descriptions.Item label="账号" span = {2}>{this.state.partyA.account}</Descriptions.Item>
-                        <Descriptions.Item label="邮编" span = {2}>{this.state.partyA.zipCode}</Descriptions.Item>
-                    
+                    <Descriptions bordered title="委托方" column={4}>
+                        <Descriptions.Item label="单位全称" span={4}>{this.state.partyA.companyCN}(签章)</Descriptions.Item>
+                        <Descriptions.Item label="授权代表" span={2}>{this.state.partyA.representative}</Descriptions.Item>
+                        <Descriptions.Item label="签章日期" span={2}>{this.state.partyA.sigDate}</Descriptions.Item>
+                        <Descriptions.Item label="联系人" span={4}>{this.state.partyA.contact}</Descriptions.Item>
+                        <Descriptions.Item label="通讯地址" span={4}>{this.state.partyA.companyAddress}</Descriptions.Item>
+                        <Descriptions.Item label="电话" span={2}>{this.state.partyA.companyPhone}</Descriptions.Item>
+                        <Descriptions.Item label="传真" span={2}>{this.state.partyA.fax}</Descriptions.Item>
+                        <Descriptions.Item label="开户银行" span={4}>{this.state.partyA.bankName}</Descriptions.Item>
+                        <Descriptions.Item label="账号" span={2}>{this.state.partyA.account}</Descriptions.Item>
+                        <Descriptions.Item label="邮编" span={2}>{this.state.partyA.zipCode}</Descriptions.Item>
+
                     </Descriptions>
-                        <Descriptions bordered title = "受托方" column = {4}>
-                        <Descriptions.Item label="单位全称" span = {4}>{this.state.partyB.companyCN}(签章)</Descriptions.Item>
-                        <Descriptions.Item label="授权代表" span = {2}>{this.state.partyB.representative}</Descriptions.Item>
-                        <Descriptions.Item label="签章日期" span = {2}>{this.state.partyB.sigDate}</Descriptions.Item>
-                        <Descriptions.Item label="联系人" span = {4}>{this.state.partyB.contact}</Descriptions.Item>
-                        <Descriptions.Item label="通讯地址" span = {4}>{this.state.partyB.companyAddress}</Descriptions.Item>
-                        <Descriptions.Item label="电话" span = {2}>{this.state.partyB.companyPhone}</Descriptions.Item>
-                        <Descriptions.Item label="传真" span = {2}>{this.state.partyB.fax}</Descriptions.Item>
-                        <Descriptions.Item label="开户银行" span = {4}>{this.state.partyB.bankName}</Descriptions.Item>
-                        <Descriptions.Item label="账号" span = {2}>{this.state.partyB.account}</Descriptions.Item>
-                        <Descriptions.Item label="邮编" span = {2}>{this.state.partyB.zipCode}</Descriptions.Item>
-                    
+                    <Descriptions bordered title="受托方" column={4}>
+                        <Descriptions.Item label="单位全称" span={4}>{this.state.partyB.companyCN}(签章)</Descriptions.Item>
+                        <Descriptions.Item label="授权代表" span={2}>{this.state.partyB.representative}</Descriptions.Item>
+                        <Descriptions.Item label="签章日期" span={2}>{this.state.partyB.sigDate}</Descriptions.Item>
+                        <Descriptions.Item label="联系人" span={4}>{this.state.partyB.contact}</Descriptions.Item>
+                        <Descriptions.Item label="通讯地址" span={4}>{this.state.partyB.companyAddress}</Descriptions.Item>
+                        <Descriptions.Item label="电话" span={2}>{this.state.partyB.companyPhone}</Descriptions.Item>
+                        <Descriptions.Item label="传真" span={2}>{this.state.partyB.fax}</Descriptions.Item>
+                        <Descriptions.Item label="开户银行" span={4}>{this.state.partyB.bankName}</Descriptions.Item>
+                        <Descriptions.Item label="账号" span={2}>{this.state.partyB.account}</Descriptions.Item>
+                        <Descriptions.Item label="邮编" span={2}>{this.state.partyB.zipCode}</Descriptions.Item>
+
                     </Descriptions>
                 </Card>
                 <Card>
                     <form onSubmit={this.handleSubmit.bind(this)}>
-                        <Title level={3} align = "center">Accept or Not</Title>
+                        <Title level={3} align="center">Accept or Not</Title>
                         <div>
-                            <Radio.Group  options={[ {label:"Accept", value: 1}, {label:"Not Accept", value: 0}]} size = "large" onChange= {this.stateChange}></Radio.Group>
+                            <Radio.Group options={[{ label: "Accept", value: 1 }, { label: "Not Accept", value: 0 }]} size="large" onChange={this.stateChange}></Radio.Group>
                         </div>
-                        <Title level={3} align = "center">Suggestion</Title>
+                        <Title level={3} align="center">Suggestion</Title>
                         <div>
                             <Input type="text" name="suggestion" value={this.state.status.message} onChange={this.messageChange}></Input>
                         </div>
@@ -161,20 +161,20 @@ export default class ContractDisplay extends React.Component {
                     </form>
                 </Card>
             </Fragment>
-        
+
         )
     }
 
     //const [radioValue, setRadioValue] = useState(data?.radioValue);
     messageChange(data) {
-        this.setState({message: data});
+        this.setState({ message: data });
     }
     stageChange(event) {
-        if(event.target.value) {
-            this.setState({stage: "MARKETER_ACCEPT"});
+        if (event.target.value) {
+            this.setState({ stage: "MARKETER_ACCEPT" });
         }
         else {
-            this.setState({stage: "MARKETER_DENY"});
+            this.setState({ stage: "MARKETER_DENY" });
         }
     }
 

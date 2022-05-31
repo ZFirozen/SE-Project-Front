@@ -21,20 +21,6 @@ const { Title, Paragraph } = Typography
 const DocumentVerify = (props) => {
   const entrustmentId = props.match.params.id;
   const [form] = ProForm.useForm();
-  // const [comments, setComments] = useState([{ result: "", description: "" }]);
-
-  // const onChange = (index, type, event) => {
-  //   form.setFieldsValue({ "comments": [...comments, { result: "", description: "" }] });
-  //   setComments([...comments, { result: "", description: "" }]);
-
-  //   let tempArray = [...comments];
-  //   if (type === "result") {
-  //     tempArray[index] = { ...tempArray[index], result: event.target.value };
-  //   } else {
-  //     tempArray[index] = { ...tempArray[index], description: event.target.value };
-  //   }
-  //   return setComments(tempArray);
-  // }
 
   return (
     <>
@@ -42,13 +28,13 @@ const DocumentVerify = (props) => {
         <PageContainer title="软件文档评审表">
           <Card>
             <Space direction="vertical" size={44}>
-            <Button type="primary" size='large'
-                  onClick={() => {
-                    axios.post("/api/entrust/" + entrustmentId + "/content/denial").then(response => {
-                      console.log(response)
-                      message.success('已拒绝委托');
-                    });
-                  }}>拒绝委托</Button>
+              <Button type="primary" size='large'
+                onClick={() => {
+                  axios.post("/api/entrust/" + entrustmentId + "/content/denial").then(response => {
+                    console.log(response)
+                    message.success('已拒绝委托');
+                  });
+                }}>拒绝委托</Button>
               <ProForm
                 form={form}
                 size="large"
@@ -82,73 +68,7 @@ const DocumentVerify = (props) => {
                     message.success('委托ID未定义！');
                   }
                 }}
-
-              // request={async () => {
-              //   console.log(entrustmentId)
-              //   if (entrustmentId !== undefined) {
-              //     return axios.get("/api/entrust/" + entrustmentId).then(Detail => {
-              //       console.log("load from " + entrustmentId)
-              //       console.log(Detail.data.content)
-              //       var keysarray = []
-              //       if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
-              //         for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
-              //           Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-              //           if (Detail.data.content.software.modules[i].functions !== undefined) {
-              //             for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
-              //               Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
-              //             }
-              //             keysarray = [...keysarray, ...Detail.data.content.software.modules[i].functions.map((item) => item.id)]
-              //           }
-              //         }
-              //         keysarray = [...keysarray, ...Detail.data.content.software.modules.map((item) => item.id)]
-              //         console.log(keysarray)
-              //         setEditableRowKeys(keysarray)
-              //       }
-              //       console.log(Detail.data.content)
-              //       let temp = JSON.stringify(Detail.data.content)
-              //       let toreplacearray = Array(embedregLength)
-              //       for (let i = 0; i < embedregLength; i++) {
-              //         let tt = temp.match("(?<=" + replacetokenbegin + i + ").+(?=" + replacetokenend + i + ")")
-              //         console.log(tt)
-              //         if (tt) {
-              //           temp = temp.replace(replacetokenbegin + i + tt.at(0) + replacetokenend + i, replacetokenbegin + i + replacetokenend + i)
-              //           toreplacearray[i] = tt.at(0)
-              //         }
-              //       }
-              //       Detail.data.content = JSON.parse(temp)
-              //       for (let i = 0; i < embedregLength; i++) {
-              //         eval("Detail.data.content.toreplace_" + i + "= toreplacearray[" + i + "]")
-              //       }
-              //       console.log("load finished")
-              //       console.log(Detail.data.content)
-              //       return Detail.data.content
-              //     }).catch(Error => {
-              //       console.log(Error)
-              //       return {}
-              //     })
-              //   } else {
-              //     console.log("new Entrustment")
-              //     return {}
-              //   }
-              // }}
               >
-                {/* <Row >
-                  <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 18, paddingTop: 10, border: "2px solid", borderLeft: "none" }}>
-                    <Title level={4}>软件名称</Title>
-                  </Col>
-                  <ProFormText label="软件名称" width="md" required rules={[{ required: true, message: '这是必填项' }]} name={["sofewareName"]} />
-                  <ProFormText label="版本号" width="md" required rules={[{ required: true, message: '这是必填项' }]} name={["sofewareVersion"]} />
-                </Row> */}
-                {/* <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 80, paddingTop: 11, width: 1500 }} >
-                  <ProFormText label="委托单位" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["companyName"]} />
-                </Row>
-                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 80, paddingTop: 11, width: 1500 }} >
-                  <ProFormText label="评审人" width="md" required rules={[{ required: true, message: '这是必填项' }]} name={["reviewer"]} />
-                  <DatePicker label="评审完成时间" required rules={[{ required: true, message: '这是必填项' }]} values={(value) => console.log(value)} name={["sigdate"]} />
-                  <ProFormText label="评审完成时间" style={{ width: 10, paddingLeft: 32 }} placeholder="年份" required rules={[{ required: true, message: '这是必填项' }]} name={["year"]} />年
-                  <ProFormText placeholder="月份" width="xs" required rules={[{ required: true, message: '这是必填项' }]} name={["month"]} />月
-                  <ProFormText placeholder="日期" width="xs" required rules={[{ required: true, message: '这是必填项' }]} name={["day"]} />日
-                </Row> */}
                 <Row >
                   <Col style={{ backgroundColor: whitecolor, width: 150, paddingLeft: 30, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
                     <Title level={4}>软件名称</Title>
