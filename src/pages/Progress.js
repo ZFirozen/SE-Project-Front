@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
@@ -10,16 +10,17 @@ const { Step } = Steps;
 
 const Progress = (props) => {
     const entrustmentId = props.match.params.id;
-    const [marketerId, setMarketerId] = useState("");
-    const [customerId, setCustomerId] = useState("");
-    console.log(entrustmentId);
-    // const entrustmentId = useLocation().pathname.match('(?<=/progress/).+').at(0)
+    // const [marketerId, setMarketerId] = useState("");
+    // const [customerId, setCustomerId] = useState("");
+    // console.log(entrustmentId);
+    // const entrustmentId = useLocation().pathname.match("(?<=/progress/).+").at(0)
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
-    const [showStage, setShowStage] = useState(-1);
+    const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
-    var contractId = '';
+    var contractId = "";
+
     const getStatus = () => {
         axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
@@ -29,45 +30,54 @@ const Progress = (props) => {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
                             setCurrentStep(1);
-                            
+                            setShowStage(0);
                             break;
                         case "MARKETER_AUDITING":
                             setCurrentStage(0);
                             setCurrentStep(2);
+                            setShowStage(0);
                             break;
                         case "MARKETER_DENIED":
                             setCurrentStage(0);
                             setCurrentStep(0);
+                            setShowStage(0);
                             break;
                         case "WAIT_FOR_TESTER":
                             setCurrentStage(0);
                             setCurrentStep(3);
+                            setShowStage(0);
                             break;
                         case "TESTER_AUDITING":
                             setCurrentStage(0);
                             setCurrentStep(4);
+                            setShowStage(0);
                             break;
                         case "TESTER_DENIED":
                             setCurrentStage(0);
                             setCurrentStep(0);
                             setCurrentStatus(false);
+                            setShowStage(0);
                             break;
                         case "AUDITING_PASSED":
                             setCurrentStage(1);
                             setCurrentStep(0);
+                            setShowStage(1);
                             break;
                         case "CUSTOMER_CHECK_QUOTE":
                             setCurrentStage(1);
                             setCurrentStep(1);
+                            setShowStage(1);
                             break;
                         case "CUSTOMER_DENY_QUOTE":
                             setCurrentStage(1);
                             setCurrentStep(1);
                             setCurrentStatus(false);
+                            setShowStage(1);
                             break;
                         case "CUSTOMER_ACCEPT_QUOTE":
                             setCurrentStage(1);
                             setCurrentStep(2);
+                            setShowStage(1);
                             break;
                         case "TERMINATED":
                             setCurrentStatus(false);
@@ -75,7 +85,7 @@ const Progress = (props) => {
                         default:
                             break;
                     }
-                    if(showStage===-1) setShowStage(currentStage);
+
 
                 }
             })
@@ -83,6 +93,15 @@ const Progress = (props) => {
                 console.log(error);
             })
     }
+
+    useEffect(() => {
+        // console.log("getStatus");
+        // console.log("currentStage: " + currentStage);
+        // console.log("showStage: " + showStage);
+        getStatus();
+        // if (showStage === -1) setShowStage(currentStage);
+        // console.log("showStage: " + showStage);
+    }, [])
 
     const onStageChange = (value) => {
         console.log("onChange: ", value);
@@ -199,7 +218,7 @@ const Progress = (props) => {
             case 5:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
-                    window.location.href = "/contract/upload/"+ contractId;
+                    window.location.href = "/contract/upload/" + contractId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -275,7 +294,7 @@ const Progress = (props) => {
 
     return (
         <>
-            {getStatus()}
+            {/* {getStatus()} */}
             <Steps
                 style={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}
                 progressDot current={showStage}

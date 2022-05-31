@@ -112,7 +112,7 @@ export default class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        console.log(process.env);
+        // console.log(process.env);
         axios.get("/api/account")
             .then((response) => {
                 if (response.status === 200) {
