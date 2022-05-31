@@ -15,7 +15,7 @@ var columns = [
         dataIndex: 'id',
         key: 'id',
         // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
-        render: (a) => <Link to={a}>{a}</Link>
+        render: (a) => <Link to={"display/"+a}>{a}</Link>
     },
     {
         title: '客户ID',
