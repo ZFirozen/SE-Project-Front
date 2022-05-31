@@ -17,7 +17,7 @@ const Progress = (props) => {
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
-    const [showStage, setShowStage] = useState(0);
+    const [showStage, setShowStage] = useState(-1);
     const userRole = localStorage.getItem("userRole");
     var contractId = '';
     const getStatus = () => {
@@ -29,6 +29,7 @@ const Progress = (props) => {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
                             setCurrentStep(1);
+                            
                             break;
                         case "MARKETER_AUDITING":
                             setCurrentStage(0);
@@ -74,7 +75,8 @@ const Progress = (props) => {
                         default:
                             break;
                     }
-                    // setShowStage(currentStage);
+                    if(showStage===-1) setShowStage(currentStage);
+
                 }
             })
             .catch((error) => {
