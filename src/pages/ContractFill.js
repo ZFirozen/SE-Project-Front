@@ -500,7 +500,28 @@ class ContractFill extends Component {
                     .then((response) => {
                         if (response.status === 200) {
                             alert("同意合同！");
-
+                            axios.post("/api/contract/" + id, this.state)
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        alert("提交成功！");
+                                        console.log("flag:" + flag);
+                                        console.log("state:" + this.state);
+                                    } else {
+                                        alert("提交成功?");
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.status === 400) {
+                                        alert("提交失败！");
+                                        console.log("flag:" + flag);
+                                        console.log("state:" + this.state);
+                                    } else {
+                                        console.log(error);
+                                        alert("提交失败？");
+                                        console.log("Unknown error!");
+                                    }
+                                });
                         } else {
                             console.log("Unknown error!");
                         }
