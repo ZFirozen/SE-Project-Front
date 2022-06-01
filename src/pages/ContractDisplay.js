@@ -9,19 +9,38 @@ const { Title } = Typography;
 
 export default class ContractDisplay extends React.Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        data: [],
-        partyA: [],
-        partyB: [],
-      }
-      this.fetchState = this.fetchState.bind(this);
+        super(props);
+        this.state = {
+            contractId:undefined,
+            eid:props.match.params.id,
+            data: [],
+            partyA: [],
+            partyB: [],
+        }
+        this.fetchState = this.fetchState.bind(this);
     }
 
 
     fetchState = () => {
+        var cid;
+        console.log(this.state.eid);
+        axios.get("/api/entrust/" + this.state.eid)
+        .then((response) => {
+            if (response.status === 200) {
+                cid=response.data.contractId;
+                setState({contractId, cid})
+                console.log("success");
+            }
+            else
+            {
+                console.log(response);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         let varthis = this;
-        axios.get("/api/contract/37")
+        axios.get("/api/contract/" + this.state.contractId)
             .then(function(res) {
                 
                 console.log("cba")

@@ -10,7 +10,7 @@ import Contract from "./Contract";
 import ContractDisplay from "./ContractDisplay";
 import ContractFill from "./ContractFill";
 import ContractDisplay from "./ContractDisplay";
-import ContractReview from "./ContractReview";
+import ContractVerify from "./ContractVerify";
 import EntrustmentList from "./EntrustmentList";
 import EntrustmentFill from "./EntrustmentFill";
 import EntrustmentVerify from "./EntrustmentVerify";
@@ -23,5 +23,5 @@ import DocumentVerify from "./DocumentVerify";
 
 export {
     Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
-    EntrustmentList, Sample, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractReview
+    EntrustmentList, Sample, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractVerify
 }

@@ -54,10 +54,11 @@ const DocumentVerify = (props) => {
                   temp = JSON.parse(JSON.stringify(values));
                   console.log(temp);
                   if (typeof entrustmentId !== "undefined") {
-                    axios.post("/api/entrust/" + entrustmentId + "/content/acceptance").then(response => {
-                      console.log(response)
-                      message.success('已受理委托');
-                    });
+                    axios.post("/api/entrust/" + entrustmentId + "/content/acceptance")
+                      .then(response => {
+                        console.log(response)
+                        message.success('已受理委托');
+                      });
                     axios.post("/api/entrust/" + entrustmentId + "/software_doc_review", temp)
                       .then((response) => {
                         console.log(response)

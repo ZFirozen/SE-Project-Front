@@ -21,7 +21,80 @@ const Progress = (props) => {
     const userRole = localStorage.getItem("userRole");
     var contractId = "";
 
-    const getStatus = () => {
+    const getEntrustStatus = () => {
+        axios.get("/api/entrust/" + entrustmentId)
+            .then((response) => {
+                if (response.status === 200) {
+                    contractId = response.data.contractId
+                    switch (response.data.status.stage) {
+                        case "WAIT_FOR_MARKETER":
+                            setCurrentStage(0);
+                            setCurrentStep(1);
+                            setShowStage(0);
+                            break;
+                        case "MARKETER_AUDITING":
+                            setCurrentStage(0);
+                            setCurrentStep(2);
+                            setShowStage(0);
+                            break;
+                        case "MARKETER_DENIED":
+                            setCurrentStage(0);
+                            setCurrentStep(0);
+                            setShowStage(0);
+                            break;
+                        case "WAIT_FOR_TESTER":
+                            setCurrentStage(0);
+                            setCurrentStep(3);
+                            setShowStage(0);
+                            break;
+                        case "TESTER_AUDITING":
+                            setCurrentStage(0);
+                            setCurrentStep(4);
+                            setShowStage(0);
+                            break;
+                        case "TESTER_DENIED":
+                            setCurrentStage(0);
+                            setCurrentStep(0);
+                            setCurrentStatus(false);
+                            setShowStage(0);
+                            break;
+                        case "AUDITING_PASSED":
+                            setCurrentStage(0);
+                            setCurrentStep(5);
+                            setShowStage(0);
+                            break;
+                        case "CUSTOMER_CHECK_QUOTE":
+                            setCurrentStage(0);
+                            setCurrentStep(6);
+                            setShowStage(0);
+                            break;
+                        case "CUSTOMER_DENY_QUOTE":
+                            setCurrentStage(0);
+                            setCurrentStep(5);
+                            setCurrentStatus(false);
+                            setShowStage(0);
+                            break;
+                        case "CUSTOMER_ACCEPT_QUOTE":
+                            setCurrentStage(1);
+                            setCurrentStep(0);
+                            setShowStage(1);
+                            break;
+                        case "TERMINATED":
+                            setCurrentStatus(false);
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const getContractStatus = () => {
         axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
                 if (response.status === 200) {
@@ -95,12 +168,7 @@ const Progress = (props) => {
     }
 
     useEffect(() => {
-        // console.log("getStatus");
-        // console.log("currentStage: " + currentStage);
-        // console.log("showStage: " + showStage);
-        getStatus();
-        // if (showStage === -1) setShowStage(currentStage);
-        // console.log("showStage: " + showStage);
+        getEntrustStatus();
     }, [])
 
     const onStageChange = (value) => {
@@ -114,7 +182,13 @@ const Progress = (props) => {
         switch (value) {
             case 0:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/fill/" + entrustmentId;
+                    if (currentStage === 0 && currentStep === 0) {
+                        window.location.href = "/entrustment/fill/" + entrustmentId;
+                    } else {
+                        window.location.href = "/entrustment/display/" + entrustmentId;
+                    }
+                } else if (userRole === "MARKETER" || userRole === "TESTER") {
+                    window.location.href = "/entrustment/display/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -128,7 +202,11 @@ const Progress = (props) => {
                 break;
             case 2:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/verify/" + entrustmentId;
+                    if (currentStage === 0 && currentStep === 2) {
+                        window.location.href = "/entrustment/verify/" + entrustmentId;
+                    } else {
+                        window.location.href = "/entrustment/display/" + entrustmentId;
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -142,7 +220,9 @@ const Progress = (props) => {
                 break;
             case 4:
                 if (userRole === "TESTER") {
-                    window.location.href = "/entrustment/documentVerify/" + entrustmentId;
+                    if (currentStage === 0 && currentStep === 4) {
+                        window.location.href = "/entrustment/documentVerify/" + entrustmentId;
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -150,7 +230,6 @@ const Progress = (props) => {
             case 5:
                 if (userRole === "MARKETER") {
                     window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
-                    console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -158,7 +237,6 @@ const Progress = (props) => {
             case 6:
                 if (userRole === "CUSTOMER") {
                     window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
-                    console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -194,7 +272,7 @@ const Progress = (props) => {
                                 console.log("Unknown error!");
                             }
                         });
-                    window.location.href = "/entrustment/contract/fill/" + entrustmentId;
+                    window.location.href = "/contract/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -202,7 +280,7 @@ const Progress = (props) => {
                 break;
             case 1:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/contract/fill/" + entrustmentId;
+                    window.location.href = "/contract/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
                 } else {
                     alert("您没有权限访问！");
@@ -211,7 +289,7 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
-                    window.location.href = "/entrustment/contract/fill/" + entrustmentId;
+                    window.location.href = "/contract/fill/" + entrustmentId;
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -238,7 +316,6 @@ const Progress = (props) => {
                             style={{ paddingLeft: 70 }}
                             current={currentStage === 0 ? currentStep : 6}
                             status={currentStage === 0 ? "process" : "finish"}
-                            // onChange={onStepChange}
                             direction="vertical"
                         >
                             <Step title="填写委托" description="客户：点此查看委托详情" onClick={() => onEntrustmentClick(0)} />
@@ -258,7 +335,6 @@ const Progress = (props) => {
                             style={{ paddingLeft: 70 }}
                             current={currentStage === 1 ? currentStep : (currentStage < 1 ? 0 : 3)}
                             status={currentStage === 1 ? "process" : (currentStage < 1 ? "wait" : "finish")}
-                            // onChange={onStepChange}
                             direction="vertical"
                         >
                             <Step title="生成基本合同" description="点此生成基本合同" onClick={() => onContractClick(0)} />
@@ -275,7 +351,6 @@ const Progress = (props) => {
                             style={{ paddingLeft: 70 }}
                             current={currentStage === 2 ? currentStep : 0}
                             status={currentStage === 2 ? "process" : "wait"}
-                            // onChange={onStepChange}
                             direction="vertical"
                         >
                             <Step title="填写测试方案" description="点此填写测试方案" />
@@ -295,7 +370,6 @@ const Progress = (props) => {
 
     return (
         <>
-            {/* {getStatus()} */}
             <Steps
                 style={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}
                 progressDot current={showStage}

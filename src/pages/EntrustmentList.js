@@ -82,13 +82,13 @@ switch (localStorage.getItem("userRole")) {
                         <>
                             <Link to={"fill/" + a.id}>修改委托</Link>
                             <br />
-                            <Link to={"progress/" + a.id}>查看进度</Link>
+                            <Link to={"../progress/" + a.id}>查看进度</Link>
                         </>
                     )
                 }
                 return (
                     <>
-                        <Link to={"progress/" + a.id}>查看进度</Link>
+                        <Link to={"../progress/" + a.id}>查看进度</Link>
                     </>
                 )
             }
@@ -102,7 +102,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.id}>查看</Link>
                     </>
                 )
             }
@@ -115,7 +115,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.id}>查看</Link>
                     </>
                 )
             }

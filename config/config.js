@@ -357,13 +357,6 @@ export default defineConfig({
           component: './EntrustmentFill',
         },
         {
-          name: 'progress',
-          icon: 'smile',
-          path: '/entrustment/progress/:id',
-          component: './Progress',
-          hideInMenu: true,
-        },
-        {
           name: 'assign',
           icon: 'smile',
           path: '/entrustment/assign/:id',
@@ -385,13 +378,6 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
-          name: 'cfill',
-          icon: 'smile',
-          path: '/entrustment/contract/fill/:id',
-          component: './ContractFill',
-          hideInMenu: true,
-        },
-        {
           name: 'ducumentVerify',
           icon: 'smile',
           path: '/entrustment/documentVerify/:id',
@@ -407,7 +393,11 @@ export default defineConfig({
       component: './Sample',
       hideInMenu: true,
     },
-
+    {
+      path: '/progress/:id',
+      component: './Progress',
+      hideInMenu: true,
+    },
     {
       name: 'contract',
       icon: 'highlight',
@@ -419,6 +409,12 @@ export default defineConfig({
           redirect: '/contract/display/:id',
         },
         {
+          name: 'fill',
+          icon: 'smile',
+          path: '/contract/fill/:id',
+          component: './ContractFill',
+        },
+        {
           name: 'display',
           icon: 'smile',
           path: '/contract/display/:id',
@@ -427,8 +423,8 @@ export default defineConfig({
         {
           name: 'review',
           icon: 'smile',
-          path: '/contract/review/:id',
-          component: './ContractReview',
+          path: '/contract/verify/:id',
+          component: './ContractVerify',
         },
         {
           name: 'upload',
