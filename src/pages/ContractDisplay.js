@@ -20,44 +20,43 @@ export default class ContractDisplay extends React.Component {
         this.fetchState = this.fetchState.bind(this);
     }
 
-
     fetchState = () => {
-        var cid;
         console.log(this.state.eid);
         axios.get("/api/entrust/" + this.state.eid)
         .then((response) => {
             if (response.status === 200) {
-                cid=response.data.contractId;
-                setState({contractId, cid})
+                this.setState({contractId: response.data.contractId})
                 console.log("success");
+                return response.data.contractId;
             }
             else
             {
+                return 0;
                 console.log(response);
             }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-        let varthis = this;
-        axios.get("/api/contract/" + this.state.contractId)
-            .then(function(res) {
-                
+        }).then((contractId) => {
+            axios.get("/api/contract/" + contractId)
+            .then((res) =>{    
                 console.log("cba")
+                console.log(res)
                 //console.log(res.data.projectName);
-                //console.log(varthis.state.projectName);
+                //console.log(this.state.projectName);
                 // this.state.data = res.data;
-                varthis.setState({projectName: res.data.projectName})
-                varthis.setState({data: res.data});
-                varthis.setState({partyA: varthis.state.data.partyA})
-                varthis.setState({partyB: varthis.state.data.partyB})
-                // console.log(varthis.state.data.partyA.companyCH)
+                this.setState({projectName: res.data.projectName})
+                this.setState({data: res.data});
+                this.setState({partyA: res.data.partyA})
+                this.setState({partyB: res.data.partyB})
+                // console.log(this.state.data.partyA.companyCH)
                 // console.log("abc");
 
             }).catch(err=>{ 
                 console.log("abc");
                 console.log(err);
             })
+        })
+        .catch((error) => {
+            console.log(error);
+        });   
     }
     
     componentDidMount() {
