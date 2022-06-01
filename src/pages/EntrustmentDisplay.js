@@ -18,7 +18,7 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const EntrustmentView = (props) => {
+const EntrustmentDisplay = (props) => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
@@ -597,4 +597,4 @@ const EntrustmentView = (props) => {
   );
 }
 
-export default EntrustmentView;
+export default EntrustmentDisplay;

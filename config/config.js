@@ -37,7 +37,7 @@ export default defineConfig({
       layout: false,
       routes: [
         {
-          
+
           name: 'login',
           path: '/ourlogin',
           component: './OurLogin',
@@ -334,14 +334,14 @@ export default defineConfig({
           name: 'view',
           icon: 'smile',
           path: '/entrustment/display/:id',
-          component: './EntrustmentView',
+          component: './EntrustmentDisplay',
           hideInMenu: true,
         },
         {
           name: 'view',
           icon: 'smile',
           path: '/entrustment/view',
-          component: './Entrustment',
+          component: './EntrustmentList',
         },
         {
           name: 'fill',
@@ -355,13 +355,6 @@ export default defineConfig({
           icon: 'smile',
           path: '/entrustment/fill/',
           component: './EntrustmentFill',
-        },
-        {
-          name: 'progress',
-          icon: 'smile',
-          path: '/entrustment/progress/:id',
-          component: './Progress',
-          hideInMenu: true,
         },
         {
           name: 'assign',
@@ -381,14 +374,7 @@ export default defineConfig({
           name: 'verify',
           icon: 'smile',
           path: '/entrustment/verify/:id',
-          component: './EntrustmentVer',
-          hideInMenu: true,
-        },
-        {
-          name: 'cfill',
-          icon: 'smile',
-          path: '/entrustment/contract/fill/:id',
-          component: './ContractFill',
+          component: './EntrustmentVerify',
           hideInMenu: true,
         },
         {
@@ -407,7 +393,11 @@ export default defineConfig({
       component: './Sample',
       hideInMenu: true,
     },
-    
+    {
+      path: '/progress/:id',
+      component: './Progress',
+      hideInMenu: true,
+    },
     {
       name: 'contract',
       icon: 'highlight',
@@ -419,6 +409,12 @@ export default defineConfig({
           redirect: '/contract/display/:id',
         },
         {
+          name: 'fill',
+          icon: 'smile',
+          path: '/contract/fill/:id',
+          component: './ContractFill',
+        },
+        {
           name: 'display',
           icon: 'smile',
           path: '/contract/display/:id',
@@ -427,8 +423,8 @@ export default defineConfig({
         {
           name: 'review',
           icon: 'smile',
-          path: '/contract/review/:id',
-          component: './ContractReview',
+          path: '/contract/verify/:id',
+          component: './ContractVerify',
         },
         {
           name: 'upload',
@@ -437,7 +433,7 @@ export default defineConfig({
           component: './ContractUpload',
         },
       ],
-},
+    },
     {
       name: 'ourlogin',
       icon: 'team',

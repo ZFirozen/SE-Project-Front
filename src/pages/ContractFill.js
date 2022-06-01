@@ -19,8 +19,8 @@ const Component = React.Component
 const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
-//注意这个类，必须继承自Component
 
+//注意这个类，必须继承自Component
 class ContractFill extends Component {
     //注意这个类，必须继承自Component
     constructor(props) {
@@ -53,7 +53,7 @@ class ContractFill extends Component {
             },
             partyB: {
                 companyCH: "南京大学计算机软件新技术国家重点实验室",
-                companyEN: "",
+                companyEN: "NJU",
                 representative: "",
                 sigDate: "",
                 contact: "",
@@ -71,6 +71,10 @@ class ContractFill extends Component {
             },
             signedAt: "",
             signedDate: "",
+            status: {
+                message: "",
+                stage: "",
+            },
             targetSoftware: "",
             price: 0,
             totalWorkingDays: 0,
@@ -104,6 +108,10 @@ class ContractFill extends Component {
             }).then((entrust) => {
                 axios.get("/api/contract/" + entrust.contractId)
                     .then((contract) => {
+                        console.log(contract.data)
+                        // if (contract.data.partyB.companyEN === "NJU")
+                        //     console.log("?");
+                        console.log(entrust.content.principal)
                         contract.data.partyA = entrust.content.principal
                         contract.data.partyB = this.state.partyB
                         console.log(contract.data)
@@ -198,7 +206,7 @@ class ContractFill extends Component {
                         <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCH" status={this.state.error.partyA.companyCH} value={this.state.partyA.companyCH} onChange={this.partyAChange} />
                             单位全称（英文）：<Input type="text" name="companyEN" status={this.state.error.partyA.companyEN} value={this.state.partyA.companyEN} onChange={this.partyAChange} /></div></Row>
                         <Row style={white}><div>授权代表：<Input type="text" name="representative" status={this.state.error.partyA.representative} value={this.state.partyA.representative} onChange={this.partyAChange} />
-                            签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyA.sigDate} defaultValue={moment(Date(this.state.partyA.sigDate))} onChange={this.partyAsigDateChange.bind(this)} /></div></Row>
+                            签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyA.sigDate} defaultValue={() => { moment(Date(this.state.partyA.sigDate)) }} format="YYYY-MM-DD" onChange={this.partyAsigDateChange.bind(this)} /></div></Row>
                         <Row style={gray}><div>联系人：<Input type="text" name="contact" status={this.state.error.partyA.contact} value={this.state.partyA.contact} onChange={this.partyAChange} />
                             联系人电话：<Input type="text" name="contactPhone" status={this.state.error.partyA.contactPhone} value={this.state.partyA.contactPhone} onChange={this.partyAChange} />
                             联系人邮箱：<Input type="text" name="contactEmail" status={this.state.error.partyA.contactEmail} value={this.state.partyA.contactEmail} onChange={this.partyAChange} /></div></Row>

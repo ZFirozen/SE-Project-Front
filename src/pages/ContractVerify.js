@@ -11,7 +11,7 @@ const Fragment = React.Fragment
 
 
 
-export default class ContractReview extends React.Component {
+export default class ContractVerify extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -76,7 +76,7 @@ export default class ContractReview extends React.Component {
     render() {
         return (
             <Fragment>
-                <Title level={1}>ContractReview</Title>
+                <Title level={1}>ContractVerify</Title>
                 <Card>
                     <Title level={3} align="center">软件委托测试合同</Title>
                     <div>项目名称：{this.state.data.projectName}</div>
@@ -236,7 +236,4 @@ export default class ContractReview extends React.Component {
                 });
         }
     }
-
-
 }
-//export default ContractReview;
