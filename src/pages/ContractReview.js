@@ -9,8 +9,6 @@ const { Title } = Typography;
 const { TextArea } = Input;
 const Fragment = React.Fragment
 
-
-
 export default class ContractDisplay extends React.Component {
     constructor(props) {
         super(props);

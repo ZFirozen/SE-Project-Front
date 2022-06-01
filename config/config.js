@@ -37,7 +37,7 @@ export default defineConfig({
       layout: false,
       routes: [
         {
-          
+
           name: 'login',
           path: '/ourlogin',
           component: './OurLogin',
@@ -334,14 +334,14 @@ export default defineConfig({
           name: 'view',
           icon: 'smile',
           path: '/entrustment/display/:id',
-          component: './EntrustmentView',
+          component: './EntrustmentDisplay',
           hideInMenu: true,
         },
         {
           name: 'view',
           icon: 'smile',
           path: '/entrustment/view',
-          component: './Entrustment',
+          component: './EntrustmentList',
         },
         {
           name: 'fill',
@@ -381,7 +381,7 @@ export default defineConfig({
           name: 'verify',
           icon: 'smile',
           path: '/entrustment/verify/:id',
-          component: './EntrustmentVer',
+          component: './EntrustmentVerify',
           hideInMenu: true,
         },
         {
@@ -407,7 +407,7 @@ export default defineConfig({
       component: './Sample',
       hideInMenu: true,
     },
-    
+
     {
       name: 'contract',
       icon: 'highlight',
@@ -437,7 +437,7 @@ export default defineConfig({
           component: './ContractUpload',
         },
       ],
-},
+    },
     {
       name: 'ourlogin',
       icon: 'team',

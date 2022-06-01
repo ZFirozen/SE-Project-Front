@@ -41,4 +41,4 @@ const Attachment = () => {
     );
 }
 
-export default Entrustment;
+export default Attachment;

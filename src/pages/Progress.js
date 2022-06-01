@@ -59,24 +59,24 @@ const Progress = (props) => {
                             setShowStage(0);
                             break;
                         case "AUDITING_PASSED":
-                            setCurrentStage(1);
-                            setCurrentStep(0);
-                            setShowStage(1);
+                            setCurrentStage(0);
+                            setCurrentStep(5);
+                            setShowStage(0);
                             break;
                         case "CUSTOMER_CHECK_QUOTE":
-                            setCurrentStage(1);
-                            setCurrentStep(1);
-                            setShowStage(1);
+                            setCurrentStage(0);
+                            setCurrentStep(6);
+                            setShowStage(0);
                             break;
                         case "CUSTOMER_DENY_QUOTE":
-                            setCurrentStage(1);
-                            setCurrentStep(1);
+                            setCurrentStage(0);
+                            setCurrentStep(5);
                             setCurrentStatus(false);
-                            setShowStage(1);
+                            setShowStage(0);
                             break;
                         case "CUSTOMER_ACCEPT_QUOTE":
                             setCurrentStage(1);
-                            setCurrentStep(2);
+                            setCurrentStep(0);
                             setShowStage(1);
                             break;
                         case "TERMINATED":
@@ -147,6 +147,22 @@ const Progress = (props) => {
                     alert("您没有权限访问！");
                 }
                 break;
+            case 5:
+                if (userRole === "MARKETER") {
+                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
+                    console.log(userRole + " " + value);
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 6:
+                if (userRole === "CUSTOMER") {
+                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
+                    console.log(userRole + " " + value);
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
             default:
                 break;
         }
@@ -156,23 +172,8 @@ const Progress = (props) => {
         console.log("onContractClick: " + value);
         console.log(userRole);
         switch (value) {
+
             case 0:
-                if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
-                    console.log(userRole + " " + value);
-                } else {
-                    alert("您没有权限访问！");
-                }
-                break;
-            case 1:
-                if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
-                    console.log(userRole + " " + value);
-                } else {
-                    alert("您没有权限访问！");
-                }
-                break;
-            case 2:
                 if (userRole === "MARKETER") {
                     axios.post("/api/contract?entrustId=" + entrustmentId)
                         .then(function (response) {
@@ -199,7 +200,7 @@ const Progress = (props) => {
                     alert("您没有权限访问！");
                 }
                 break;
-            case 3:
+            case 1:
                 if (userRole === "CUSTOMER") {
                     window.location.href = "/entrustment/contract/fill/" + entrustmentId;
                     console.log(userRole + " " + value);
@@ -207,7 +208,7 @@ const Progress = (props) => {
                     alert("您没有权限访问！");
                 }
                 break;
-            case 4:
+            case 2:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
                     window.location.href = "/entrustment/contract/fill/" + entrustmentId;
@@ -215,7 +216,7 @@ const Progress = (props) => {
                     alert("您没有权限访问！");
                 }
                 break;
-            case 5:
+            case 3:
                 if (userRole === "MARKETER") {
                     console.log(userRole + " " + value);
                     window.location.href = "/contract/upload/" + contractId;
@@ -235,16 +236,18 @@ const Progress = (props) => {
                     <>
                         <Steps
                             style={{ paddingLeft: 70 }}
-                            current={currentStage === 0 ? currentStep : 4}
+                            current={currentStage === 0 ? currentStep : 6}
                             status={currentStage === 0 ? "process" : "finish"}
                             // onChange={onStepChange}
                             direction="vertical"
                         >
-                            <Step title="填写委托" description="点此填写合同" onClick={() => onEntrustmentClick(0)} />
-                            <Step title="市场部分配人员" description="点此分配市场部人员" onClick={() => onEntrustmentClick(1)} />
-                            <Step title="市场部审核委托" description="点此审核委托" onClick={() => onEntrustmentClick(2)} />
-                            <Step title="测试部分配人员" description="点此分配测试部人员" onClick={() => onEntrustmentClick(3)} />
-                            <Step title="测试部审核委托" description="点此审核委托" onClick={() => onEntrustmentClick(4)} />
+                            <Step title="填写委托" description="客户：点此查看委托详情" onClick={() => onEntrustmentClick(0)} />
+                            <Step title="市场部分配人员" description="市场部主管：点此分配市场部人员" onClick={() => onEntrustmentClick(1)} />
+                            <Step title="市场部审核委托" description="市场部人员：点此审核委托" onClick={() => onEntrustmentClick(2)} />
+                            <Step title="测试部分配人员" description="测试部主管：点此分配测试部人员" onClick={() => onEntrustmentClick(3)} />
+                            <Step title="测试部审核委托" description="测试部人员：点此审核委托" onClick={() => onEntrustmentClick(4)} />
+                            <Step title="填写报价表" description="点此填写报价表" onClick={() => onEntrustmentClick(5)} />
+                            <Step title="确定报价" description="点此确定报价" onClick={() => onEntrustmentClick(6)} />
                         </Steps>
                     </>
                 )
@@ -253,17 +256,15 @@ const Progress = (props) => {
                     <>
                         <Steps
                             style={{ paddingLeft: 70 }}
-                            current={currentStage === 1 ? currentStep : (currentStage < 1 ? 0 : 5)}
+                            current={currentStage === 1 ? currentStep : (currentStage < 1 ? 0 : 3)}
                             status={currentStage === 1 ? "process" : (currentStage < 1 ? "wait" : "finish")}
                             // onChange={onStepChange}
                             direction="vertical"
                         >
-                            <Step title="生成报价表" description="点此生成报价表" onClick={() => onContractClick(0)} />
-                            <Step title="确定报价" description="点此确定报价" onClick={() => onContractClick(1)} />
-                            <Step title="生成基本合同" description="点此生成基本合同" onClick={() => onContractClick(2)} />
-                            <Step title="合同填写" description="点此填写合同" onClick={() => onContractClick(3)} />
-                            <Step title="合同评审" description="点此评审合同" onClick={() => onContractClick(4)} />
-                            <Step title="合同归档" description="点此归档合同" onClick={() => onContractClick(5)} />
+                            <Step title="生成基本合同" description="点此生成基本合同" onClick={() => onContractClick(0)} />
+                            <Step title="合同填写" description="点此填写合同" onClick={() => onContractClick(1)} />
+                            <Step title="合同评审" description="点此评审合同" onClick={() => onContractClick(2)} />
+                            <Step title="合同归档" description="点此归档合同" onClick={() => onContractClick(3)} />
                         </Steps>
                     </>
                 )
