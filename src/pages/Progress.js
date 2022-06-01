@@ -21,7 +21,7 @@ const Progress = (props) => {
     const userRole = localStorage.getItem("userRole");
     var contractId = "";
 
-    const getEntrustStatus = () => {
+    const getEntrustmentStatus = () => {
         axios.get("/api/entrust/" + entrustmentId)
             .then((response) => {
                 if (response.status === 200) {
@@ -78,6 +78,7 @@ const Progress = (props) => {
                             setCurrentStage(1);
                             setCurrentStep(0);
                             setShowStage(1);
+                            getContractStatus();
                             break;
                         case "TERMINATED":
                             setCurrentStatus(false);
@@ -95,65 +96,51 @@ const Progress = (props) => {
     }
 
     const getContractStatus = () => {
-        axios.get("/api/entrust/" + entrustmentId)
+        axios.get("/api/contract/" + contractId)
             .then((response) => {
                 if (response.status === 200) {
-                    contractId = response.data.contractId
                     switch (response.data.status.stage) {
-                        case "WAIT_FOR_MARKETER":
-                            setCurrentStage(0);
-                            setCurrentStep(1);
-                            setShowStage(0);
-                            break;
-                        case "MARKETER_AUDITING":
-                            setCurrentStage(0);
-                            setCurrentStep(2);
-                            setShowStage(0);
-                            break;
-                        case "MARKETER_DENIED":
-                            setCurrentStage(0);
-                            setCurrentStep(0);
-                            setShowStage(0);
-                            break;
-                        case "WAIT_FOR_TESTER":
-                            setCurrentStage(0);
-                            setCurrentStep(3);
-                            setShowStage(0);
-                            break;
-                        case "TESTER_AUDITING":
-                            setCurrentStage(0);
-                            setCurrentStep(4);
-                            setShowStage(0);
-                            break;
-                        case "TESTER_DENIED":
-                            setCurrentStage(0);
-                            setCurrentStep(0);
-                            setCurrentStatus(false);
-                            setShowStage(0);
-                            break;
-                        case "AUDITING_PASSED":
-                            setCurrentStage(0);
-                            setCurrentStep(5);
-                            setShowStage(0);
-                            break;
-                        case "CUSTOMER_CHECK_QUOTE":
-                            setCurrentStage(0);
-                            setCurrentStep(6);
-                            setShowStage(0);
-                            break;
-                        case "CUSTOMER_DENY_QUOTE":
-                            setCurrentStage(0);
-                            setCurrentStep(5);
-                            setCurrentStatus(false);
-                            setShowStage(0);
-                            break;
-                        case "CUSTOMER_ACCEPT_QUOTE":
+                        case "FILL_CONTRACT":
                             setCurrentStage(1);
                             setCurrentStep(0);
                             setShowStage(1);
                             break;
-                        case "TERMINATED":
+                        case "CUSTOMER_CHECKING":
+                            setCurrentStage(1);
+                            setCurrentStep(1);
+                            setShowStage(1);
+                            break;
+                        case "CUSTOMER_DENY":
+                            setCurrentStage(1);
+                            setCurrentStep(0);
                             setCurrentStatus(false);
+                            setShowStage(1);
+                            break;
+                        case "CUSTOMER_ACCEPT":
+                            setCurrentStage(1);
+                            setCurrentStep(1);
+                            setShowStage(1);
+                            break;
+                        case "MARKETER_CHECKING":
+                            setCurrentStage(1);
+                            setCurrentStep(2);
+                            setShowStage(1);
+                            break;
+                        case "MARKETER_DENY":
+                            setCurrentStage(1);
+                            setCurrentStep(1);
+                            setCurrentStatus(false);
+                            setShowStage(1);
+                            break;
+                        case "MARKETER_ACCEPT":
+                            setCurrentStage(1);
+                            setCurrentStep(3);
+                            setShowStage(1);
+                            break;
+                        case "COPY_SAVED":
+                            setCurrentStage(2);
+                            setCurrentStep(0);
+                            setShowStage(2);
                             break;
                         default:
                             break;
@@ -168,11 +155,11 @@ const Progress = (props) => {
     }
 
     useEffect(() => {
-        getEntrustStatus();
+        getEntrustmentStatus();
     }, [])
 
     const onStageChange = (value) => {
-        console.log("onChange: ", value);
+        console.log("onStageChange: ", value);
         setShowStage(value);
     }
 
@@ -250,54 +237,63 @@ const Progress = (props) => {
         console.log("onContractClick: " + value);
         console.log(userRole);
         switch (value) {
-
             case 0:
                 if (userRole === "MARKETER") {
-                    axios.post("/api/contract?entrustId=" + entrustmentId)
-                        .then(function (response) {
-                            if (response.status === 200) {
-                                alert("合同创建成功！");
-                                // setContractId(response.data.contractId);
-                                // setMarketerId(response.data.marketerId);
-                                // setCustomerId(response.data.customerId);
-                                console.log("create contract success");
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        })
-                        .catch(function (error) {
-                            if (error.response.status === 400) {
-                                console.log(error);
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        });
-                    window.location.href = "/contract/fill/" + entrustmentId;
-                    console.log(userRole + " " + value);
+                    if (currentStage === 1 && currentStep === 0) {
+                        axios.post("/api/contract?entrustId=" + entrustmentId)
+                            .then(function (response) {
+                                if (response.status === 200) {
+                                    alert("合同创建成功！");
+                                    // setContractId(response.data.contractId);
+                                    // setMarketerId(response.data.marketerId);
+                                    // setCustomerId(response.data.customerId);
+                                    console.log("create contract success");
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch(function (error) {
+                                if (error.response.status === 400) {
+                                    console.log(error);
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            });
+                        window.location.href = "/contract/fill/" + entrustmentId;
+                    } else {
+                        window.location.href = "/contract/display/" + entrustmentId;
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 1:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/contract/fill/" + entrustmentId;
-                    console.log(userRole + " " + value);
+                    if (currentStage === 1 && currentStep === 1) {
+                        window.location.href = "/contract/fill/" + entrustmentId;
+                    } else {
+                        window.location.href = "/contract/display/" + entrustmentId;
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 2:
                 if (userRole === "MARKETER") {
-                    console.log(userRole + " " + value);
-                    window.location.href = "/contract/fill/" + entrustmentId;
+                    if (currentStage === 1 && currentStep === 2) {
+                        window.location.href = "/contract/verify/" + entrustmentId;
+                    } else {
+                        window.location.href = "/contract/display/" + entrustmentId;
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 3:
                 if (userRole === "MARKETER") {
-                    console.log(userRole + " " + value);
-                    window.location.href = "/contract/upload/" + contractId;
+                    if (currentStage === 1 && currentStep === 3) {
+                        window.location.href = "/contract/upload/" + contractId;
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
