@@ -1,62 +1,41 @@
+import React from 'react';
+import { Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, message, Upload } from 'antd';
 import axios from 'axios';
-import { useState } from 'react';
+
 
 const ContractUpload = (props) => {
-  const contractId = props.match.params.id;
-  const [fileList, setFileList] = useState([]);
-  const [uploading, setUploading] = useState(false);
-
-  const handleUpload = () => {
-    setUploading(true); // You can use any AJAX library you like
-
-    console.log(fileList.at(0))
+  const uprops = {
+    name: 'scannedCopy',
+    action: '/api/contract/'+props.match.params.id+'/upload',
+    method: "put",
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+  
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+  return(
+  <Upload customRequest={(file)=>{
+    const r = new FileReader();
+    var fd = new FormData()
+    r.readAsBinaryString(file.file)
+    r.onload = e=>{
+      console.log(e.target.result)
+      fd.append("scannedCopy",e.target.result)
+      console.log(fd)
+      axios.put("/api/contract/"+props.match.params.id+"/upload",fd)
+    }
     
-    axios.put("/api/contract/" + contractId + "/upload", {scannedCopy:fileList.at(0)})
-      .then((res) => res.json())
-      .then(() => {
-        setFileList([]);
-        message.success('upload successfully.');
-      })
-      .catch(() => {
-        message.error('upload failed.');
-      })
-      .finally(() => {
-        setUploading(false);
-      });
-  };
-  const UploadProps = {
-    onRemove: (file) => {
-      const index = fileList.indexOf(file);
-      const newFileList = fileList.slice();
-      newFileList.splice(index, 1);
-      setFileList(newFileList);
-    },
-    beforeUpload: (file) => {
-      setFileList([file]);
-      return false;
-    },
-    fileList,
-  };
-  return (
-    <>
-      <Upload maxCount={1}{...UploadProps}>
-        <Button icon={<UploadOutlined />}>Select File</Button>
-      </Upload>
-      <Button
-        type="primary"
-        onClick={handleUpload}
-        disabled={fileList.length === 0}
-        loading={uploading}
-        style={{
-          marginTop: 16,
-        }}
-      >
-        {uploading ? 'Uploading' : 'Start Upload'}
-      </Button>
-    </>
-  );
+    }} {...uprops}>
+    <Button icon={<UploadOutlined />}>Click to Upload</Button>
+  </Upload>)
 };
 
 export default ContractUpload;

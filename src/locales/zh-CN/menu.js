@@ -61,7 +61,7 @@ export default {
   'menu.entrustment.fill': '填表',
   'menu.entrustment.progress': '流程进度',
   'menu.entrustment.verify': '审核',
-  'menu.entrustment.view': '查看',
+  'menu.entrustment.list': '查看',
   'menu.ourlogin': '登录',
   'menu.sample': '样品',
   'menu.userinfo': '账户信息',

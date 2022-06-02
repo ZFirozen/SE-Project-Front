@@ -8,6 +8,8 @@ axios.defaults.withCredentials = true;
 
 const { Step } = Steps;
 
+var contractId = "";
+
 const Progress = (props) => {
     const entrustmentId = props.match.params.id;
     // const [marketerId, setMarketerId] = useState("");
@@ -18,8 +20,7 @@ const Progress = (props) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
-    const userRole = localStorage.getItem("userRole");
-    var contractId = "";
+    const userRole = localStorage.getItem("userRole");  
 
     const getEntrustmentStatus = () => {
         axios.get("/api/entrust/" + entrustmentId)
@@ -99,6 +100,7 @@ const Progress = (props) => {
         axios.get("/api/contract/" + contractId)
             .then((response) => {
                 if (response.status === 200) {
+                    console.log(contractId)
                     switch (response.data.status.stage) {
                         case "FILL_CONTRACT":
                             setCurrentStage(1);
@@ -259,9 +261,9 @@ const Progress = (props) => {
                                     console.log("Unknown error!");
                                 }
                             });
-                        window.location.href = "/contract/fill/" + entrustmentId;
+                        window.location.href = "/contract/fill/" + contractId;
                     } else {
-                        window.location.href = "/contract/display/" + entrustmentId;
+                        window.location.href = "/contract/display/" + contractId;
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -270,9 +272,9 @@ const Progress = (props) => {
             case 1:
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 1 && currentStep === 1) {
-                        window.location.href = "/contract/fill/" + entrustmentId;
+                        window.location.href = "/contract/fill/" + contractId;
                     } else {
-                        window.location.href = "/contract/display/" + entrustmentId;
+                        window.location.href = "/contract/display/" + contractId;
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -281,9 +283,9 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 2) {
-                        window.location.href = "/contract/verify/" + entrustmentId;
+                        window.location.href = "/contract/verify/" + contractId;
                     } else {
-                        window.location.href = "/contract/display/" + entrustmentId;
+                        window.location.href = "/contract/display/" + contractId;
                     }
                 } else {
                     alert("您没有权限访问！");

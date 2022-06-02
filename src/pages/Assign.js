@@ -53,7 +53,7 @@ const Assign = (props ) => {
                             marketerId: a.userId
                         }).then(response => {
                             //外部跳转
-                            window.location.href = '../entrustment'
+                            window.location.href = '../'
                         })
                     },
                     onCancel() {

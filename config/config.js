@@ -328,19 +328,19 @@ export default defineConfig({
       routes: [
         {
           path: '/entrustment',
-          redirect: '/entrustment/view',
+          redirect: '/entrustment/list',
         },
         {
-          name: 'view',
+          name: 'list',
           icon: 'smile',
           path: '/entrustment/display/:id',
           component: './EntrustmentDisplay',
           hideInMenu: true,
         },
         {
-          name: 'view',
+          name: 'list',
           icon: 'smile',
-          path: '/entrustment/view',
+          path: '/entrustment/list',
           component: './EntrustmentList',
         },
         {

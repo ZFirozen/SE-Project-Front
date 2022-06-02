@@ -85,9 +85,9 @@ export default class ContractVerify extends React.Component {
                 axios.get("/api/contract/" + entrustment.contractId)
                     .then((contract) => {
                         console.log(contract.data);
-                        contract.data.signedDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
-                        contract.data.partyA.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
-                        contract.data.partyB.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
+                        // contract.data.signedDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
+                        // contract.data.partyA.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
+                        // contract.data.partyB.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
                         console.log(contract.data.signedDate);
                         this.setState(contract.data);
                     })
