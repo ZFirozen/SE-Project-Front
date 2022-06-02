@@ -2,66 +2,94 @@ import 'antd/dist/antd.css';
 
 import axios from "axios";
 import React, { useState } from "react";
-import { Typography, Descriptions, Badge, Card, Row, Radio, Input } from 'antd';
+import { Form, Typography, Descriptions, Badge, Card, Row, Radio, Input, Button } from 'antd';
 //import type { RadioChangeEvent } from 'antd';
 import { RadiusUpleftOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 const { TextArea } = Input;
 const Fragment = React.Fragment
 
-
-
 export default class ContractVerify extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            contractId: undefined,
-            eid: props.match.params.id,
-            data: [],
-            partyA: [],
-            partyB: [],
-            //status: [],
-            stage: "",
-            //massage: "",
-        }
-        this.fetchState = this.fetchState.bind(this);
-        //this.messageChange = this.messageChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.stageChange = this.stageChange.bind(this);
+            id: undefined,
+            marketerId: 0,
+            customerId: 0,
+            entrustId: props.match.params.id,
+            status: {
+                stage: "",
+                message: "",
+            },
+            serialNumber: "",
+            projextName: "",
+            partyA: {
+                companyCH: "",
+                companyEN: "",
+                contactPhone: "",
+                companyWebsite: "",
+                companyAddress: "",
+                contact: "",
+                companyPhone: "",
+                contactEmail: "",
+                representative: "",
+                sigDate: "",
+                zipCode: "",
+                fax: "",
+                bankName: "",
+                account: "",
+                accountName: "",
+            },
+            partyB: {
+                companyCH: "南京大学计算机软件新技术国家重点实验室",
+                companyEN: "NJU",
+                companyPhone: "",
+                companyWebsite: "",
+                companyAddress: "",
+                contact: "",
+                contactPhone: "",
+                contactEmail: "",
+                representative: "",
+                sigDate: "",
+                zipCode: "",
+                fax: "",
+                bankName: "中国工商银行股份有限公司南京汉口路分理处",
+                account: "4301011309001041656",
+                accountName: "南京大学"
+            },
+            signedAt: "",
+            signedDate: "",
+            targetSoftware: "",
+            price: 0,
+            totalWorkingDays: 0,
+            rectificationLimit: 0,
+            rectificationDaysEachTime: 0,
+        };
+        // this.onFinish = this.onFinish.bind(this);
+        // this.stageChange = this.stageChange.bind(this);
     }
 
-
-    fetchState = () => {
+    componentDidMount() {
         axios.get("/api/entrust/" + this.state.entrustId)
             .then((response) => {
                 if (response.status === 200) {
                     this.setState({
-                        id: response.data.contractId,
-                        marketerId: response.data.marketerId,
-                        customerId: response.data.customerId,
+                        id: response.data.contractId
                     });
                     console.log("success");
-                }
-                else {
+                } else {
                     console.log(response);
                 }
                 return response.data;
-            }).then((entrust) => {
-                axios.get("/api/contract/" + entrust.contractId)
+            }).then((entrustment) => {
+                axios.get("/api/contract/" + entrustment.contractId)
                     .then((contract) => {
-                        console.log(contract.data)
-                        // if (contract.data.partyB.companyEN === "NJU")
-                        //     console.log("?");
-                        console.log(entrust.content.principal)
-                        contract.data.partyA = entrust.content.principal
-                        contract.data.partyB = this.state.partyB
-                        console.log(contract.data)
-                        this.setState({
-                            error: {
-                                partyA: {},
-                                partyB: {}
-                            }, ...contract.data
-                        })
+                        console.log(contract.data);
+                        contract.data.signedDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
+                        contract.data.partyA.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
+                        contract.data.partyB.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
+                        console.log(contract.data.signedDate);
+                        this.setState(contract.data);
                     })
             })
             .catch((error) => {
@@ -69,23 +97,21 @@ export default class ContractVerify extends React.Component {
             });
     }
 
-    componentDidMount() {
-        this.fetchState()
-    }
     render() {
         return (
             <Fragment>
-                <Title level={1}>ContractVerify</Title>
+                {/* <Form onFinish={this.onFinish}> */}
+                <Title level={1}>合同审核</Title>
                 <Card>
                     <Title level={3} align="center">软件委托测试合同</Title>
-                    <div>项目名称：{this.state.data.projectName}</div>
+                    <div>项目名称：{this.state.projectName}</div>
                     <div>委托方（甲方）：{this.state.partyA.companyCH}</div>
                     <div>受托方（乙方）：{this.state.partyB.companyCH}</div>
-                    <div>签订地点：{this.state.data.signedAt}</div>
-                    <div>签订日期：{this.state.data.signedDate}</div>
+                    <div>签订地点：{this.state.signedAt}</div>
+                    <div>签订日期：{this.state.signedDate}</div>
                     本合同由作为委托方的{this.state.partyA.companyCH}（以下简称“甲方”）与作为受托方的{this.state.partyB.companyCH}（以下简称“乙方”），在平等自愿的基础上，依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。
                     <Title level={4}> 一、 任务表述</Title>
-                    乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件{this.state.data.targetSoftware}
+                    乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件{this.state.targetSoftware}
                     (下称受测软件)的质量特性，进行测试，并出具相应的测试报告。<br />
                     <br />
                     <Title level={4}>二、双方的主要义务</Title>
@@ -104,17 +130,17 @@ export default class ContractVerify extends React.Component {
                     由甲方将受测软件产品送到乙方实施测试。如果由于被测软件本身特点或其它乙方认可的原因，需要在甲方所在地进行测试时，甲方应负担乙方现场测试人员的差旅和食宿费用。<br />
                     <br />
                     <Title level={4}>四、合同价款</Title>
-                    本合同软件测试费用为人民币{this.state.data.price}（¥元）。<br />
+                    本合同软件测试费用为人民币{this.state.price}（¥元）。<br />
                     <br />
                     <Title level={4}>五、测试费用支付方式</Title>
                     本合同签定后，十个工作日内甲方合同价款至乙方帐户。<br />
                     <br />
                     <Title level={4}>六、履行的期限</Title>
-                    1.	本次测试的履行期限为合同生效之日起{this.state.data.totalWorkingDays}个自然日内完成。<br />
+                    1.	本次测试的履行期限为合同生效之日起{this.state.totalWorkingDays}个自然日内完成。<br />
                     2.	经甲乙双方同意，可对测试进度作适当修改，并以修改后的测试进度作为本合同执行的期限。<br />
                     3.	如受测软件在测试过程中出现的问题，导致继续进行测试会影响整体测试进度，则乙方暂停测试并以书面形式通知甲方进行整改。<br />
-                    在整个测试过程中，整改次数限于{this.state.data.rectificationLimit}次，
-                    每次不超过{this.state.data.rectificationDaysEachTime}天。<br />
+                    在整个测试过程中，整改次数限于{this.state.rectificationLimit}次，
+                    每次不超过{this.state.rectificationDaysEachTime}天。<br />
                     4.	如因甲方原因，导致测试进度延迟、应由甲方负责,乙方不承担责任。<br />
                     5.	如因乙方原因，导致测试进度延迟，则甲方可酌情提出赔偿要求，赔偿金额不超过甲方已付金额的50%。双方经协商一致后另行签订书面协议，作为本合同的补充。<br />
                     <br />
@@ -138,7 +164,7 @@ export default class ContractVerify extends React.Component {
                     <br />
                     <Title level={4}>十二、签章</Title>
                     <Descriptions bordered title="委托方" column={4}>
-                        <Descriptions.Item label="单位全称" span={4}>{this.state.partyA.companyCN}(签章)</Descriptions.Item>
+                        <Descriptions.Item label="单位全称" span={4}>{this.state.partyA.companyCH}(签章)</Descriptions.Item>
                         <Descriptions.Item label="授权代表" span={2}>{this.state.partyA.representative}</Descriptions.Item>
                         <Descriptions.Item label="签章日期" span={2}>{this.state.partyA.sigDate}</Descriptions.Item>
                         <Descriptions.Item label="联系人" span={4}>{this.state.partyA.contact}</Descriptions.Item>
@@ -150,8 +176,9 @@ export default class ContractVerify extends React.Component {
                         <Descriptions.Item label="邮编" span={2}>{this.state.partyA.zipCode}</Descriptions.Item>
 
                     </Descriptions>
+                    <br />
                     <Descriptions bordered title="受托方" column={4}>
-                        <Descriptions.Item label="单位全称" span={4}>{this.state.partyB.companyCN}(签章)</Descriptions.Item>
+                        <Descriptions.Item label="单位全称" span={4}>{this.state.partyB.companyCH}(签章)</Descriptions.Item>
                         <Descriptions.Item label="授权代表" span={2}>{this.state.partyB.representative}</Descriptions.Item>
                         <Descriptions.Item label="签章日期" span={2}>{this.state.partyB.sigDate}</Descriptions.Item>
                         <Descriptions.Item label="联系人" span={4}>{this.state.partyB.contact}</Descriptions.Item>
@@ -165,74 +192,100 @@ export default class ContractVerify extends React.Component {
                     </Descriptions>
                 </Card>
                 <Card>
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                        <Title level={3} align="center">Accept or Not</Title>
+                    {/* <Title level={3} align="center">Accept or Not</Title>
                         <div>
                             <Radio.Group options={[{ label: "Accept", value: 1 }, { label: "Not Accept", value: 2 }]} onChange={this.stageChange}></Radio.Group>
                         </div>
-                        {/* <Title level={3} align = "center">Suggestion</Title>
-                        <div>
-                            <Input type="text" name="suggestion" value={this.state.status.message} onChange={this.messageChange}></Input>
-                        </div> */}
-                        <Input type='submit' value='提交' />
-                    </form>
+                        <Input type='submit' value='提交' /> */}
+                    <Button type='primary' onClick={() => {
+                        axios.post("/api/contract/" + this.state.id + "/acceptance")
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("同意合同！");
+                                    window.location.href = "/progress/" + this.state.entrustId;
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    alert("同意失败！");
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            });
+                    }} > 同意 </Button>
+                    <Button type='button' onClick={() => {
+                        axios.post("/api/contract/" + this.state.id + "/denial")
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("拒绝合同！");
+                                    window.location.href = "/progress/" + this.state.entrustId;
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    alert("拒绝失败！");
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            });
+                    }} > 拒绝 </Button>
                 </Card>
+                {/* </Form> */}
             </Fragment>
 
         )
     }
 
-    //const [radioValue, setRadioValue] = useState(data?.radioValue);
-    // messageChange(data) {
-    //     this.setState({message: data});
+    // stageChange(event) {
+    //     console.log(event.target.value);
+    //     let t_value = event.target.value
+    //     this.setState({ stage: event.target.value })
+    //     console.log("11")
+    //     console.log(this.state.stage)
+    //     return t_value;
     // }
-    stageChange(event) {
-        console.log(event.target.value);
-        let t_value = event.target.value
-        this.setState({ stage: event.target.value })
-        console.log("11")
-        console.log(this.state.stage)
-        return t_value;
-    }
 
-
-    handleSubmit(event) {
-        console.log("123");
-        //console.log(message);
-        console.log(this.state.stage);
-        if (this.state.stage === 1) {
-            axios.post("/api/contract/" + this.state.contractId + "/acceptance")
-                .then(function (response) {
-                    if (response.status === 200) {
-                        alert("同意合同！");
-                    } else {
-                        console.log("Unknown error!");
-                    }
-                })
-                .catch(function (error) {
-                    if (error.response.status === 400) {
-                        alert("同意失败！");
-                    } else {
-                        console.log("Unknown error!");
-                    }
-                });
-        }
-        else {
-            axios.post("/api/contract/" + this.state.contractId + "/denial")
-                .then(function (response) {
-                    if (response.status === 200) {
-                        alert("拒绝合同！");
-                    } else {
-                        console.log("Unknown error!");
-                    }
-                })
-                .catch(function (error) {
-                    if (error.response.status === 400) {
-                        alert("拒绝失败！");
-                    } else {
-                        console.log("Unknown error!");
-                    }
-                });
-        }
-    }
+    // onFinish(event) {
+    //     console.log("123");
+    //     //console.log(message);
+    //     console.log(this.state.stage);
+    //     if (this.state.stage === 1) {
+    //         axios.post("/api/contract/" + this.state.id + "/acceptance")
+    //             .then((response) => {
+    //                 if (response.status === 200) {
+    //                     alert("同意合同！");
+    //                 } else {
+    //                     console.log("Unknown error!");
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 if (error.status === 400) {
+    //                     alert("同意失败！");
+    //                 } else {
+    //                     console.log("Unknown error!");
+    //                 }
+    //             });
+    //     }
+    //     else {
+    //         axios.post("/api/contract/" + this.state.id + "/denial")
+    //             .then((response) => {
+    //                 if (response.status === 200) {
+    //                     alert("拒绝合同！");
+    //                 } else {
+    //                     console.log("Unknown error!");
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 if (error.status === 400) {
+    //                     alert("拒绝失败！");
+    //                 } else {
+    //                     console.log("Unknown error!");
+    //                 }
+    //             });
+    //     }
+    // }
 }
