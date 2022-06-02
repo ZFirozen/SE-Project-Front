@@ -43,9 +43,6 @@ export default class Login extends React.Component {
             .then((response) => {
                 if (response.status === 200) {
                     console.log("用户名：" + this.state.userName + "已登出！");
-                    if (this.state.isLoggedIn) {
-                        this.setState({ isLoggedIn: false });
-                    }
                 } else {
                     console.log("Unknown error1!");
                 }
@@ -88,9 +85,6 @@ export default class Login extends React.Component {
                     });
             })
             .catch((error) => {
-                if (this.state.isLoggedIn) {
-                    this.setState({ isLoggedIn: false });
-                }
                 if (error.status === 400) {
                     console.log("当前未登录账号！请重新登录！");
                 } else {
@@ -142,7 +136,7 @@ export default class Login extends React.Component {
     onFinishFailed(errorInfo) {
         console.log("Failed:", errorInfo);
     }
-    
+
 
     render() {
         return (
