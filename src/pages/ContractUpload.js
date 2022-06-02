@@ -25,7 +25,8 @@ const ContractUpload = (props) => {
   <Upload customRequest={(file)=>{
     const r = new FileReader();
     var fd = new FormData()
-    r.readAsBinaryString(file.file)
+    // r.readAsBinaryString(file.file)
+    r.readAsDataURL(file.file)
     r.onload = e=>{
       console.log(e.target.result)
       fd.append("scannedCopy",e.target.result)

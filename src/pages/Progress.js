@@ -261,7 +261,7 @@ const Progress = (props) => {
                                     console.log("Unknown error!");
                                 }
                             });
-                        window.location.href = "/contract/fill/" + contractId;
+                        window.location.href = "/contract/fill/" + entrustmentId;
                     } else {
                         window.location.href = "/contract/display/" + contractId;
                     }
@@ -272,7 +272,7 @@ const Progress = (props) => {
             case 1:
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 1 && currentStep === 1) {
-                        window.location.href = "/contract/fill/" + contractId;
+                        window.location.href = "/contract/fill/" + entrustmentId;
                     } else {
                         window.location.href = "/contract/display/" + contractId;
                     }
@@ -283,7 +283,7 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 2) {
-                        window.location.href = "/contract/verify/" + contractId;
+                        window.location.href = "/contract/verify/" + entrustmentId;
                     } else {
                         window.location.href = "/contract/display/" + contractId;
                     }
