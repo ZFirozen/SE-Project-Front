@@ -105,14 +105,15 @@ class QuotationFill extends Component {
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
+        const dateFormat = "YYYY-MM-DD";
         // console.log(this.state)
         return (
             <Fragment>
                 <Card>
                     <Form onSubmit={this.handleSubmit.bind(this)}>
                         <Title level={3}>报价单</Title>
-                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" defaultValue={moment(Date(this.state.quotationDate))} status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
-                            报价有效期：<DatePicker name="effectiveDate" defaultValue={moment(Date(this.state.effectiveDate))} status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
+                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" value={moment(this.state.quotationDate, dateFormat)} status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
+                            报价有效期：<DatePicker name="effectiveDate" value={moment(this.state.effectiveDate, dateFormat)} status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
                         <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.bankName} value={this.state.bankName} onChange={this.InputChange} disabled />
                             户名：<Input type="text" name="accountName" status={this.state.error.accountName} value={this.state.accountName} onChange={this.InputChange} disabled />
                             账号：<Input type="text" name="account" status={this.state.error.account} value={this.state.account} onChange={this.InputChange} disabled /></div></Row>
