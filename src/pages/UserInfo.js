@@ -154,6 +154,7 @@ export default class UserInfo extends React.Component {
                     if (this.state.isLoggedIn) {
                         this.setState({ isLoggedIn: false });
                     }
+                    window.location.href = '../ourlogin'
                 } else {
                     console.log("Unknown error1!");
                 }

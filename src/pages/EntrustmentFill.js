@@ -69,11 +69,13 @@ const EntrustmentFill = (props) => {
               axios.post("/api/entrust/" + entrustmentId + "/content", temp).then(response => {
                 console.log(response)
                 message.success('提交修改成功');
+                window.location.href = '../../progress/'+entrustmentId
               })
             } else {
               axios.post("/api/entrust/", temp).then(response => {
                 console.log(response)
                 message.success('提交成功');
+                window.location.href = '../../progress/'+response.data
               })
             }
           }}
@@ -161,7 +163,7 @@ const EntrustmentFill = (props) => {
               </Row>
               <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
                 <ProFormText label="联系人电话" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactPhone"]} ></ProFormText>
-                <ProFormText label="联系人邮箱" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactEmail"]} ></ProFormText>
+                <ProFormText label="联系人邮箱" width="lg" required rules={[{ required: true, message: '这是必填项' },{type: 'email', message: '请输入正确邮箱格式'}]} name={["principal", "contactEmail"]} ></ProFormText>
               </Row>
               <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
                 <ProFormText label="授权代表" width="lg" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "representative"]} ></ProFormText>
@@ -175,7 +177,7 @@ const EntrustmentFill = (props) => {
                 <ProFormText label="开户银行" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "bankName"]} ></ProFormText>
               </Row>
               <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "account"]} ></ProFormText>
+                <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: '这是必填项' },{type: 'number', message: '请输入正确银行账号格式'}]} name={["principal", "account"]} ></ProFormText>
                 <ProFormText label="银行户名" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "accountName"]} ></ProFormText>
               </Row>
             </Col>
