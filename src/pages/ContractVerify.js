@@ -32,42 +32,41 @@ export default class ContractVerify extends React.Component {
 
 
     fetchState = () => {
-        var cid;
-        console.log(this.state.eid);
-        axios.get("/api/entrust/" + this.state.eid)
+        axios.get("/api/entrust/" + this.state.entrustId)
             .then((response) => {
                 if (response.status === 200) {
-                    cid = response.contractId;
-                    this.setState({ contractId, cid })
+                    this.setState({
+                        id: response.data.contractId,
+                        marketerId: response.data.marketerId,
+                        customerId: response.data.customerId,
+                    });
                     console.log("success");
                 }
                 else {
                     console.log(response);
                 }
+                return response.data;
+            }).then((entrust) => {
+                axios.get("/api/contract/" + entrust.contractId)
+                    .then((contract) => {
+                        console.log(contract.data)
+                        // if (contract.data.partyB.companyEN === "NJU")
+                        //     console.log("?");
+                        console.log(entrust.content.principal)
+                        contract.data.partyA = entrust.content.principal
+                        contract.data.partyB = this.state.partyB
+                        console.log(contract.data)
+                        this.setState({
+                            error: {
+                                partyA: {},
+                                partyB: {}
+                            }, ...contract.data
+                        })
+                    })
             })
             .catch((error) => {
                 console.log(error);
             });
-        let varthis = this;
-        axios.get("/api/contract/" + this.state.contractId)
-            .then(function (res) {
-
-                console.log("cba")
-                //console.log(res.data.projectName);
-                //console.log(varthis.state.projectName);
-                // this.state.data = res.data;
-                varthis.setState({ projectName: res.data.projectName })
-                varthis.setState({ data: res.data });
-                varthis.setState({ partyA: varthis.state.data.partyA })
-                varthis.setState({ partyB: varthis.state.data.partyB })
-                //varthis.setState({status: varthis.state.data.status})
-                // console.log(varthis.state.data.partyA.companyCH)
-                // console.log("abc");
-
-            }).catch(err => {
-                console.log("abc");
-                console.log(err);
-            })
     }
 
     componentDidMount() {
