@@ -1,7 +1,7 @@
 import "./QuotationFill.css";
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
+import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 import moment from "moment";
 
 import axios from 'axios';
@@ -109,7 +109,7 @@ class QuotationFill extends Component {
         return (
             <Fragment>
                 <Card>
-                    <form onSubmit={this.handleSubmit.bind(this)}>
+                    <Form onSubmit={this.handleSubmit.bind(this)}>
                         <Title level={3}>报价单</Title>
                         <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" defaultValue={moment(Date(this.state.quotationDate))} status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
                             报价有效期：<DatePicker name="effectiveDate" defaultValue={moment(Date(this.state.effectiveDate))} status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
@@ -203,16 +203,16 @@ class QuotationFill extends Component {
                         {userRole !== "CUSTOMER" ?
                             <Input type='submit' value='提交' />
                             : ""}
-                    </form>
+                    </Form>
                     {userRole === "CUSTOMER" ?
-                        <form onSubmit={this.accept.bind(this)}>
+                        <Form onFinish={this.accept.bind(this)}>
                             <Input type='submit' value='同意报价' />
-                        </form>
+                        </Form>
                         : ""}
                     {userRole === "CUSTOMER" ?
-                        <form onSubmit={this.denial.bind(this)}>
+                        <Form onFinish={this.denial.bind(this)}>
                             <Input type='submit' value='拒绝报价' />
-                        </form>
+                        </Form>
                         : ""}
                 </Card>
             </Fragment>
@@ -259,6 +259,7 @@ class QuotationFill extends Component {
             .then(function (response) {
                 if (response.status === 200) {
                     alert("拒绝成功！");
+                    window.location.href = "/progress/" + this.state.entrustmentId;
                 } else {
                     alert("拒绝失败！");
                     console.log("Unknown error!");
@@ -294,16 +295,14 @@ class QuotationFill extends Component {
             .then(function (response) {
                 if (response.status === 200) {
                     alert("同意成功！");
-
-
-
+                    window.location.href = "/progress/" + this.state.entrustmentId;
                 } else {
                     alert("同意失败！");
                     console.log("Unknown error!");
                 }
             })
             .catch(function (error) {
-                if (error.response.status === 400) {
+                if (error.status === 400) {
                     alert("同意失败！");
                 } else {
                     alert("同意失败！");
@@ -379,6 +378,7 @@ class QuotationFill extends Component {
                 .then(function (response) {
                     if (response.status === 200) {
                         alert("提交成功！");
+                        window.location.href = "/progress/" + this.state.entrustmentId;
                     } else {
                         alert("提交失败！");
                         console.log("Unknown error!");
