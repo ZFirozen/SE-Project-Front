@@ -25,7 +25,7 @@ export default class ContractDisplay extends React.Component {
         axios.get("/api/entrust/" + this.state.eid)
         .then((response) => {
             if (response.status === 200) {
-                cid = response.data.contractId;
+                let cid = response.data.contractId;
                 this.setState({contractId: cid})
                 console.log("success");
                 axios.get("/api/contract/" + cid)
