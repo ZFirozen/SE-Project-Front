@@ -132,7 +132,7 @@ class ContractFill extends Component {
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
-        const dateFormat = "YYYY-MM-DDTHH:mm:ssZ";
+        const dateFormat = "YYYY-MM-DD";
         console.log(JSON.stringify(this.state));
         console.log(moment(this.state.signedDate, "YYYY-MM-DDTHH:mm:ssZ"))
         return (
@@ -144,7 +144,7 @@ class ContractFill extends Component {
                         <Row style={white}><div>委托方（甲方）：<Input type="text" name="companyCH" status={this.state.error.partyA.companyCH} value={this.state.partyA.companyCH} onChange={this.partyAChange} /></div></Row>
                         <Row style={gray}><div>受托方（乙方）：<Input type="text" name="companyCH" status={this.state.error.partyB.companyCH} value={this.state.partyB.companyCH} onChange={this.partyBChange} disabled /></div></Row>
                         <Row style={white}><div>签订地点：<Input type="text" name="signedAt" status={this.state.error.signedAt} value={this.state.signedAt} onChange={this.InputChange} /></div></Row>
-                        <Row style={gray}><div>签订日期：<DatePicker name="signedDate" status={this.state.error.signedDate} defaultValue={moment(this.state.signedDate, "YYYY-MM-DDTHH:mm:ssZ")} format={dateFormat} onChange={this.signedDateChange.bind(this)} /></div></Row>
+                        <Row style={gray}><div>签订日期：<DatePicker name="signedDate" status={this.state.error.signedDate} value={moment(this.state.signedDate, dateFormat)} onChange={this.signedDateChange.bind(this)} /></div></Row>
                         本合同由作为委托方的<Input type="text" style={{ display: "inline", width: "25%" }} status={this.state.error.partyA.companyCH} value={this.state.partyA.companyCH} name="companyCH" onChange={this.partyAChange} />
                         （以下简称“甲方”）与作为受托方的南京大学计算机软件新技术国家重点实验室（以下简称“乙方”），在平等自愿的基础上，依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。<br />
                         <br />
@@ -206,7 +206,7 @@ class ContractFill extends Component {
                         <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCH" status={this.state.error.partyA.companyCH} value={this.state.partyA.companyCH} onChange={this.partyAChange} />
                             单位全称（英文）：<Input type="text" name="companyEN" status={this.state.error.partyA.companyEN} value={this.state.partyA.companyEN} onChange={this.partyAChange} /></div></Row>
                         <Row style={white}><div>授权代表：<Input type="text" name="representative" status={this.state.error.partyA.representative} value={this.state.partyA.representative} onChange={this.partyAChange} />
-                            签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyA.sigDate} defaultValue={() => { moment(Date(this.state.partyA.sigDate)) }} format="YYYY-MM-DD" onChange={this.partyAsigDateChange.bind(this)} /></div></Row>
+                            签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyA.sigDate} value={moment(this.state.partyA.sigDate, dateFormat)} onChange={this.partyAsigDateChange.bind(this)} /></div></Row>
                         <Row style={gray}><div>联系人：<Input type="text" name="contact" status={this.state.error.partyA.contact} value={this.state.partyA.contact} onChange={this.partyAChange} />
                             联系人电话：<Input type="text" name="contactPhone" status={this.state.error.partyA.contactPhone} value={this.state.partyA.contactPhone} onChange={this.partyAChange} />
                             联系人邮箱：<Input type="text" name="contactEmail" status={this.state.error.partyA.contactEmail} value={this.state.partyA.contactEmail} onChange={this.partyAChange} /></div></Row>
@@ -224,7 +224,7 @@ class ContractFill extends Component {
                         <Row style={gray}><div>单位全称（中文）：<Input type="text" name="companyCH" status={this.state.error.partyB.companyCH} value={this.state.partyB.companyCH} onChange={this.partyBChange} disabled />
                             单位全称（英文）：<Input type="text" name="companyEN" status={this.state.error.partyB.companyEN} value={this.state.partyB.companyEN} onChange={this.partyBChange} /></div></Row>
                         <Row style={white}><div>授权代表：<Input type="text" name="representative" status={this.state.error.partyB.representative} value={this.state.partyB.representative} onChange={this.partyBChange} />
-                            签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyB.sigDate} onChange={this.partyBsigDateChange.bind(this)} /></div></Row>
+                            签章日期：<DatePicker type="text" name="sigDate" status={this.state.error.partyB.sigDate} value={moment(this.state.partyB.sigDate, dateFormat)} onChange={this.partyBsigDateChange.bind(this)} /></div></Row>
                         <Row style={gray}><div>联系人：<Input type="text" name="contact" status={this.state.error.partyB.contact} value={this.state.partyB.contact} onChange={this.partyBChange} />
                             联系人电话：<Input type="text" name="contactPhone" status={this.state.error.partyB.contactPhone} value={this.state.partyB.contactPhone} onChange={this.partyBChange} />
                             联系人邮箱：<Input type="text" name="contactEmail" status={this.state.error.partyB.contactEmail} value={this.state.partyB.contactEmail} onChange={this.partyBChange} /></div></Row>
@@ -240,9 +240,9 @@ class ContractFill extends Component {
                         <Input type='submit' value='提交合同' />
                     </Form>
                     {userRole === "CUSTOMER" ?
-                        <form onSubmit={this.denial.bind(this)}>
+                        <Form onFinish={this.denial.bind(this)}>
                             <Input type='submit' value='拒绝合同' />
-                        </form>
+                        </Form>
                         : ""}
                 </Card>
             </Fragment>
