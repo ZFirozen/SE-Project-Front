@@ -28,12 +28,18 @@ export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': (req, res) => {
     if (!getAccess()) {
-      res.status(401).send({
+      // res.status(401).send({
+      //   data: {
+      //     isLogin: false,
+      //   },
+      //   errorCode: '401',
+      //   errorMessage: '请先登录！',
+      //   success: true,
+      // });
+      res.status(200).send({
         data: {
-          isLogin: false,
+          isLogin: true,
         },
-        errorCode: '401',
-        errorMessage: '请先登录！',
         success: true,
       });
       return;

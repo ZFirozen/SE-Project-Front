@@ -37,14 +37,15 @@ export default defineConfig({
       layout: false,
       routes: [
         {
-          path: '/user/login',
-          layout: false,
+
           name: 'login',
-          component: './user/Login',
+          path: '/ourlogin',
+          component: './OurLogin',
+          layout: false,
         },
         {
           path: '/user',
-          redirect: '/user/login',
+          redirect: '/ourlogin',
         },
         {
           name: 'register-result',
@@ -64,9 +65,16 @@ export default defineConfig({
       ],
     },
     {
+      path: '/home',
+      name: 'home',
+      icon: 'home',
+      component: './home',
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       icon: 'dashboard',
+      hideInMenu: true,
       routes: [
         {
           path: '/dashboard',
@@ -96,6 +104,7 @@ export default defineConfig({
       path: '/form',
       icon: 'form',
       name: 'form',
+      hideInMenu: true,
       routes: [
         {
           path: '/form',
@@ -125,6 +134,7 @@ export default defineConfig({
       path: '/list',
       icon: 'table',
       name: 'list',
+      hideInMenu: true,
       routes: [
         {
           path: '/list/search',
@@ -183,6 +193,7 @@ export default defineConfig({
       path: '/profile',
       name: 'profile',
       icon: 'profile',
+      hideInMenu: true,
       routes: [
         {
           path: '/profile',
@@ -206,6 +217,7 @@ export default defineConfig({
       name: 'result',
       icon: 'CheckCircleOutlined',
       path: '/result',
+      hideInMenu: true,
       routes: [
         {
           path: '/result',
@@ -229,6 +241,7 @@ export default defineConfig({
       name: 'exception',
       icon: 'warning',
       path: '/exception',
+      hideInMenu: true,
       routes: [
         {
           path: '/exception',
@@ -258,6 +271,7 @@ export default defineConfig({
       name: 'account',
       icon: 'user',
       path: '/account',
+      hideInMenu: true,
       routes: [
         {
           path: '/account',
@@ -281,6 +295,7 @@ export default defineConfig({
       name: 'editor',
       icon: 'highlight',
       path: '/editor',
+      hideInMenu: true,
       routes: [
         {
           path: '/editor',
@@ -308,7 +323,7 @@ export default defineConfig({
     },
     {
       name: 'entrustment',
-      icon: 'highlight',
+      icon: 'edit',
       path: '/entrustment',
       routes: [
         {
@@ -318,26 +333,54 @@ export default defineConfig({
         {
           name: 'view',
           icon: 'smile',
+          path: '/entrustment/display/:id',
+          component: './EntrustmentDisplay',
+          hideInMenu: true,
+        },
+        {
+          name: 'view',
+          icon: 'smile',
           path: '/entrustment/view',
-          component: './Entrustment',
+          component: './EntrustmentList',
         },
         {
           name: 'fill',
           icon: 'smile',
-          path: '/entrustment/fill',
+          path: '/entrustment/fill/:id',
+          component: './EntrustmentFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/entrustment/fill/',
           component: './EntrustmentFill',
         },
         {
-          name: 'progress',
+          name: 'assign',
           icon: 'smile',
-          path: '/entrustment/progress/:id',
-          component: './Progress',
+          path: '/entrustment/assign/:id',
+          component: './Assign',
+          hideInMenu: true,
+        },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/entrustment/quotation/fill/:id',
+          component: './QuotationFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'verify',
+          icon: 'smile',
+          path: '/entrustment/verify/:id',
+          component: './EntrustmentVerify',
           hideInMenu: true,
         },
         {
           name: 'ducumentVerify',
           icon: 'smile',
-          path: '/entrustment/documentVerify',
+          path: '/entrustment/documentVerify/:id',
           component: './DocumentVerify',
           hideInMenu: true,
         },
@@ -348,22 +391,58 @@ export default defineConfig({
       icon: 'highlight',
       path: '/sample',
       component: './Sample',
+      hideInMenu: true,
+    },
+    {
+      path: '/progress/:id',
+      component: './Progress',
+      hideInMenu: true,
     },
     {
       name: 'contract',
       icon: 'highlight',
       path: '/contract',
-      component: './Contract',
+      hideInMenu: true,
+      routes: [
+        {
+          path: '/contract',
+          redirect: '/contract/display/:id',
+        },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/contract/fill/:id',
+          component: './ContractFill',
+        },
+        {
+          name: 'display',
+          icon: 'smile',
+          path: '/contract/display/:id',
+          component: './ContractDisplay',
+        },
+        {
+          name: 'review',
+          icon: 'smile',
+          path: '/contract/verify/:id',
+          component: './ContractVerify',
+        },
+        {
+          name: 'upload',
+          icon: 'smile',
+          path: '/contract/upload/:id',
+          component: './ContractUpload',
+        },
+      ],
     },
     {
       name: 'ourlogin',
-      icon: 'highlight',
+      icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
     },
     {
       name: 'userinfo',
-      icon: 'highlight',
+      icon: 'user',
       path: '/userinfo',
       component: './UserInfo',
     },
@@ -373,7 +452,7 @@ export default defineConfig({
     },
     {
       path: '/',
-      redirect: '/dashboard/analysis',
+      redirect: '/home',
     },
     {
       component: '404',

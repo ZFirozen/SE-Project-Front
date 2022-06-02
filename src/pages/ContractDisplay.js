@@ -9,39 +9,52 @@ const { Title } = Typography;
 
 export default class ContractDisplay extends React.Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        data: [],
-        partyA: [],
-        partyB: [],
-      }
-      this.fetchState = this.fetchState.bind(this);
+        super(props);
+        this.state = {
+            contractId:undefined,
+            eid:props.match.params.id,
+            data: [],
+            partyA: [],
+            partyB: [],
+        }
+        this.fetchState = this.fetchState.bind(this);
     }
 
-
     fetchState = () => {
-        let varthis = this;
-        axios.get("/api/contract/37")
-            .then(function(res) {
-                
-                console.log("cba")
-                //console.log(res.data.projectName);
-                //console.log(varthis.state.projectName);
-                // this.state.data = res.data;
-                varthis.setState({projectName: res.data.projectName})
-                varthis.setState({data: res.data});
-                varthis.setState({partyA: varthis.state.data.partyA})
-                varthis.setState({partyB: varthis.state.data.partyB})
-                // console.log(varthis.state.data.partyA.companyCH)
-                // console.log("abc");
-
-            }).catch(err=>{ 
-                console.log(err);
-            })
+        console.log(this.state.eid);
+        axios.get("/api/entrust/" + this.state.eid)
+        .then((response) => {
+            if (response.status === 200) {
+                let cid = response.data.contractId;
+                this.setState({contractId: cid})
+                console.log("success");
+                axios.get("/api/contract/" + cid)
+                .then((response) => {
+                    //console.log(res.data.projectName);
+                    //console.log(varthis.state.projectName);
+                    // this.state.data = res.data;
+                    this.setState({
+                        projectName: response.data.projectName,
+                        data: response.data,
+                        partyA: response.data.partyA,
+                        partyB: response.data.partyB
+                    });
+                    // console.log(varthis.state.data.partyA.companyCH)
+                }).catch(err=>{
+                    console.log(err);
+                })
+            } else {
+                console.log(response);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
     
     componentDidMount() {
-        this.fetchState()
+        this.fetchState();
+        //this.forceUpdate();
     }
 
     render() {

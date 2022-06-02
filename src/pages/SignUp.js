@@ -10,7 +10,7 @@ export default class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            userName: "",
             email: "",
             password: "",
             passwordConfirmation: "",
@@ -32,34 +32,48 @@ export default class SignUp extends React.Component {
     onFinish(event) {
         this.setState({ error: {}, isDisabled: true });
 
-        const userName = this.state.username;
+        const userName = this.state.userName;
         const userPassword = this.state.password;
-
         axios.post("/api/register?userName=" + userName + "&userPassword=" + userPassword)
             .then((response) => {
                 console.log(response);
                 if (response.status === 200) {
                     alert("注册成功！\n即将登录并跳转到首页...");
-                    console.log(userName, userPassword);
-                    axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
+                    axios.post("/api/logout")
                         .then((response) => {
                             if (response.status === 200) {
+                                axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
+                                    .then((response) => {
+                                        if (response.status === 200) {
 
-                                localStorage.setItem("userName", userName);
-                                localStorage.setItem("userRole", "CUSTOMER");
+                                            localStorage.setItem("userName", userName);
+                                            localStorage.setItem("userRole", "CUSTOMER");
 
-                                window.location.href = "/";
+                                            window.location.href = "/";
+                                        } else {
+                                            console.log("Unknown error!");
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        if (error.response.status === 400) {
+                                            alert("登陆失败！\n请尝试重新登陆。");
+                                        } else {
+                                            console.log("Unknown error!");
+                                        }
+                                    })
                             } else {
-                                console.log("Unknown error!");
+                                console.log("Unknown error1!");
                             }
                         })
                         .catch((error) => {
-                            if (error.response.status === 400) {
-                                alert("登陆失败！\n请尝试重新登陆。");
+                            if (error.status === 400) {
+                                console.log("登出失败！");
                             } else {
                                 console.log("Unknown error!");
+                                console.log(error);
                             }
                         })
+
                 } else {
                     console.log("Unknown error!");
                 }
@@ -81,7 +95,7 @@ export default class SignUp extends React.Component {
     }
 
     render() {
-        const { username, email, password, passwordConfirmation, error, isDisabled } = this.state;
+        const { userName, email, password, passwordConfirmation, error, isDisabled } = this.state;
         // const { status, data } = this.props.singUpData || {};
         // console.log(error);
         return (
@@ -113,8 +127,8 @@ export default class SignUp extends React.Component {
                     ]}
                 >
                     <Input
-                        placeholder="Username"
-                        name="username"
+                        placeholder="userName"
+                        name="userName"
                         onChange={this.onChange}
                     />
                 </Form.Item>
