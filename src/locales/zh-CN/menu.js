@@ -46,6 +46,7 @@ export default {
   'menu.account.trigger': '触发报错',
   'menu.account.logout': '退出登录',
   'menu.contract': '合同',
+  'menu.contract.fill': '填写合同',
   'menu.contract.display': '合同查看',
   'menu.contract.review': '合同审核',
   'menu.contract.upload': '上传文档',
