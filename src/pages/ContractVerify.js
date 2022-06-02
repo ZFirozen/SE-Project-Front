@@ -2,6 +2,7 @@ import 'antd/dist/antd.css';
 
 import axios from "axios";
 import React, { useState } from "react";
+import moment from "moment";
 import { Form, Typography, Descriptions, Badge, Card, Row, Radio, Input, Button } from 'antd';
 //import type { RadioChangeEvent } from 'antd';
 import { RadiusUpleftOutlined } from '@ant-design/icons';
@@ -85,10 +86,9 @@ export default class ContractVerify extends React.Component {
                 axios.get("/api/contract/" + entrustment.contractId)
                     .then((contract) => {
                         console.log(contract.data);
-                        // contract.data.signedDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
-                        // contract.data.partyA.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
-                        // contract.data.partyB.sigDate = Date(contract.data.partyA.sigDate).toLocaleDateString();
-                        console.log(contract.data.signedDate);
+                        contract.data.signedDate = moment(contract.data.signedDate).format("YYYY-MM-DD");
+                        contract.data.partyA.sigDate = moment(contract.data.partyA.sigDate).format("YYYY-MM-DD");
+                        contract.data.partyB.sigDate = moment(contract.data.partyB.sigDate).format("YYYY-MM-DD");
                         this.setState(contract.data);
                     })
             })

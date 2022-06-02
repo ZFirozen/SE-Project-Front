@@ -112,8 +112,10 @@ class ContractFill extends Component {
                         // if (contract.data.partyB.companyEN === "NJU")
                         //     console.log("?");
                         console.log("entrust principal: ", entrust.content.principal)
+                        // contract.data.signedDate = moment(contract.data.signedDate).format("YYYY-MM-DD")
+                        console.log(contract.data.signedDate);
                         contract.data.partyA = entrust.content.principal
-                        contract.data.partyB = this.state.partyB
+                        // contract.data.partyB = this.state.partyB
                         this.setState({
                             error: {
                                 partyA: {},
@@ -130,10 +132,9 @@ class ContractFill extends Component {
 
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
-        // console.log(this.state.Input_value)
-        //console.log(entid.getStatus);
-        // console.log(entid.getStatus.conid);
-        //console.log("1 cid=" + this.state.id);
+        const dateFormat = "YYYY-MM-DDTHH:mm:ssZ";
+        console.log(JSON.stringify(this.state));
+        console.log(moment(this.state.signedDate, "YYYY-MM-DDTHH:mm:ssZ"))
         return (
             <Fragment>
                 <Card>
@@ -143,7 +144,7 @@ class ContractFill extends Component {
                         <Row style={white}><div>委托方（甲方）：<Input type="text" name="companyCH" status={this.state.error.partyA.companyCH} value={this.state.partyA.companyCH} onChange={this.partyAChange} /></div></Row>
                         <Row style={gray}><div>受托方（乙方）：<Input type="text" name="companyCH" status={this.state.error.partyB.companyCH} value={this.state.partyB.companyCH} onChange={this.partyBChange} disabled /></div></Row>
                         <Row style={white}><div>签订地点：<Input type="text" name="signedAt" status={this.state.error.signedAt} value={this.state.signedAt} onChange={this.InputChange} /></div></Row>
-                        <Row style={gray}><div>签订日期：<DatePicker name="signedDate" status={this.state.error.signedDate} defaultValue={moment(Date(this.state.signedDate))} onChange={this.signedDateChange.bind(this)} /></div></Row>
+                        <Row style={gray}><div>签订日期：<DatePicker name="signedDate" status={this.state.error.signedDate} defaultValue={moment(this.state.signedDate, "YYYY-MM-DDTHH:mm:ssZ")} format={dateFormat} onChange={this.signedDateChange.bind(this)} /></div></Row>
                         本合同由作为委托方的<Input type="text" style={{ display: "inline", width: "25%" }} status={this.state.error.partyA.companyCH} value={this.state.partyA.companyCH} name="companyCH" onChange={this.partyAChange} />
                         （以下简称“甲方”）与作为受托方的南京大学计算机软件新技术国家重点实验室（以下简称“乙方”），在平等自愿的基础上，依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。<br />
                         <br />
