@@ -54,19 +54,21 @@ const DocumentVerify = (props) => {
                   temp = JSON.parse(JSON.stringify(values));
                   console.log(temp);
                   if (typeof entrustmentId !== "undefined") {
-                    axios.post("/api/entrust/" + entrustmentId + "/content/acceptance")
-                      .then(response => {
-                        console.log(response)
-                        message.success('已受理委托');
-                      });
                     axios.post("/api/entrust/" + entrustmentId + "/software_doc_review", temp)
                       .then((response) => {
                         console.log(response)
                         message.success('提交成功');
+                        axios.post("/api/entrust/" + entrustmentId + "/content/acceptance")
+                          .then((response) => {
+                            console.log(response)
+                            message.success('已受理委托');
+                            window.location.href = "/progress/" + entrustmentId;
+                          })
                       })
+
                   } else {
                     console.log("entrustmentId is undefined");
-                    message.success('委托ID未定义！');
+                    message.error('委托ID未定义！');
                   }
                 }}
               >
