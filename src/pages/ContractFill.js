@@ -41,7 +41,6 @@ class ContractFill extends Component {
                 contact: "",
                 contactPhone: "",
                 contactEmail: "",
-                address: "",
                 companyPhone: "",
                 companyWebsite: "",
                 companyAddress: "",
@@ -59,7 +58,6 @@ class ContractFill extends Component {
                 contact: "",
                 contactPhone: "",
                 contactEmail: "",
-                address: "",
                 companyPhone: "",
                 companyWebsite: "",
                 companyAddress: "",
@@ -114,13 +112,33 @@ class ContractFill extends Component {
                         console.log("entrust principal: ", entrust.content.principal)
                         // contract.data.signedDate = moment(contract.data.signedDate).format("YYYY-MM-DD")
                         console.log(contract.data.signedDate);
-                        contract.data.partyA = entrust.content.principal
-                        contract.data.partyB = this.state.partyB
+                        var partyAUpdate, partyBUpdate;
+                        if (contract.data.status.stage === "FILL_CONTRACT"
+                         || contract.data.status.stage === "CUSTOMER_DENY") {
+                            // partyA should be empty
+                            partyAUpdate = this.state.partyA
+                        }
+                        else if (contract.data.status.stage === "CUSTOMER_CHECKING"
+                         || contract.data.status.stage === "CUSTOMER_ACCEPT") {
+                            // partyA should be filled default
+                            partyAUpdate = entrust.content.principal
+                        }
+                        else {
+                            // partyA should be customer filled
+                            partyAUpdate = contract.data.partyA
+                        }
+                        if (contract.data.status.stage === "FILL_CONTRACT") {
+                            // partyB should be empty
+                            partyBUpdate = this.state.partyB
+                        }
+                        else {
+                            // partyB should be market department filled
+                            partyBUpdate = contract.data.partyB
+                        }
                         this.setState({
-                            error: {
-                                partyA: {},
-                                partyB: {}
-                            }, ...contract.data
+                            ...this.state,
+                            partyA: partyAUpdate,
+                            partyB: partyBUpdate
                         })
                     })
             })
