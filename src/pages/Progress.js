@@ -260,8 +260,10 @@ const Progress = (props) => {
                                 } else {
                                     console.log("Unknown error!");
                                 }
+                            }).finally(() => {
+                                window.location.href = "/contract/fill/" + entrustmentId;
                             });
-                        window.location.href = "/contract/fill/" + entrustmentId;
+
                     } else {
                         window.location.href = "/contract/display/" + contractId;
                     }
