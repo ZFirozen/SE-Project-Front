@@ -20,7 +20,7 @@ const Progress = (props) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
-    const userRole = localStorage.getItem("userRole");  
+    const userRole = localStorage.getItem("userRole");
 
     const getEntrustmentStatus = () => {
         axios.get("/api/entrust/" + entrustmentId)
@@ -321,8 +321,8 @@ const Progress = (props) => {
                             <Step title="市场部审核委托" description="市场部人员：点此审核委托" onClick={() => onEntrustmentClick(2)} />
                             <Step title="测试部分配人员" description="测试部主管：点此分配测试部人员" onClick={() => onEntrustmentClick(3)} />
                             <Step title="测试部审核委托" description="测试部人员：点此审核委托" onClick={() => onEntrustmentClick(4)} />
-                            <Step title="填写报价表" description="点此填写报价表" onClick={() => onEntrustmentClick(5)} />
-                            <Step title="确定报价" description="点此确定报价" onClick={() => onEntrustmentClick(6)} />
+                            <Step title="填写报价表" description="市场部人员：点此填写报价表" onClick={() => onEntrustmentClick(5)} />
+                            <Step title="确定报价" description="客户：点此确定报价" onClick={() => onEntrustmentClick(6)} />
                         </Steps>
                     </>
                 )
@@ -335,10 +335,10 @@ const Progress = (props) => {
                             status={currentStage === 1 ? "process" : (currentStage < 1 ? "wait" : "finish")}
                             direction="vertical"
                         >
-                            <Step title="生成基本合同" description="点此生成基本合同" onClick={() => onContractClick(0)} />
-                            <Step title="合同填写" description="点此填写合同" onClick={() => onContractClick(1)} />
-                            <Step title="合同评审" description="点此评审合同" onClick={() => onContractClick(2)} />
-                            <Step title="合同归档" description="点此归档合同" onClick={() => onContractClick(3)} />
+                            <Step title="生成基本合同" description="市场部人员：点此生成基本合同" onClick={() => onContractClick(0)} />
+                            <Step title="合同填写" description="客户：点此填写合同" onClick={() => onContractClick(1)} />
+                            <Step title="合同评审" description="市场部人员：点此评审合同" onClick={() => onContractClick(2)} />
+                            <Step title="合同归档" description="市场部人员：点此归档合同" onClick={() => onContractClick(3)} />
                         </Steps>
                     </>
                 )
