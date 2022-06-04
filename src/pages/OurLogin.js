@@ -47,7 +47,7 @@ export default class Login extends React.Component {
                     console.log("Unknown error1!");
                 }
                 axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
-                    .then(function (response) {
+                    .then( (response) => {
                         if (response.status === 200) {
                             alert("用户名：" + userName + "\n登录成功！");
                             axios.get("/api/account")
@@ -69,15 +69,12 @@ export default class Login extends React.Component {
                                 }).finally(() => {
                                     window.location.href = "/";
                                 })
-                                .finally(() => {
-                                    window.location.href = "/";
-                                })
                         } else {
                             alert("登陆失败！\n请尝试重新登陆。");
                             console.log("Unknown error!");
                         }
                     })
-                    .catch(function (error) {
+                    .catch( (error)=> {
                         if (error.response.status === 400) {
                         } else {
                             console.log("Unknown error!");
@@ -92,7 +89,7 @@ export default class Login extends React.Component {
                     console.log(error);
                 }
                 axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
-                    .then(function (response) {
+                    .then((response) => {
                         if (response.status === 200) {
                             alert("用户名：" + userName + "\n登录成功！");
                             axios.get("/api/account")
@@ -114,15 +111,12 @@ export default class Login extends React.Component {
                                 }).finally(() => {
                                     window.location.href = "/";
                                 })
-                                .finally(() => {
-                                    window.location.href = "/";
-                                })
                         } else {
                             alert("登陆失败！\n请尝试重新登陆。");
                             console.log("Unknown error!");
                         }
                     })
-                    .catch(function (error) {
+                    .catch( (error)=>  {
                         if (error.response.status === 400) {
                             alert("登陆失败！\n请尝试重新登陆。");
                         } else {
