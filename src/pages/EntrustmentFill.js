@@ -177,7 +177,7 @@ const EntrustmentFill = (props) => {
                 <ProFormText label="开户银行" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "bankName"]} ></ProFormText>
               </Row>
               <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: '这是必填项' },{type: 'number', message: '请输入正确银行账号格式'}]} name={["principal", "account"]} ></ProFormText>
+                <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "account"]} ></ProFormText>
                 <ProFormText label="银行户名" width="400px" required rules={[{ required: true, message: '这是必填项' }]} name={["principal", "accountName"]} ></ProFormText>
               </Row>
             </Col>
