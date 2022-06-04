@@ -12,7 +12,7 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            userName: "",
             password: ""
         };
 
@@ -35,7 +35,7 @@ export default class Login extends React.Component {
     }
 
     onFinish(values) {
-        const userName = this.state.username;
+        const userName = this.state.userName;
         const userPassword = this.state.password;
 
         console.log(userName, userPassword);
@@ -161,7 +161,7 @@ export default class Login extends React.Component {
                     <Input
                         prefix={<UserOutlined className="site-form-item-icon" />}
                         placeholder="Username"
-                        name="username"
+                        name="userName"
                         onChange={this.onChange}
                     />
                 </Form.Item>

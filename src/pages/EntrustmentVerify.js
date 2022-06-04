@@ -38,6 +38,7 @@ const EntrustmentVerify = (props) => {
           //   render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
           // }}
           layout="horizontal"
+          scrollToFirstError="true"
           onFinish={async (values) => {
             let temp = values
             if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
@@ -594,6 +595,7 @@ const EntrustmentVerify = (props) => {
         </ProForm>
 
         <ProForm
+          scrollToFirstError="true"
           onFinish={async (values) => {
             let temp = values
             console.log(temp)
@@ -616,24 +618,31 @@ const EntrustmentVerify = (props) => {
             console.log(temp)
             console.log(temp.acceptance)
 
-            axios.post("/api/entrust/" + entrustmentId + "/review", temp).then(response => {
-              console.log(response)
-            })
+            axios.post("/api/entrust/" + entrustmentId + "/review", temp)
+              .then(response => {
+                console.log(response)
+              })
             if (temp.acceptance === "2") {
-              axios.post("/api/entrust/" + entrustmentId + "/content/acceptance").then(response => {
-                console.log(response)
-                message.success('已受理委托');
-              })
+              axios.post("/api/entrust/" + entrustmentId + "/content/acceptance")
+                .then(response => {
+                  console.log(response)
+                  message.success('已受理委托');
+                  window.location.href = "/progress/" + entrustmentId;
+                })
             } else if (temp.acceptance === "1") {
-              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=denied with" + temp.confirmation).then(response => {
-                console.log(response)
-                message.success('已拒绝受理');
-              })
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=Denied:" + temp.confirmation)
+                .then(response => {
+                  console.log(response)
+                  message.error('已拒绝受理');
+                  window.location.href = "/progress/" + entrustmentId;
+                })
             } else {
-              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=keep contact with" + temp.confirmation).then(response => {
-                console.log(response)
-                message.success('进一步联系');
-              })
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=KeepContact:" + temp.confirmation)
+                .then(response => {
+                  console.log(response)
+                  message.warning('进一步联系');
+                  window.location.href = "/progress/" + entrustmentId;
+                })
             }
           }} >
 

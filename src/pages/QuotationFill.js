@@ -89,9 +89,6 @@ class QuotationFill extends Component {
                     if (response.status === 200) {
                         console.log(response.data);
                         this.setState(response.data.quote);
-                        // this.setState({
-                        //     quotationDate: 
-                        // })
                     }
                 })
                 .catch((error) => {
@@ -100,9 +97,6 @@ class QuotationFill extends Component {
         }
     }
 
-
-
-
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
         const dateFormat = "YYYY-MM-DD";
@@ -110,10 +104,10 @@ class QuotationFill extends Component {
         return (
             <Fragment>
                 <Card>
-                    <Form onSubmit={this.handleSubmit.bind(this)}>
+                    <Form onFinish={this.onFinish.bind(this)}>
                         <Title level={3}>报价单</Title>
-                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" value={moment(this.state.quotationDate, dateFormat)} status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
-                            报价有效期：<DatePicker name="effectiveDate" value={moment(this.state.effectiveDate, dateFormat)} status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
+                        <Row style={gray}><div>报价日期：<DatePicker name="quotationDate" value={this.state.quotationDate ? moment(this.state.quotationDate, dateFormat) : null} status={this.state.error.quotationDate} onChange={this.quotationDateChange.bind(this)} />
+                            报价有效期：<DatePicker name="effectiveDate" value={this.state.effectiveDate ? moment(this.state.effectiveDate, dateFormat) : null} status={this.state.error.effectiveDate} onChange={this.effectiveDateChange.bind(this)} /></div></Row>
                         <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.bankName} value={this.state.bankName} onChange={this.InputChange} disabled />
                             户名：<Input type="text" name="accountName" status={this.state.error.accountName} value={this.state.accountName} onChange={this.InputChange} disabled />
                             账号：<Input type="text" name="account" status={this.state.error.account} value={this.state.account} onChange={this.InputChange} disabled /></div></Row>
@@ -229,6 +223,10 @@ class QuotationFill extends Component {
         return false;
     }
     isNumber(str) {
+        if (typeof str === "number") {
+            console.log("number");
+            return true;
+        }
         var result = str.match(/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/);
         if (result === null) return false;
         return true;
@@ -246,18 +244,24 @@ class QuotationFill extends Component {
         })
     }
     quotationDateChange(date) {
-        this.setState({
-            quotationDate: date
-        })
+        console.log(date)
+        if (date === null) {
+            this.setState({ quotationDate: "" })
+        } else {
+            this.setState({ quotationDate: date })
+        }
     }
     effectiveDateChange(date) {
-        this.setState({
-            effectiveDate: date
-        })
+        console.log(date)
+        if (date === null) {
+            this.setState({ effectiveDate: "" })
+        } else {
+            this.setState({ effectiveDate: date })
+        }
     }
     denial(event) {
         axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/denial")
-            .then(function (response) {
+            .then((response) => {
                 if (response.status === 200) {
                     alert("拒绝成功！");
                     window.location.href = "/progress/" + this.state.entrustmentId;
@@ -266,8 +270,8 @@ class QuotationFill extends Component {
                     console.log("Unknown error!");
                 }
             })
-            .catch(function (error) {
-                if (error.response.status === 400) {
+            .catch((error) => {
+                if (error.status === 400) {
                     alert("拒绝失败！");
                 } else {
                     alert("拒绝失败！");
@@ -293,7 +297,7 @@ class QuotationFill extends Component {
         //                 }
         //             });
         axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/acceptance")
-            .then(function (response) {
+            .then((response) => {
                 if (response.status === 200) {
                     alert("同意成功！");
                     window.location.href = "/progress/" + this.state.entrustmentId;
@@ -302,7 +306,7 @@ class QuotationFill extends Component {
                     console.log("Unknown error!");
                 }
             })
-            .catch(function (error) {
+            .catch((error) => {
                 if (error.status === 400) {
                     alert("同意失败！");
                 } else {
@@ -311,7 +315,8 @@ class QuotationFill extends Component {
                 }
             });
     }
-    handleSubmit(event) {
+
+    onFinish(values) {
         var flag = 0;
         console.log(flag)
         for (var item in this.state) {
@@ -320,7 +325,6 @@ class QuotationFill extends Component {
                 let error = this.state.error;
                 error[item] = "error";
                 this.setState({ error });
-                event.preventDefault();
             }
             else {
                 if (item !== "rowList") {
@@ -329,12 +333,12 @@ class QuotationFill extends Component {
                     this.setState({ error });
                 }
                 if (item === "subTotal" || item === "taxRate" || item === "total") {
+                    console.log(typeof this.state[item])
                     if (!this.isNumber(this.state[item])) {
                         flag += 1;
                         let error = this.state.error;
                         error[item] = "error";
                         this.setState({ error });
-                        event.preventDefault();
                     }
                     else if (this.isError(this.state.error[item])) {
                         let error = this.state.error;
@@ -350,7 +354,6 @@ class QuotationFill extends Component {
                 let error = this.state.error;
                 error.rowList[item] = "error";
                 this.setState({ error });
-                event.preventDefault()
             }
             else {
                 let error = this.state.error;
@@ -362,7 +365,6 @@ class QuotationFill extends Component {
                         let error = this.state.error;
                         error.rowList[item] = "error";
                         this.setState({ error });
-                        event.preventDefault();
                     }
                     else if (this.isError(this.state.error.rowList[item])) {
                         let error = this.state.error;
@@ -376,7 +378,7 @@ class QuotationFill extends Component {
         console.log(this.state);
         if (flag === 0) {
             axios.post("/api/entrust/" + this.state.entrustmentId + "/quote", this.state)
-                .then(function (response) {
+                .then((response) => {
                     if (response.status === 200) {
                         alert("提交成功！");
                         window.location.href = "/progress/" + this.state.entrustmentId;
@@ -385,8 +387,8 @@ class QuotationFill extends Component {
                         console.log("Unknown error!");
                     }
                 })
-                .catch(function (error) {
-                    if (error.response.status === 400) {
+                .catch((error) => {
+                    if (error.status === 400) {
                         alert("提交失败！");
                     } else {
                         alert("提交失败！");
