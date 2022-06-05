@@ -66,7 +66,7 @@ export default class SignUp extends React.Component {
                             }
                         })
                         .catch((error) => {
-                            if (error.status === 400) {
+                            if (error.response.status === 400) {
                                 console.log("登出失败！");
                             } else {
                                 console.log("Unknown error!");

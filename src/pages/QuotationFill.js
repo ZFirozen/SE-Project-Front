@@ -271,7 +271,7 @@ class QuotationFill extends Component {
                 }
             })
             .catch((error) => {
-                if (error.status === 400) {
+                if (error.response.status === 400) {
                     alert("拒绝失败！");
                 } else {
                     alert("拒绝失败！");
@@ -307,7 +307,7 @@ class QuotationFill extends Component {
                 }
             })
             .catch((error) => {
-                if (error.status === 400) {
+                if (error.response.status === 400) {
                     alert("同意失败！");
                 } else {
                     alert("同意失败！");
@@ -388,7 +388,7 @@ class QuotationFill extends Component {
                     }
                 })
                 .catch((error) => {
-                    if (error.status === 400) {
+                    if (error.response.status === 400) {
                         alert("提交失败！");
                     } else {
                         alert("提交失败！");
