@@ -296,7 +296,28 @@ const Progress = (props) => {
             case 3:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 3) {
-                        window.location.href = "/contract/upload/" + contractId+"/"+entrustmentId;
+                        axios.post("/api/test?entrustId=" + entrustmentId)
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("测试项目创建成功！");
+                                    // setContractId(response.data.contractId);
+                                    // setMarketerId(response.data.marketerId);
+                                    // setCustomerId(response.data.customerId);
+                                    console.log("create test success");
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    console.log(error);
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            }).finally((response) => {
+                                console.log(response);
+                        window.location.href = "/contract/upload/" + contractId + "/" + entrustmentId;
+                            });
                     }
                 } else {
                     alert("您没有权限访问！");
