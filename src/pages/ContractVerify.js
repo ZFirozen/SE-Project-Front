@@ -202,7 +202,27 @@ export default class ContractVerify extends React.Component {
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("同意合同！");
-                                    window.location.href = "/progress/" + this.state.entrustId;
+                                    axios.post("/api/test?entrustId=" + this.state.entrustId)
+                                        .then(function (response) {
+                                            if (response.status === 200) {
+                                                alert("测试项目创建成功！");
+                                                // setContractId(response.data.contractId);
+                                                // setMarketerId(response.data.marketerId);
+                                                // setCustomerId(response.data.customerId);
+                                                console.log("create test success");
+                                                window.location.href = "/progress/" + this.state.entrustId;
+                                            } else {
+                                                console.log("Unknown error!");
+                                            }
+                                        })
+                                        .catch(function (error) {
+                                            if (error.response.status === 400) {
+                                                console.log(error);
+                                            } else {
+                                                console.log("Unknown error!");
+                                            }
+                                        }).finally(() => {
+                                        });
                                 } else {
                                     console.log("Unknown error!");
                                 }

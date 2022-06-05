@@ -331,7 +331,7 @@ export default defineConfig({
           redirect: '/entrustment/list',
         },
         {
-          name: 'list',
+          name: 'display',
           icon: 'smile',
           path: '/entrustment/display/:id',
           component: './EntrustmentDisplay',
@@ -383,6 +383,30 @@ export default defineConfig({
           path: '/entrustment/documentVerify/:id',
           component: './DocumentVerify',
           hideInMenu: true,
+        },
+      ],
+    },
+    {
+      name: 'test',
+      icon: 'edit',
+      path: '/test',
+      routes: [
+        {
+          path: '/test',
+          redirect: '/test/list',
+        },
+        {
+          name: 'testassign',
+          icon: 'smile',
+          path: '/test/assign/:id',
+          component: './TestAssign',
+          hideInMenu: true,
+        },
+        {
+          name: 'list',
+          icon: 'smile',
+          path: '/test/list',
+          component: './TestList',
         },
       ],
     },
