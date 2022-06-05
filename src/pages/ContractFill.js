@@ -106,20 +106,14 @@ class ContractFill extends Component {
             }).then((entrust) => {
                 axios.get("/api/contract/" + entrust.contractId)
                     .then((contract) => {
-                        console.log("contract data: ", contract.data)
-                        // if (contract.data.partyB.companyEN === "NJU")
-                        //     console.log("?");
-                        console.log("entrust principal: ", entrust.content.principal)
-                        // contract.data.signedDate = moment(contract.data.signedDate).format("YYYY-MM-DD")
-                        console.log(contract.data.signedDate);
                         var partyAUpdate, partyBUpdate;
                         if (contract.data.status.stage === "FILL_CONTRACT"
-                         || contract.data.status.stage === "CUSTOMER_DENY") {
+                            || contract.data.status.stage === "CUSTOMER_DENY") {
                             // partyA should be empty
                             partyAUpdate = this.state.partyA
                         }
                         else if (contract.data.status.stage === "CUSTOMER_CHECKING"
-                         || contract.data.status.stage === "CUSTOMER_ACCEPT") {
+                            || contract.data.status.stage === "CUSTOMER_ACCEPT") {
                             // partyA should be filled default
                             partyAUpdate = entrust.content.principal
                         }
@@ -135,11 +129,10 @@ class ContractFill extends Component {
                             // partyB should be market department filled
                             partyBUpdate = contract.data.partyB
                         }
-                        this.setState({
-                            ...this.state,
-                            partyA: partyAUpdate,
-                            partyB: partyBUpdate
-                        })
+                        contract.data.partyA = partyAUpdate;
+                        contract.data.partyB = partyBUpdate;
+                        contract.data.error = { partyA: {}, partyB: {} }
+                        this.setState(contract.data);
                     })
             })
             .catch((error) => {
@@ -151,8 +144,6 @@ class ContractFill extends Component {
     //render(){}，渲染方法，返回html和js混编的语法,返回值必须用div包裹,或者是引入React.Fragment
     render() {
         const dateFormat = "YYYY-MM-DD";
-        console.log(JSON.stringify(this.state));
-        console.log(moment(this.state.signedDate, "YYYY-MM-DDTHH:mm:ssZ"))
         return (
             <Fragment>
                 <Card>
@@ -231,7 +222,7 @@ class ContractFill extends Component {
                         <Row style={white}><div>单位电话：<Input type="text" name="companyPhone" status={this.state.error.partyA.contactPhone} value={this.state.partyA.companyPhone} onChange={this.partyAChange} />
                             单位网址：<Input type="text" name="companyWebsite" status={this.state.error.partyA.companyWebsite} value={this.state.partyA.companyWebsite} onChange={this.partyAChange} />
                             单位地址：<Input type="text" name="companyAddress" status={this.state.error.partyA.companyAddress} value={this.state.partyA.companyAddress} onChange={this.partyAChange} /></div></Row>
-                        <Row style={gray}><div>通讯地址：<Input type="text" name="address" status={this.state.error.partyA.address} value={this.state.partyA.address} onChange={this.partyAChange} />
+                        <Row style={gray}><div>
                             邮编：<Input type="text" name="zipCode" status={this.state.error.partyA.zipCode} value={this.state.partyA.zipCode} onChange={this.partyAChange} />
                             传真：<Input type="text" name="fax" status={this.state.error.partyA.fax} value={this.state.partyA.fax} onChange={this.partyAChange} /></div></Row>
                         <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.partyA.bankName} value={this.state.partyA.bankName} onChange={this.partyAChange} />
@@ -246,10 +237,10 @@ class ContractFill extends Component {
                         <Row style={gray}><div>联系人：<Input type="text" name="contact" status={this.state.error.partyB.contact} value={this.state.partyB.contact} onChange={this.partyBChange} />
                             联系人电话：<Input type="text" name="contactPhone" status={this.state.error.partyB.contactPhone} value={this.state.partyB.contactPhone} onChange={this.partyBChange} />
                             联系人邮箱：<Input type="text" name="contactEmail" status={this.state.error.partyB.contactEmail} value={this.state.partyB.contactEmail} onChange={this.partyBChange} /></div></Row>
-                        <Row style={white}><div>单位电话：<Input type="text" name="companyPhone" status={this.state.error.partyB.contactPhone} value={this.state.partyB.ccompanyPhone} onChange={this.partyBChange} />
-                            单位网址：<Input type="text" name="companyWebsite" status={this.state.error.partyB.companyWebsite} value={this.state.partyB.ccompanyWebsite} onChange={this.partyBChange} />
-                            单位地址：<Input type="text" name="companyAddress" status={this.state.error.partyB.companyAddress} value={this.state.partyB.ccompanyAddress} onChange={this.partyBChange} /></div></Row>
-                        <Row style={gray}><div>通讯地址：<Input type="text" name="address" status={this.state.error.partyB.address} value={this.state.partyB.address} onChange={this.partyBChange} />
+                        <Row style={white}><div>单位电话：<Input type="text" name="companyPhone" status={this.state.error.partyB.contactPhone} value={this.state.partyB.companyPhone} onChange={this.partyBChange} />
+                            单位网址：<Input type="text" name="companyWebsite" status={this.state.error.partyB.companyWebsite} value={this.state.partyB.companyWebsite} onChange={this.partyBChange} />
+                            单位地址：<Input type="text" name="companyAddress" status={this.state.error.partyB.companyAddress} value={this.state.partyB.companyAddress} onChange={this.partyBChange} /></div></Row>
+                        <Row style={gray}><div>
                             邮编：<Input type="text" name="zipCode" status={this.state.error.partyB.zipCode} value={this.state.partyB.zipCode} onChange={this.partyBChange} />
                             传真：<Input type="text" name="fax" status={this.state.error.partyB.fax} value={this.state.partyB.fax} onChange={this.partyBChange} /></div></Row>
                         <Row style={white}><div>开户银行：<Input type="text" name="bankName" status={this.state.error.partyB.bankName} value={this.state.partyB.bankName} onChange={this.partyBChange} disabled />
@@ -348,14 +339,15 @@ class ContractFill extends Component {
     denial(event) {
         const id = this.state.id;
         axios.post("/api/contract/" + id + "/denial")
-            .then(function (response) {
+            .then((response) => {
                 if (response.status === 200) {
                     alert("拒绝成功！");
+                    window.location.href = "/progress/" + this.state.entrustId;
                 } else {
                     console.log("Unknown error!");
                 }
             })
-            .catch(function (error) {
+            .catch((error) => {
                 if (error.response.status === 400) {
                     alert("拒绝失败！");
                 } else {
@@ -481,7 +473,6 @@ class ContractFill extends Component {
             }
         }//判断是否为空
 
-        console.log("flag:" + flag);
         console.log("state:" + JSON.stringify(this.state));
         if (flag === 0) {
             const userRole = localStorage.getItem("userRole");
@@ -497,10 +488,8 @@ class ContractFill extends Component {
                         }
                     })
                     .catch((error) => {
-                        if (error.status === 400) {
+                        if (error.response.status === 400) {
                             alert("提交失败！");
-                            console.log("flag:" + flag);
-                            console.log("state:" + this.state);
                         } else {
                             console.log(error);
                             alert("提交失败？");
@@ -526,8 +515,6 @@ class ContractFill extends Component {
                                     .catch((error) => {
                                         if (error.response.status === 400) {
                                             alert("提交失败！");
-                                            console.log("flag:" + flag);
-                                            console.log("state:" + this.state);
                                         } else {
                                             console.log(error);
                                             alert("提交失败？");
@@ -551,7 +538,7 @@ class ContractFill extends Component {
                         .then((response) => {
                             if (response.status === 200) {
                                 alert("提交成功！");
-                                // window.location.href = "/progress/" + this.state.entrustId;
+                                window.location.href = "/progress/" + this.state.entrustId;
                             } else {
                                 alert("提交成功?");
                                 console.log("Unknown error!");
@@ -560,8 +547,6 @@ class ContractFill extends Component {
                         .catch((error) => {
                             if (error.response.status === 400) {
                                 alert("提交失败！");
-                                console.log("flag:" + flag);
-                                console.log("state:" + this.state);
                             } else {
                                 console.log(error);
                                 alert("提交失败？");

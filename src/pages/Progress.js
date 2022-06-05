@@ -243,7 +243,7 @@ const Progress = (props) => {
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 0) {
                         axios.post("/api/contract?entrustId=" + entrustmentId)
-                            .then(function (response) {
+                            .then((response) => {
                                 if (response.status === 200) {
                                     alert("合同创建成功！");
                                     // setContractId(response.data.contractId);
@@ -254,9 +254,9 @@ const Progress = (props) => {
                                     console.log("Unknown error!");
                                 }
                             })
-                            .catch(function (error) {
+                            .catch((error) => {
                                 if (error.response.status === 400) {
-                                    console.log(error);
+                                    console.log("重复创建合同！");
                                 } else {
                                     console.log("Unknown error!");
                                 }
