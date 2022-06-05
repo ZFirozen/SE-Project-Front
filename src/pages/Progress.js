@@ -296,7 +296,7 @@ const Progress = (props) => {
             case 3:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 3) {
-                        window.location.href = "/contract/upload/" + contractId;
+                        window.location.href = "/contract/upload/" + contractId+"/"+entrustmentId;
                     }
                 } else {
                     alert("您没有权限访问！");
