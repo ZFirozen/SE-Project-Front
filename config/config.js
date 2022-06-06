@@ -435,6 +435,24 @@ export default defineConfig({
       ],
     },
     {
+      name: 'test',
+      icon: 'highlight',
+      path: '/test',
+      hideInMenu: true,
+      routes: [
+        {
+          path: '/test',
+          redirect: '/',
+        },
+        {
+          name: 'test scheme',
+          icon: 'smile',
+          path: '/test/scheme/:id',
+          component: './testingTable/JS006',
+        },
+      ],
+    },
+    {
       name: 'ourlogin',
       icon: 'team',
       path: '/ourlogin',
