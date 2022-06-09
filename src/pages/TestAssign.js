@@ -31,9 +31,12 @@ const defaultColumns = [
     },
 ];
 
+var temp;
+temp = { "stage": "SCHEME_UNFILLED", "message": "" }
+
 console.log(localStorage.getItem("userRole") + ' visit')
 
-const TestAssign = (props ) => {
+const TestAssign = (props) => {
     const entrustmentId = props.match.params.id;
     console.log(entrustmentId)
     var columns = defaultColumns
@@ -53,7 +56,28 @@ const TestAssign = (props ) => {
                             qaId: parseInt(a.userId)
                         }).then(response => {
                             //外部跳转
-                            window.location.href = '../list'
+                            if (response.status === 200) {
+                                // console.log(response.data);
+                                axios.post("/api/test/" + entrustmentId + "/status", temp)
+                                    .then(response => {
+                                        if (response.status === 200) {
+                                            console.log(response);
+                                            message.success("提交成功");
+                                            window.location.href = '../list'
+                                        }
+                                        else {
+                                            console.log("修改状态失败");
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        console.log("修改状态失败");
+                                    })
+                            } else {
+                                console.log("分配失败");
+                            }
+
+
                         })
                     },
                     onCancel() {

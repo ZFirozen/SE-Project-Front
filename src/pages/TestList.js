@@ -87,7 +87,7 @@ switch (localStorage.getItem("userRole")) {
             title: '操作',
             search: false,
             //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
-            render: (a) => a.status.stage == "WAIT_FOR_QA" ? <Link to={"./assign/" + a.id}>分派</Link> : null
+            render: (a) => a.status.stage == "WAIT_FOR_QA" ? <Link to={"./assign/" + a.id}>分派</Link> : <Link to={"../progress/" + a.entrustId}>查看</Link>
         }]
         break
     case "CUSTOMER":
@@ -136,7 +136,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.entrustId}>查看</Link>
                     </>
                 )
             }
