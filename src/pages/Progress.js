@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
+import { history } from "umi";
 
 axios.defaults.withCredentials = true;
 
@@ -287,7 +288,8 @@ const Progress = (props) => {
                     if (currentStage === 1 && currentStep === 2) {
                         window.location.href = "/contract/verify/" + entrustmentId;
                     } else {
-                        window.location.href = "/contract/display/" + contractId;
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push("/contract/display?contractId=" + contractId);
                     }
                 } else {
                     alert("您没有权限访问！");

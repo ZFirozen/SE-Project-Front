@@ -430,7 +430,7 @@ export default defineConfig({
       routes: [
         {
           path: '/contract',
-          redirect: '/contract/display/:id',
+          redirect: '/contract/display',
         },
         {
           name: 'fill',
@@ -441,7 +441,7 @@ export default defineConfig({
         {
           name: 'display',
           icon: 'smile',
-          path: '/contract/display/:id',
+          path: '/contract/display',
           component: './ContractDisplay',
         },
         {
