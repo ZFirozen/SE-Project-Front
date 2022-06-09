@@ -63,7 +63,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.entrustId}>查看</Link>
                     </>
                 )
             }
@@ -76,7 +76,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.entrustId}>查看</Link>
                     </>
                 )
             }
@@ -97,7 +97,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.entrustId}>查看</Link>
                     </>
                 )
             }
@@ -110,7 +110,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.entrustId}>查看</Link>
                     </>
                 )
             }
@@ -123,7 +123,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
+                        <Link to={"../progress/" + a.entrustId}>查看</Link>
                     </>
                 )
             }
