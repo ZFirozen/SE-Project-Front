@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Form, Input, Checkbox, Button, Alert } from "antd";
+import { history } from "umi";
 
 import localStorage from "localStorage";
 
@@ -49,7 +50,8 @@ export default class SignUp extends React.Component {
                                             localStorage.setItem("userName", userName);
                                             localStorage.setItem("userRole", "CUSTOMER");
 
-                                            window.location.href = "/";
+                                            // window.location.href = "/";
+                                            history.push("/");
                                         } else {
                                             console.log("Unknown error!");
                                         }

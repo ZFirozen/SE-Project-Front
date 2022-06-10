@@ -3,9 +3,10 @@ import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 import moment from "moment";
-
+import { history } from "umi";
 import axios from 'axios';
 import localStorage from "localStorage";
+
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
 const userRole = localStorage.getItem("userRole");
@@ -25,7 +26,7 @@ class QuotationFill extends Component {
         //设置属性，this.state,这是类的属性，为一个对象
         this.state = {
             //可以使用 this.state.属性在类内部使用
-            entrustmentId: props.match.params.id,
+            entrustId: props.match.params.id,
             quotationDate: "",
             effectiveDate: "",
             bankName: "中国工商银行股份有限公司南京汉口路分理处",
@@ -82,9 +83,9 @@ class QuotationFill extends Component {
 
 
     componentDidMount() {
-        console.log(this.state.entrustmentId);
-        if (this.state.entrustmentId !== undefined || this.state.entrustmentId !== null) {
-            axios.get("/api/entrust/" + this.state.entrustmentId)
+        console.log(this.state.entrustId);
+        if (this.state.entrustId !== undefined || this.state.entrustId !== null) {
+            axios.get("/api/entrust/" + this.state.entrustId)
                 .then((response) => {
                     if (response.status === 200) {
                         console.log(response.data);
@@ -260,11 +261,12 @@ class QuotationFill extends Component {
         }
     }
     denial(event) {
-        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/denial")
+        axios.post("/api/entrust/" + this.state.entrustId + "/quote/denial")
             .then((response) => {
                 if (response.status === 200) {
                     alert("拒绝成功！");
-                    window.location.href = "/progress/" + this.state.entrustmentId;
+                    // window.location.href = "/progress/" + this.state.entrustId;
+                    history.goBack();
                 } else {
                     alert("拒绝失败！");
                     console.log("Unknown error!");
@@ -280,7 +282,7 @@ class QuotationFill extends Component {
             });
     }
     accept(event) {
-        // axios.post("/api/contract?entrustId=" + this.state.entrustmentId)
+        // axios.post("/api/contract?entrustId=" + this.state.entrustId)
         //             .then(function (response) {
         //                 if (response.status === 200) {
         //                     alert("合同创建成功！");
@@ -296,11 +298,12 @@ class QuotationFill extends Component {
         //                     console.log("Unknown error!");
         //                 }
         //             });
-        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/acceptance")
+        axios.post("/api/entrust/" + this.state.entrustId + "/quote/acceptance")
             .then((response) => {
                 if (response.status === 200) {
                     alert("同意成功！");
-                    window.location.href = "/progress/" + this.state.entrustmentId;
+                    // window.location.href = "/progress/" + this.state.entrustId;
+                    history.goBack();
                 } else {
                     alert("同意失败！");
                     console.log("Unknown error!");
@@ -377,11 +380,12 @@ class QuotationFill extends Component {
         console.log(flag);
         console.log(this.state);
         if (flag === 0) {
-            axios.post("/api/entrust/" + this.state.entrustmentId + "/quote", this.state)
+            axios.post("/api/entrust/" + this.state.entrustId + "/quote", this.state)
                 .then((response) => {
                     if (response.status === 200) {
                         alert("提交成功！");
-                        window.location.href = "/progress/" + this.state.entrustmentId;
+                        // window.location.href = "/progress/" + this.state.entrustId;
+                        history.goBack();
                     } else {
                         alert("提交失败！");
                         console.log("Unknown error!");

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
-import { history } from "umi";
+import { history, useLocation } from "umi";
 
 axios.defaults.withCredentials = true;
 
@@ -11,12 +11,13 @@ const { Step } = Steps;
 
 var contractId = "";
 
-const Progress = (props) => {
-    const entrustmentId = props.match.params.id;
+const Progress = () => {
+    const location = useLocation();
+    const entrustId = location.query.entrustId;
     // const [marketerId, setMarketerId] = useState("");
     // const [customerId, setCustomerId] = useState("");
-    // console.log(entrustmentId);
-    // const entrustmentId = useLocation().pathname.match("(?<=/progress/).+").at(0)
+    // console.log(entrustId);
+    // const entrustId = useLocation().pathname.match("(?<=/progress/).+").at(0)
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
@@ -24,7 +25,7 @@ const Progress = (props) => {
     const userRole = localStorage.getItem("userRole");
 
     const getEntrustmentStatus = () => {
-        axios.get("/api/entrust/" + entrustmentId)
+        axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
                     contractId = response.data.contractId
@@ -157,7 +158,7 @@ const Progress = (props) => {
             })
     }
 
-    useEffect(() => {
+    useMemo(() => {
         getEntrustmentStatus();
     }, [])
 
@@ -173,19 +174,43 @@ const Progress = (props) => {
             case 0:
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 0 && currentStep === 0) {
-                        window.location.href = "/entrustment/fill/" + entrustmentId;
+                        // window.location.href = "/entrustment/fill/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/fill",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/entrustment/display/" + entrustmentId;
+                        // window.location.href = "/entrustment/display/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else if (userRole === "MARKETER" || userRole === "TESTER") {
-                    window.location.href = "/entrustment/display/" + entrustmentId;
+                    // window.location.href = "/entrustment/display/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/display",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 1:
                 if (userRole === "MARKETING_SUPERVISOR") {
-                    window.location.href = "/assign/" + entrustmentId;
+                    // window.location.href = "/assign/" + entrustId;
+                    history.push({
+                        pathname: "/assign",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -193,9 +218,21 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     if (currentStage === 0 && currentStep === 2) {
-                        window.location.href = "/entrustment/verify/" + entrustmentId;
+                        // window.location.href = "/entrustment/verify/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/verify",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/entrustment/display/" + entrustmentId;
+                        // window.location.href = "/entrustment/display/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -203,7 +240,13 @@ const Progress = (props) => {
                 break;
             case 3:
                 if (userRole === "TESTING_SUPERVISOR") {
-                    window.location.href = "/assign/" + entrustmentId;
+                    // window.location.href = "/assign/" + entrustId;
+                    history.push({
+                        pathname: "/assign",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -211,7 +254,13 @@ const Progress = (props) => {
             case 4:
                 if (userRole === "TESTER") {
                     if (currentStage === 0 && currentStep === 4) {
-                        window.location.href = "/entrustment/documentVerify/" + entrustmentId;
+                        // window.location.href = "/entrustment/documentVerify/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/documentVerify",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -219,14 +268,26 @@ const Progress = (props) => {
                 break;
             case 5:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
+                    // window.location.href = "/entrustment/quotation/fill/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/quotation/fill",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 6:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
+                    // window.location.href = "/entrustment/quotation/fill/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/quotation/fill",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -243,7 +304,7 @@ const Progress = (props) => {
             case 0:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 0) {
-                        axios.post("/api/contract?entrustId=" + entrustmentId)
+                        axios.post("/api/contract?entrustId=" + entrustId)
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("合同创建成功！");
@@ -262,11 +323,23 @@ const Progress = (props) => {
                                     console.log("Unknown error!");
                                 }
                             }).finally(() => {
-                                window.location.href = "/contract/fill/" + entrustmentId;
+                                // window.location.href = "/contract/fill/" + entrustId;
+                                history.push({
+                                    pathname: "/contract/fill",
+                                    query: {
+                                        entrustId: entrustId
+                                    }
+                                })
                             });
 
                     } else {
-                        window.location.href = "/contract/display/" + contractId;
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/contract/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -275,9 +348,21 @@ const Progress = (props) => {
             case 1:
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 1 && currentStep === 1) {
-                        window.location.href = "/contract/fill/" + entrustmentId;
+                        // window.location.href = "/contract/fill/" + entrustId;
+                        history.push({
+                            pathname: "/contract/fill",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/contract/display/" + contractId;
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/contract/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -286,10 +371,21 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 2) {
-                        window.location.href = "/contract/verify/" + entrustmentId;
+                        // window.location.href = "/contract/verify/" + entrustId;
+                        history.push({
+                            pathname: "/contract/verify",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
                         // window.location.href = "/contract/display/" + contractId;
-                        history.push("/contract/display?contractId=" + contractId);
+                        history.push({
+                            pathname: "/contract/display",
+                            query: {
+                                contractId: contractId
+                            }
+                        });
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -298,7 +394,7 @@ const Progress = (props) => {
             case 3:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 3) {
-                        axios.post("/api/test?entrustId=" + entrustmentId)
+                        axios.post("/api/test?entrustId=" + entrustId)
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("测试项目创建成功！");
@@ -318,7 +414,13 @@ const Progress = (props) => {
                                 }
                             }).finally((response) => {
                                 console.log(response);
-                        window.location.href = "/contract/upload/" + contractId + "/" + entrustmentId;
+                                // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;
+                                history.push({
+                                    pathname: "/contract/upload",
+                                    query: {
+                                        contractId: contractId
+                                    }
+                                })
                             });
                     }
                 } else {

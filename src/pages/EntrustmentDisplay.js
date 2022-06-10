@@ -11,6 +11,7 @@ import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layou
 import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
+import { useLocation } from 'react-router';
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
 const rowbegingap = 20
@@ -18,12 +19,13 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const EntrustmentDisplay = (props) => {
+const EntrustmentDisplay = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const embedregLength = 8
-  const entrustmentId = props.match.params.id
+  const location = useLocation();
+  const entrustId = location.query.entrustId;
   // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
   //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
   // }
@@ -61,8 +63,8 @@ const EntrustmentDisplay = (props) => {
             temp = JSON.parse(temp)
             // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
             console.log(temp)
-            if (entrustmentId !== null) {
-              axios.post("/api/entrust/" + entrustmentId + "/content", temp).then(response => {
+            if (entrustId !== null) {
+              axios.post("/api/entrust/" + entrustId + "/content", temp).then(response => {
                 console.log(response)
                 message.success('提交修改成功');
               })
@@ -75,10 +77,10 @@ const EntrustmentDisplay = (props) => {
           }}
           submitter={{ submitButtonProps: { style: { display: 'none' } }, resetButtonProps: { style: { display: 'none' } } }}
           request={async () => {
-            console.log(entrustmentId)
-            if (entrustmentId !== undefined) {
-              return axios.get("/api/entrust/" + entrustmentId).then(Detail => {
-                console.log("load from " + entrustmentId)
+            console.log(entrustId)
+            if (entrustId !== undefined) {
+              return axios.get("/api/entrust/" + entrustId).then(Detail => {
+                console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
                 if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {

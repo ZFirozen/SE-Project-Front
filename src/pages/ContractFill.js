@@ -5,6 +5,9 @@ import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select,
 import moment from "moment";
 import axios from 'axios';
 import localStorage from "localStorage";
+import { history, useLocation } from "umi";
+
+
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
 const userRole = localStorage.getItem("userRole");
@@ -342,7 +345,8 @@ class ContractFill extends Component {
             .then((response) => {
                 if (response.status === 200) {
                     alert("拒绝成功！");
-                    window.location.href = "/progress/" + this.state.entrustId;
+                    // window.location.href = "/progress/" + this.state.entrustId;
+                    history.goBack();
                 } else {
                     console.log("Unknown error!");
                 }
@@ -481,7 +485,8 @@ class ContractFill extends Component {
                     .then((response) => {
                         if (response.status === 200) {
                             alert("提交成功！");
-                            window.location.href = "/progress/" + this.state.entrustId;
+                            // window.location.href = "/progress/" + this.state.entrustId;
+                            history.goBack();
                         } else {
                             alert("提交成功?");
                             console.log("Unknown error!");
@@ -506,7 +511,8 @@ class ContractFill extends Component {
                                     .then((response) => {
                                         if (response.status === 200) {
                                             alert("提交成功！");
-                                            window.location.href = "/progress/" + this.state.entrustId;
+                                            // window.location.href = "/progress/" + this.state.entrustId;
+                                            history.goBack();
                                         } else {
                                             alert("提交成功?");
                                             console.log("Unknown error!");
@@ -538,7 +544,8 @@ class ContractFill extends Component {
                         .then((response) => {
                             if (response.status === 200) {
                                 alert("提交成功！");
-                                window.location.href = "/progress/" + this.state.entrustId;
+                                // window.location.href = "/progress/" + this.state.entrustId;
+                                history.goBack();
                             } else {
                                 alert("提交成功?");
                                 console.log("Unknown error!");

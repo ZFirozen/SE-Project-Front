@@ -6,7 +6,6 @@ import { Typography, Descriptions, Badge } from 'antd';
 import localStorage from 'localStorage';
 import { useLocation } from 'umi';
 import moment from "moment";
-import { set } from 'lodash';
 
 const { Title } = Typography;
 
