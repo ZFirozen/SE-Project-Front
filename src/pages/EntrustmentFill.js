@@ -11,6 +11,8 @@ import BasicLayout, { PageContainer, FooterToolbar } from "@ant-design/pro-layou
 import { SmileOutlined } from "@ant-design/icons";
 import { random, size } from "lodash";
 import { EditableProTable } from "@ant-design/pro-table";
+import { history, useLocation } from "umi";
+
 const whitecolor = "#ffffff"
 const graycolor = "#d6d6d6"
 const rowbegingap = 20
@@ -18,12 +20,13 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const EntrustmentFill = (props) => {
+const EntrustmentFill = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const embedregLength = 8
-  const entrustmentId = props.match.params.id
+  const location = useLocation();
+  const entrustId = location.query.entrustId;
   // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
   //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
   // }
@@ -59,12 +62,13 @@ const EntrustmentFill = (props) => {
               }
             }
             temp = JSON.parse(temp)
-            if (typeof entrustmentId !== "undefined") {
-              axios.post("/api/entrust/" + entrustmentId + "/content", temp)
+            if (typeof entrustId !== "undefined") {
+              axios.post("/api/entrust/" + entrustId + "/content", temp)
                 .then(response => {
                   console.log(response);
                   message.success("提交修改成功");
-                  window.location.href = "/progress/" + entrustmentId;
+                  // window.location.href = "/progress/" + entrustId;
+                  history.goBack();
                 })
                 .catch((error) => {
                   console.log(error);
@@ -75,7 +79,13 @@ const EntrustmentFill = (props) => {
                 .then(response => {
                   console.log(response);
                   message.success("提交成功");
-                  window.location.href = "/progress/" + response.data;
+                  // window.location.href = "/progress/" + response.data;
+                  history.push({
+                    pathname: "/progress",
+                    query: {
+                      entrustId: response.data
+                    }
+                  })
                 })
                 .catch((error) => {
                   console.log(error);
@@ -85,10 +95,10 @@ const EntrustmentFill = (props) => {
           }}
           submitter={{ submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } }, resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } } }}
           request={async () => {
-            console.log(entrustmentId)
-            if (typeof entrustmentId !== "undefined") {
-              return axios.get("/api/entrust/" + entrustmentId).then(Detail => {
-                console.log("load from " + entrustmentId)
+            console.log(entrustId)
+            if (typeof entrustId !== "undefined") {
+              return axios.get("/api/entrust/" + entrustId).then(Detail => {
+                console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
                 if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {

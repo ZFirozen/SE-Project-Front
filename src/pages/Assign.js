@@ -2,14 +2,14 @@ import 'antd/dist/antd.css';
 
 import React from "react"
 import { Modal, Table, Button, Space, Typography } from 'antd';
-import Title from 'antd/lib/typography/Title';
-import { useLocation } from 'react-router-dom';
 import localStorage from 'localStorage';
 import axios from 'axios';
 import ProTable from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Link } from 'react-router-dom';
+import { history } from "umi";
+import { useLocation } from 'umi';
+
 const { Text } = Typography;
 const { confirm } = Modal;
 
@@ -33,9 +33,10 @@ const defaultColumns = [
 
 console.log(localStorage.getItem("userRole") + ' visit')
 
-const Assign = (props ) => {
-    const entrustmentId = props.match.params.id;
-    console.log(entrustmentId)
+const Assign = () => {
+    const location = useLocation();
+    const entrustId = location.query.entrustId;
+    console.log(entrustId)
     var columns = defaultColumns
     var targetRole = ''
     switch (localStorage.getItem("userRole")) {
@@ -46,14 +47,15 @@ const Assign = (props ) => {
                 render: (a) => <Button type="primary" onClick={(b) => confirm({
                     title: '是否将委托委派给该员工?',
                     icon: <ExclamationCircleOutlined />,
-                    content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
+                    content: <Text>委托ID：{entrustId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
-                        console.log(a.userId + ' is assigned to ' + entrustmentId)
-                        axios.post("/api/entrust/" + entrustmentId + "/marketer?marketerId=" + a.userId, {
+                        console.log(a.userId + ' is assigned to ' + entrustId)
+                        axios.post("/api/entrust/" + entrustId + "/marketer?marketerId=" + a.userId, {
                             marketerId: a.userId
                         }).then(response => {
                             //外部跳转
-                            window.location.href = '../list'
+                            // window.location.href = '../list'
+                            history.goBack();
                         })
                     },
                     onCancel() {
@@ -70,14 +72,15 @@ const Assign = (props ) => {
                 render: (a) => <Button type="primary" onClick={(b) => confirm({
                     title: '是否将委托委派给该员工?',
                     icon: <ExclamationCircleOutlined />,
-                    content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
+                    content: <Text>委托ID：{entrustId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
-                        console.log(a.userId + ' is assigned to ' + entrustmentId)
-                        axios.post("/api/entrust/" + entrustmentId + "/tester?testerId=" + a.userId, {
+                        console.log(a.userId + ' is assigned to ' + entrustId)
+                        axios.post("/api/entrust/" + entrustId + "/tester?testerId=" + a.userId, {
                             testerId: a.userId
                         }).then(response => {
                             //外部跳转
-                            window.location.href = '../list'
+                            // window.location.href = '../list'
+                            history.goBack();
                         })
                     },
                     onCancel() {

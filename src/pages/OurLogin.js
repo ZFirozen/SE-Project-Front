@@ -3,6 +3,7 @@ import React from "react";
 import { Form, Input, Checkbox, Button, Alert } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import localStorage from "localStorage";
+import { history } from "umi";
 
 import "./OurLogin.css";
 
@@ -31,7 +32,8 @@ export default class Login extends React.Component {
 
     onClick(event) {
         event.preventDefault();
-        window.location.href = "/signup";
+        // window.location.href = "/signup";
+        history.push("/signup");
     }
 
     onFinish(values) {
@@ -77,7 +79,8 @@ export default class Login extends React.Component {
                                     }
                                 })
                                 .finally(() => {
-                                    window.location.href = "/";
+                                    // window.location.href = "/";
+                                    history.push("/");
                                 })
                         } else {
                             console.log("登陆成功了吗？");

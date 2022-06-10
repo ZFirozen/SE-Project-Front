@@ -333,7 +333,7 @@ export default defineConfig({
         {
           name: 'display',
           icon: 'smile',
-          path: '/entrustment/display/:id',
+          path: '/entrustment/display',
           component: './EntrustmentDisplay',
           hideInMenu: true,
         },
@@ -346,7 +346,7 @@ export default defineConfig({
         {
           name: 'fill',
           icon: 'smile',
-          path: '/entrustment/fill/:id',
+          path: '/entrustment/fill',
           component: './EntrustmentFill',
           hideInMenu: true,
         },
@@ -359,28 +359,28 @@ export default defineConfig({
         {
           name: 'assign',
           icon: 'smile',
-          path: '/entrustment/assign/:id',
+          path: '/entrustment/assign',
           component: './Assign',
           hideInMenu: true,
         },
         {
           name: 'fill',
           icon: 'smile',
-          path: '/entrustment/quotation/fill/:id',
+          path: '/entrustment/quotation/fill',
           component: './QuotationFill',
           hideInMenu: true,
         },
         {
           name: 'verify',
           icon: 'smile',
-          path: '/entrustment/verify/:id',
+          path: '/entrustment/verify',
           component: './EntrustmentVerify',
           hideInMenu: true,
         },
         {
           name: 'ducumentVerify',
           icon: 'smile',
-          path: '/entrustment/documentVerify/:id',
+          path: '/entrustment/documentVerify',
           component: './DocumentVerify',
           hideInMenu: true,
         },
@@ -398,7 +398,7 @@ export default defineConfig({
         {
           name: 'testassign',
           icon: 'smile',
-          path: '/test/assign/:id',
+          path: '/test/assign',
           component: './TestAssign',
           hideInMenu: true,
         },
@@ -418,7 +418,7 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
-      path: '/progress/:id',
+      path: '/progress',
       component: './Progress',
       hideInMenu: true,
     },
@@ -430,30 +430,30 @@ export default defineConfig({
       routes: [
         {
           path: '/contract',
-          redirect: '/contract/display/:id',
+          redirect: '/contract/display',
         },
         {
           name: 'fill',
           icon: 'smile',
-          path: '/contract/fill/:id',
+          path: '/contract/fill',
           component: './ContractFill',
         },
         {
           name: 'display',
           icon: 'smile',
-          path: '/contract/display/:id',
+          path: '/contract/display',
           component: './ContractDisplay',
         },
         {
           name: 'review',
           icon: 'smile',
-          path: '/contract/verify/:id',
+          path: '/contract/verify',
           component: './ContractVerify',
         },
         {
           name: 'upload',
           icon: 'smile',
-          path: '/contract/upload/:id/:enid',
+          path: '/contract/upload/:enid',
           component: './ContractUpload',
         },
       ],
@@ -471,7 +471,7 @@ export default defineConfig({
         {
           name: 'test scheme',
           icon: 'smile',
-          path: '/test/scheme/:id',
+          path: '/test/scheme',
           component: './testingTable/JS006',
         },
       ],

@@ -2,14 +2,14 @@ import 'antd/dist/antd.css';
 
 import React from "react"
 import { Modal, Table, Button, Space, Typography } from 'antd';
-import Title from 'antd/lib/typography/Title';
-import { useLocation } from 'react-router-dom';
 import localStorage from 'localStorage';
 import axios from 'axios';
 import ProTable from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
+import { history, useLocation } from "umi";
+
 const { Text } = Typography;
 const { confirm } = Modal;
 
@@ -36,9 +36,10 @@ temp = { "stage": "SCHEME_UNFILLED", "message": "" }
 
 console.log(localStorage.getItem("userRole") + ' visit')
 
-const TestAssign = (props) => {
-    const entrustmentId = props.match.params.id;
-    console.log(entrustmentId)
+const TestAssign = () => {
+    const location = useLocation();
+    const testId = location.query.testId;
+    console.log(testId)
     var columns = defaultColumns
     var targetRole = ''
     switch (localStorage.getItem("userRole")) {
@@ -49,21 +50,22 @@ const TestAssign = (props) => {
                 render: (a) => <Button type="primary" onClick={(b) => confirm({
                     title: '是否将委托委派给该员工?',
                     icon: <ExclamationCircleOutlined />,
-                    content: <Text>委托ID：{entrustmentId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
+                    content: <Text>委托ID：{testId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
-                        console.log(a.userId + ' is assigned to ' + entrustmentId)
-                        axios.post("/api/test/" + entrustmentId + "/qa?qaId=" + parseInt(a.userId), {
+                        console.log(a.userId + ' is assigned to ' + testId)
+                        axios.post("/api/test/" + testId + "/qa?qaId=" + parseInt(a.userId), {
                             qaId: parseInt(a.userId)
                         }).then(response => {
                             //外部跳转
                             if (response.status === 200) {
                                 // console.log(response.data);
-                                axios.post("/api/test/" + entrustmentId + "/status", temp)
+                                axios.post("/api/test/" + testId + "/status", temp)
                                     .then(response => {
                                         if (response.status === 200) {
                                             console.log(response);
                                             message.success("提交成功");
-                                            window.location.href = '../list'
+                                            // window.location.href = '../list'
+                                            history.goBack();
                                         }
                                         else {
                                             console.log("修改状态失败");

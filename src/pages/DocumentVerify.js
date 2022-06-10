@@ -4,6 +4,7 @@ import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select,
 import { BorderBottomOutlined, PlusOutlined } from '@ant-design/icons';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from '@ant-design/pro-form';
 import axios from 'axios';
+import { history, useLocation } from "umi";
 import DescriptionsItem from 'antd/lib/descriptions/Item';
 import { Color } from '@antv/l7-react/lib/component/LayerAttribute';
 import { FieldLabel } from '@ant-design/pro-utils';
@@ -18,8 +19,9 @@ const rowbegingap = 20
 const formitemheight = 70
 const { Title, Paragraph } = Typography
 
-const DocumentVerify = (props) => {
-  const entrustmentId = props.match.params.id;
+const DocumentVerify = () => {
+  const location = useLocation();
+  const entrustId = location.query.entrustId;
   const [form] = ProForm.useForm();
 
   return (
@@ -30,7 +32,7 @@ const DocumentVerify = (props) => {
             <Space direction="vertical" size={44}>
               <Button type="primary" size='large'
                 onClick={() => {
-                  axios.post("/api/entrust/" + entrustmentId + "/content/denial").then(response => {
+                  axios.post("/api/entrust/" + entrustId + "/content/denial").then(response => {
                     console.log(response)
                     message.success('已拒绝委托');
                   });
@@ -53,21 +55,22 @@ const DocumentVerify = (props) => {
                   temp.day = parseInt(temp.day);
                   temp = JSON.parse(JSON.stringify(values));
                   console.log(temp);
-                  if (typeof entrustmentId !== "undefined") {
-                    axios.post("/api/entrust/" + entrustmentId + "/software_doc_review", temp)
+                  if (typeof entrustId !== "undefined") {
+                    axios.post("/api/entrust/" + entrustId + "/software_doc_review", temp)
                       .then((response) => {
                         console.log(response)
                         message.success('提交成功');
-                        axios.post("/api/entrust/" + entrustmentId + "/content/acceptance")
+                        axios.post("/api/entrust/" + entrustId + "/content/acceptance")
                           .then((response) => {
                             console.log(response)
                             message.success('已受理委托');
-                            window.location.href = "/progress/" + entrustmentId;
+                            // window.location.href = "/progress/" + entrustId;
+                            history.goBack();
                           })
                       })
 
                   } else {
-                    console.log("entrustmentId is undefined");
+                    console.log("entrustId is undefined");
                     message.error('委托ID未定义！');
                   }
                 }}
