@@ -432,7 +432,7 @@ const Progress = () => {
                         history.push({
                             pathname: "/contract/display",
                             query: {
-                                entrustId: entrustId
+                                contractId: contractId
                             }
                         })
                     }
