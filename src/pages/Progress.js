@@ -250,6 +250,30 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
+                if(error.response.status == 404){
+                    axios.post("/api/test?entrustId=" + entrustId)
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("测试项目创建成功！");
+                                    // setContractId(response.data.contractId);
+                                    // setMarketerId(response.data.marketerId);
+                                    // setCustomerId(response.data.customerId);
+                                    console.log("create test success");
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    console.log(error);
+                                } else {
+                                    console.log("Unknown error!");
+                                }
+                            }).finally((response) => {
+                                console.log(response);
+                                // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;   
+                            });
+                }
             })
     }
 
@@ -489,34 +513,12 @@ const Progress = () => {
             case 3:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 3) {
-                        axios.post("/api/test?entrustId=" + entrustId)
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    alert("测试项目创建成功！");
-                                    // setContractId(response.data.contractId);
-                                    // setMarketerId(response.data.marketerId);
-                                    // setCustomerId(response.data.customerId);
-                                    console.log("create test success");
-                                } else {
-                                    console.log("Unknown error!");
-                                }
-                            })
-                            .catch((error) => {
-                                if (error.response.status === 400) {
-                                    console.log(error);
-                                } else {
-                                    console.log("Unknown error!");
-                                }
-                            }).finally((response) => {
-                                console.log(response);
-                                // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;
-                                history.push({
-                                    pathname: "/contract/upload",
-                                    query: {
-                                        contractId: contractId
-                                    }
-                                })
-                            });
+                        history.push({
+                            pathname: "/contract/upload",
+                            query: {
+                                contractId: contractId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");

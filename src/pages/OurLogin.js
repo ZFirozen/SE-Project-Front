@@ -160,7 +160,7 @@ export default class Login extends React.Component {
                     </Button>
                     还没账号？ <a onClick={this.onClick}>现在注册！</a>
                 </Form.Item>
-            </Form >
+            </Form>
         )
     }
 }
