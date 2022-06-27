@@ -3,6 +3,7 @@ import React from "react";
 import { Form, Input, Checkbox, Button, Alert } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import localStorage from "localStorage";
+import { history } from "umi";
 
 import "./OurLogin.css";
 
@@ -12,7 +13,7 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            userName: "",
             password: ""
         };
 
@@ -31,68 +32,33 @@ export default class Login extends React.Component {
 
     onClick(event) {
         event.preventDefault();
-        window.location.href = "/signup";
+        // window.location.href = "/signup";
+        history.push("/signup");
     }
 
     onFinish(values) {
-        const userName = this.state.username;
+        const userName = this.state.userName;
         const userPassword = this.state.password;
 
         console.log(userName, userPassword);
         axios.post("/api/logout")
             .then((response) => {
                 if (response.status === 200) {
-                    console.log("用户名：" + this.state.userName + "已登出！");
+                    console.log("用户名：" + localStorage.getItem("userName") + "已登出！");
                 } else {
-                    console.log("Unknown error1!");
+                    console.log("登出成功了吗？");
                 }
-                axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
-                    .then(function (response) {
-                        if (response.status === 200) {
-                            alert("用户名：" + userName + "\n登录成功！");
-                            axios.get("/api/account")
-                                .then((response) => {
-                                    if (response.status === 200) {
-                                        // console.log(response.data);
-                                        localStorage.setItem("userName", response.data.userName);
-                                        localStorage.setItem("userRole", response.data.userRole);
-                                    } else {
-                                        console.log("Unknown error!");
-                                    }
-                                })
-                                .catch((error) => {
-                                    if (error.status === 400) {
-                                        console.log("unlogin?");
-                                    } else {
-                                        console.log("Unknown error!");
-                                    }
-                                }).finally(() => {
-                                    window.location.href = "/";
-                                })
-                                .finally(() => {
-                                    window.location.href = "/";
-                                })
-                        } else {
-                            alert("登陆失败！\n请尝试重新登陆。");
-                            console.log("Unknown error!");
-                        }
-                    })
-                    .catch(function (error) {
-                        if (error.response.status === 400) {
-                        } else {
-                            console.log("Unknown error!");
-                        }
-                    });
             })
             .catch((error) => {
-                if (error.status === 400) {
-                    console.log("当前未登录账号！请重新登录！");
+                if (error.response.status === 403) {
+                    console.log("当前未登录账号！");
                 } else {
-                    console.log("Unknown error2!");
-                    console.log(error);
+                    console.log("登出失败了吗？");
                 }
+            })
+            .finally(() => {
                 axios.post("/api/login?userName=" + userName + "&userPassword=" + userPassword)
-                    .then(function (response) {
+                    .then((response) => {
                         if (response.status === 200) {
                             alert("用户名：" + userName + "\n登录成功！");
                             axios.get("/api/account")
@@ -102,32 +68,29 @@ export default class Login extends React.Component {
                                         localStorage.setItem("userName", response.data.userName);
                                         localStorage.setItem("userRole", response.data.userRole);
                                     } else {
-                                        console.log("Unknown error!");
+                                        console.log("获取用户信息成功了吗？");
                                     }
                                 })
                                 .catch((error) => {
-                                    if (error.status === 400) {
-                                        console.log("unlogin?");
+                                    if (error.response.status === 400) {
+                                        console.log("未登录？");
                                     } else {
-                                        console.log("Unknown error!");
+                                        console.log("获取用户信息失败！");
                                     }
-                                }).finally(() => {
-                                    window.location.href = "/";
                                 })
                                 .finally(() => {
-                                    window.location.href = "/";
+                                    // window.location.href = "/";
+                                    history.push("/");
                                 })
                         } else {
-                            alert("登陆失败！\n请尝试重新登陆。");
-                            console.log("Unknown error!");
+                            console.log("登陆成功了吗？");
                         }
                     })
-                    .catch(function (error) {
-                        if (error.response.status === 400) {
-                            alert("登陆失败！\n请尝试重新登陆。");
+                    .catch((error) => {
+                        if (error.response.status === 403) {
+                            alert("账号或密码错误，请尝试重新输入！");
                         } else {
                             alert("登陆失败！\n请尝试重新登陆。");
-                            console.log("Unknown error!");
                         }
                     });
             })
@@ -161,7 +124,7 @@ export default class Login extends React.Component {
                     <Input
                         prefix={<UserOutlined className="site-form-item-icon" />}
                         placeholder="Username"
-                        name="username"
+                        name="userName"
                         onChange={this.onChange}
                     />
                 </Form.Item>
@@ -176,7 +139,7 @@ export default class Login extends React.Component {
                         placeholder="Password"
                         name="password"
                         onChange={this.onChange}
-                        onPressEnter={this.onFinish}
+                    //onPressEnter={this.onFinish}
                     />
                 </Form.Item>
 
@@ -197,7 +160,7 @@ export default class Login extends React.Component {
                     </Button>
                     还没账号？ <a onClick={this.onClick}>现在注册！</a>
                 </Form.Item>
-            </Form >
+            </Form>
         )
     }
 }
