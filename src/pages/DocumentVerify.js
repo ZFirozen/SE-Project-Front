@@ -41,6 +41,7 @@ const DocumentVerify = () => {
                 form={form}
                 size="large"
                 style={{ font: 'initial', border: '3px solid' }}
+                grid="true"
                 submitter={{
                   submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } },
                   resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } },

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-//import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
@@ -37,6 +36,7 @@ const Progress = () => {
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
+                    console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
                     if (testId !== "") {
@@ -521,7 +521,7 @@ const Progress = () => {
                         history.push({
                             pathname: "/contract/verify",
                             query: {
-                                entrustId: entrustId
+                                contractId: contractId
                             }
                         })
                     } else {
