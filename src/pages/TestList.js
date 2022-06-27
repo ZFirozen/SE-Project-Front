@@ -63,7 +63,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/" + a.entrustId}>查看</Link>
+                        <Link to={"../progress?testId=" + a.entrustId}>查看</Link>
                     </>
                 )
             }

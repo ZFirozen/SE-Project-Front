@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 import moment from "moment";
-import { history } from "umi";
+import { history , useLocation } from "umi";
 import axios from 'axios';
 import localStorage from "localStorage";
 
@@ -208,6 +208,11 @@ class QuotationFill extends Component {
                     {userRole === "CUSTOMER" ?
                         <Form onFinish={this.denial.bind(this)}>
                             <Input type='submit' value='拒绝报价' />
+                        </Form>
+                        : ""}
+                    {userRole === "MARKETER" ?
+                        <Form onFinish={this.denial.bind(this)}>
+                            <Input type='submit' value='终止报价' />
                         </Form>
                         : ""}
                 </Card>
