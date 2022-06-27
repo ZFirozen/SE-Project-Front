@@ -19,8 +19,8 @@ var columns = [
     },
     {
         title: '委托ID',
-        dataIndex: 'entrustmentId',
-        key: 'entrustmentId',
+        dataIndex: 'entrustId',
+        key: 'entrustId',
     },
     {
         title: '市场人员ID',
@@ -63,7 +63,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress?testId=" + a.entrustId}>查看</Link>
+                        <Link to={"/progress?testId=" + a.id}>查看</Link>
                     </>
                 )
             }
@@ -76,7 +76,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/?testId=" + a.entrustId}>查看</Link>
+                        <Link to={"../progress/?testId=" + a.id}>查看</Link>
                     </>
                 )
             }
@@ -136,7 +136,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                        <Link to={"../progress/?testId=" + a.entrustId}>查看</Link>
+                        <Link onClick={() => { "../progress?testId=" + a.entrustId }}>查看</Link>
                     </>
                 )
             }
