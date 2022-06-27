@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+//import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
+import { history, useLocation } from "umi";
 
 axios.defaults.withCredentials = true;
 
 const { Step } = Steps;
 
 var contractId = "";
+var testId = "";
+var schemeId = "";
 
-const Progress = (props) => {
-    const entrustmentId = props.match.params.id;
+const Progress = () => {
+    const location = useLocation();
+    const entrustId = location.query.entrustId;
+    testId = location.query.testId
     // const [marketerId, setMarketerId] = useState("");
     // const [customerId, setCustomerId] = useState("");
-    // console.log(entrustmentId);
-    // const entrustmentId = useLocation().pathname.match("(?<=/progress/).+").at(0)
+    // console.log(entrustId);
+    // const entrustId = useLocation().pathname.match("(?<=/progress/).+").at(0)
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
     const [currentStatus, setCurrentStatus] = useState(true);
@@ -23,10 +28,24 @@ const Progress = (props) => {
     const userRole = localStorage.getItem("userRole");
 
     const getEntrustmentStatus = () => {
-        axios.get("/api/entrust/" + entrustmentId)
+        if (testId !== "") {
+            setCurrentStage(2);
+            setCurrentStep(0);
+            setShowStage(2);
+            getTestStatus();
+        }
+        axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
                     contractId = response.data.contractId
+                    testId = response.data.projectId
+                    if (testId !== "") {
+                        setCurrentStage(2);
+                        setCurrentStep(0);
+                        setShowStage(2);
+                        getTestStatus();
+                    }
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
@@ -101,6 +120,7 @@ const Progress = (props) => {
             .then((response) => {
                 if (response.status === 200) {
                     console.log(contractId)
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "FILL_CONTRACT":
                             setCurrentStage(1);
@@ -143,6 +163,110 @@ const Progress = (props) => {
                             setCurrentStage(2);
                             setCurrentStep(0);
                             setShowStage(2);
+                            getTestStatus();
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                }
+                else if(response.status === 403){
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    getTestStatus();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const getTestStatus = () => {
+        axios.get("/api/test/" + testId)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(testId)
+                    schemeId = response.data.projectFormIds.testSchemeId
+                    console.log(response.data.projectFormIds.testSchemeId)
+                    console.log(response.data.projectFormIds.workChecklistId)
+                    console.log(response.data.projectFormIds.testSchemeChecklistId)
+                    console.log(response.data.status.stage)
+                    switch (response.data.status.stage) {
+                        case "WAIT_FOR_QA":
+                            setCurrentStage(2);
+                            setCurrentStep(0);
+                            setShowStage(2);
+                            break;
+                        case "SCHEME_UNFILLED":
+                            setCurrentStage(2);
+                            setCurrentStep(1);
+                            setShowStage(2);
+                            break;
+                        case "SCHEME_AUDITING":
+                            setCurrentStage(2);
+                            setCurrentStep(2);
+                            setShowStage(2);
+                            break;
+                        case "SCHEME_AUDITING_DENIED":
+                            setCurrentStage(2);
+                            setCurrentStep(1);
+                            setCurrentStatus(false);
+                            setShowStage(2);
+                            break;
+                        case "SCHEME_AUDITING_PASSED":
+                            setCurrentStage(2);
+                            setCurrentStep(3);
+                            setShowStage(2);
+                            break;
+                        case "SCHEME_REVIEW_UPLOADED":
+                            setCurrentStage(2);
+                            setCurrentStep(4);
+                            setShowStage(2);
+                            break;
+                        case "REPORT_AUDITING":
+                            setCurrentStage(2);
+                            setCurrentStep(5);
+                            setShowStage(2);
+                            break;
+                        case "REPORT_QA_DENIED":
+                            setCurrentStage(2);
+                            setCurrentStep(4);
+                            setCurrentStatus(false);
+                            setShowStage(2);
+                            break;
+                        case "REPORT_QA_PASSED":
+                            setCurrentStage(2);
+                            setCurrentStep(6);
+                            setShowStage(2);
+                            break;
+                        case "REPORT_WAIT_CUSTOMER":
+                            setCurrentStage(2);
+                            setCurrentStep(8);
+                            setShowStage(2);
+                            break;
+                        case "REPORT_CUSTOMER_CONFIRM":
+                            setCurrentStage(2);
+                            setCurrentStep(9);
+                            setShowStage(2);
+                            break;
+                        case "REPORT_CUSTOMER_REJECT":
+                            setCurrentStage(2);
+                            setCurrentStep(4);
+                            setCurrentStatus(false);
+                            setShowStage(2);
+                            break;
+                        case "QA_ALL_REJECTED":
+                            setCurrentStage(2);
+                            setCurrentStep(4);
+                            setCurrentStatus(false);
+                            setShowStage(2);
+                            break;
+                        case "QA_ALL_PASSED":
+                            setCurrentStage(2);
+                            setCurrentStep(10);
+                            setShowStage(2);
                             break;
                         default:
                             break;
@@ -153,10 +277,34 @@ const Progress = (props) => {
             })
             .catch((error) => {
                 console.log(error);
+                if (error.response.status == 404) {
+                    axios.post("/api/test?entrustId=" + entrustId)
+                        .then((response) => {
+                            if (response.status === 200) {
+                                alert("测试项目创建成功！");
+                                // setContractId(response.data.contractId);
+                                // setMarketerId(response.data.marketerId);
+                                // setCustomerId(response.data.customerId);
+                                console.log("create test success");
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                        .catch((error) => {
+                            if (error.response.status === 400) {
+                                console.log(error);
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        }).finally((response) => {
+                            console.log(response);
+                            // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;   
+                        });
+                }
             })
     }
 
-    useEffect(() => {
+    useMemo(() => {
         getEntrustmentStatus();
     }, [])
 
@@ -172,19 +320,43 @@ const Progress = (props) => {
             case 0:
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 0 && currentStep === 0) {
-                        window.location.href = "/entrustment/fill/" + entrustmentId;
+                        // window.location.href = "/entrustment/fill/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/fill",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/entrustment/display/" + entrustmentId;
+                        // window.location.href = "/entrustment/display/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else if (userRole === "MARKETER" || userRole === "TESTER") {
-                    window.location.href = "/entrustment/display/" + entrustmentId;
+                    // window.location.href = "/entrustment/display/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/display",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 1:
                 if (userRole === "MARKETING_SUPERVISOR") {
-                    window.location.href = "/assign/" + entrustmentId;
+                    // window.location.href = "/assign/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/assign",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -192,9 +364,21 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     if (currentStage === 0 && currentStep === 2) {
-                        window.location.href = "/entrustment/verify/" + entrustmentId;
+                        // window.location.href = "/entrustment/verify/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/verify",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/entrustment/display/" + entrustmentId;
+                        // window.location.href = "/entrustment/display/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -202,7 +386,13 @@ const Progress = (props) => {
                 break;
             case 3:
                 if (userRole === "TESTING_SUPERVISOR") {
-                    window.location.href = "/assign/" + entrustmentId;
+                    // window.location.href = "/assign/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/assign",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -210,7 +400,13 @@ const Progress = (props) => {
             case 4:
                 if (userRole === "TESTER") {
                     if (currentStage === 0 && currentStep === 4) {
-                        window.location.href = "/entrustment/documentVerify/" + entrustmentId;
+                        // window.location.href = "/entrustment/documentVerify/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/documentVerify",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -218,14 +414,26 @@ const Progress = (props) => {
                 break;
             case 5:
                 if (userRole === "MARKETER") {
-                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
+                    // window.location.href = "/entrustment/quotation/fill/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/quotation/fill",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 6:
                 if (userRole === "CUSTOMER") {
-                    window.location.href = "/entrustment/quotation/fill/" + entrustmentId;
+                    // window.location.href = "/entrustment/quotation/fill/" + entrustId;
+                    history.push({
+                        pathname: "/entrustment/quotation/fill",
+                        query: {
+                            entrustId: entrustId
+                        }
+                    })
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -242,8 +450,8 @@ const Progress = (props) => {
             case 0:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 0) {
-                        axios.post("/api/contract?entrustId=" + entrustmentId)
-                            .then(function (response) {
+                        axios.post("/api/contract?entrustId=" + entrustId)
+                            .then((response) => {
                                 if (response.status === 200) {
                                     alert("合同创建成功！");
                                     // setContractId(response.data.contractId);
@@ -254,18 +462,30 @@ const Progress = (props) => {
                                     console.log("Unknown error!");
                                 }
                             })
-                            .catch(function (error) {
+                            .catch((error) => {
                                 if (error.response.status === 400) {
-                                    console.log(error);
+                                    console.log("重复创建合同！");
                                 } else {
                                     console.log("Unknown error!");
                                 }
                             }).finally(() => {
-                                window.location.href = "/contract/fill/" + entrustmentId;
+                                // window.location.href = "/contract/fill/" + entrustId;
+                                history.push({
+                                    pathname: "/contract/fill",
+                                    query: {
+                                        entrustId: entrustId
+                                    }
+                                })
                             });
 
                     } else {
-                        window.location.href = "/contract/display/" + contractId;
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/contract/display",
+                            query: {
+                                contractId: contractId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -274,9 +494,21 @@ const Progress = (props) => {
             case 1:
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 1 && currentStep === 1) {
-                        window.location.href = "/contract/fill/" + entrustmentId;
+                        // window.location.href = "/contract/fill/" + entrustId;
+                        history.push({
+                            pathname: "/contract/fill",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/contract/display/" + contractId;
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/contract/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -285,9 +517,21 @@ const Progress = (props) => {
             case 2:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 2) {
-                        window.location.href = "/contract/verify/" + entrustmentId;
+                        // window.location.href = "/contract/verify/" + entrustId;
+                        history.push({
+                            pathname: "/contract/verify",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
                     } else {
-                        window.location.href = "/contract/display/" + contractId;
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/contract/display",
+                            query: {
+                                contractId: contractId
+                            }
+                        });
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -296,7 +540,192 @@ const Progress = (props) => {
             case 3:
                 if (userRole === "MARKETER") {
                     if (currentStage === 1 && currentStep === 3) {
-                        window.location.href = "/contract/upload/" + contractId;
+                        history.push({
+                            pathname: "/contract/upload",
+                            query: {
+                                contractId: contractId
+                            }
+                        })
+                    }
+                    else {
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
+                } else {
+                    if (userRole === "CUSTOMER") {
+                        alert("您没有权限访问！");
+                    }
+                    else {
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    const onTestClick = (value) => {
+        console.log("onTestClick: " + value);
+        console.log(userRole);
+        switch (value) {
+            case 0:
+                if (userRole === "QA_SUPERVISOR") {
+                    history.push({
+                        pathname: "/test/assign",
+                        query: {
+                            testId: testId
+                        }
+                    })
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 1:
+                if (userRole === "TESTER") {
+                    if (currentStage === 2 && currentStep === 1) {
+                        // window.location.href = "/contract/fill/" + entrustId;
+                        history.push({
+                            pathname: "/test/scheme",
+                            query: {
+                                schemeId: schemeId
+                            }
+                        })
+                    } else {
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        })
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 2:
+                if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep === 2) {
+                        // window.location.href = "/contract/verify/" + entrustId;
+                        history.push({
+                            pathname: "/test/verify",
+                            query: {
+                                testId: testId
+                            }
+                        })
+                    } else {
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 3:
+                if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep === 3) {
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 4:
+                if (userRole === "TESTER") {
+                    if (currentStage === 2 && currentStep === 4) {
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 5:
+                if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep === 5) {
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 6:
+                if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep === 6) {
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 7:
+                if (userRole === "MARKETER") {
+                    if (currentStage === 2 && currentStep === 6) {
+                        setCurrentStage(2);
+                        setCurrentStep(7);
+                        setShowStage(2);
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 8:
+                if (userRole === "CUSTOMER") {
+                    if (currentStage === 2 && currentStep === 8) {
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
+            case 9:
+                if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep === 9) {
+                        history.push({
+                            pathname: "/test/",
+                            query: {
+                                testId: testId
+                            }
+                        });
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -353,13 +782,17 @@ const Progress = (props) => {
                             status={currentStage === 2 ? "process" : "wait"}
                             direction="vertical"
                         >
-                            <Step title="填写测试方案" description="点此填写测试方案" />
-                            <Step title="审核测试方案" description="点此审核测试方案" />
-                            <Step title="进行测试" description="点此进行测试" />
-                            <Step title="生成测试报告及文档" description="点此生成测试报告及文档" />
-                            <Step title="审核相关文档" description="点此审核相关文档" />
-                            <Step title="发放报告" description="点此发放报告" />
-                            <Step title="确认报告" description="点此确认报告" />
+                            <Step title="质量部分配人员" description="等待质量部主管分配人员" onClick={() => onTestClick(0)} />
+                            <Step title="填写测试方案" description="点此填写测试方案" onClick={() => onTestClick(1)} />
+                            <Step title="审核测试方案" description="点此审核测试方案" onClick={() => onTestClick(2)} />
+                            <Step title="上传评审表" description="点此上传评审表" onClick={() => onTestClick(3)} />
+                            <Step title="填写测试报告及文档" description="点此填写测试报告及文档" onClick={() => onTestClick(4)} />
+                            <Step title="审核测试报告" description="点此审核测试报告" onClick={() => onTestClick(5)} />
+                            <Step title="上传检查表" description="点此上传检查表" onClick={() => onTestClick(6)} />
+                            <Step title="发放报告" description="点此发放报告" onClick={() => onTestClick(7)} />
+                            <Step title="确认报告" description="点此确认报告" onClick={() => onTestClick(8)} />
+                            <Step title="审核测试文档" description="点此审核测试文档" onClick={() => onTestClick(9)} />
+                            <Step title="项目已完成" description="项目已全部完成" />
                         </Steps>
                     </>
                 )

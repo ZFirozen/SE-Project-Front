@@ -11,6 +11,8 @@ import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layou
 import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
+import { history, useLocation } from "umi";
+
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
 const rowbegingap = 20
@@ -18,12 +20,13 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const EntrustmentVerify = (props) => {
+const EntrustmentVerify = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const embedregLength = 8
-  const entrustmentId = props.match.params.id
+  const location = useLocation();
+  const entrustId = location.query.entrustId;
   // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
   //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
   // }
@@ -62,8 +65,8 @@ const EntrustmentVerify = (props) => {
             temp = JSON.parse(temp)
             // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
             console.log(temp)
-            if (entrustmentId !== null) {
-              axios.post("/api/entrust/" + entrustmentId + "/content", temp).then(response => {
+            if (entrustId !== null) {
+              axios.post("/api/entrust/" + entrustId + "/content", temp).then(response => {
                 console.log(response)
                 message.success('提交修改成功');
               })
@@ -76,10 +79,10 @@ const EntrustmentVerify = (props) => {
           }}
           submitter={{ submitButtonProps: { style: { display: 'none' } }, resetButtonProps: { style: { display: 'none' } } }}
           request={async () => {
-            console.log(entrustmentId)
-            if (entrustmentId !== undefined) {
-              return axios.get("/api/entrust/" + entrustmentId).then(Detail => {
-                console.log("load from " + entrustmentId)
+            console.log(entrustId)
+            if (entrustId !== undefined) {
+              return axios.get("/api/entrust/" + entrustId).then(Detail => {
+                console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
                 if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
@@ -618,30 +621,33 @@ const EntrustmentVerify = (props) => {
             console.log(temp)
             console.log(temp.acceptance)
 
-            axios.post("/api/entrust/" + entrustmentId + "/review", temp)
+            axios.post("/api/entrust/" + entrustId + "/review", temp)
               .then(response => {
                 console.log(response)
               })
             if (temp.acceptance === "2") {
-              axios.post("/api/entrust/" + entrustmentId + "/content/acceptance")
+              axios.post("/api/entrust/" + entrustId + "/content/acceptance")
                 .then(response => {
                   console.log(response)
                   message.success('已受理委托');
-                  window.location.href = "/progress/" + entrustmentId;
+                  // window.location.href = "/progress/" + entrustId;
+                  history.goBack();
                 })
             } else if (temp.acceptance === "1") {
-              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=Denied:" + temp.confirmation)
+              axios.post("/api/entrust/" + entrustId + "/content/denial?message=Denied:" + temp.confirmation)
                 .then(response => {
                   console.log(response)
                   message.error('已拒绝受理');
-                  window.location.href = "/progress/" + entrustmentId;
+                  // window.location.href = "/progress/" + entrustId;
+                  history.goBack();
                 })
             } else {
-              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=KeepContact:" + temp.confirmation)
+              axios.post("/api/entrust/" + entrustId + "/content/denial?message=KeepContact:" + temp.confirmation)
                 .then(response => {
                   console.log(response)
                   message.warning('进一步联系');
-                  window.location.href = "/progress/" + entrustmentId;
+                  // window.location.href = "/progress/" + entrustId;
+                  history.goBack();
                 })
             }
           }} >

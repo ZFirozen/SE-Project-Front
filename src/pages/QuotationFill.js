@@ -1,11 +1,14 @@
-import "./QuotationFill.css";
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
+import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from "@ant-design/pro-form";
 import moment from "moment";
-
+import { history , useLocation } from "umi";
 import axios from 'axios';
 import localStorage from "localStorage";
+import { EditableProTable } from "@ant-design/pro-table";
+
+
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
 const userRole = localStorage.getItem("userRole");
@@ -18,14 +21,225 @@ const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 
-class QuotationFill extends Component {
+const QuotationFill = () => {
+    const location = useLocation();
+    const entrustId = location.query.entrustId;
+    const [editableKeys, setEditableRowKeys] = useState([]);
+
+    return (
+        <>
+            <div style={{ margin: 70 }}>
+                <ProForm
+                    size="large"
+                    style={{ font: "initial", border: "3px solid" }}
+                    // submitter={{
+                    //   render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
+                    // }}
+                    layout="horizontal"
+                    scrollToFirstError="true"
+                    onFinish={async (values) => {
+                        if (userRole !== "CUSTOMER") {
+                            axios.post("/api/entrust/" + entrustId + "/quote", values)
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        alert("提交成功！");
+                                        // window.location.href = "/progress/" + this.state.entrustId;
+                                        history.goBack();
+                                    } else {
+                                        alert("提交失败！");
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.response.status === 400) {
+                                        alert("提交失败！");
+                                    } else {
+                                        alert("提交失败！");
+                                        console.log("Unknown error!");
+                                    }
+                                });
+                        } 
+                    }}
+                    request={async () => {
+                        console.log(entrustId)
+                        if (typeof entrustId !== "undefined") {
+                            return axios.get("/api/entrust/" + entrustId).then(Detail => {
+                                console.log("load from " + entrustId)
+                                console.log(Detail.data.quote)
+                                if (Detail.data.quote !== null)
+                                    return Detail.data.quote
+                                else return {}
+                            }).catch(Error => {
+                                console.log(Error)
+                                return {}
+                            })
+                        }
+                        else {
+                            console.log("new Quotation")
+                            return {}
+                        }
+                    }}
+                >
+                    <Title level={3}>报价单</Title>
+                    <Row style={gray}>
+                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"quotationDate"} label="报价日期" />
+                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"effectiveDate"} label="报价有效期" />
+                    </Row>
+                    <Row style={white}>
+                        <ProFormText label="开户银行" required rules={[{ required: true, message: "这是必填项" }]} name={"bankName"} />
+                        <ProFormText label="户名" required rules={[{ required: true, message: "这是必填项" }]} name={"account"} />
+                        <ProFormText label="账号" required rules={[{ required: true, message: "这是必填项" }]} name={"accountName"} />
+                    </Row>
+                    <Row style={gray}>
+                        <ProFormText label="软件名称" required rules={[{ required: true, message: "这是必填项" }]} name={"softwareName"} />
+                    </Row>
+                    <Row style={white} justify="space-around">
+                        <ProForm.Item name={"rowList"} trigger="onValuesChange">
+                            <EditableProTable rowKey="id" ond toolBarRender={false} columns={[
+                                {
+                                    title: "项目",
+                                    dataIndex: "projectName",
+                                    width: "20%",
+                                }, {
+                                    title: "分项",
+                                    dataIndex: "subProject",
+                                    width: "20%",
+                                }, {
+                                    title: "单价",
+                                    dataIndex: "price",
+                                    width: "20%",
+                                }, {
+                                    title: "说明",
+                                    dataIndex: "description",
+                                    width: "20%",
+                                }, {
+                                    title: "行合计",
+                                    dataIndex: "rowTotal",
+                                    width: "20%",
+                                }]}
+                                controlled={true}
+                                recordCreatorProps={{
+                                    newRecordType: "dataSource",
+                                    position: "top",
+                                    record: () => ({
+                                        id: Date.now(),
+                                    })
+                                }}
+                                editable={{
+                                    type: "multiple",
+                                    editableKeys,
+                                    onChange: setEditableRowKeys,
+                                    actionRender: (row, _, dom) => {
+                                        return [dom.delete];
+                                    }
+                                }}
+                            />
+                        </ProForm.Item>
+                    </Row>
+                    <Row style={gray}>
+                        <ProFormText label="小计" required rules={[{ required: true, message: "这是必填项" }]} name={"subTotal"} />
+                    </Row>
+                    <Row style={white}>
+                        <ProFormText label="税率" required rules={[{ required: true, message: "这是必填项" }]} name={"taxRate"} />
+                    </Row>
+                    <Row style={gray}>
+                        <ProFormText label="总计" required rules={[{ required: true, message: "这是必填项" }]} name={"total"} />
+                    </Row>
+                    <Row style={white}>
+                        <ProFormText label="报价提供人" required rules={[{ required: true, message: "这是必填项" }]} name={"provider"} />
+                    </Row>
+                    <Row style={gray}>
+                        <ProFormText label="签字" required rules={[{ required: true, message: "这是必填项" }]} name={"signature"} />
+                    </Row>
+                </ProForm>
+                {userRole === "CUSTOMER" ?
+                    <Form onFinish={() => {
+                        axios.post("/api/entrust/" + entrustId + "/quote/acceptance")
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("同意成功！");
+                                    // window.location.href = "/progress/" + this.state.entrustId;
+                                    history.goBack();
+                                } else {
+                                    alert("同意失败！");
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    alert("同意失败！");
+                                } else {
+                                    alert("同意失败！");
+                                    console.log("Unknown error!");
+                                }
+                            });
+                    }}>
+                        <Input type='submit' value='同意报价' />
+                    </Form>
+                    : ""}
+                {userRole === "CUSTOMER" ?
+                    <Form onFinish={() => {
+                        axios.post("/api/entrust/" + entrustId + "/quote/denial")
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("拒绝成功！");
+                                    // window.location.href = "/progress/" + this.state.entrustId;
+                                    history.goBack();
+                                } else {
+                                    alert("拒绝失败！");
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    alert("拒绝失败！");
+                                } else {
+                                    alert("拒绝失败！");
+                                    console.log("Unknown error!");
+                                }
+                            });
+                    }}>
+                        <Input type='submit' value='拒绝报价' />
+                    </Form>
+                    : ""}
+                {userRole === "MARKETER" ?
+                    <Form onFinish={() => {
+                        axios.post("/api/entrust/" + entrustId + "/quote/denial")
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("终止成功！");
+                                    // window.location.href = "/progress/" + this.state.entrustId;
+                                    history.goBack();
+                                } else {
+                                    alert("终止失败！");
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    alert("终止失败！");
+                                } else {
+                                    alert("终止失败！");
+                                    console.log("Unknown error!");
+                                }
+                            });
+                    }}>
+                        <Input type='submit' value='终止报价' />
+                    </Form>
+                    : ""}
+            </div>
+        </>
+    );
+}
+export default QuotationFill;
+/*class QuotationFill extends Component {
     //注意这个类，必须继承自Component
     constructor(props) {
         super(props)//调用父类的构造
         //设置属性，this.state,这是类的属性，为一个对象
         this.state = {
             //可以使用 this.state.属性在类内部使用
-            entrustmentId: props.match.params.id,
+            entrustId: props.match.params.id,
             quotationDate: "",
             effectiveDate: "",
             bankName: "中国工商银行股份有限公司南京汉口路分理处",
@@ -82,9 +296,9 @@ class QuotationFill extends Component {
 
 
     componentDidMount() {
-        console.log(this.state.entrustmentId);
-        if (this.state.entrustmentId !== undefined || this.state.entrustmentId !== null) {
-            axios.get("/api/entrust/" + this.state.entrustmentId)
+        console.log(this.state.entrustId);
+        if (this.state.entrustId !== undefined || this.state.entrustId !== null) {
+            axios.get("/api/entrust/" + this.state.entrustId)
                 .then((response) => {
                     if (response.status === 200) {
                         console.log(response.data);
@@ -209,6 +423,11 @@ class QuotationFill extends Component {
                             <Input type='submit' value='拒绝报价' />
                         </Form>
                         : ""}
+                    {userRole === "MARKETER" ?
+                        <Form onFinish={this.denial.bind(this)}>
+                            <Input type='submit' value='终止报价' />
+                        </Form>
+                        : ""}
                 </Card>
             </Fragment>
         )
@@ -260,18 +479,19 @@ class QuotationFill extends Component {
         }
     }
     denial(event) {
-        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/denial")
+        axios.post("/api/entrust/" + this.state.entrustId + "/quote/denial")
             .then((response) => {
                 if (response.status === 200) {
                     alert("拒绝成功！");
-                    window.location.href = "/progress/" + this.state.entrustmentId;
+                    // window.location.href = "/progress/" + this.state.entrustId;
+                    history.goBack();
                 } else {
                     alert("拒绝失败！");
                     console.log("Unknown error!");
                 }
             })
             .catch((error) => {
-                if (error.status === 400) {
+                if (error.response.status === 400) {
                     alert("拒绝失败！");
                 } else {
                     alert("拒绝失败！");
@@ -280,7 +500,7 @@ class QuotationFill extends Component {
             });
     }
     accept(event) {
-        // axios.post("/api/contract?entrustId=" + this.state.entrustmentId)
+        // axios.post("/api/contract?entrustId=" + this.state.entrustId)
         //             .then(function (response) {
         //                 if (response.status === 200) {
         //                     alert("合同创建成功！");
@@ -296,18 +516,19 @@ class QuotationFill extends Component {
         //                     console.log("Unknown error!");
         //                 }
         //             });
-        axios.post("/api/entrust/" + this.state.entrustmentId + "/quote/acceptance")
+        axios.post("/api/entrust/" + this.state.entrustId + "/quote/acceptance")
             .then((response) => {
                 if (response.status === 200) {
                     alert("同意成功！");
-                    window.location.href = "/progress/" + this.state.entrustmentId;
+                    // window.location.href = "/progress/" + this.state.entrustId;
+                    history.goBack();
                 } else {
                     alert("同意失败！");
                     console.log("Unknown error!");
                 }
             })
             .catch((error) => {
-                if (error.status === 400) {
+                if (error.response.status === 400) {
                     alert("同意失败！");
                 } else {
                     alert("同意失败！");
@@ -377,18 +598,19 @@ class QuotationFill extends Component {
         console.log(flag);
         console.log(this.state);
         if (flag === 0) {
-            axios.post("/api/entrust/" + this.state.entrustmentId + "/quote", this.state)
+            axios.post("/api/entrust/" + this.state.entrustId + "/quote", this.state)
                 .then((response) => {
                     if (response.status === 200) {
                         alert("提交成功！");
-                        window.location.href = "/progress/" + this.state.entrustmentId;
+                        // window.location.href = "/progress/" + this.state.entrustId;
+                        history.goBack();
                     } else {
                         alert("提交失败！");
                         console.log("Unknown error!");
                     }
                 })
                 .catch((error) => {
-                    if (error.status === 400) {
+                    if (error.response.status === 400) {
                         alert("提交失败！");
                     } else {
                         alert("提交失败！");
@@ -397,5 +619,4 @@ class QuotationFill extends Component {
                 });
         }
     }
-}
-export default QuotationFill;
+}*/

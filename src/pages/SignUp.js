@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Form, Input, Checkbox, Button, Alert } from "antd";
+import { history } from "umi";
 
 import localStorage from "localStorage";
 
@@ -49,7 +50,8 @@ export default class SignUp extends React.Component {
                                             localStorage.setItem("userName", userName);
                                             localStorage.setItem("userRole", "CUSTOMER");
 
-                                            window.location.href = "/";
+                                            // window.location.href = "/";
+                                            history.push("/");
                                         } else {
                                             console.log("Unknown error!");
                                         }
@@ -66,7 +68,7 @@ export default class SignUp extends React.Component {
                             }
                         })
                         .catch((error) => {
-                            if (error.status === 400) {
+                            if (error.response.status === 400) {
                                 console.log("登出失败！");
                             } else {
                                 console.log("Unknown error!");
