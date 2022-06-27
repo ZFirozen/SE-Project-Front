@@ -28,6 +28,7 @@ const Progress = () => {
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
+                    console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
                     switch (response.data.status.stage) {
@@ -499,7 +500,7 @@ const Progress = () => {
                     } else {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
-                            pathname: "/contract/verify",
+                            pathname: "/contract/display",
                             query: {
                                 contractId: contractId
                             }
