@@ -15,7 +15,7 @@ export default class Contract extends React.Component {
     this.upload = this.upload.bind(this);
   }
 
-  fileChange({ target }) {
+  fileChange({target}) {
     console.log(target.files);
     console.log(target.files[0]);
     this.setState({
@@ -34,7 +34,7 @@ export default class Contract extends React.Component {
       app.setState({
         fileUrl: res.data.data
       });
-    }, res => {
+    },res => {
       console.log(res);
     })
   }
@@ -43,10 +43,10 @@ export default class Contract extends React.Component {
     return (
       <div>
         <h2>Home</h2>
-        <input type="file" onChange={this.fileChange} multiple />
+        <input type="file" onChange={this.fileChange} multiple/>
         <button onClick={this.upload}>点击上传</button>
         <div>
-          <img width={'45'} src={this.state.fileUrl} alt="" />
+          <img width={'45'} src={this.state.fileUrl} alt=""/>
         </div>
       </div>
     );

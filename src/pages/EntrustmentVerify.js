@@ -11,8 +11,6 @@ import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layou
 import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
-import { history, useLocation } from "umi";
-
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
 const rowbegingap = 20
@@ -20,13 +18,12 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const EntrustmentVerify = () => {
+const EntrustmentVerify = (props) => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const embedregLength = 8
-  const location = useLocation();
-  const entrustId = location.query.entrustId;
+  const entrustmentId = props.match.params.id
   // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
   //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
   // }
@@ -41,7 +38,6 @@ const EntrustmentVerify = () => {
           //   render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
           // }}
           layout="horizontal"
-          scrollToFirstError="true"
           onFinish={async (values) => {
             let temp = values
             if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
@@ -65,8 +61,8 @@ const EntrustmentVerify = () => {
             temp = JSON.parse(temp)
             // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
             console.log(temp)
-            if (entrustId !== null) {
-              axios.post("/api/entrust/" + entrustId + "/content", temp).then(response => {
+            if (entrustmentId !== null) {
+              axios.post("/api/entrust/" + entrustmentId + "/content", temp).then(response => {
                 console.log(response)
                 message.success('提交修改成功');
               })
@@ -79,10 +75,10 @@ const EntrustmentVerify = () => {
           }}
           submitter={{ submitButtonProps: { style: { display: 'none' } }, resetButtonProps: { style: { display: 'none' } } }}
           request={async () => {
-            console.log(entrustId)
-            if (entrustId !== undefined) {
-              return axios.get("/api/entrust/" + entrustId).then(Detail => {
-                console.log("load from " + entrustId)
+            console.log(entrustmentId)
+            if (entrustmentId !== undefined) {
+              return axios.get("/api/entrust/" + entrustmentId).then(Detail => {
+                console.log("load from " + entrustmentId)
                 console.log(Detail.data.content)
                 var keysarray = []
                 if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
@@ -598,7 +594,6 @@ const EntrustmentVerify = () => {
         </ProForm>
 
         <ProForm
-          scrollToFirstError="true"
           onFinish={async (values) => {
             let temp = values
             console.log(temp)
@@ -621,34 +616,24 @@ const EntrustmentVerify = () => {
             console.log(temp)
             console.log(temp.acceptance)
 
-            axios.post("/api/entrust/" + entrustId + "/review", temp)
-              .then(response => {
-                console.log(response)
-              })
+            axios.post("/api/entrust/" + entrustmentId + "/review", temp).then(response => {
+              console.log(response)
+            })
             if (temp.acceptance === "2") {
-              axios.post("/api/entrust/" + entrustId + "/content/acceptance")
-                .then(response => {
-                  console.log(response)
-                  message.success('已受理委托');
-                  // window.location.href = "/progress/" + entrustId;
-                  history.goBack();
-                })
+              axios.post("/api/entrust/" + entrustmentId + "/content/acceptance").then(response => {
+                console.log(response)
+                message.success('已受理委托');
+              })
             } else if (temp.acceptance === "1") {
-              axios.post("/api/entrust/" + entrustId + "/content/denial?message=Denied:" + temp.confirmation)
-                .then(response => {
-                  console.log(response)
-                  message.error('已拒绝受理');
-                  // window.location.href = "/progress/" + entrustId;
-                  history.goBack();
-                })
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=denied with" + temp.confirmation).then(response => {
+                console.log(response)
+                message.success('已拒绝受理');
+              })
             } else {
-              axios.post("/api/entrust/" + entrustId + "/content/denial?message=KeepContact:" + temp.confirmation)
-                .then(response => {
-                  console.log(response)
-                  message.warning('进一步联系');
-                  // window.location.href = "/progress/" + entrustId;
-                  history.goBack();
-                })
+              axios.post("/api/entrust/" + entrustmentId + "/content/denial?message=keep contact with" + temp.confirmation).then(response => {
+                console.log(response)
+                message.success('进一步联系');
+              })
             }
           }} >
 
