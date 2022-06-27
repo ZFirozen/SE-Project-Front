@@ -25,7 +25,7 @@ const JS012 = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     const [editableKeys, setEditableRowKeys] = useState([]);
-
+    var projectId, entrustTestReviewId, id
     return (
         <>
             <div style={{ margin: 70 }}>
@@ -38,46 +38,67 @@ const JS012 = () => {
                     layout="horizontal"
                     scrollToFirstError="true"
                     onFinish={async (values) => {
-                        if (userRole !== "CUSTOMER") {
-                            axios.post("/api/review/entrustTest/" + entrustId, values)
-                                .then((response) => {
-                                    if (response.status === 200) {
-                                        alert("提交成功！");
-                                        // window.location.href = "/progress/" + this.state.entrustId;
-                                        history.goBack();
-                                    } else {
-                                        alert("提交失败！");
-                                        console.log("Unknown error!");
-                                    }
-                                })
-                                .catch((error) => {
-                                    if (error.response.status === 400) {
-                                        alert("提交失败！");
-                                    } else {
-                                        alert("提交失败！");
-                                        console.log("Unknown error!");
-                                    }
-                                });
-                        }
+                        console.log(contractId)
+                        values.id = id
+                        values.projectId = projectId
+                        console.log(values)
+                        axios.post("/api/review/entrustTest/" + entrustTestReviewId, values)
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    alert("提交成功！");
+                                    // window.location.href = "/progress/" + this.state.entrustId;
+                                    history.goBack();
+                                } else {
+                                    alert("提交失败！");
+                                    console.log("Unknown error!");
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.response.status === 400) {
+                                    alert("提交失败！");
+                                } else {
+                                    alert("提交失败！");
+                                    console.log("Unknown error!");
+                                }
+                            });
                     }}
                     request={async () => {
-                        console.log(entrustId)
-                        if (typeof entrustId !== "undefined") {
-                            return axios.get("/api/review/entrustTest/" + entrustId).then(Detail => {
-                                console.log("load from " + entrustId)
-                                console.log(Detail.data)
-                                if (Detail.data !== null)
-                                    return Detail.data
-                                else return {}
-                            }).catch(Error => {
-                                console.log(Error)
-                                return {}
+                        return axios.get("/api/entrust/" + entrustId)
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    console.log("success");
+                                    projectId = response.data.projectId
+                                }
+                                else {
+                                    console.log(response);
+                                }
+                                console.log(response.data)
+                                return response.data;
+                            }).then((entrust) => {
+                                return axios.get("/api/test/" + entrust.projectId)
+                                    .then((project) => {
+                                        console.log(project.data)
+                                        id = project.data.projectFormIds.workChecklistId
+                                        entrustTestReviewId = project.data.projectFormIds.workChecklistId
+                                        return project.data;
+                                    }).then((projectdata) => {
+                                        return axios.get("/api/review/entrustTest/" + projectdata.projectFormIds.workChecklistId)
+                                            .then((entrustTestReview) => {
+                                                return entrustTestReview.data;
+                                            }).catch((error) => {
+                                                console.log(error);
+                                                return {}
+                                            });
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        return {}
+                                    });
                             })
-                        }
-                        else {
-                            console.log("new Quotation")
-                            return {}
-                        }
+                            .catch((error) => {
+                                console.log(error);
+                                return {}
+                            });
                     }}
                 >
                     <Title level={3}>软件项目委托测试工作检查表</Title>
