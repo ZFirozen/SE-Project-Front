@@ -10,10 +10,12 @@ const { Step } = Steps;
 
 var contractId = "";
 var testId = "";
+var schemeId="";
 
 const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
+    testId=location.query.testId
     // const [marketerId, setMarketerId] = useState("");
     // const [customerId, setCustomerId] = useState("");
     // console.log(entrustId);
@@ -31,6 +33,14 @@ const Progress = () => {
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
+                    if (testId !== "")
+                    {
+                        setCurrentStage(2);
+                        setCurrentStep(0);
+                        setShowStage(2);
+                        getTestStatus();
+                    }
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
@@ -105,6 +115,7 @@ const Progress = () => {
             .then((response) => {
                 if (response.status === 200) {
                     console.log(contractId)
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "FILL_CONTRACT":
                             setCurrentStage(1);
@@ -166,6 +177,11 @@ const Progress = () => {
             .then((response) => {
                 if (response.status === 200) {
                     console.log(testId)
+                    schemeId=response.data.projectFormIds.testSchemeId
+                    console.log(response.data.projectFormIds.testSchemeId)
+                    console.log(response.data.projectFormIds.workChecklistId)
+                    console.log(response.data.projectFormIds.testSchemeChecklistId)
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_QA":
                             setCurrentStage(2);
@@ -520,8 +536,27 @@ const Progress = () => {
                             }
                         })
                     }
+                    else{
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
                 } else {
+                    if(userRole === "CUSTOMER")
+                    {
                     alert("您没有权限访问！");
+                    }
+                    else{
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
                 }
                 break;
             default:
@@ -550,9 +585,9 @@ const Progress = () => {
                     if (currentStage === 2 && currentStep === 1) {
                         // window.location.href = "/contract/fill/" + entrustId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/scheme",
                             query: {
-                                testId: testId
+                                schemeId: schemeId
                             }
                         })
                     } else {
@@ -573,7 +608,7 @@ const Progress = () => {
                     if (currentStage === 2 && currentStep === 2) {
                         // window.location.href = "/contract/verify/" + entrustId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/verify",
                             query: {
                                 testId: testId
                             }

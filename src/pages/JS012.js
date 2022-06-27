@@ -24,6 +24,8 @@ const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "
 const JS012 = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
+    console.log(location.query.entrustId)
+    console.log(entrustId)
     const [editableKeys, setEditableRowKeys] = useState([]);
     var projectId, entrustTestReviewId, id
     return (
