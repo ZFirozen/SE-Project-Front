@@ -6,12 +6,16 @@
 /.pnp
 .pnp.js
 /src/.umi
+/dist
+/src/.umi-production/.cache
 
 # testing
 /coverage
 
 # production
 /build
+/dist/
+dist.zip
 
 # misc
 .DS_Store
