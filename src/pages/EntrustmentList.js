@@ -8,6 +8,7 @@ import axios from 'axios';
 import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
+import { history } from "umi";
 
 var columns = [
     {
@@ -15,7 +16,7 @@ var columns = [
         dataIndex: 'id',
         key: 'id',
         // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
-        render: (a) => <Link to={"display/" + a}>{a}</Link>
+        render: (a) => <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/display", query: { entrustId: a } }) }}>{a} </Button>
     },
     {
         title: '客户ID',

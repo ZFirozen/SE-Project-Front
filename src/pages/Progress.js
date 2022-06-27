@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";

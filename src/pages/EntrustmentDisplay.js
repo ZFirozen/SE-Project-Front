@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect } from 'antd';
 import { BorderBottomOutlined, PlusOutlined } from '@ant-design/icons';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from '@ant-design/pro-form';
@@ -11,24 +11,31 @@ import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layou
 import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
-import { useLocation } from 'react-router';
+import { useLocation } from 'umi';
+
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
 const rowbegingap = 20
 const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
+var entrustId = ""
 
 const EntrustmentDisplay = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const embedregLength = 8
-  const location = useLocation();
-  const entrustId = location.query.entrustId;
+
   // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
   //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
   // }
+
+  useMemo(() => {
+    const location = useLocation();
+    entrustId = location.query.entrustId;
+  }, [])
+
   return (
     <>
       <div style={{ margin: 70 }}>

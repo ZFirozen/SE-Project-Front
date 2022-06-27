@@ -453,7 +453,7 @@ export default defineConfig({
         {
           name: 'upload',
           icon: 'smile',
-          path: '/contract/upload/:enid',
+          path: '/contract/upload',
           component: './ContractUpload',
         },
       ],
