@@ -4,7 +4,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import moment from "moment";
 import { Form, Typography, Descriptions, Badge, Card, Row, Radio, Input, Button } from 'antd';
-import { history } from "umi";
 //import type { RadioChangeEvent } from 'antd';
 import { RadiusUpleftOutlined } from '@ant-design/icons';
 const { Title } = Typography;
@@ -203,8 +202,7 @@ export default class ContractVerify extends React.Component {
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("同意合同！");
-                                    // window.location.href = "/progress/" + this.state.entrustId;
-                                    history.goBack();
+                                    window.location.href = "/progress/" + this.state.entrustId;
                                 } else {
                                     console.log("Unknown error!");
                                 }
@@ -222,8 +220,7 @@ export default class ContractVerify extends React.Component {
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("拒绝合同！");
-                                    // window.location.href = "/progress/" + this.state.entrustId;
-                                    history.goBack();
+                                    window.location.href = "/progress/" + this.state.entrustId;
                                 } else {
                                     console.log("Unknown error!");
                                 }

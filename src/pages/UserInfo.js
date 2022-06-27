@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Button, Descriptions, Table, Typography, Select, Input, Form } from "antd";
 import localStorage from "localStorage";
-import { history } from "umi";
 
 axios.defaults.withCredentials = true;
 
@@ -109,9 +108,11 @@ export default class UserInfo extends React.Component {
         this.onSearchModeChange = this.onSearchModeChange.bind(this);
         this.onSearchTextChange = this.onSearchTextChange.bind(this);
         this.onSearch = this.onSearch.bind(this);
+        // this.handleSave = this.handleSave.bind(this);
     }
 
     componentDidMount() {
+        // console.log(process.env);
         axios.get("/api/account")
             .then((response) => {
                 if (response.status === 200) {
@@ -153,8 +154,7 @@ export default class UserInfo extends React.Component {
                     if (this.state.isLoggedIn) {
                         this.setState({ isLoggedIn: false });
                     }
-                    // window.location.href = '../ourlogin'
-                    history.push("/ourlogin");
+                    window.location.href = '../ourlogin'
                 } else {
                     console.log("Unknown error1!");
                 }
@@ -200,6 +200,7 @@ export default class UserInfo extends React.Component {
 
 
     render() {
+        // console.log(this.state.isLoggedIn);
         const userId = this.state.userId;
         const userName = this.state.userName;
         const userRole = this.state.userRole;
@@ -254,8 +255,10 @@ export default class UserInfo extends React.Component {
                     axios.post("/api/account/role?userName=" + row.userName + "&newValue=" + row.userRole)
                         .then((response) => {
                             if (response.status === 200) {
+                                // console.log(row, row.key);
                                 const newData = [...this.state.data];
                                 const index = newData.findIndex((item) => row.userId === item.userId);
+                                // console.log(index);
                                 const item = newData[index];
                                 newData.splice(index, 1, { ...item, ...row });
                                 this.setState({ data: newData });

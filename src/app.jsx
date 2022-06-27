@@ -17,12 +17,12 @@ export const initialStateConfig = {
 
 export async function getInitialState() {
   const fetchUserInfo = async () => {
-    // try {
-    //   const msg = await queryCurrentUser();
-    //   return msg.data;
-    // } catch (error) {
-    //   //history.push(loginPath);
-    // }
+    try {
+      const msg = await queryCurrentUser();
+      return msg.data;
+    } catch (error) {
+      //history.push(loginPath);
+    }
 
     return undefined;
   }; // 如果是登录页面，不执行
@@ -59,15 +59,15 @@ export const layout = ({ initialState }) => {
     },
     links: isDev
       ? [
-        <Link to="/umi/plugin/openapi" target="_blank">
-          <LinkOutlined />
-          <span>OpenAPI 文档</span>
-        </Link>,
-        <Link to="/~docs">
-          <BookOutlined />
-          <span>业务组件文档</span>
-        </Link>,
-      ]
+          <Link to="/umi/plugin/openapi" target="_blank">
+            <LinkOutlined />
+            <span>OpenAPI 文档</span>
+          </Link>,
+          <Link to="/~docs">
+            <BookOutlined />
+            <span>业务组件文档</span>
+          </Link>,
+        ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面

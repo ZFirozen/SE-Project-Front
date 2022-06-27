@@ -15,7 +15,7 @@ var columns = [
         dataIndex: 'id',
         key: 'id',
         // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
-        render: (a) => <Link to={"display/" + a}>{a}</Link>
+        render: (a) => <Link to={"entrustment/" + a}>{a}</Link>
     },
     {
         title: '客户ID',
@@ -54,85 +54,34 @@ var columns = [
         ellipsis: false,
     },
 ];
-console.log(localStorage.getItem("userRole") + ' visit')
+console.log(localStorage.getItem("userRole")+' visit')
 switch (localStorage.getItem("userRole")) {
     case "MARKETING_SUPERVISOR":
         columns = [...columns, {
             title: '操作',
             search: false,
-            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
-            render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Link to={"./assign/" + a.id}>分派</Link> : null
-        }]
-        break
-    case "TESTING_SUPERVISOR":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
-            render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Link to={"./assign/" + a.id}>分派</Link> : null
+            render: (a) => <Link to={"assign/" + a}>分派</Link>
         }]
         break
     case "CUSTOMER":
         columns = [...columns, {
             title: '操作',
             search: false,
-            render: (a) => {
-                if (a.status.stage == "MARKETER_DENIED" || a.status.stage == "TESTER_DENIED") {
-                    return (
-                        <>
-                            <Link to={"fill/" + a.id}>修改委托</Link>
-                            <br />
-                            <Link to={"../progress/" + a.id}>查看进度</Link>
-                        </>
-                    )
-                }
-                return (
-                    <>
-                        <Link to={"../progress/" + a.id}>查看进度</Link>
-                    </>
-                )
-            }
-
-        }]
-        break
-    case "MARKETER":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    case "TESTER":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.id}>查看</Link>
-                    </>
-                )
-            }
+            render: (a) => <Link to={"entrustment/" + a.id}>修改</Link>
         }]
         break
     default:
         break
 }
 
-const EntrustmentList = () => {
+const Entrustment = () => {
     return (
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
                 <ProTable columns={columns} style={{ margin: 20 }}
 
                     request={async (params, sort, filter) => {
-                        return axios.get("/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
+                        return axios.get(process.env.REACT_APP_BACKEND_SERVER + "/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
                             pageSize: params.pageSize,
                         }).then(response => {
@@ -156,4 +105,4 @@ const EntrustmentList = () => {
     );
 }
 
-export default EntrustmentList;
+export default Entrustment;
