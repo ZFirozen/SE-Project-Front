@@ -493,13 +493,13 @@ const Progress = () => {
                         history.push({
                             pathname: "/contract/verify",
                             query: {
-                                entrustId: entrustId
+                                contractId: contractId
                             }
                         })
                     } else {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
-                            pathname: "/contract/display",
+                            pathname: "/contract/verify",
                             query: {
                                 contractId: contractId
                             }
