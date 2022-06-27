@@ -415,6 +415,18 @@ export default defineConfig({
           component: './TestVerify',
           hideInMenu: true,
         },
+        {
+          name: 'js012',
+          icon: 'smile',
+          path: '/test/workcheck',
+          component: './JS012',
+        },
+        {
+          name: 'test scheme',
+          icon: 'smile',
+          path: '/test/scheme',
+          component: './testingTable/JS006',
+        },
       ],
     },
     {
@@ -462,24 +474,6 @@ export default defineConfig({
           icon: 'smile',
           path: '/contract/upload',
           component: './ContractUpload',
-        },
-      ],
-    },
-    {
-      name: 'test',
-      icon: 'highlight',
-      path: '/test',
-      hideInMenu: true,
-      routes: [
-        {
-          path: '/test',
-          redirect: '/',
-        },
-        {
-          name: 'test scheme',
-          icon: 'smile',
-          path: '/test/scheme',
-          component: './testingTable/JS006',
         },
       ],
     },
