@@ -65,7 +65,7 @@ const changeColumns = () => {
                 title: '操作',
                 search: false,
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
-                render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Link to={"./assign?entrustId=" + a.id}>分派</Link> : null
+                render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/assign", query: { entrustId: a.id } }) }}>分派</Button> : null
             }]
             break
         case "TESTING_SUPERVISOR":
@@ -73,7 +73,7 @@ const changeColumns = () => {
                 title: '操作',
                 search: false,
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
-                render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Link to={"./assign?entrustId=" + a.id}>分派</Link> : null
+                render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/assign", query: { entrustId: a.id } }) }}>分派</Button> : null
             }]
             break
         case "CUSTOMER":
@@ -84,15 +84,15 @@ const changeColumns = () => {
                     if (a.status.stage == "MARKETER_DENIED" || a.status.stage == "TESTER_DENIED") {
                         return (
                             <>
-                                <Link to={"fill?entrustId=" + a.id}>修改委托</Link>
+                                <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/fill", query: { entrustId: a.id } }) }}>修改委托</Button>
                                 <br />
-                                <Link to={"/progress?entrustId=" + a.id}>查看进度</Link>
+                                <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                             </>
                         )
                     }
                     return (
                         <>
-                            <Link to={"/progress?entrustId=" + a.id}>查看进度</Link>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                         </>
                     )
                 }
@@ -106,7 +106,7 @@ const changeColumns = () => {
                 render: (a) => {
                     return (
                         <>
-                            <Link to={"/progress?entrustId=" + a.id}>查看</Link>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
                         </>
                     )
                 }
@@ -119,7 +119,7 @@ const changeColumns = () => {
                 render: (a) => {
                     return (
                         <>
-                            <Link to={"/progress?entrustId=" + a.id}>查看</Link>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
                         </>
                     )
                 }

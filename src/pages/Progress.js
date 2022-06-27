@@ -10,12 +10,12 @@ const { Step } = Steps;
 
 var contractId = "";
 var testId = "";
-var schemeId="";
+var schemeId = "";
 
 const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
-    testId=location.query.testId
+    testId = location.query.testId
     // const [marketerId, setMarketerId] = useState("");
     // const [customerId, setCustomerId] = useState("");
     // console.log(entrustId);
@@ -27,14 +27,19 @@ const Progress = () => {
     const userRole = localStorage.getItem("userRole");
 
     const getEntrustmentStatus = () => {
+        if (testId !== "") {
+            setCurrentStage(2);
+            setCurrentStep(0);
+            setShowStage(2);
+            getTestStatus();
+        }
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
-                    if (testId !== "")
-                    {
+                    if (testId !== "") {
                         setCurrentStage(2);
                         setCurrentStep(0);
                         setShowStage(2);
@@ -166,6 +171,12 @@ const Progress = () => {
 
 
                 }
+                else if(response.status === 403){
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    getTestStatus();
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -177,7 +188,7 @@ const Progress = () => {
             .then((response) => {
                 if (response.status === 200) {
                     console.log(testId)
-                    schemeId=response.data.projectFormIds.testSchemeId
+                    schemeId = response.data.projectFormIds.testSchemeId
                     console.log(response.data.projectFormIds.testSchemeId)
                     console.log(response.data.projectFormIds.workChecklistId)
                     console.log(response.data.projectFormIds.testSchemeChecklistId)
@@ -536,7 +547,7 @@ const Progress = () => {
                             }
                         })
                     }
-                    else{
+                    else {
                         history.push({
                             pathname: "/test/workcheck",
                             query: {
@@ -545,11 +556,10 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    if(userRole === "CUSTOMER")
-                    {
-                    alert("您没有权限访问！");
+                    if (userRole === "CUSTOMER") {
+                        alert("您没有权限访问！");
                     }
-                    else{
+                    else {
                         history.push({
                             pathname: "/test/workcheck",
                             query: {
