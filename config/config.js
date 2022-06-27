@@ -408,6 +408,13 @@ export default defineConfig({
           path: '/test/list',
           component: './TestList',
         },
+        {
+          name: 'verify',
+          icon: 'smile',
+          path: '/test/verify',
+          component: './TestVerify',
+          hideInMenu: true,
+        },
       ],
     },
     {
