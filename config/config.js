@@ -429,6 +429,13 @@ export default defineConfig({
           component: './testingTable/JS006',
           hideInMenu: true,
         },
+        {
+          name: 'js010',
+          icon: 'smile',
+          path: '/test/reportcheck',
+          component: './testingTable/JS010',
+          hideInMenu: true,
+        },
       ],
     },
     {
