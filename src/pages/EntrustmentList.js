@@ -8,6 +8,7 @@ import axios from 'axios';
 import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
+import { history } from "umi";
 
 var defaultcolumns = [
     {
