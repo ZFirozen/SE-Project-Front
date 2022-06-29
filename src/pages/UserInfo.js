@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Descriptions, Table, Typography, Select, Input, Form } from "antd";
 import localStorage from "localStorage";
 import { history } from "umi";
+import ProForm, { ProFormText } from "@ant-design/pro-form";
 
 axios.defaults.withCredentials = true;
 
@@ -230,6 +231,62 @@ export default class UserInfo extends React.Component {
                             <Descriptions.Item label="用户名">{userName}</Descriptions.Item>
                             <Descriptions.Item label="用户角色">{userRole}</Descriptions.Item>
                         </Descriptions >
+                        <br />
+                        <Title level={5}>修改用户名</Title>
+                        <br />
+                        <ProForm
+                            layout="horizontal"
+                            scrollToFirstError="true"
+                            onFinish={(values) => {
+                                console.log(values.newName);
+                                axios.post("/api/account/username?newValue=" + values.newName)
+                                    .then((response) => {
+                                        if (response.status === 200) {
+                                            this.setState({ userName: values.newName });
+                                            localStorage.setItem("userName", values.newName);
+                                            alert("用户名修改成功！");
+                                        } else {
+                                            console.log("用户名修改成功？");
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        if (error.response.status === 400) {
+                                            alert("用户名已存在！\n请重新输入新的用户名！");
+                                        } else {
+                                            alert("用户名修改失败！");
+                                        }
+                                    })
+                            }}
+                        >
+                            <ProFormText width="md" required rules={[{ required: true, message: "这是必填项" }]} name={"newName"} label="新用户名" />
+                        </ProForm>
+                        <br />
+                        <Title level={5}>修改密码</Title>
+                        <br />
+                        <ProForm
+                            layout="horizontal"
+                            scrollToFirstError="true"
+                            onFinish={(values) => {
+                                console.log(values.oldPassword, values.newPassword);
+                                axios.post("/api/account/password?oldValue=" + values.oldPassword + "&newValue=" + values.newPassword)
+                                    .then((response) => {
+                                        if (response.status === 200) {
+                                            alert("密码修改成功！");
+                                        } else {
+                                            console.log("密码修改成功？");
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        alert("密码修改失败！\n请重新输入密码！");
+                                        if (error.response.status !== 400) {
+                                            console.log("unknown error!");
+                                        }
+                                    })
+                            }}
+                        >
+                            <ProFormText.Password width="md" required rules={[{ required: true, message: "这是必填项" }]} name={"oldPassword"} label="旧密码" />
+                            <ProFormText.Password width="md" required rules={[{ required: true, message: "这是必填项" }]} name={"newPassword"} label="新密码" />
+                        </ProForm>
                     </div>
                 )
             } else {
