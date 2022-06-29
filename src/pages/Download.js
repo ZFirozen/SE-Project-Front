@@ -4,6 +4,7 @@ import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select,
 import { BorderBottomOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { history, useLocation } from "umi";
+import { error } from "jquery";
 
 const Download = () => {
   const location = useLocation();
@@ -17,7 +18,6 @@ const Download = () => {
   var testIssueId = undefined
   var entrustTestReviewId = undefined
   var schemeReviewId = undefined
-  // window.open()
 
   const getId = () => {
     axios.get("/api/entrust/" + entrustId)
@@ -53,8 +53,153 @@ const Download = () => {
       <Button size="large" onClick={() => {
         axios.get("/api/doc/JS001").then(response => {
           console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
         })
       }}>JS001</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS002/"+entrustId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS002</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS003/"+entrustId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS003</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS004/"+contractId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS004</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS005/"+contractId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS005</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS006/"+schemeId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS006</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS007/"+reportId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS007</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS008/"+testcaseId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS008</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS009/"+testRecordId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS009</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS010/"+reportReviewId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS010</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS011/"+testIssueId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS011</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS012/"+entrustTestReviewId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS012</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS013/"+schemeReviewId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS013</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/JS014/"+entrustId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>JS014</Button>
+      <Button size="large" onClick={() => {
+        axios.get("/api/doc/entrustQuote/"+entrustId).then(response => {
+          console.log(response)
+          window.open(response.data)
+          message.success("文件下载成功")
+        }).catch(error=>{
+          console.log(error)
+          message.error("文件下载失败")
+        })
+      }}>委托报价单</Button>
     </>
   );
 }
