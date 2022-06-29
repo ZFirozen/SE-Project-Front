@@ -54,7 +54,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
-                render: (a) => a.status.stage == "RECEIVED" ? <Button type='link' onClick={() => { history.push({ pathname: "/sample/fill", query: { sampleId: a.id } }) }}>更新</Button> : null
+                render: (a) => a.stage == "RECEIVED" ? <Button type='link' onClick={() => { history.push({ pathname: "/sample/fill", query: { sampleId: a.id } }) }}>更新</Button> : null
             }]
             break
         default:

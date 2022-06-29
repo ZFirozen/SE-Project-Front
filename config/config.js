@@ -449,6 +449,12 @@ export default defineConfig({
           path: '/sample/list',
           component: './SampleList',
         },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/sample/fill',
+          component: './SampleFill',
+        },
       ]
     },
     {
