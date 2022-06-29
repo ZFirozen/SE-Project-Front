@@ -16,13 +16,8 @@ const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     testId = location.query.testId
-    // const [marketerId, setMarketerId] = useState("");
-    // const [customerId, setCustomerId] = useState("");
-    // console.log(entrustId);
-    // const entrustId = useLocation().pathname.match("(?<=/progress/).+").at(0)
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
-    const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
 
@@ -171,7 +166,7 @@ const Progress = () => {
 
 
                 }
-                else if(response.status === 403){
+                else if (response.status === 403) {
                     setCurrentStage(2);
                     setCurrentStep(0);
                     setShowStage(2);
@@ -282,9 +277,6 @@ const Progress = () => {
                         .then((response) => {
                             if (response.status === 200) {
                                 alert("测试项目创建成功！");
-                                // setContractId(response.data.contractId);
-                                // setMarketerId(response.data.marketerId);
-                                // setCustomerId(response.data.customerId);
                                 console.log("create test success");
                             } else {
                                 console.log("Unknown error!");
@@ -298,7 +290,6 @@ const Progress = () => {
                             }
                         }).finally((response) => {
                             console.log(response);
-                            // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;   
                         });
                 }
             })
@@ -666,14 +657,14 @@ const Progress = () => {
                 break;
             case 5:
                 if (userRole === "QA") {
-                    if (currentStage === 2 && currentStep === 5) {
-                        history.push({
-                            pathname: "/test/",
-                            query: {
-                                testId: testId
-                            }
-                        });
-                    }
+                    // if (currentStage === 2 && currentStep === 5) {
+                    history.push({
+                        pathname: "/test/reportcheck",
+                        query: {
+                            testId: testId
+                        }
+                    });
+                    // }
                 } else {
                     alert("您没有权限访问！");
                 }

@@ -16,20 +16,9 @@ const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "
 
 const JS010 = () => {
     const location = useLocation();
-    const entrustId = location.query.entrustId;//TODO
+    const testId = location.query.testId;//TODO
     const [pass, setPass] = useState([true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
-    var projectId = "";//TODO
-
-    const options = [
-        {
-            label: "通过",
-            value: true,
-        },
-        {
-            label: "不通过",
-            value: false,
-        },
-    ]
+    var reportReviewId = "";//TODO
 
     return (
         <>
@@ -37,19 +26,15 @@ const JS010 = () => {
                 <ProForm
                     size="large"
                     style={{ font: "initial", border: "3px solid" }}
-                    // submitter={{
-                    //   render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
-                    // }}
                     layout="horizontal"
                     scrollToFirstError="true"
                     onFinish={async (values) => { //TODO
-                        values.projectId = projectId
+                        values.projectId = testId
                         console.log(values)
-                        axios.post("/api/review/report/" + entrustTestReviewId, values)
+                        axios.post("/api/review/report/" + reportReviewId, values)
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("提交成功！");
-                                    // window.location.href = "/progress/" + this.state.entrustId;
                                     history.goBack();
                                 } else {
                                     alert("提交失败！");
@@ -66,43 +51,18 @@ const JS010 = () => {
                             });
                     }}
                     request={async () => {
-                        return axios.get("/api/entrust/" + entrustId)
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    console.log("success");
-                                    projectId = response.data.projectId
-                                }
-                                else {
-                                    console.log(response);
-                                }
-                                console.log(response.data)
-                                return response.data;
-                            }).then((entrust) => { //TODO
-                                return axios.get("/api/test/" + entrust.projectId)
-                                    .then((project) => {
-                                        console.log(project.data)
-                                        id = project.data.projectFormIds.workChecklistId
-                                        entrustTestReviewId = project.data.projectFormIds.workChecklistId
-                                        return project.data;
-                                    }).then((projectdata) => {
-                                        return axios.get("/api/review/entrustTest/" + projectdata.projectFormIds.workChecklistId)
-                                            .then((entrustTestReview) => {
-                                                return entrustTestReview.data;
-                                            }).catch((error) => {
-                                                console.log(error);
-                                                return {}
-                                            });
-                                    })
-                                    .catch((error) => {
-                                        console.log(error);
-                                        return {}
-                                    });
+                        return axios.get("/api/test/" + testId)
+                            .then((project) => {
+                                console.log(project.data)
+                                reportReviewId = project.data.projectFormIds.testReportChecklistId
+                                return {};
                             })
                             .catch((error) => {
                                 console.log(error);
                                 return {}
                             });
-                    }}
+                    }
+                    }
                 >
                     <Title level={3} style={gray}>测试报告检查表</Title>
                     <Col style={white}>
