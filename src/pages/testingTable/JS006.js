@@ -9,8 +9,9 @@ import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layou
 import { SmileOutlined } from '@ant-design/icons';
 import { EditableProTable } from '@ant-design/pro-table';
 import { useRefFunction } from '@ant-design/pro-utils';
-import { DEFAULT_DATA } from '@antv/l7-source';
+import { dateSend, dateReceived } from './components/dateTranslate';
 import { history, useLocation } from "umi";
+import moment from 'moment';
 
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
@@ -19,24 +20,7 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const defaultModificationData = [
-    {
-        id: 1,
-        version: '1.0.0',
-        date: '2022-06-06',
-        method: 'open',
-        modifier: 'zyc',
-        illustration: 'nothing to declare',
-    },
-    {
-        id: 2,
-        version: '2.0.0',
-        date: '2022-06-07',
-        method: 'closed',
-        modifier: 'zyc',
-        illustration: 'nothing to declare',
-    },
-];
+const defaultModificationData = [];
 const modificationColumns = [
     {
         title: '版本号',
@@ -46,6 +30,7 @@ const modificationColumns = [
     {
         title: '日期',
         dataIndex: 'date',
+        valueType: 'date',
     },
     {
         title: '更改方法',
@@ -77,30 +62,22 @@ const defaultTestData = [
     {
         id: 1,
         milestoneQuest: '制定测试计划',
-        workload: '1',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
+        workload: '',
     },
     {
         id: 2,
         milestoneQuest: '设计测试计划',
-        workload: '2',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
+        workload: '',
     },
     {
         id: 3,
         milestoneQuest: '执行测试计划',
-        workload: '3',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
+        workload: '',
     },
     {
         id: 4,
         milestoneQuest: '评估测试计划',
-        workload: '4',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
+        workload: '',
     },
 ];
 const testColumns = [
@@ -117,99 +94,25 @@ const testColumns = [
     {
         title: '开始时间',
         dataIndex: 'startDate',
+        valueType: 'date',
         editable: true,
+        // formItemProps: (form, config) => {
+        //     const dateValid = (current) => {
+        //         return current < moment().subtract(29, 'days')
+        //         if (form.getFieldValue(config.rowKey)?.endDate) {
+        //             return current && current < form.getFieldValue(config.rowKey)?.endDate
+        //         } else {
+        //             return true
+        //         }
+        //     }
+        //     return { disabledDate: dateValid };
+        // },
     },
     {
         title: '结束时间',
         dataIndex: 'endDate',
+        valueType: 'date',
         editable: true,
-    },
-];
-
-const defaultModificationList = [
-    {
-        id: 1,
-        version: '1.0.0',
-        date: '2022-06-06',
-        method: 'A',
-        modifier: 'zyc',
-        illustration: 'nothing to declare',
-    }
-];
-const defaultTestProgress = [
-    {
-        id: 1,
-        workload: '1',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
-    },
-    {
-        id: 2,
-        workload: '2',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
-    },
-    {
-        id: 3,
-        workload: '3',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
-    },
-    {
-        id: 4,
-        workload: '4',
-        startDate: '2022-06-05',
-        endDate: '2022-06-06',
-    },
-];
-
-const modificationItem = [
-    {
-        title: '版本号',
-        dataIndex: 'version',
-        width: 200,
-    },
-    {
-        title: '日期',
-        dataIndex: 'date',
-    },
-    {
-        title: '更改方法',
-        dataIndex: 'method',
-    },
-    {
-        title: '修改人名',
-        dataIndex: 'modifier',
-    },
-    {
-        title: '说明信息',
-        dataIndex: 'illustration',
-    },
-    {
-        title: '操作',
-        valueType: 'option',
-        width: 100,
-        render: (text, record, _, action) => [
-            <a key="delete" onClick={() => {
-                setModificationDataSourse(modificationDataSourse.filter((item) => item.id !== record.id));
-            }}>
-                删除
-            </a>,
-        ],
-    },
-];
-const testItem = [
-    {
-        title: '工作量',
-        dataIndex: 'workload',
-    },
-    {
-        title: '开始时间',
-        dataIndex: 'startDate',
-    },
-    {
-        title: '结束时间',
-        dataIndex: 'endDate',
     },
 ];
 
@@ -221,14 +124,6 @@ const JS006Fill = () => {
     const [modificationEditableKeys, setModificationEditableRowKeys] = useState(() => defaultModificationData.map((item) => item.id));
     const [testEditableKeys, setTestEditableRowKeys] = useState(() => defaultTestData.map((item) => item.id));
 
-    const [modificationKeys, setModificationKeys] = useState(() =>
-        defaultModificationList.map((item) => item.id));
-    const [testProgressKeys, setTestProgressKeys] = useState(() =>
-        defaultTestProgress.map((item) => item.id));
-    const [modificationDataSourse, setModificationDataSourse] = useState(() =>
-        defaultModificationList);
-    const [testDataSource, setTestDataSource] = useState(() =>
-        defaultTestProgress);
     const removeRow = useRefFunction((record) => {
         setDataSource(loopDataSourceFilter(modificationDataSource, record.id));
     });
@@ -246,15 +141,34 @@ const JS006Fill = () => {
                     scrollToFirstError="true"
                     onFinish={async (values) => {
                         let temp = values
+                        for (var i in temp.modificationList) {
+                            temp.modificationList[i].date = dateSend(temp.modificationList[i].date)
+                        }
+                        for (var i in temp.testProgress) {
+                            delete temp.testProgress[i].id
+                            delete temp.testProgress[i].milestoneQuest
+                        }
+                        temp.planSchedule = temp.testProgress[0]
+                        temp.designSchedule = temp.testProgress[1]
+                        temp.executeSchedule = temp.testProgress[2]
+                        temp.evaluateSchedule = temp.testProgress[3]
+                        temp.planSchedule.startDate = dateSend(temp.planSchedule.startDate)
+                        temp.designSchedule.startDate = dateSend(temp.designSchedule.startDate)
+                        temp.executeSchedule.startDate = dateSend(temp.executeSchedule.startDate)
+                        temp.evaluateSchedule.startDate = dateSend(temp.evaluateSchedule.startDate)
+                        temp.planSchedule.endDate = dateSend(temp.planSchedule.endDate)
+                        temp.designSchedule.endDate = dateSend(temp.designSchedule.endDate)
+                        temp.executeSchedule.endDate = dateSend(temp.executeSchedule.endDate)
+                        temp.evaluateSchedule.endDate = dateSend(temp.evaluateSchedule.endDate)
+                        delete temp.testProgress
+
                         temp = JSON.stringify(temp)
                         temp = JSON.parse(temp)
-                        // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
-                        console.log(2, temp)
+                        console.log(temp)
                         if (typeof schemeId !== "undefined") {
                             axios.post("/api/test/scheme/" + schemeId + "/content", temp).then(response => {
                                 console.log(response)
                                 message.success('修改成功');
-                                // window.location.href = '/progress/' + schemeId
                                 history.goBack();
                             })
                         } else {
@@ -274,12 +188,22 @@ const JS006Fill = () => {
                                 detail.data.content.executeSchedule.id = 3
                                 detail.data.content.evaluateSchedule.id = 4
                                 setModificationEditableRowKeys(testKeysArray)
+                                for (var i in detail.data.content.modificationList) {
+                                    i.date = dateReceived(i.date)
+                                }
                                 let modificationKeysArray = [...detail.data.content.modificationList.map(
                                     (item) => item.version
                                 )]
                                 setModificationEditableRowKeys(modificationKeysArray)
 
-                                // TODO: switch date format
+                                detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
+                                detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
+                                detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
+                                detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
+                                detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
+                                detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
+                                detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
+                                detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
 
                                 return JSON.parse(JSON.stringify(detail.data.content))
                             }).catch(Error => {

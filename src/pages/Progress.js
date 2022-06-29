@@ -113,6 +113,7 @@ const Progress = () => {
     const getContractStatus = () => {
         axios.get("/api/contract/" + contractId)
             .then((response) => {
+                console.log(response);
                 if (response.status === 200) {
                     console.log(contractId)
                     console.log(response.data.status.stage)
@@ -167,6 +168,7 @@ const Progress = () => {
 
                 }
                 else if (response.status === 403) {
+                    console.log("yes!403!");
                     setCurrentStage(2);
                     setCurrentStep(0);
                     setShowStage(2);
@@ -175,6 +177,13 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
+                if (error.response.status === 403) {
+                    console.log("yes!403!");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    getTestStatus();
+                }
             })
     }
 
