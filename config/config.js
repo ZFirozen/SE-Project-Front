@@ -454,6 +454,14 @@ export default defineConfig({
           icon: 'smile',
           path: '/sample/fill',
           component: './SampleFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'display',
+          icon: 'smile',
+          path: '/sample/display',
+          component: './SampleDisplay',
+          hideInMenu: true,
         },
       ]
     },
