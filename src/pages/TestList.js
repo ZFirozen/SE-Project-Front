@@ -64,7 +64,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                    <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
                     </>
                 )
             }
@@ -77,7 +77,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                    <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
                     </>
                 )
             }
@@ -98,7 +98,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                    <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
                     </>
                 )
             }
@@ -111,7 +111,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                    <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
                     </>
                 )
             }
@@ -124,7 +124,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                    <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
                     </>
                 )
             }
@@ -137,7 +137,7 @@ switch (localStorage.getItem("userRole")) {
             render: (a) => {
                 return (
                     <>
-                    <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { testId: a.id } }) }}>查看</Button>
+                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { testId: a.id } }) }}>查看</Button>
                     </>
                 )
             }

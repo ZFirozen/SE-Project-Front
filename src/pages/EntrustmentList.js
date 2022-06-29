@@ -92,7 +92,7 @@ const changeColumns = () => {
                     }
                     return (
                         <>
-                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                         </>
                     )
                 }
@@ -106,7 +106,7 @@ const changeColumns = () => {
                 render: (a) => {
                     return (
                         <>
-                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
                         </>
                     )
                 }
@@ -119,7 +119,7 @@ const changeColumns = () => {
                 render: (a) => {
                     return (
                         <>
-                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
                         </>
                     )
                 }
