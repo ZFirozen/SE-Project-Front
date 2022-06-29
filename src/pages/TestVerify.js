@@ -23,6 +23,9 @@ const TestVerify = () => {
     const location = useLocation();
     const testId = location.query.testId;
     const [form] = ProForm.useForm();
+    //const o = {stage:"SCHEME_AUDITING", message:""};
+    const status_pass = {stage:"SCHEME_AUDITING_PASSED", message:""};
+    const status_deny = {stage:"SCHEME_AUDITING_DENIED", message:""};
     return (
         <>
             <div style={{ margin: 10 }}>
@@ -35,29 +38,50 @@ const TestVerify = () => {
                                 layout="horizontal"
                                 scrollToFirstError="true"
                                 onFinish={(values) => {
-                                    let temp = values;
-                                    temp = JSON.parse(JSON.stringify(values));
-                                    console.log(temp);
+                                    // debug时更新状态到SCHEME_AUDITING                             
+                                    // console.log(o);
+                                    // axios.post("/api/test/" + testId + "/status", o)
+                                    //     .then(() => {
+                                    //         console.log("change status")
+                                    //     })
                                     if (typeof testId !== "undefined") {
                                         axios.get("/api/test/" + testId)
                                             .then((response) => {
-                                                return response.data.projectFormIds[7];
+                                                console.log(response.data)
+                                                return response.data.projectFormIds.testSchemeChecklistId;
                                             }).then((schemeReviewId) => {
                                                 console.log(schemeReviewId)
+                                                values.id = schemeReviewId;
+                                                let temp = values;
+                                                temp = JSON.parse(JSON.stringify(values));
+                                                console.log(temp);
                                                 axios.post("/api/review/scheme/" + schemeReviewId, temp)
                                                     .then((res) => {
-                                                        console.log(res)
-                                                        message.success('提交成功');
-                                                        history.goBack();
+                                                        console.log("提交")
+                                                        message.success('提交成功');  
+                                                        if (values.conclusions[0].passed === true && values.conclusions[1].passed === true && values.conclusions[2].passed === true && values.conclusions[3].passed === true && values.conclusions[4].passed === true && values.conclusions[5].passed === true && values.conclusions[6].passed === true && values.conclusions[7].passed === true) {
+                                                            axios.post("/api/test/" + testId + "/status", status_pass)
+                                                                .then((r) => {
+                                                                    console.log(r)
+                                                                    console.log("status change:pass")
+                                                                    //history.goBack();
+                                                                })
+                                                        }
+                                                        else {
+                                                            axios.post("/api/test/" + testId + "/status", status_deny)
+                                                                .then((r) => {
+                                                                    console.log(r)
+                                                                    console.log("status change:deny")
+                                                                    //history.goBack();
+                                                                })
+                                                        }
                                                     })
                                             })
-
                                     }
                                     else {
                                         console.log("testId is undefined");
                                         message.error('项目ID未定义！');
-                                      }
-
+                                    }
                                 }}
                             >
                                 <Row>
@@ -65,7 +89,7 @@ const TestVerify = () => {
                                         <Title level={4}>软件名称</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["sofewareName"]} />
+                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["softwareName"]} />
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 150, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
                                         <Title level={4}>版本号</Title>
@@ -112,10 +136,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试方案书写规范性</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 0, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 0, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 0, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 0, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -123,10 +150,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试环境是否具有典型意义以及是否符合用户要求</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 1, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 1, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 1, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 1, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -134,10 +164,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试内容的完整性是否覆盖整个系统</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 2, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 2, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 2, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 2, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -145,10 +178,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试方法的选取是否合理</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 3, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 3, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 3, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 3, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -156,10 +192,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试用例能否覆盖问题</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 4, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 4, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 4, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 4, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -167,10 +206,13 @@ const TestVerify = () => {
                                         <Title level={4}>输入输出数据设计合理性</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 5, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 5, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 5, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 5, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -178,10 +220,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试时间安排是否合理</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 6, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 6, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 6, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 6, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
@@ -189,10 +234,13 @@ const TestVerify = () => {
                                         <Title level={4}>测试人力资源安排是否合理</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 7, "passed"]} />
+                                        <ProFormRadio.Group  required rules={[{ required: true, message: "这是必填项" }]}
+                                            name={["conclusions", 7, "passed"]}
+                                            options={[{ value: false, label: "否" },{ value: true, label: "是" }]}>
+                                        </ProFormRadio.Group>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 350, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["conclusions", 7, "message"]} />
+                                        <ProFormText required rules={[{ required: false, message: '这是必填项' }]} name={["conclusions", 7, "message"]} />
                                     </Col>
                                 </Row>
                                 <Row>
