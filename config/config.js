@@ -513,6 +513,13 @@ export default defineConfig({
       component: './OurLogin',
     },
     {
+      name: 'download',
+      icon: 'team',
+      path: '/download',
+      component: './Download',
+      hideInMenu: true,
+    },
+    {
       name: 'userinfo',
       icon: 'user',
       path: '/userinfo',

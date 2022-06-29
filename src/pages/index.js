@@ -19,6 +19,7 @@ import QuotationFill from "./QuotationFill";
 import SampleList from "./SampleList";
 import SampleFill from "./SampleFill";
 import SampleDisplay from "./SampleDisplay";
+import Download from "./Download";
 import Progress from "./Progress";
 import Assign from "./Assign";
 import TestAssign from "./TestAssign";
@@ -26,6 +27,6 @@ import DocumentVerify from "./DocumentVerify";
 import TestVerify from "./TestVerify";
 
 export {
-    Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
+    Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract, Download,
     EntrustmentList, SampleList, SampleFill, SampleDisplay, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractVerify, TestAssign, TestVerify
 }
