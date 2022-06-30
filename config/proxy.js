@@ -9,7 +9,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'http://210.28.133.13:21269',
+      target: 'http://128.199.174.49:8080',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -18,7 +18,7 @@ export default {
   },
   test: {
     '/api/': {
-      target: 'http://210.28.133.13:21269',
+      target: 'http://128.199.174.49:8080',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
