@@ -1,0 +1,52 @@
+from selenium import webdriver
+import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+url = 'http://localhost:7777'
+path = r'D:/chromedirver/chromedriver.exe'
+driver = webdriver.Chrome(executable_path=path) 
+driver.implicitly_wait(5)
+driver.maximize_window()
+driver.get(url)
+time.sleep(1)
+# driver.find_element(By.LINK_TEXT,'登录').click()
+# time.sleep(1)
+# driver.find_element(By.ID,'login_用户名').send_keys('CUSTOMER')
+# time.sleep(1)
+# driver.find_element(By.ID,'login_密码').send_keys('123456')
+# time.sleep(1)
+# driver.find_element(By.ID,'login_密码').send_keys(Keys.ENTER)
+# time.sleep(1)
+# driver.switch_to.alert.accept()
+# time.sleep(1)
+wt=driver.find_element(By.CLASS_NAME,'ant-menu-submenu-inline').click()
+time.sleep(1)
+driver.find_element(By.LINK_TEXT,'填表').click()
+time.sleep(1)
+cb=driver.find_elements(By.CLASS_NAME,'ant-checkbox-input')
+for i in cb:
+    i.click()
+time.sleep(1)
+driver.execute_script("var q=document.documentElement.scrollTop=0")
+driver.find_element(By.ID,'toreplace_0').send_keys('1')
+time.sleep(1)
+tb=driver.find_elements(By.CLASS_NAME,'ant-input-affix-wrapper ant-input-affix-wrapper-lg')
+for i in tb:
+    i.click()
+    time.sleep(1)
+    i.send_keys('1')
+time.sleep(1)
+ri=driver.find_elements(By.CLASS_NAME,'ant-radio-input')
+for i in ri:
+    i.click()
+time.sleep(1)
+driver.execute_script("var q=document.documentElement.scrollTop=2300")
+driver.find_element(By.CLASS_NAME,'ant-select-selector').click()
+time.sleep(1)
+driver.find_element(By.ID,'software_type').send_keys(Keys.DOWN)
+driver.find_element(By.ID,'software_type').send_keys(Keys.ENTER)
+driver.find_element(By.ID,'software_type').send_keys(Keys.DOWN)
+driver.find_element(By.ID,'software_type').send_keys(Keys.ENTER)
+driver.find_element(By.ID,'software_type').submit()
+time.sleep(10)
+driver.close()
