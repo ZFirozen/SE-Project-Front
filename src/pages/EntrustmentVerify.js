@@ -12,6 +12,7 @@ import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
 import { history, useLocation } from "umi";
+import { error } from 'jquery';
 
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
@@ -631,7 +632,15 @@ const EntrustmentVerify = () => {
                   console.log(response)
                   message.success('已受理委托');
                   // window.location.href = "/progress/" + entrustId;
+                  axios.post("/api/sample?entrustId="+entrustId).then(response => {
+                  console.log(response)
+                  message.success('成功创建样品集');
                   history.goBack();
+                }).catch(error=>{
+                  console.log(error);
+                  history.goBack();
+                })
+                  
                 })
             } else if (temp.acceptance === "1") {
               axios.post("/api/entrust/" + entrustId + "/content/denial?message=Denied:" + temp.confirmation)

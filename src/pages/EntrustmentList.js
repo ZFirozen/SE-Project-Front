@@ -54,6 +54,10 @@ var defaultcolumns = [
         key: ['status', 'message'],
         ellipsis: false,
     },
+    {
+        search: false,
+        render: (a) => <Button type='link' onClick={() => { history.push({ pathname: "/download", query: { entrustId: a.id } }) }}>下载</Button>
+    }
 ];
 var columns = defaultcolumns
 console.log(localStorage.getItem("userRole") + ' visit')
@@ -92,7 +96,7 @@ const changeColumns = () => {
                     }
                     return (
                         <>
-                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                         </>
                     )
                 }
@@ -106,7 +110,7 @@ const changeColumns = () => {
                 render: (a) => {
                     return (
                         <>
-                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
                         </>
                     )
                 }
@@ -119,7 +123,7 @@ const changeColumns = () => {
                 render: (a) => {
                     return (
                         <>
-                        <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看</Button>
                         </>
                     )
                 }
