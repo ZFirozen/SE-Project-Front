@@ -80,7 +80,7 @@ const EntrustmentFill = () => {
                 .then(response => {
                   console.log(response);
                   message.success("提交成功");
-                  window.location.href = "/progress/" + response.data;
+                  // window.location.href = "/progress/" + response.data;
                   history.push({
                     pathname: "/progress",
                     query: {
