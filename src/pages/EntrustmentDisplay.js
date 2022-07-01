@@ -49,7 +49,7 @@ const EntrustmentDisplay = () => {
           layout="horizontal"
           onFinish={async (values) => {
             let temp = values
-            if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
+            if (temp.software !== undefined && temp.software !== null &&temp.software.modules !== undefined && temp.software.modules !== null) {
               console.log(temp)
               for (let i = 0; i < temp.software.modules.length; i++) {
                 delete temp.software.modules[i].id
@@ -90,10 +90,10 @@ const EntrustmentDisplay = () => {
                 console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
-                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
+                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined && Detail.data.content.software.modules !== null) {
                   for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
                     Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-                    if (Detail.data.content.software.modules[i].functions !== undefined) {
+                    if (Detail.data.content.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
                       for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
                         Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
                       }
