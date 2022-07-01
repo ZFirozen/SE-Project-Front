@@ -20,12 +20,13 @@ const Progress = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
-
+    var cstage,cstep,sstage;
     const getEntrustmentStatus = () => {
+        console.log('ini testid='+testId)
         if (testId !== "") {
-            setCurrentStage(2);
-            setCurrentStep(0);
-            setShowStage(2);
+            cstage=2;
+            cstep=0;
+            sstage=2;
             getTestStatus();
         }
         axios.get("/api/entrust/" + entrustId)
@@ -34,10 +35,11 @@ const Progress = () => {
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
+                    console.log('ent testid='+testId)
                     if (testId !== "") {
-                        setCurrentStage(2);
-                        setCurrentStep(0);
-                        setShowStage(2);
+                        cstage=2;
+                        cstep=0;
+                        sstage=2;
                         getTestStatus();
                     }
                     console.log(response.data.status.stage)
@@ -90,9 +92,9 @@ const Progress = () => {
                             setShowStage(0);
                             break;
                         case "CUSTOMER_ACCEPT_QUOTE":
-                            setCurrentStage(1);
-                            setCurrentStep(0);
-                            setShowStage(1);
+                            cstage=1;
+                            cstep=0;
+                            sstage=1;
                             getContractStatus();
                             break;
                         case "TERMINATED":
@@ -108,6 +110,11 @@ const Progress = () => {
             .catch((error) => {
                 console.log(error);
             })
+            .finally(() => {
+                setCurrentStage(cstage);
+                setCurrentStep(cstep);
+                setShowStage(sstage);
+            });
     }
 
     const getContractStatus = () => {
@@ -156,9 +163,9 @@ const Progress = () => {
                             setShowStage(1);
                             break;
                         case "COPY_SAVED":
-                            setCurrentStage(2);
-                            setCurrentStep(0);
-                            setShowStage(2);
+                            cstage=2;
+                            cstep=0;
+                            sstage=2;
                             getTestStatus();
                             break;
                         default:
@@ -169,9 +176,9 @@ const Progress = () => {
                 }
                 else if (response.status === 403) {
                     console.log("yes!403!");
-                    setCurrentStage(2);
-                    setCurrentStep(0);
-                    setShowStage(2);
+                    cstage=2;
+                    cstep=0;
+                    sstage=2;
                     getTestStatus();
                 }
             })
@@ -179,9 +186,9 @@ const Progress = () => {
                 console.log(error);
                 if (error.response.status === 403) {
                     console.log("yes!403!");
-                    setCurrentStage(2);
-                    setCurrentStep(0);
-                    setShowStage(2);
+                    cstage=2;
+                    cstep=0;
+                    sstage=2;
                     getTestStatus();
                 }
             })
