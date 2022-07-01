@@ -424,7 +424,6 @@ export default defineConfig({
         },
         {
           name: 'test scheme',
-          icon: 'smile',
           path: '/test/scheme',
           component: './testingTable/JS006',
           hideInMenu: true,
@@ -434,6 +433,12 @@ export default defineConfig({
           icon: 'smile',
           path: '/test/reportcheck',
           component: './testingTable/JS010',
+          hideInMenu: true,
+        },
+        {
+          name: 'test scheme view',
+          path: '/test/schemeview',
+          component: './pageViewer/JS006',
           hideInMenu: true,
         },
       ],
