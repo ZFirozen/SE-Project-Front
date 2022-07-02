@@ -218,7 +218,7 @@ const QuotationFill = () => {
                     : ""}
                 {userRole === "MARKETER" ?
                     <Form onFinish={() => {
-                        axios.post("/api/entrust/" + entrustId + "/quote/denial")
+                        axios.post("/api/entrust/" + entrustId + "/termination")
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("终止成功！");
