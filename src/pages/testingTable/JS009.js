@@ -23,7 +23,8 @@ const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "
 var testRecordId
 const JS009 = () => {
     const location = useLocation();
-    const testId = location.query.testId;
+    //const testId = location.query.testId;
+    const testId = "62bf00e6a91ee23a84ba37af"
     console.log(location.query.testId)
     console.log(testId)
     const [editableKeys, setEditableRowKeys] = useState([]);
@@ -41,6 +42,23 @@ const JS009 = () => {
                     onFinish={async (values) => {
                         console.log(values)
                         console.log(testRecordId)
+                        if (values.testRecords === null)
+                            values.testRecords = [{
+                                category: ' ',
+                                testcaseId: ' ',
+                                designInstruction: ' ',
+                                statute: ' ',
+                                prerequisites: ' ',
+                                executionProcess: ' ',
+                                expectedResult: ' ',
+                                designer: ' ',
+                                actualResult: ' ',
+                                isConsistent: ' ',
+                                bugId: ' ',
+                                caseExecutor: ' ',
+                                time: ' ',
+                                confirmationPerson: ' '
+                            }]
                         values = values.testRecords
                         console.log(values)
                         axios.post("/api/test/testRecord/" + testRecordId + "/content", values)
