@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-//import { useLocation } from "react-router-dom";
 import { Divider, Steps, Button } from "antd";
 import localStorage from "localStorage";
 import axios from "axios";
@@ -11,26 +10,39 @@ const { Step } = Steps;
 
 var contractId = "";
 var testId = "";
+var schemeId = "";
 
 const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
-    // const [marketerId, setMarketerId] = useState("");
-    // const [customerId, setCustomerId] = useState("");
-    // console.log(entrustId);
-    // const entrustId = useLocation().pathname.match("(?<=/progress/).+").at(0)
+    testId = location.query.testId
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
-    const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
-
+    var cstage = -1, cstep = -1, sstage = -1;
     const getEntrustmentStatus = () => {
+        console.log('ini testid=' + testId)
+        if (testId !== undefined) {
+            cstage = 2;
+            cstep = 0;
+            sstage = 2;
+            getTestStatus();
+        }
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
+                    console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
+                    console.log('ent testid=' + testId)
+                    if (testId !== null) {
+                        cstage = 2;
+                        cstep = 0;
+                        sstage = 2;
+                        getTestStatus();
+                    }
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
@@ -80,9 +92,9 @@ const Progress = () => {
                             setShowStage(0);
                             break;
                         case "CUSTOMER_ACCEPT_QUOTE":
-                            setCurrentStage(1);
-                            setCurrentStep(0);
-                            setShowStage(1);
+                            cstage = 1;
+                            cstep = 0;
+                            sstage = 1;
                             getContractStatus();
                             break;
                         case "TERMINATED":
@@ -98,13 +110,22 @@ const Progress = () => {
             .catch((error) => {
                 console.log(error);
             })
+            .finally(() => {
+                if (cstage !== -1) {
+                    setCurrentStage(cstage);
+                    setCurrentStep(cstep);
+                    setShowStage(sstage);
+                }
+            });
     }
 
     const getContractStatus = () => {
         axios.get("/api/contract/" + contractId)
             .then((response) => {
+                console.log(response);
                 if (response.status === 200) {
                     console.log(contractId)
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "FILL_CONTRACT":
                             setCurrentStage(1);
@@ -142,11 +163,29 @@ const Progress = () => {
                             setCurrentStage(1);
                             setCurrentStep(3);
                             setShowStage(1);
+                            axios.post("/api/test?entrustId=" + entrustId)
+                        .then((response) => {
+                            if (response.status === 200) {
+                                alert("测试项目创建成功！");
+                                console.log("create test success");
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                        .catch((error) => {
+                            if (error.response.status === 400) {
+                                console.log(error);
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        }).finally((response) => {
+                            console.log(response);
+                        });
                             break;
                         case "COPY_SAVED":
-                            setCurrentStage(2);
-                            setCurrentStep(0);
-                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 0;
+                            sstage = 2;
                             getTestStatus();
                             break;
                         default:
@@ -155,9 +194,23 @@ const Progress = () => {
 
 
                 }
+                else if (response.status === 403) {
+                    console.log("yes!403!");
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                    getTestStatus();
+                }
             })
             .catch((error) => {
                 console.log(error);
+                if (error.response.status === 403) {
+                    console.log("yes!403!");
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                    getTestStatus();
+                }
             })
     }
 
@@ -166,6 +219,11 @@ const Progress = () => {
             .then((response) => {
                 if (response.status === 200) {
                     console.log(testId)
+                    schemeId = response.data.projectFormIds.testSchemeId
+                    console.log(response.data.projectFormIds.testSchemeId)
+                    console.log(response.data.projectFormIds.workChecklistId)
+                    console.log(response.data.projectFormIds.testSchemeChecklistId)
+                    console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_QA":
                             setCurrentStage(2);
@@ -250,29 +308,25 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
-                if(error.response.status == 404){
+                if (error.response.status == 404) {
                     axios.post("/api/test?entrustId=" + entrustId)
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    alert("测试项目创建成功！");
-                                    // setContractId(response.data.contractId);
-                                    // setMarketerId(response.data.marketerId);
-                                    // setCustomerId(response.data.customerId);
-                                    console.log("create test success");
-                                } else {
-                                    console.log("Unknown error!");
-                                }
-                            })
-                            .catch((error) => {
-                                if (error.response.status === 400) {
-                                    console.log(error);
-                                } else {
-                                    console.log("Unknown error!");
-                                }
-                            }).finally((response) => {
-                                console.log(response);
-                                // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;   
-                            });
+                        .then((response) => {
+                            if (response.status === 200) {
+                                alert("测试项目创建成功！");
+                                console.log("create test success");
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        })
+                        .catch((error) => {
+                            if (error.response.status === 400) {
+                                console.log(error);
+                            } else {
+                                console.log("Unknown error!");
+                            }
+                        }).finally((response) => {
+                            console.log(response);
+                        });
                 }
             })
     }
@@ -494,7 +548,7 @@ const Progress = () => {
                         history.push({
                             pathname: "/contract/verify",
                             query: {
-                                entrustId: entrustId
+                                contractId: contractId
                             }
                         })
                     } else {
@@ -520,8 +574,26 @@ const Progress = () => {
                             }
                         })
                     }
+                    else {
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
                 } else {
-                    alert("您没有权限访问！");
+                    if (userRole === "CUSTOMER") {
+                        alert("您没有权限访问！");
+                    }
+                    else {
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
                 }
                 break;
             default:
@@ -550,9 +622,9 @@ const Progress = () => {
                     if (currentStage === 2 && currentStep === 1) {
                         // window.location.href = "/contract/fill/" + entrustId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/scheme",
                             query: {
-                                testId: testId
+                                schemeId: schemeId
                             }
                         })
                     } else {
@@ -573,7 +645,7 @@ const Progress = () => {
                     if (currentStage === 2 && currentStep === 2) {
                         // window.location.href = "/contract/verify/" + entrustId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/verify",
                             query: {
                                 testId: testId
                             }
@@ -621,14 +693,14 @@ const Progress = () => {
                 break;
             case 5:
                 if (userRole === "QA") {
-                    if (currentStage === 2 && currentStep === 5) {
-                        history.push({
-                            pathname: "/test/",
-                            query: {
-                                testId: testId
-                            }
-                        });
-                    }
+                    // if (currentStage === 2 && currentStep === 5) {
+                    history.push({
+                        pathname: "/test/reportcheck",
+                        query: {
+                            testId: testId
+                        }
+                    });
+                    // }
                 } else {
                     alert("您没有权限访问！");
                 }
