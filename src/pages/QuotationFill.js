@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from "@ant-design/pro-form";
 import moment from "moment";
-import { history , useLocation } from "umi";
+import { history, useLocation } from "umi";
 import axios from 'axios';
 import localStorage from "localStorage";
 import { EditableProTable } from "@ant-design/pro-table";
@@ -58,7 +58,7 @@ const QuotationFill = () => {
                                         console.log("Unknown error!");
                                     }
                                 });
-                        } 
+                        }
                     }}
                     request={async () => {
                         console.log(entrustId)
@@ -204,7 +204,7 @@ const QuotationFill = () => {
                     : ""}
                 {userRole === "MARKETER" ?
                     <Form onFinish={() => {
-                        axios.post("/api/entrust/" + entrustId + "/quote/denial")
+                        axios.post("/api/entrust/" + entrustId + "/termination")
                             .then((response) => {
                                 if (response.status === 200) {
                                     alert("终止成功！");

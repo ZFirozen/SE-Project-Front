@@ -46,24 +46,45 @@ const ContractFill = () => {
                         values.marketerId = marketerId
                         values.customerId = customerId
                         console.log(values)
-                        axios.post("/api/contract/" + contractId, values)
+                        axios.post("/api/contract/" + contractId + "/acceptance")
                             .then((response) => {
                                 if (response.status === 200) {
-                                    alert("提交成功！");
+                                    alert("同意成功！");
                                     // window.location.href = "/progress/" + this.state.entrustId;
                                     history.goBack();
                                 } else {
-                                    alert("提交失败！");
+                                    alert("同意失败！");
                                     console.log("Unknown error!");
                                 }
                             })
                             .catch((error) => {
                                 if (error.response.status === 400) {
-                                    alert("提交失败！");
+                                    alert("同意失败！");
                                 } else {
-                                    alert("提交失败！");
+                                    alert("同意失败！");
                                     console.log("Unknown error!");
                                 }
+                            })
+                            .finally(() => {
+                                axios.post("/api/contract/" + contractId, values)
+                                    .then((response) => {
+                                        if (response.status === 200) {
+                                            alert("提交成功！");
+                                            // window.location.href = "/progress/" + this.state.entrustId;
+                                            history.goBack();
+                                        } else {
+                                            alert("提交失败！");
+                                            console.log("Unknown error!");
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        if (error.response.status === 400) {
+                                            alert("提交失败！");
+                                        } else {
+                                            alert("提交失败！");
+                                            console.log("Unknown error!");
+                                        }
+                                    });
                             });
                     }}
                     request={async () => {

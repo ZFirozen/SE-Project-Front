@@ -16,21 +16,17 @@ const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     testId = location.query.testId
-    // const [marketerId, setMarketerId] = useState("");
-    // const [customerId, setCustomerId] = useState("");
-    // console.log(entrustId);
-    // const entrustId = useLocation().pathname.match("(?<=/progress/).+").at(0)
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
-    const [currentStatus, setCurrentStatus] = useState(true);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
-
+    var cstage = -1, cstep = -1, sstage = -1;
     const getEntrustmentStatus = () => {
-        if (testId !== "") {
-            setCurrentStage(2);
-            setCurrentStep(0);
-            setShowStage(2);
+        console.log('ini testid=' + testId)
+        if (testId !== undefined) {
+            cstage = 2;
+            cstep = 0;
+            sstage = 2;
             getTestStatus();
         }
         axios.get("/api/entrust/" + entrustId)
@@ -39,10 +35,11 @@ const Progress = () => {
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
-                    if (testId !== "") {
-                        setCurrentStage(2);
-                        setCurrentStep(0);
-                        setShowStage(2);
+                    console.log('ent testid=' + testId)
+                    if (testId !== null) {
+                        cstage = 2;
+                        cstep = 0;
+                        sstage = 2;
                         getTestStatus();
                     }
                     console.log(response.data.status.stage)
@@ -95,9 +92,9 @@ const Progress = () => {
                             setShowStage(0);
                             break;
                         case "CUSTOMER_ACCEPT_QUOTE":
-                            setCurrentStage(1);
-                            setCurrentStep(0);
-                            setShowStage(1);
+                            cstage = 1;
+                            cstep = 0;
+                            sstage = 1;
                             getContractStatus();
                             break;
                         case "TERMINATED":
@@ -113,11 +110,19 @@ const Progress = () => {
             .catch((error) => {
                 console.log(error);
             })
+            .finally(() => {
+                if (cstage !== -1) {
+                    setCurrentStage(cstage);
+                    setCurrentStep(cstep);
+                    setShowStage(sstage);
+                }
+            });
     }
 
     const getContractStatus = () => {
         axios.get("/api/contract/" + contractId)
             .then((response) => {
+                console.log(response);
                 if (response.status === 200) {
                     console.log(contractId)
                     console.log(response.data.status.stage)
@@ -160,9 +165,9 @@ const Progress = () => {
                             setShowStage(1);
                             break;
                         case "COPY_SAVED":
-                            setCurrentStage(2);
-                            setCurrentStep(0);
-                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 0;
+                            sstage = 2;
                             getTestStatus();
                             break;
                         default:
@@ -171,15 +176,23 @@ const Progress = () => {
 
 
                 }
-                else if(response.status === 403){
-                    setCurrentStage(2);
-                    setCurrentStep(0);
-                    setShowStage(2);
+                else if (response.status === 403) {
+                    console.log("yes!403!");
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
                     getTestStatus();
                 }
             })
             .catch((error) => {
                 console.log(error);
+                if (error.response.status === 403) {
+                    console.log("yes!403!");
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                    getTestStatus();
+                }
             })
     }
 
@@ -282,9 +295,6 @@ const Progress = () => {
                         .then((response) => {
                             if (response.status === 200) {
                                 alert("测试项目创建成功！");
-                                // setContractId(response.data.contractId);
-                                // setMarketerId(response.data.marketerId);
-                                // setCustomerId(response.data.customerId);
                                 console.log("create test success");
                             } else {
                                 console.log("Unknown error!");
@@ -298,7 +308,6 @@ const Progress = () => {
                             }
                         }).finally((response) => {
                             console.log(response);
-                            // window.location.href = "/contract/upload/" + contractId + "/" + entrustId;   
                         });
                 }
             })
@@ -666,14 +675,14 @@ const Progress = () => {
                 break;
             case 5:
                 if (userRole === "QA") {
-                    if (currentStage === 2 && currentStep === 5) {
-                        history.push({
-                            pathname: "/test/",
-                            query: {
-                                testId: testId
-                            }
-                        });
-                    }
+                    // if (currentStage === 2 && currentStep === 5) {
+                    history.push({
+                        pathname: "/test/reportcheck",
+                        query: {
+                            testId: testId
+                        }
+                    });
+                    // }
                 } else {
                     alert("您没有权限访问！");
                 }

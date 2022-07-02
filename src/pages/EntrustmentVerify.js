@@ -12,6 +12,7 @@ import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
 import { history, useLocation } from "umi";
+import { error } from 'jquery';
 
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
@@ -85,10 +86,10 @@ const EntrustmentVerify = () => {
                 console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
-                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
+                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined&& Detail.data.content.software.modules !== null) {
                   for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
                     Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-                    if (Detail.data.content.software.modules[i].functions !== undefined) {
+                    if (Detail.data.content.software.modules[i].functions !== undefined && Detail.data.content.software.modules[i].functions !== null) {
                       for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
                         Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
                       }
@@ -631,7 +632,15 @@ const EntrustmentVerify = () => {
                   console.log(response)
                   message.success('已受理委托');
                   // window.location.href = "/progress/" + entrustId;
+                  axios.post("/api/sample?entrustId="+entrustId).then(response => {
+                  console.log(response)
+                  message.success('成功创建样品集');
                   history.goBack();
+                }).catch(error=>{
+                  console.log(error);
+                  history.goBack();
+                })
+                  
                 })
             } else if (temp.acceptance === "1") {
               axios.post("/api/entrust/" + entrustId + "/content/denial?message=Denied:" + temp.confirmation)

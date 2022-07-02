@@ -436,14 +436,41 @@ export default defineConfig({
           component: './testingTable/JS006',
           hideInMenu: true,
         },
+        {
+          name: 'js010',
+          icon: 'smile',
+          path: '/test/reportcheck',
+          component: './testingTable/JS010',
+          hideInMenu: true,
+        },
       ],
     },
     {
       name: 'sample',
       icon: 'highlight',
       path: '/sample',
-      component: './Sample',
-      hideInMenu: true,
+      routes: [
+        {
+          name: 'list',
+          icon: 'smile',
+          path: '/sample/list',
+          component: './SampleList',
+        },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/sample/fill',
+          component: './SampleFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'display',
+          icon: 'smile',
+          path: '/sample/display',
+          component: './SampleDisplay',
+          hideInMenu: true,
+        },
+      ]
     },
     {
       path: '/progress',
@@ -491,6 +518,13 @@ export default defineConfig({
       icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
+    },
+    {
+      name: 'download',
+      icon: 'team',
+      path: '/download',
+      component: './Download',
+      hideInMenu: true,
     },
     {
       name: 'userinfo',
