@@ -88,7 +88,6 @@ const Progress = () => {
                         case "TESTER_DENIED":
                             setCurrentStage(0);
                             setCurrentStep(0);
-                            setCurrentStatus(false);
                             setShowStage(0);
                             cstage = 0;
                             cstep = 0;
@@ -113,7 +112,6 @@ const Progress = () => {
                         case "CUSTOMER_DENY_QUOTE":
                             setCurrentStage(0);
                             setCurrentStep(5);
-                            setCurrentStatus(false);
                             setShowStage(0);
                             cstage = 0;
                             cstep = 5;
@@ -126,7 +124,9 @@ const Progress = () => {
                             getContractStatus();
                             break;
                         case "TERMINATED":
-                            setCurrentStatus(false);
+                            cstage = 0;
+                            cstep = 0;
+                            sstage = 0;
                             break;
                         default:
                             break;
@@ -174,7 +174,6 @@ const Progress = () => {
                         case "CUSTOMER_DENY":
                             setCurrentStage(1);
                             setCurrentStep(0);
-                            setCurrentStatus(false);
                             setShowStage(1);
                             cstage = 1;
                             cstep = 0;
@@ -199,7 +198,6 @@ const Progress = () => {
                         case "MARKETER_DENY":
                             setCurrentStage(1);
                             setCurrentStep(1);
-                            setCurrentStatus(false);
                             setShowStage(1);
                             cstage = 1;
                             cstep = 1;
@@ -303,7 +301,6 @@ const Progress = () => {
                         case "SCHEME_AUDITING_DENIED":
                             setCurrentStage(2);
                             setCurrentStep(1);
-                            setCurrentStatus(false);
                             setShowStage(2);
                             cstage = 2;
                             cstep = 1;
@@ -336,7 +333,6 @@ const Progress = () => {
                         case "REPORT_QA_DENIED":
                             setCurrentStage(2);
                             setCurrentStep(4);
-                            setCurrentStatus(false);
                             setShowStage(2);
                             cstage = 2;
                             cstep = 4;
@@ -377,7 +373,6 @@ const Progress = () => {
                         case "REPORT_CUSTOMER_REJECT":
                             setCurrentStage(2);
                             setCurrentStep(4);
-                            setCurrentStatus(false);
                             setShowStage(2);
                             cstage = 2;
                             cstep = 4;
@@ -386,7 +381,6 @@ const Progress = () => {
                         case "QA_ALL_REJECTED":
                             setCurrentStage(2);
                             setCurrentStep(4);
-                            setCurrentStatus(false);
                             setShowStage(2);
                             cstage = 2;
                             cstep = 4;
