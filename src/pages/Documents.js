@@ -10,7 +10,7 @@ const { Title, Paragraph } = Typography
 
 const Documents = () => {
   const location = useLocation();
-  const entrustId = location.query.entrustId
+  const testId = location.query.testId
   var contractId = undefined
   var schemeId = undefined
   var reportId = undefined
@@ -20,34 +20,22 @@ const Documents = () => {
   var testIssueId = undefined
   var entrustTestReviewId = undefined
   var schemeReviewId = undefined
-  var testId = undefined
   var cardOption = { colSpan: { xs: 12, sm: 12, md: 12, lg: 12, xl: 6 }, direction: "column", layout: "center", bordered: true }
   var buttonOption = { size: "large", type: "primary" }
   const getId = () => {
-    axios.get("/api/entrust/" + entrustId)
+    axios.get("/api/test/" + testId)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
-          contractId = response.data.contractId
-          testId = response.data.projectId
-          return response.data.projectId
+          console.log("/api/test/ + testId ="+testId)
+          schemeId = response.data.projectFormIds.testSchemeId
+          reportId = response.data.projectFormIds.reportId
+          testcaseId = response.data.projectFormIds.testcaseId
+          testRecordId = response.data.projectFormIds.testRecordId
+          reportReviewId = response.data.projectFormIds.reportReviewId
+          testIssueId = response.data.projectFormIds.testIssueId
+          entrustTestReviewId = response.data.projectFormIds.entrustTestReviewId
+          schemeReviewId = response.data.projectFormIds.schemeReviewId
         }
-        return undefined
-      }).then(projectId => {
-        axios.get("/api/test/" + projectId)
-          .then((response) => {
-            if (response.status === 200) {
-              console.log(projectId)
-              schemeId = response.data.projectFormIds.testSchemeId
-              reportId = response.data.projectFormIds.reportId
-              testcaseId = response.data.projectFormIds.testcaseId
-              testRecordId = response.data.projectFormIds.testRecordId
-              reportReviewId = response.data.projectFormIds.reportReviewId
-              testIssueId = response.data.projectFormIds.testIssueId
-              entrustTestReviewId = response.data.projectFormIds.entrustTestReviewId
-              schemeReviewId = response.data.projectFormIds.schemeReviewId
-            }
-          })
       })
   }
   useMemo(() => {
@@ -62,6 +50,7 @@ const Documents = () => {
           <Title level={4}>填写测试报告</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
+            console.log("testId=" + testId)
             history.push({
               pathname: "/test/report",
               query: {
@@ -118,8 +107,8 @@ const Documents = () => {
             temp = { "stage": "REPORT_AUDITING", "message": "" }
             axios.post("/api/test/" + testId + "/status", temp).then(response => {
               console.log(response)
-              window.open(response.data)
               message.success("成功进入下一阶段")
+              history.goBack();
             }).catch(error => {
               console.log(error)
               message.error("提交失败，请重试")
