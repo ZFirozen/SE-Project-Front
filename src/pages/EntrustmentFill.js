@@ -94,7 +94,7 @@ const EntrustmentFill = () => {
                 })
             }
           }}
-          submitter={{ submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } }, resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } } }}
+          submitter={{ submitButtonProps: { style: { display: 'none', } }, resetButtonProps: { style: { display: 'none', } } }}
           request={async () => {
             console.log(entrustId)
             if (typeof entrustId !== "undefined") {
@@ -618,7 +618,13 @@ const EntrustmentFill = () => {
           <ProCard>
             <ProFormText label="希望完成时间" required rules={[{ required: true, message: "这是必填项" }]} name="expectedTime" ></ProFormText>
           </ProCard>
-
+          <ProCard layout="center" bordered>
+            <ProForm.Item >
+              <Button size="large" type="primary" htmlType="submit">
+                提交
+              </Button>
+            </ProForm.Item>
+          </ProCard>
         </ProForm>
       </div>
     </>
