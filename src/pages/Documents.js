@@ -63,7 +63,7 @@ const Documents = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "//test/report",
+              pathname: "/test/report",
               query: {
                 testId: testId
               }
@@ -76,7 +76,7 @@ const Documents = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "//test/report",
+              pathname: "/test/testCase",
               query: {
                 testId: testId
               }
@@ -89,7 +89,7 @@ const Documents = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "//test/report",
+              pathname: "/test/testRecord",
               query: {
                 testId: testId
               }
@@ -102,7 +102,7 @@ const Documents = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "//test/report",
+              pathname: "/test/testIssue",
               query: {
                 testId: testId
               }
