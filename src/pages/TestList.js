@@ -86,7 +86,7 @@ const changeColumns = () => {
             }]
             break
         case "QA_SUPERVISOR":
-            columns = [...columns, {
+            columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
