@@ -409,7 +409,7 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
-                if (error.response.status == 404) {
+                if (error.response.status === 404 && testId!=="" &&testId!==undefined) {
                     axios.post("/api/test?entrustId=" + entrustId)
                         .then((response) => {
                             if (response.status === 200) {

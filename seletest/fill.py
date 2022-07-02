@@ -25,13 +25,18 @@ time.sleep(3)
 # time.sleep(1)
 while True:
     input()
+    xz=driver.find_elements(By.CSS_SELECTOR,"[class='ant-btn ant-btn-dashed ant-btn-lg']")
+    for i in xz:
+        i.click()
+        time.sleep(1)
+    time.sleep(1)
     cb=driver.find_elements(By.CLASS_NAME,'ant-checkbox-input')
     for i in cb:
         i.click()
     time.sleep(1)
     driver.execute_script("var q=document.documentElement.scrollTop=0")
     time.sleep(1)
-    tb=driver.find_elements(By.CSS_SELECTOR,"[class='ant-input ant-input-lg']")
+    tb=driver.find_elements(By.CSS_SELECTOR,"[type='button' class='ant-btn ant-btn-dashed ant-btn-lg' style='display: block; margin: 10px 0px; width: 100%;']")
     for i in tb:
         i.send_keys('1')
     time.sleep(1)
@@ -40,7 +45,14 @@ while True:
     for i in ri:
         i.click()
     time.sleep(1)
-    driver.execute_script("var q=document.documentElement.scrollTop=2300")
+    driver.execute_script("var q=document.documentElement.scrollTop=0")
+    ri=driver.find_elements(By.CLASS_NAME,'ant-picker-input')
+    for i in ri:
+        i.click()
+        time.sleep(1)
+        driver.find_elements(By.CLASS_NAME,'ant-picker-today-btn')
+        time.sleep(1)
+    time.sleep(1)
     time.sleep(5)
 
 # driver.find_element(By.LINK_TEXT,'登录').click()
