@@ -436,6 +436,13 @@ export default defineConfig({
           component: './testingTable/JS010',
           hideInMenu: true,
         },
+        {
+          name: 'documents',
+          icon: 'smile',
+          path: '/test/documents',
+          component: './Documents',
+          hideInMenu: true,
+        },
       ],
     },
     {
