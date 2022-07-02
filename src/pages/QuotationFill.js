@@ -65,7 +65,11 @@ const QuotationFill = () => {
                         if (typeof entrustId !== "undefined") {
                             return axios.get("/api/entrust/" + entrustId).then(Detail => {
                                 console.log("load from " + entrustId)
-                                console.log(Detail.data.quote)
+                                console.log(Detail.data.quote)                                
+                                if (Detail.data.quote.rowList === null)
+                                Detail.data.quote.rowList=[]
+
+
                                 if (Detail.data.quote !== null)
                                     return Detail.data.quote
                                 else return {}
