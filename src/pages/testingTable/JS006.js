@@ -38,9 +38,9 @@ const modificationColumns = [
         dataIndex: 'method',
         valueType: 'select',
         valueEnum: {
-            all: { text: '添加', status: 'Default' },
-            open: { text: '修改', status: 'Error' },
-            closed: { text: '删减', status: 'Success' },
+            A: { text: '添加', status: 'Default' },
+            M: { text: '修改', status: 'Error' },
+            D: { text: '删减', status: 'Success' },
         },
     },
     {
@@ -152,14 +152,14 @@ const JS006Fill = () => {
                         temp.designSchedule = temp.testProgress[1]
                         temp.executeSchedule = temp.testProgress[2]
                         temp.evaluateSchedule = temp.testProgress[3]
-                        temp.planSchedule.startDate = dateSend(temp.planSchedule.startDate)
-                        temp.designSchedule.startDate = dateSend(temp.designSchedule.startDate)
-                        temp.executeSchedule.startDate = dateSend(temp.executeSchedule.startDate)
-                        temp.evaluateSchedule.startDate = dateSend(temp.evaluateSchedule.startDate)
-                        temp.planSchedule.endDate = dateSend(temp.planSchedule.endDate)
-                        temp.designSchedule.endDate = dateSend(temp.designSchedule.endDate)
-                        temp.executeSchedule.endDate = dateSend(temp.executeSchedule.endDate)
-                        temp.evaluateSchedule.endDate = dateSend(temp.evaluateSchedule.endDate)
+                        // temp.planSchedule.startDate = dateSend(temp.planSchedule.startDate)
+                        // temp.designSchedule.startDate = dateSend(temp.designSchedule.startDate)
+                        // temp.executeSchedule.startDate = dateSend(temp.executeSchedule.startDate)
+                        // temp.evaluateSchedule.startDate = dateSend(temp.evaluateSchedule.startDate)
+                        // temp.planSchedule.endDate = dateSend(temp.planSchedule.endDate)
+                        // temp.designSchedule.endDate = dateSend(temp.designSchedule.endDate)
+                        // temp.executeSchedule.endDate = dateSend(temp.executeSchedule.endDate)
+                        // temp.evaluateSchedule.endDate = dateSend(temp.evaluateSchedule.endDate)
                         delete temp.testProgress
 
                         temp = JSON.stringify(temp)
@@ -196,14 +196,14 @@ const JS006Fill = () => {
                                 )]
                                 setModificationEditableRowKeys(modificationKeysArray)
 
-                                detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
-                                detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
-                                detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
-                                detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
-                                detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
-                                detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
-                                detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
-                                detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
+                                // detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
+                                // detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
+                                // detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
+                                // detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
+                                // detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
+                                // detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
+                                // detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
+                                // detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
 
                                 return JSON.parse(JSON.stringify(detail.data.content))
                             }).catch(Error => {
