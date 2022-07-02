@@ -20,14 +20,13 @@ const Component = React.Component
 const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
-
-const JS012 = () => {
+var testcaseId
+const JS008 = () => {
     const location = useLocation();
     const testId = location.query.testId;
     console.log(location.query.testId)
     console.log(testId)
     const [editableKeys, setEditableRowKeys] = useState([]);
-    var testcaseId
     return (
         <>
             <div style={{ margin: 70 }}>
@@ -40,6 +39,9 @@ const JS012 = () => {
                     layout="horizontal"
                     scrollToFirstError="true"
                     onFinish={async (values) => {
+                        console.log(values)
+                        console.log(testcaseId)
+                        values = values.testcases
                         console.log(values)
                         axios.post("/api/test/testcase/" + testcaseId + "/content", values)
                             .then((response) => {
@@ -67,10 +69,14 @@ const JS012 = () => {
                                 .then((project) => {
                                     console.log(project.data)
                                     testcaseId = project.data.projectFormIds.testcaseListId
+                                    console.log(testcaseId)
                                     return project.data;
                                 }).then((projectdata) => {
                                     return axios.get("/api/test/testcase/" + projectdata.projectFormIds.testcaseListId)
                                         .then((response) => {
+                                            console.log(response.data.testcases)
+                                            if (response.data.testcases === null)
+                                                response.data.testcases = []
                                             return response.data;
                                         }).catch((error) => {
                                             console.log(error);
@@ -148,4 +154,4 @@ const JS012 = () => {
         </>
     );
 }
-export default JS012;
+export default JS008;

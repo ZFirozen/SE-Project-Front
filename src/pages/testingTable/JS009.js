@@ -20,14 +20,13 @@ const Component = React.Component
 const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
-
-const JS012 = () => {
+var testRecordId
+const JS009 = () => {
     const location = useLocation();
     const testId = location.query.testId;
     console.log(location.query.testId)
     console.log(testId)
     const [editableKeys, setEditableRowKeys] = useState([]);
-    var testRecordId
     return (
         <>
             <div style={{ margin: 70 }}>
@@ -40,6 +39,9 @@ const JS012 = () => {
                     layout="horizontal"
                     scrollToFirstError="true"
                     onFinish={async (values) => {
+                        console.log(values)
+                        console.log(testRecordId)
+                        values = values.testRecords
                         console.log(values)
                         axios.post("/api/test/testRecord/" + testRecordId + "/content", values)
                             .then((response) => {
@@ -72,6 +74,8 @@ const JS012 = () => {
                                 }).then((projectdata) => {
                                     return axios.get("/api/test/testRecord/" + projectdata.projectFormIds.testRecordListId)
                                         .then((response) => {
+                                            if (response.data.testRecords === null)
+                                                response.data.testRecords = []
                                             return response.data;
                                         }).catch((error) => {
                                             console.log(error);
@@ -202,4 +206,4 @@ const JS012 = () => {
         </>
     );
 }
-export default JS012;
+export default JS009;
