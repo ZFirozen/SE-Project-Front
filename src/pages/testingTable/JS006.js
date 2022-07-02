@@ -20,7 +20,13 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const defaultModificationData = [];
+const defaultModificationData = [{
+    version: '2',
+    modificationDate: '2022-07-05',
+    method: 'A',
+    modifier: 'ZF',
+    illustration: 'info',
+}];
 const modificationColumns = [
     {
         title: '版本号',
@@ -29,7 +35,7 @@ const modificationColumns = [
     },
     {
         title: '日期',
-        dataIndex: 'date',
+        dataIndex: 'modificationDate',
         valueType: 'date',
     },
     {
@@ -143,8 +149,10 @@ const JS006Fill = () => {
                     onFinish={async (values) => {
                         let temp = values
                         for (var i in temp.modificationList) {
-                            // temp.modificationList[i].date = dateSend(temp.modificationList[i].date)
+                            // temp.modificationList[i].modifacationDate = dateSend(temp.modificationList[i].modifacationDate)
                         }
+                        
+                        console.log(temp.modificationList)
                         for (var i in temp.testProgress) {
                             delete temp.testProgress[i].id
                             delete temp.testProgress[i].milestoneQuest
@@ -196,12 +204,16 @@ const JS006Fill = () => {
                                 detail.data.content.evaluateSchedule.id = 4
                                 setModificationEditableRowKeys(testKeysArray)
                                 for (var i in detail.data.content.modificationList) {
-                                    i.date = dateReceived(i.date)
+                                    // i.modifacationDate = dateReceived(i.modifacationDate)
+                                    detail.data.content.modificationList[i].id = i
+                                    if (typeof detail.data.content.modificationList[i].modifacationDate === "undefined") {
+                                        detail.data.content.modificationList[i].modifacationDate = ''
+                                    }
                                 }
                                 let modificationKeysArray = [...detail.data.content.modificationList.map(
-                                    (item) => item.version
+                                    (item) => item.id
                                 )]
-                                setModificationEditableRowKeys(modificationKeysArray)
+                                setModificationEditableRowKeys(detail.data.content.modificationList.map((item) => item.id))
 
                                 // detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
                                 // detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
@@ -211,6 +223,18 @@ const JS006Fill = () => {
                                 // detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
                                 // detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
                                 // detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
+                                
+                                let testProgress = [
+                                    detail.data.content.planSchedule,
+                                    detail.data.content.designSchedule,
+                                    detail.data.content.executeSchedule,
+                                    detail.data.content.evaluateSchedule
+                                ]
+                                testProgress[0].milestoneQuest = '制定测试计划'
+                                testProgress[1].milestoneQuest = '设计测试计划'
+                                testProgress[2].milestoneQuest = '执行测试计划'
+                                testProgress[3].milestoneQuest = '评估测试计划'
+                                detail.data.content.testProgress = testProgress
 
                                 return JSON.parse(JSON.stringify(detail.data.content))
                             }).catch(Error => {
