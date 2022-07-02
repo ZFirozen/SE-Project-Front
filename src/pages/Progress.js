@@ -165,23 +165,23 @@ const Progress = () => {
                             setCurrentStep(3);
                             setShowStage(1);
                             axios.post("/api/test?entrustId=" + entrustId)
-                        .then((response) => {
-                            if (response.status === 200) {
-                                alert("测试项目创建成功！");
-                                console.log("create test success");
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        })
-                        .catch((error) => {
-                            if (error.response.status === 400) {
-                                console.log(error);
-                            } else {
-                                console.log("Unknown error!");
-                            }
-                        }).finally((response) => {
-                            console.log(response);
-                        });
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        alert("测试项目创建成功！");
+                                        console.log("create test success");
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.response.status === 400) {
+                                        console.log(error);
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                }).finally((response) => {
+                                    console.log(response);
+                                });
                             break;
                         case "COPY_SAVED":
                             cstage = 2;
@@ -629,7 +629,7 @@ const Progress = () => {
                     } else {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/schemeview",
                             query: {
                                 testId: testId
                             }

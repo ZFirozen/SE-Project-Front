@@ -6,12 +6,17 @@ import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, P
 import axios from "axios";
 import { EditableProTable } from "@ant-design/pro-table";
 import { history, useLocation } from "umi";
-
+import { ProCard } from "@ant-design/pro-card"
 
 const SampleFill = () => {
   const [editableKeys, setEditableRowKeys] = useState([]);
   const location = useLocation();
   const sampleId = location.query.sampleId;
+  const [form] = ProForm.useForm();
+
+  const onReset = () => {
+    form.resetFields();
+  };
 
   return (
     <>
@@ -35,6 +40,7 @@ const SampleFill = () => {
               })
           }
           }
+          submitter={{ submitButtonProps: { style: { display: 'none', } }, resetButtonProps: { style: { display: 'none', } } }}
           request={async () => {
             return axios.get("/api/sample/" + sampleId).then(Detail => {
               console.log("load from " + sampleId)
@@ -47,16 +53,26 @@ const SampleFill = () => {
               return {}
             })
           }}>
-          <ProFormText name="id" disabled label="样品集Id"></ProFormText>
-          <ProFormText name="entrustId" label="委托Id"></ProFormText>
-          <ProFormDigit name="marketerId" label="市场部人员Id"></ProFormDigit>
-          <ProFormText name="name" label="集合名称"></ProFormText>
-          <ProFormSelect name="stage" label="集合状态" options={[
-            { label: '已接受', value: 'RECEIVED' },
-            { label: '归还', value: 'RETURNED' },
-            { label: '归档', value: 'SEALED' },
-            { label: '销毁', value: 'DESTROYED' },
-          ]}></ProFormSelect>
+          <ProCard>
+            <ProFormText name="id" disabled label="样品集Id"></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormText name="entrustId" label="委托Id"></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormDigit name="marketerId" label="市场部人员Id"></ProFormDigit>
+          </ProCard>
+          <ProCard>
+            <ProFormText name="name" label="集合名称"></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormSelect name="stage" label="集合状态" options={[
+              { label: '已接受', value: 'RECEIVED' },
+              { label: '归还', value: 'RETURNED' },
+              { label: '归档', value: 'SEALED' },
+              { label: '销毁', value: 'DESTROYED' },
+            ]}></ProFormSelect>
+          </ProCard>
           <ProForm.Item name="samples" trigger="onValuesChange">
             <EditableProTable rowKey="id" ond toolBarRender={false} columns={[
               {
@@ -99,6 +115,22 @@ const SampleFill = () => {
                 },
               }} />
           </ProForm.Item>
+          <ProCard.Group direction="row">
+            <ProCard layout="center">
+              <ProForm.Item >
+                <Button type="primary" htmlType="submit">
+                  提交
+                </Button>
+              </ProForm.Item>
+            </ProCard>
+            <ProCard layout="center">
+              <ProForm.Item >
+                <Button htmlType="button" onClick={onReset}>
+                  重置
+                </Button>
+              </ProForm.Item>
+            </ProCard>
+          </ProCard.Group>
         </ProForm>
       </div>
     </>
