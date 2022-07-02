@@ -140,9 +140,6 @@ const JS006Fill = () => {
             // for (var i in detail.data.content.modificationList) {
             //     i.date = dateReceived(i.date)
             // }
-            let modificationKeysArray = [...detail.data.content.modificationList.map(
-                (item) => item.version
-            )]
             console.log(detail.data.content.modificationList)
             setModificationEditableRowKeys(detail.data.content.modificationList)
             let testProgress = [
