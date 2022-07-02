@@ -165,286 +165,329 @@ const EntrustmentFill = () => {
               <Title level={4}>委托单位信息</Title>
             </ProCard>
             <ProCard>
-              <ProFormText label="委托单位（中文）" width="500px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyCH"]} ></ProFormText>
+              <ProFormText label="委托单位（中文）" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyCH"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="委托单位（英文）" width="500px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyEN"]} ></ProFormText>
+              <ProFormText label="委托单位（英文）" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyEN"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="单位电话" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyPhone"]} ></ProFormText>
+              <ProFormText label="单位电话" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyPhone"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="单位网址" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyWebsite"]} ></ProFormText>
-            </ProCard>
-            <ProCard>
-
-
-              <ProFormText label="单位地址" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyAddress"]} ></ProFormText>
-            </ProCard>
-            <ProCard>
-              <ProFormText label="联系人名称" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "contact"]} ></ProFormText>
+              <ProFormText label="单位网址" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyWebsite"]} ></ProFormText>
             </ProCard>
             <ProCard>
 
-              <ProFormText label="联系人电话" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "contactPhone"]} ></ProFormText>
+
+              <ProFormText label="单位地址" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "companyAddress"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="联系人邮箱" width="lg" required rules={[{ required: true, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["principal", "contactEmail"]} ></ProFormText>
+              <ProFormText label="联系人名称" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "contact"]} ></ProFormText>
+            </ProCard>
+            <ProCard>
+
+              <ProFormText label="联系人电话" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "contactPhone"]} ></ProFormText>
+            </ProCard>
+            <ProCard>
+              <ProFormText label="联系人邮箱" required rules={[{ required: true, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["principal", "contactEmail"]} ></ProFormText>
 
             </ProCard>
             <ProCard>
-              <ProFormText label="授权代表" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "representative"]} ></ProFormText>
+              <ProFormText label="授权代表" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "representative"]} ></ProFormText>
             </ProCard>
             <ProCard>
               <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "sigDate"]} label="签章日期" />
             </ProCard>
             <ProCard>
-              <ProFormText label="邮编" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "zipCode"]} ></ProFormText>
+              <ProFormText label="邮编" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "zipCode"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="传真" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "fax"]} ></ProFormText>
+              <ProFormText label="传真" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "fax"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="开户银行" width="500px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "bankName"]} ></ProFormText>
+              <ProFormText label="开户银行" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "bankName"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="银行账号" width="500px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "account"]} ></ProFormText>
+              <ProFormText label="银行账号" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "account"]} ></ProFormText>
             </ProCard>
             <ProCard>
-              <ProFormText label="银行户名" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "accountName"]} ></ProFormText>
+              <ProFormText label="银行户名" required rules={[{ required: true, message: "这是必填项" }]} name={["principal", "accountName"]} ></ProFormText>
             </ProCard>
           </ProCard>
+          <ProCard direction="column" bordered>
+            <Title level={4}>软件详情</Title>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="软件名称" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "name"]} ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="版本号" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "version"]} ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="开发单位" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "developer"]} ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormRadio.Group
+              required rules={[{ required: true, message: "这是必填项" }]}
+              name={["software", "developerType"]}
+              label="开发单位性质"
+              options={[{ value: "1", label: "内资企业" },
+              { value: "2", label: "外（合）资企业" },
+              { value: "3", label: "港澳台（合）资企业" },
+              { value: "4", label: "科研院校" },
+              { value: "5", label: "政府事业团体" },
+              { value: "6", label: "其他" }]}
+            ></ProFormRadio.Group>
+          </ProCard>
+          <ProCard>
+            <ProFormTextArea label="软件用户对象描述" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "userDescription"]} ></ProFormTextArea>
+          </ProCard>
+          <ProCard>
+            <ProFormTextArea label="主要功能简介" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "functionIntro"]} ></ProFormTextArea>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="功能数（到最后一级菜单）" name={["software", "functionNums"]} ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="功能点数" name={["software", "functionPoint"]} ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="代码行数（不包括注释行、空行）" name={["software", "codeLine"]} ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormTreeSelect
+              name={["software", "type"]}
+              placeholder="请选择软件类型"
+              allowClear
+              required rules={[{ required: true, message: "这是必填项" }]}
 
-          <Title level={4}>软件详情</Title>
-
-          <ProFormText label="软件名称" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "name"]} ></ProFormText>
-
-          <ProFormText label="版本号" width="lg" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "version"]} ></ProFormText>
-
-          <ProFormText label="开发单位" width="500px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "developer"]} ></ProFormText>
-          
-          <ProFormRadio.Group
-            required rules={[{ required: true, message: "这是必填项" }]}
-            name={["software", "developerType"]}
-            label="开发单位性质"
-            options={[{ value: "1", label: "内资企业" },
-            { value: "2", label: "外（合）资企业" },
-            { value: "3", label: "港澳台（合）资企业" },
-            { value: "4", label: "科研院校" },
-            { value: "5", label: "政府事业团体" },
-            { value: "6", label: "其他" }]}
-          ></ProFormRadio.Group>
-
-          <ProFormTextArea label="软件用户对象描述" width="800px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "userDescription"]} ></ProFormTextArea>
-
-          <ProFormTextArea label="主要功能简介" width="830px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "functionIntro"]} ></ProFormTextArea>
-
-          <ProFormText label="功能数（到最后一级菜单）" width="lg" name={["software", "functionNums"]} ></ProFormText>
-
-          <ProFormText label="功能点数" width="lg" name={["software", "functionPoint"]} ></ProFormText>
-
-          <ProFormText label="代码行数（不包括注释行、空行）" width="lg" name={["software", "codeLine"]} ></ProFormText>
-
-          <ProFormTreeSelect
-            name={["software", "type"]}
-            placeholder="请选择软件类型"
-            allowClear
-            required rules={[{ required: true, message: "这是必填项" }]}
-            width={230}
-            label="软件类型"
-            request={async () => {
-              return [
-                {
-                  title: "系统软件",
-                  value: "系统软件",
-                  selectable: false,
-                  children: [
-                    {
-                      title: "操作系统",
-                      value: "操作系统",
-                    },
-                    {
-                      title: "中文操作系统",
-                      value: "中文操作系统",
-                    },
-                    {
-                      title: "网络系统",
-                      value: "网络系统",
-                    },
-                    {
-                      title: "嵌入式操作系统",
-                      value: "嵌入式操作系统",
-                    },
-                    {
-                      title: "其他",
-                      value: "其他系统软件",
-                    }
-                  ],
-                },
-                {
-                  title: "支持软件",
-                  value: "支持软件",
-                  selectable: false,
-                  children: [
-                    {
-                      title: "程序设计语言",
-                      value: "程序设计语言",
-                    },
-                    {
-                      title: "数据库系统设计",
-                      value: "数据库系统设计",
-                    },
-                    {
-                      title: "工具软件",
-                      value: "工具软件",
-                    },
-                    {
-                      title: "网络通信软件",
-                      value: "网络通信软件",
-                    },
-                    {
-                      title: "中间件",
-                      value: "中间件",
-                    },
-                    {
-                      title: "其他",
-                      value: "其他支持软件",
-                    }
-                  ],
-                },
-                {
-                  title: "应用软件",
-                  value: "应用软件",
-                  selectable: false,
-                  children: [
-                    {
-                      title: "行业管理软件",
-                      value: "行业管理软件",
-                    },
-                    {
-                      title: "办公软件",
-                      value: "办公软件",
-                    },
-                    {
-                      title: "模式识别软件",
-                      value: "模式识别软件",
-                    },
-                    {
-                      title: "图形图像软件",
-                      value: "图形图像软件",
-                    },
-                    {
-                      title: "控制软件",
-                      value: "控制软件",
-                    },
-                    {
-                      title: "网络应用软件",
-                      value: "网络应用软件",
-                    },
-                    {
-                      title: "信息管理软件",
-                      value: "信息管理软件",
-                    },
-                    {
-                      title: "数据库管理应用软件",
-                      value: "数据库管理应用软件",
-                    },
-                    {
-                      title: "安全与保密软件",
-                      value: "安全与保密软件",
-                    },
-                    {
-                      title: "嵌入式应用软件",
-                      value: "嵌入式应用软件",
-                    },
-                    {
-                      title: "教育软件",
-                      value: "教育软件",
-                    },
-                    {
-                      title: "游戏软件",
-                      value: "游戏软件",
-                    },
-                    {
-                      title: "其他",
-                      value: "其他应用软件",
-                    },
-                  ],
-                },
-                {
-                  title: "其他",
-                  value: "其他",
-                },
-              ];
-            }}
-            fieldProps={{
-              showArrow: true,
-              filterTreeNode: true,
-              showSearch: true,
-              dropdownMatchSelectWidth: false,
-              autoClearSearchValue: true,
-              treeNodeFilterProp: "title",
-              showCheckedStrategy: TreeSelect.SHOW_PARENT
-            }}
-          />
-
-          <Title level={4}>运行环境</Title>
-
-          <Title level={4}>客户端</Title>
-
-            <ProFormCheckbox.Group name={["software", "clientOS"]} required rules={[{ required: true, message: "这是必填项" }]} label="操作系统" layout="vertical"
-              options={[{ value: "Windows " + replacetokenbegin + 1 + replacetokenend + 1, label: "Windows（版本）" },
-              { value: "Linux " + replacetokenbegin + 2 + replacetokenend + 2, label: "Linux（版本）" },
-              { value: replacetokenbegin + 3 + replacetokenend + 3, label: "其他" }]}>
-            </ProFormCheckbox.Group>
-
-            <ProFormText label="Windows版本" name={"toreplace_1"}></ProFormText>
-            <ProFormText label="Linux版本" name={"toreplace_2"}></ProFormText>
-            <ProFormText label="其他" name={"toreplace_3"}></ProFormText>
-
-          <ProFormText label="内存要求" width="130px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "clientMemoryRequirement"]} addonAfter="MB" ></ProFormText>
-
-          <ProFormTextArea label="其他要求" width="830px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "clientOtherRequirement"]} ></ProFormTextArea>
-
-          <Title level={4}>服务端</Title>
-
-          <Title level={4}>硬件</Title>
-
-            <ProFormCheckbox.Group name={["software", "serverHardArch"]} required rules={[{ required: true, message: "这是必填项" }]} label="架构" layout="horizontal"
-              options={[{ value: "PC服务器", label: "PC服务器" },
-              { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
-              { value: replacetokenbegin + 4 + replacetokenend + 4, label: "其他" }]}>
-            </ProFormCheckbox.Group>
-            <ProFormText label="其他" name={"toreplace_4"}></ProFormText>
-
-          <ProFormText label="内存要求" width="130px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servHardMemoryRequirement"]} addonAfter="MB" ></ProFormText>
-
-          <ProFormText label="硬盘要求" width="130px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servHardDiskRequirement"]} addonAfter="MB" ></ProFormText>
-
-          <ProFormTextArea label="其他要求" width="830px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servHardOtherRequirement"]} ></ProFormTextArea>
-
-          <Title level={4}>软件</Title>
-
-          <ProFormText label="操作系统" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftOS"]}></ProFormText>
-          
-          <ProFormText label="版本" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftVersion"]}></ProFormText>
-
-          <ProFormText label="编程语言" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftProgramLang"]}></ProFormText>
-          
-          <ProFormCheckbox.Group label="构架" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftArch"]} layout="horizontal"
-            options={[{ value: "C/S", label: "C/S" },
-            { value: "B/S", label: "B/S" },
-            { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
-
-          <ProFormText label="数据库" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftDatabase"]}></ProFormText>
-          
-          <ProFormText label="中间件" width="400px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftMiddleware"]}></ProFormText>
-
-          <ProFormTextArea label="其他支撑软件" width="830px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "serverSideOtherSupport"]} ></ProFormTextArea>
-
-          <ProFormText label="网络环境" width="700px" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "networkEnvironment"]} ></ProFormText>
-
-          <div style={{ backgroundColor: graycolor }}>
+              label="软件类型"
+              request={async () => {
+                return [
+                  {
+                    title: "系统软件",
+                    value: "系统软件",
+                    selectable: false,
+                    children: [
+                      {
+                        title: "操作系统",
+                        value: "操作系统",
+                      },
+                      {
+                        title: "中文操作系统",
+                        value: "中文操作系统",
+                      },
+                      {
+                        title: "网络系统",
+                        value: "网络系统",
+                      },
+                      {
+                        title: "嵌入式操作系统",
+                        value: "嵌入式操作系统",
+                      },
+                      {
+                        title: "其他",
+                        value: "其他系统软件",
+                      }
+                    ],
+                  },
+                  {
+                    title: "支持软件",
+                    value: "支持软件",
+                    selectable: false,
+                    children: [
+                      {
+                        title: "程序设计语言",
+                        value: "程序设计语言",
+                      },
+                      {
+                        title: "数据库系统设计",
+                        value: "数据库系统设计",
+                      },
+                      {
+                        title: "工具软件",
+                        value: "工具软件",
+                      },
+                      {
+                        title: "网络通信软件",
+                        value: "网络通信软件",
+                      },
+                      {
+                        title: "中间件",
+                        value: "中间件",
+                      },
+                      {
+                        title: "其他",
+                        value: "其他支持软件",
+                      }
+                    ],
+                  },
+                  {
+                    title: "应用软件",
+                    value: "应用软件",
+                    selectable: false,
+                    children: [
+                      {
+                        title: "行业管理软件",
+                        value: "行业管理软件",
+                      },
+                      {
+                        title: "办公软件",
+                        value: "办公软件",
+                      },
+                      {
+                        title: "模式识别软件",
+                        value: "模式识别软件",
+                      },
+                      {
+                        title: "图形图像软件",
+                        value: "图形图像软件",
+                      },
+                      {
+                        title: "控制软件",
+                        value: "控制软件",
+                      },
+                      {
+                        title: "网络应用软件",
+                        value: "网络应用软件",
+                      },
+                      {
+                        title: "信息管理软件",
+                        value: "信息管理软件",
+                      },
+                      {
+                        title: "数据库管理应用软件",
+                        value: "数据库管理应用软件",
+                      },
+                      {
+                        title: "安全与保密软件",
+                        value: "安全与保密软件",
+                      },
+                      {
+                        title: "嵌入式应用软件",
+                        value: "嵌入式应用软件",
+                      },
+                      {
+                        title: "教育软件",
+                        value: "教育软件",
+                      },
+                      {
+                        title: "游戏软件",
+                        value: "游戏软件",
+                      },
+                      {
+                        title: "其他",
+                        value: "其他应用软件",
+                      },
+                    ],
+                  },
+                  {
+                    title: "其他",
+                    value: "其他",
+                  },
+                ];
+              }}
+              fieldProps={{
+                showArrow: true,
+                filterTreeNode: true,
+                showSearch: true,
+                dropdownMatchSelectWidth: false,
+                autoClearSearchValue: true,
+                treeNodeFilterProp: "title",
+                showCheckedStrategy: TreeSelect.SHOW_PARENT
+              }}
+            />
+          </ProCard>
+          <ProCard direction="column" bordered>
+            <ProCard>
+              <Title level={4}>运行环境</Title>
+            </ProCard>
+            <ProCard direction="column" bordered>
+              <ProCard>
+                <Title level={4}>客户端</Title>
+              </ProCard>
+              <ProCard.Group bordered>
+                <ProCard>
+                  <ProFormCheckbox.Group name={["software", "clientOS"]} required rules={[{ required: true, message: "这是必填项" }]} label="操作系统" layout="vertical"
+                    options={[{ value: "Windows " + replacetokenbegin + 1 + replacetokenend + 1, label: "Windows（版本）" },
+                    { value: "Linux " + replacetokenbegin + 2 + replacetokenend + 2, label: "Linux（版本）" },
+                    { value: replacetokenbegin + 3 + replacetokenend + 3, label: "其他" }]}>
+                  </ProFormCheckbox.Group>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="Windows版本" name={"toreplace_1"}></ProFormText>
+                  <ProFormText label="Linux版本" name={"toreplace_2"}></ProFormText>
+                  <ProFormText label="其他" name={"toreplace_3"}></ProFormText>
+                </ProCard>
+              </ProCard.Group>
+              <ProCard>
+                <ProFormText label="内存要求" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "clientMemoryRequirement"]} addonAfter="MB" ></ProFormText>
+              </ProCard>
+              <ProCard>
+                <ProFormTextArea label="其他要求" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "clientOtherRequirement"]} ></ProFormTextArea>
+              </ProCard>
+            </ProCard>
+            <ProCard direction="column" bordered>
+              <ProCard>
+                <Title level={4}>服务端</Title>
+              </ProCard>
+              <ProCard direction="column" bordered>
+                <ProCard>
+                  <Title level={4}>硬件</Title>
+                </ProCard>
+                <ProCard>
+                  <ProFormCheckbox.Group name={["software", "serverHardArch"]} required rules={[{ required: true, message: "这是必填项" }]} label="架构" layout="horizontal"
+                    options={[{ value: "PC服务器", label: "PC服务器" },
+                    { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
+                    { value: replacetokenbegin + 4 + replacetokenend + 4, label: "其他" }]}>
+                  </ProFormCheckbox.Group>
+                  <ProFormText label="其他" name={"toreplace_4"}></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="内存要求" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servHardMemoryRequirement"]} addonAfter="MB" ></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="硬盘要求" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servHardDiskRequirement"]} addonAfter="MB" ></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormTextArea label="其他要求" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servHardOtherRequirement"]} ></ProFormTextArea>
+                </ProCard>
+              </ProCard>
+              <ProCard direction="column" bordered>
+                <ProCard>
+                  <Title level={4}>软件</Title>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="操作系统" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftOS"]}></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="版本" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftVersion"]}></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="编程语言" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftProgramLang"]}></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormCheckbox.Group label="构架" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftArch"]} layout="horizontal"
+                    options={[{ value: "C/S", label: "C/S" },
+                    { value: "B/S", label: "B/S" },
+                    { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="数据库" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftDatabase"]}></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormText label="中间件" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "servSoftMiddleware"]}></ProFormText>
+                </ProCard>
+                <ProCard>
+                  <ProFormTextArea label="其他支撑软件" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "serverSideOtherSupport"]} ></ProFormTextArea>
+                </ProCard>
+              </ProCard>
+              <ProCard>
+                <ProFormText label="网络环境" required rules={[{ required: true, message: "这是必填项" }]} name={["software", "networkEnvironment"]} ></ProFormText>
+              </ProCard>
+            </ProCard>
+          </ProCard>
+          <ProCard>
             <Title>附表：NST－04－JS003－2011－委托测试软件功能列表</Title>
             <ProForm.Item name={["software", "modules"]} trigger="onValuesChange">
               <EditableProTable rowKey="id" ond toolBarRender={false} columns={[
@@ -514,63 +557,67 @@ const EntrustmentFill = () => {
                   },
                 }} />
             </ProForm.Item>
-          </div>
-
-          <ProFormCheckbox.Group
-            required rules={[{ required: true, message: "这是必填项" }]}
-            layout="horizontal"
-            name="testStandard"
-            label="测试依据"
-            options={[{ value: "GB/T 25000.51-2010", label: "GB/T 25000.51-2010" },
-            { value: "GB/T 16260.1-2006", label: "GB/T 16260.1-2006" },
-            { value: "NST-03-WI12-2011", label: "NST-03-WI12-2011" },
-            { value: "NST-03-WI13-2011", label: "NST-03-WI13-2011" },
-            { value: replacetokenbegin + 5 + replacetokenend + 5, label: "其他" }]}
-          />
-          <ProFormText label="其他" name={"toreplace_5"}></ProFormText>
-
-          <ProFormCheckbox.Group
-            width={730}
-            required rules={[{ required: true, message: "这是必填项" }]}
-            name="techIndex"
-            label="测试指标"
-            options={[{ value: "功能性", label: "功能性" },
-            { value: "可靠性", label: "可靠性" },
-            { value: "易用性", label: "易用性" },
-            { value: "效率", label: "效率" },
-            { value: "可维护性", label: "可维护性" },
-            { value: "可移植性", label: "可移植性" },
-            { value: "代码覆盖度", label: "代码覆盖度" },
-            { value: "缺陷检测率", label: "缺陷检测率" },
-            { value: "代码风格符合度", label: "代码风格符合度" },
-            { value: "代码不符合项检测率", label: "代码不符合项检测率" },
-            { value: "产品说明要求", label: "产品说明要求" },
-            { value: "用户文档集要求", label: "用户文档集要求" },
-            { value: replacetokenbegin + 6 + replacetokenend + 6, label: "其他" }]}
-          />
-          <ProFormText label="其他" name={"toreplace_6"}></ProFormText>
-
-          <ProFormRadio.Group
-            required rules={[{ required: true, message: "这是必填项" }]}
-            layout="horizontal"
-            name="softwareMedium"
-            label="软件介质"
-            options={[{ value: "1", label: "光盘" },
-            { value: "2", label: "U盘" },
-            { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
-          />
-          <ProFormText label="其他" name={"toreplace_7"}></ProFormText>
-
-          <ProFormTextArea label="文档资料" width="900px" required rules={[{ required: true, message: "这是必填项" }]} name="document" ></ProFormTextArea>
-
-          <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required rules={[{ required: true, message: "这是必填项" }]}
-            name="sampleHandling"
-            options={[{ value: "1", label: "由本实验室销毁" },
-            { value: "2", label: "退还给我们" }]}>
-
-          </ProFormRadio.Group>
-
-          <ProFormText label="希望完成时间" width="500px" required rules={[{ required: true, message: "这是必填项" }]} name="expectedTime" ></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormCheckbox.Group
+              required rules={[{ required: true, message: "这是必填项" }]}
+              layout="horizontal"
+              name="testStandard"
+              label="测试依据"
+              options={[{ value: "GB/T 25000.51-2010", label: "GB/T 25000.51-2010" },
+              { value: "GB/T 16260.1-2006", label: "GB/T 16260.1-2006" },
+              { value: "NST-03-WI12-2011", label: "NST-03-WI12-2011" },
+              { value: "NST-03-WI13-2011", label: "NST-03-WI13-2011" },
+              { value: replacetokenbegin + 5 + replacetokenend + 5, label: "其他" }]}
+            />
+            <ProFormText label="其他" name={"toreplace_5"}></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormCheckbox.Group
+              required rules={[{ required: true, message: "这是必填项" }]}
+              name="techIndex"
+              label="测试指标"
+              options={[{ value: "功能性", label: "功能性" },
+              { value: "可靠性", label: "可靠性" },
+              { value: "易用性", label: "易用性" },
+              { value: "效率", label: "效率" },
+              { value: "可维护性", label: "可维护性" },
+              { value: "可移植性", label: "可移植性" },
+              { value: "代码覆盖度", label: "代码覆盖度" },
+              { value: "缺陷检测率", label: "缺陷检测率" },
+              { value: "代码风格符合度", label: "代码风格符合度" },
+              { value: "代码不符合项检测率", label: "代码不符合项检测率" },
+              { value: "产品说明要求", label: "产品说明要求" },
+              { value: "用户文档集要求", label: "用户文档集要求" },
+              { value: replacetokenbegin + 6 + replacetokenend + 6, label: "其他" }]}
+            />
+            <ProFormText label="其他" name={"toreplace_6"}></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormRadio.Group
+              required rules={[{ required: true, message: "这是必填项" }]}
+              layout="horizontal"
+              name="softwareMedium"
+              label="软件介质"
+              options={[{ value: "1", label: "光盘" },
+              { value: "2", label: "U盘" },
+              { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
+            />
+            <ProFormText label="其他" name={"toreplace_7"}></ProFormText>
+          </ProCard>
+          <ProCard>
+            <ProFormTextArea label="文档资料" required rules={[{ required: true, message: "这是必填项" }]} name="document" ></ProFormTextArea>
+          </ProCard>
+          <ProCard>
+            <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required rules={[{ required: true, message: "这是必填项" }]}
+              name="sampleHandling"
+              options={[{ value: "1", label: "由本实验室销毁" },
+              { value: "2", label: "退还给我们" }]}>
+            </ProFormRadio.Group>
+          </ProCard>
+          <ProCard>
+            <ProFormText label="希望完成时间" required rules={[{ required: true, message: "这是必填项" }]} name="expectedTime" ></ProFormText>
+          </ProCard>
 
         </ProForm>
       </div>
