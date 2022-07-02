@@ -483,13 +483,14 @@ export default defineConfig({
       name: 'sample',
       icon: 'highlight',
       path: '/sample',
+      component: './SampleList',
+    },
+    {
+      name: 'sample',
+      icon: 'highlight',
+      path: '/sample',
+      hideInMenu: true,
       routes: [
-        {
-          name: 'list',
-          icon: 'smile',
-          path: '/sample/list',
-          component: './SampleList',
-        },
         {
           name: 'fill',
           icon: 'smile',
@@ -505,7 +506,7 @@ export default defineConfig({
           hideInMenu: true,
         },
       ]
-    },
+    },  
     {
       path: '/progress',
       component: './Progress',
