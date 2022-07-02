@@ -68,7 +68,7 @@ export default defineConfig({
       path: '/home',
       name: 'home',
       icon: 'home',
-      component: './home',
+      component: './Home/index',
     },
     {
       path: '/dashboard',
