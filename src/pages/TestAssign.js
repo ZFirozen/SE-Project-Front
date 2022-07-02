@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css';
 
 import React from "react"
-import { Modal, Table, Button, Space, Typography } from 'antd';
+import { Modal, Table, Button, Space, Typography,message } from 'antd';
 import localStorage from 'localStorage';
 import axios from 'axios';
 import ProTable from '@ant-design/pro-table';
