@@ -88,6 +88,7 @@ const ContractFill = () => {
                             });
                     }}
                     request={async () => {
+                        if (typeof entrustId !== "undefined") {
                         return axios.get("/api/entrust/" + entrustId)
                             .then((response) => {
                                 if (response.status === 200) {
@@ -115,6 +116,7 @@ const ContractFill = () => {
                                 console.log(error);
                                 return {}
                             });
+                        }
                     }}
                 >
                     <Title level={3}>软件委托测试合同</Title>

@@ -2,7 +2,7 @@
   "name": "nst",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://47.102.138.182:80",
+  "proxy": "http://47.102.138.182",
   "dependencies": {
     "@ant-design/charts": "^0.9.4",
     "@ant-design/icons": "^4.5.0",
