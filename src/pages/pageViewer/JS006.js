@@ -32,7 +32,7 @@ const modificationColumns = [
     },
     {
         title: '日期',
-        dataIndex: 'date',
+        dataIndex: 'modificationDate',
         valueType: 'date',
     },
     {
@@ -126,7 +126,7 @@ const JS006Fill = () => {
     })
     
     console.log(schemeId)
-    if (typeof schemeId !== "undefined") {
+    if (typeof schemeId !== "undefined" && (typeof pageData.haveRefreshed === "undefined" || !pageData.haveRefreshed)) {
         axios.get("/api/test/scheme/" + schemeId).then(detail => {
             setCardLoadingState(true)
             console.log(detail.data.content)
@@ -137,22 +137,36 @@ const JS006Fill = () => {
             detail.data.content.executeSchedule.id = 3
             detail.data.content.evaluateSchedule.id = 4
             setModificationEditableRowKeys(testKeysArray)
-            for (var i in detail.data.content.modificationList) {
-                i.date = dateReceived(i.date)
-            }
+            // for (var i in detail.data.content.modificationList) {
+            //     i.date = dateReceived(i.date)
+            // }
             let modificationKeysArray = [...detail.data.content.modificationList.map(
                 (item) => item.version
             )]
-            setModificationEditableRowKeys(modificationKeysArray)
+            console.log(detail.data.content.modificationList)
+            setModificationEditableRowKeys(detail.data.content.modificationList)
+            let testProgress = [
+                detail.data.content.planSchedule,
+                detail.data.content.designSchedule,
+                detail.data.content.executeSchedule,
+                detail.data.content.evaluateSchedule
+            ]
+            testProgress[0].milestoneQuest = '制定测试计划'
+            testProgress[1].milestoneQuest = '设计测试计划'
+            testProgress[2].milestoneQuest = '执行测试计划'
+            testProgress[3].milestoneQuest = '评估测试计划'
+            setTestEditableRowKeys(testProgress)
 
-            detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
-            detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
-            detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
-            detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
-            detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
-            detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
-            detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
-            detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
+            // detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
+            // detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
+            // detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
+            // detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
+            // detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
+            // detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
+            // detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
+            // detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
+
+            detail.data.content.haveRefreshed = true
 
             setPageData(JSON.parse(JSON.stringify(detail.data.content)))
             setCardLoadingState(false)
@@ -164,7 +178,7 @@ const JS006Fill = () => {
             })
             setCardLoadingState(false)
         })
-    } else {
+    } else if (typeof schemeId === "undefined") {
         console.log("No Scheme ID was given!")
     }
 
@@ -185,6 +199,7 @@ const JS006Fill = () => {
                         columns={modificationColumns}
                         search={false}
                         rowKey="id"
+                        dataSource={modificationEditableKeys}
                     />
 
                     <Divider type={'horizontal'} />
@@ -252,6 +267,7 @@ const JS006Fill = () => {
                         columns={testColumns}
                         search={false}
                         rowKey="id"
+                        dataSource={testEditableKeys}
                     />
 
                     <Divider type={'horizontal'} />

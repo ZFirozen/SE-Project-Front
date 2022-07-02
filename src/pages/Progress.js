@@ -623,7 +623,8 @@ const Progress = () => {
                         history.push({
                             pathname: "/test/scheme",
                             query: {
-                                schemeId: schemeId
+                                schemeId: schemeId,
+                                projectId: testId
                             }
                         })
                     } else {
@@ -631,7 +632,7 @@ const Progress = () => {
                         history.push({
                             pathname: "/test/schemeview",
                             query: {
-                                testId: testId
+                                schemeId: schemeId
                             }
                         })
                     }

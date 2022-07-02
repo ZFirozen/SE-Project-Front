@@ -120,6 +120,7 @@ const JS006Fill = () => {
     // const schemeId = props.match.params.id;
     const location = useLocation();
     const schemeId = location.query.schemeId;
+    const projectId = location.query.projectId;
 
     const [modificationEditableKeys, setModificationEditableRowKeys] = useState(() => defaultModificationData.map((item) => item.id));
     const [testEditableKeys, setTestEditableRowKeys] = useState(() => defaultTestData.map((item) => item.id));
@@ -142,7 +143,7 @@ const JS006Fill = () => {
                     onFinish={async (values) => {
                         let temp = values
                         for (var i in temp.modificationList) {
-                            temp.modificationList[i].date = dateSend(temp.modificationList[i].date)
+                            // temp.modificationList[i].date = dateSend(temp.modificationList[i].date)
                         }
                         for (var i in temp.testProgress) {
                             delete temp.testProgress[i].id
@@ -169,7 +170,13 @@ const JS006Fill = () => {
                             axios.post("/api/test/scheme/" + schemeId + "/content", temp).then(response => {
                                 console.log(response)
                                 message.success('修改成功');
-                                history.goBack();
+                                axios.post("/api/test/" + projectId + "/status", {
+                                    stage: 'SCHEME_AUDITING',
+                                    message: ''
+                                }).then(response => {
+                                    console.log('Stage Step Forward Successfully', response)
+                                    history.goBack();
+                                })
                             })
                         } else {
                             message.warning('提交失败：没有指定测试ID！')
