@@ -67,33 +67,35 @@ const ContractFill = () => {
                             });
                     }}
                     request={async () => {
-                        return axios.get("/api/entrust/" + entrustId)
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    console.log("success");
-                                    contractId = response.data.contractId
-                                    marketerId = response.data.marketerId
-                                    customerId = response.data.customerId
-                                }
-                                else {
-                                    console.log(response);
-                                }
-                                console.log(response.data)
-                                return response.data;
-                            }).then((entrust) => {
-                                return axios.get("/api/contract/" + entrust.contractId)
-                                    .then((contract) => {
-                                        console.log(contract.data)
-                                        return contract.data;
-                                    }).catch((error) => {
-                                        console.log(error);
-                                        return {}
-                                    });
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                                return {}
-                            });
+                        if (typeof entrustId !== "undefined") {
+                            return axios.get("/api/entrust/" + entrustId)
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        console.log("success");
+                                        contractId = response.data.contractId
+                                        marketerId = response.data.marketerId
+                                        customerId = response.data.customerId
+                                    }
+                                    else {
+                                        console.log(response);
+                                    }
+                                    console.log(response.data)
+                                    return response.data;
+                                }).then((entrust) => {
+                                    return axios.get("/api/contract/" + entrust.contractId)
+                                        .then((contract) => {
+                                            console.log(contract.data)
+                                            return contract.data;
+                                        }).catch((error) => {
+                                            console.log(error);
+                                            return {}
+                                        });
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                    return {}
+                                });
+                        }
                     }}
                 >
                     <Title level={3}>软件委托测试合同</Title>

@@ -116,11 +116,15 @@ const QuotationFill = () => {
                                     title: "行合计",
                                     dataIndex: "rowTotal",
                                     width: "20%",
+                                }, {
+                                    title: '操作',
+                                    valueType: 'option',
+                                    width: 50,
                                 }]}
                                 controlled={true}
                                 recordCreatorProps={{
                                     newRecordType: "dataSource",
-                                    position: "top",
+                                    position: "bottom",
                                     record: () => ({
                                         id: Date.now(),
                                     })
