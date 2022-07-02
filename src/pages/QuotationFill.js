@@ -39,6 +39,14 @@ const QuotationFill = () => {
                     scrollToFirstError="true"
                     onFinish={async (values) => {
                         if (userRole !== "CUSTOMER") {
+                            if (values.rowList === null)
+                                values.rowList = [{
+                                    projectName: ' ',
+                                    subProject: ' ',
+                                    price: ' ',
+                                    description: ' ',
+                                    rowTotal: ' '
+                                }]
                             axios.post("/api/entrust/" + entrustId + "/quote", values)
                                 .then((response) => {
                                     if (response.status === 200) {
@@ -65,11 +73,9 @@ const QuotationFill = () => {
                         if (typeof entrustId !== "undefined") {
                             return axios.get("/api/entrust/" + entrustId).then(Detail => {
                                 console.log("load from " + entrustId)
-                                console.log(Detail.data.quote)                                
+                                console.log(Detail.data.quote)
                                 if (Detail.data.quote.rowList === null)
-                                Detail.data.quote.rowList=[]
-
-
+                                    Detail.data.quote.rowList=[]
                                 if (Detail.data.quote !== null)
                                     return Detail.data.quote
                                 else return {}
