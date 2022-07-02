@@ -22,8 +22,9 @@ import Assign from "./Assign";
 import TestAssign from "./TestAssign";
 import DocumentVerify from "./DocumentVerify";
 import TestVerify from "./TestVerify";
+import TestReport from "./TestReport"
 
 export {
     Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
-    EntrustmentList, Sample, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractVerify, TestAssign, TestVerify
+    EntrustmentList, Sample, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractVerify, TestAssign, TestVerify, TestReport
 }

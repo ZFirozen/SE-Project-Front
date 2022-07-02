@@ -416,6 +416,13 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'report',
+          icon: 'smile',
+          path: '/test/report',
+          component: './TestReport',
+          hideInMenu: true,
+        },
+        {
           name: 'js012',
           icon: 'smile',
           path: '/test/workcheck',
