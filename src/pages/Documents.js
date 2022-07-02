@@ -115,7 +115,7 @@ const Documents = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             var temp;
-            temp = { "stage": "SCHEME_UNFILLED", "message": "" }
+            temp = { "stage": "REPORT_AUDITING", "message": "" }
             axios.post("/api/test/" + testId + "/status", temp).then(response => {
               console.log(response)
               window.open(response.data)
