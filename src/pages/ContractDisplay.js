@@ -10,36 +10,17 @@ import moment from "moment";
 const { Title } = Typography;
 
 const ContractDisplay = () => {
-    // const [contractId, setContractId] = useState("");
+    var contractId = "";
     const [data, setData] = useState([]);
     const [partyA, setPartyA] = useState([]);
     const [partyB, setPartyB] = useState([]);
 
-    var contractId = "";
-    // var data = [];
-    // var partyA = [];
-    // var partyB = [];
-
     const fetchState = () => {
         axios.get("/api/contract/" + contractId)
             .then((response) => {
-                //console.log(res.data.projectName);
-                //console.log(varthis.state.projectName);
-                // data = res.data;
-                // this.setState({
-                //     projectName: response.data.projectName,
-                //     data: response.data,
-                //     partyA: response.data.partyA,
-                //     partyB: response.data.partyB
-                // });
-
-                // data = response.data;
-                // partyA = response.data.partyA;
-                // partyB = response.data.partyB;
                 setData(response.data);
                 setPartyA(response.data.partyA);
                 setPartyB(response.data.partyB);
-                // console.log(varthis.state.data.partyA.companyCH)
             }).catch(err => {
                 console.log(err);
             })
@@ -47,7 +28,6 @@ const ContractDisplay = () => {
 
     useMemo(() => {
         const location = useLocation();
-        console.log(location.query);
         contractId = location.query.contractId;
         fetchState();
     }, [])

@@ -15,7 +15,8 @@ var schemeId = "";
 const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
-    testId = location.query.testId
+    console.log("location.query.testId=" + location.query.testId)
+    testId = location.query.testId === undefined ? testId : location.query.testId;
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
     const [showStage, setShowStage] = useState(0);
@@ -215,14 +216,16 @@ const Progress = () => {
     }
 
     const getTestStatus = () => {
+        console.log("bef get tid=" + testId)
         axios.get("/api/test/" + testId)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(testId)
+                    console.log("tid=" + testId)
+                    testId = testId
                     schemeId = response.data.projectFormIds.testSchemeId
-                    console.log(response.data.projectFormIds.testSchemeId)
-                    console.log(response.data.projectFormIds.workChecklistId)
-                    console.log(response.data.projectFormIds.testSchemeChecklistId)
+                    console.log("tschid=" + response.data.projectFormIds.testSchemeId)
+                    console.log("twcid=" + response.data.projectFormIds.workChecklistId)
+                    console.log("tschcheckid=" + response.data.projectFormIds.testSchemeChecklistId)
                     console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_QA":
@@ -574,26 +577,6 @@ const Progress = () => {
                             }
                         })
                     }
-                    else {
-                        history.push({
-                            pathname: "/test/workcheck",
-                            query: {
-                                entrustId: entrustId
-                            }
-                        })
-                    }
-                } else {
-                    if (userRole === "CUSTOMER") {
-                        alert("您没有权限访问！");
-                    }
-                    else {
-                        history.push({
-                            pathname: "/test/workcheck",
-                            query: {
-                                entrustId: entrustId
-                            }
-                        })
-                    }
                 }
                 break;
             default:
@@ -606,15 +589,31 @@ const Progress = () => {
         console.log(userRole);
         switch (value) {
             case 0:
-                if (userRole === "QA_SUPERVISOR") {
-                    history.push({
-                        pathname: "/test/assign",
-                        query: {
-                            testId: testId
-                        }
-                    })
-                } else {
-                    alert("您没有权限访问！");
+                if (currentStage === 2 && currentStep === 0) {
+                    if (userRole === "QA_SUPERVISOR") {
+                        history.push({
+                            pathname: "/test/assign",
+                            query: {
+                                testId: testId
+                            }
+                        })
+                    } else {
+                        alert("您没有权限访问！");
+                    }
+                }
+                else {
+                    if (userRole === "CUSTOMER") {
+                        alert("您没有权限访问！");
+                    }
+                    else {
+                        console.log("bef wokc tid=" + testId);
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                testId: testId
+                            }
+                        })
+                    }
                 }
                 break;
             case 1:
@@ -681,7 +680,7 @@ const Progress = () => {
                 if (userRole === "TESTER") {
                     if (currentStage === 2 && currentStep === 4) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/documents",
                             query: {
                                 testId: testId
                             }

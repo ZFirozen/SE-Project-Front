@@ -46,55 +46,76 @@ const ContractFill = () => {
                         values.marketerId = marketerId
                         values.customerId = customerId
                         console.log(values)
-                        axios.post("/api/contract/" + contractId, values)
+                        axios.post("/api/contract/" + contractId + "/acceptance")
                             .then((response) => {
                                 if (response.status === 200) {
-                                    alert("提交成功！");
+                                    alert("同意成功！");
                                     // window.location.href = "/progress/" + this.state.entrustId;
                                     history.goBack();
                                 } else {
-                                    alert("提交失败！");
+                                    alert("同意失败！");
                                     console.log("Unknown error!");
                                 }
                             })
                             .catch((error) => {
                                 if (error.response.status === 400) {
-                                    alert("提交失败！");
+                                    alert("同意失败！");
                                 } else {
-                                    alert("提交失败！");
+                                    alert("同意失败！");
                                     console.log("Unknown error!");
                                 }
+                            })
+                            .finally(() => {
+                                axios.post("/api/contract/" + contractId, values)
+                                    .then((response) => {
+                                        if (response.status === 200) {
+                                            alert("提交成功！");
+                                            // window.location.href = "/progress/" + this.state.entrustId;
+                                            history.goBack();
+                                        } else {
+                                            alert("提交失败！");
+                                            console.log("Unknown error!");
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        if (error.response.status === 400) {
+                                            alert("提交失败！");
+                                        } else {
+                                            alert("提交失败！");
+                                            console.log("Unknown error!");
+                                        }
+                                    });
                             });
                     }}
                     request={async () => {
                         if (typeof entrustId !== "undefined") {
-                            return axios.get("/api/entrust/" + entrustId)
-                                .then((response) => {
-                                    if (response.status === 200) {
-                                        console.log("success");
-                                        contractId = response.data.contractId
-                                        marketerId = response.data.marketerId
-                                        customerId = response.data.customerId
-                                    }
-                                    else {
-                                        console.log(response);
-                                    }
-                                    console.log(response.data)
-                                    return response.data;
-                                }).then((entrust) => {
-                                    return axios.get("/api/contract/" + entrust.contractId)
-                                        .then((contract) => {
-                                            console.log(contract.data)
-                                            return contract.data;
-                                        }).catch((error) => {
-                                            console.log(error);
-                                            return {}
-                                        });
-                                })
-                                .catch((error) => {
-                                    console.log(error);
-                                    return {}
-                                });
+                        return axios.get("/api/entrust/" + entrustId)
+                            .then((response) => {
+                                if (response.status === 200) {
+                                    console.log("success");
+                                    contractId = response.data.contractId
+                                    marketerId = response.data.marketerId
+                                    customerId = response.data.customerId
+                                }
+                                else {
+                                    console.log(response);
+                                }
+                                console.log(response.data)
+                                return response.data;
+                            }).then((entrust) => {
+                                return axios.get("/api/contract/" + entrust.contractId)
+                                    .then((contract) => {
+                                        console.log(contract.data)
+                                        return contract.data;
+                                    }).catch((error) => {
+                                        console.log(error);
+                                        return {}
+                                    });
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                return {}
+                            });
                         }
                     }}
                 >

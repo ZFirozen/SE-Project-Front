@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect } from 'antd';
 import { BorderBottomOutlined, PlusOutlined } from '@ant-design/icons';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from '@ant-design/pro-form';
@@ -11,24 +11,31 @@ import BasicLayout, { PageContainer, FooterToolbar } from '@ant-design/pro-layou
 import { SmileOutlined } from '@ant-design/icons';
 import { random, size } from 'lodash';
 import { EditableProTable } from '@ant-design/pro-table';
-import { useLocation } from 'react-router';
+import { useLocation } from 'umi';
+
 const whitecolor = '#ffffff'
 const graycolor = '#d6d6d6'
 const rowbegingap = 20
 const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
+var entrustId = ""
 
 const EntrustmentDisplay = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
   const embedregLength = 8
-  const location = useLocation();
-  const entrustId = location.query.entrustId;
+
   // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
   //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
   // }
+
+  useMemo(() => {
+    const location = useLocation();
+    entrustId = location.query.entrustId;
+  }, [])
+
   return (
     <>
       <div style={{ margin: 70 }}>
@@ -42,7 +49,7 @@ const EntrustmentDisplay = () => {
           layout="horizontal"
           onFinish={async (values) => {
             let temp = values
-            if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
+            if (temp.software !== undefined && temp.software !== null &&temp.software.modules !== undefined && temp.software.modules !== null) {
               console.log(temp)
               for (let i = 0; i < temp.software.modules.length; i++) {
                 delete temp.software.modules[i].id
@@ -83,10 +90,10 @@ const EntrustmentDisplay = () => {
                 console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
-                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
+                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined && Detail.data.content.software.modules !== null) {
                   for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
                     Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-                    if (Detail.data.content.software.modules[i].functions !== undefined) {
+                    if (Detail.data.content.software.modules[i].functions !== undefined && Detail.data.content.software.modules[i].functions !== null) {
                       for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
                         Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
                       }

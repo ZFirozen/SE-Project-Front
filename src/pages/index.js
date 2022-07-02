@@ -16,13 +16,19 @@ import EntrustmentFill from "./EntrustmentFill";
 import EntrustmentVerify from "./EntrustmentVerify";
 import ContractDisplay from "./ContractDisplay";
 import QuotationFill from "./QuotationFill";
-import Sample from "./Sample";
+import SampleList from "./SampleList";
+import SampleFill from "./SampleFill";
+import SampleDisplay from "./SampleDisplay";
+import Download from "./Download";
+import Documents from "./Documents";
 import Progress from "./Progress";
 import Assign from "./Assign";
 import TestAssign from "./TestAssign";
 import DocumentVerify from "./DocumentVerify";
+import TestVerify from "./TestVerify";
+import TestReport from "./TestReport"
 
 export {
-    Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract,
-    EntrustmentList, Sample, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractVerify, TestAssign
+    Home, NotFound, Form, FormFill, SearchPage, Login, SignUp, UserInfo, Contract, Download,Documents,
+    EntrustmentList, SampleList, SampleFill, SampleDisplay,Sample, ContractFill, EntrustmentFill, EntrustmentVerify, Assign, Progress, ContractDisplay, QuotationFill, DocumentVerify, ContractVerify, TestAssign, TestVerify, TestReport
 }

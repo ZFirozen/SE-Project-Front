@@ -63,6 +63,21 @@
         const userName = localStorage.getItem("userName");
         const userRole = localStorage.getItem("userRole");
 
+## 自动化测试脚本
+
+使用前需要先
+
+        pip install selenium
+
+然后打开Chrome查看当前版本号
+点击[下载](http://npm.taobao.org/mirrors/chromedriver/)对应版本号的Chromedriver，解压并将路径添加到环境变量Path
+打开seletest，将需要使用的测试脚本中的path中单引号部分改为chromedriver.exe的路径
+然后
+
+        python test.py
+
+自动运行脚本文件
+
 ## 人员注册清单
 
 |权限|用户名|密码|

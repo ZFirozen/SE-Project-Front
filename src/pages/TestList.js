@@ -8,8 +8,9 @@ import axios from 'axios';
 import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
+import { history } from "umi";
 
-var columns = [
+var defaultcolumns = [
     {
         title: '测试项目ID',
         dataIndex: 'id',
@@ -19,8 +20,8 @@ var columns = [
     },
     {
         title: '委托ID',
-        dataIndex: 'entrustmentId',
-        key: 'entrustmentId',
+        dataIndex: 'entrustId',
+        key: 'entrustId',
     },
     {
         title: '市场人员ID',
@@ -54,99 +55,103 @@ var columns = [
         ellipsis: false,
     },
 ];
+var columns = defaultcolumns
 console.log(localStorage.getItem("userRole") + ' visit')
-switch (localStorage.getItem("userRole")) {
-    case "MARKETING_SUPERVISOR":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress?testId=" + a.entrustId}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    case "TESTING_SUPERVISOR":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.entrustId}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    case "QA_SUPERVISOR":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
-            render: (a) => a.status.stage == "WAIT_FOR_QA" ? <Link to={"./assign/" + a.id}>分派</Link> : <Link to={"../progress/" + a.entrustId}>查看</Link>
-        }]
-        break
-    case "CUSTOMER":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.entrustId}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    case "MARKETER":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.entrustId}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    case "TESTER":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.entrustId}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    case "QA":
-        columns = [...columns, {
-            title: '操作',
-            search: false,
-            render: (a) => {
-                return (
-                    <>
-                        <Link to={"../progress/" + a.entrustId}>查看</Link>
-                    </>
-                )
-            }
-        }]
-        break
-    default:
-        break
+const changeColumns = () => {
+    switch (localStorage.getItem("userRole")) {
+        case "MARKETING_SUPERVISOR":
+            columns = [...defaultcolumns, {
+                title: '操作',
+                search: false,
+                render: (a) => {
+                    return (
+                        <>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        </>
+                    )
+                }
+            }]
+            break
+        case "TESTING_SUPERVISOR":
+            columns = [...defaultcolumns, {
+                title: '操作',
+                search: false,
+                render: (a) => {
+                    return (
+                        <>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        </>
+                    )
+                }
+            }]
+            break
+        case "QA_SUPERVISOR":
+            columns = [...columns, {
+                title: '操作',
+                search: false,
+                //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
+                render: (a) => a.status.stage == "WAIT_FOR_QA" ? <Button type='link' onClick={() => { history.push({ pathname: "/test/assign", query: { testId: a.id } }) }}>分派</Button> : <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { testId: a.id } }) }}>查看</Button>
+            }]
+            break
+        case "CUSTOMER":
+            columns = [...defaultcolumns, {
+                title: '操作',
+                search: false,
+                render: (a) => {
+                    return (
+                        <>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        </>
+                    )
+                }
+            }]
+            break
+        case "MARKETER":
+            columns = [...defaultcolumns, {
+                title: '操作',
+                search: false,
+                render: (a) => {
+                    return (
+                        <>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        </>
+                    )
+                }
+            }]
+            break
+        case "TESTER":
+            columns = [...defaultcolumns, {
+                title: '操作',
+                search: false,
+                render: (a) => {
+                    return (
+                        <>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.entrustId } }) }}>查看</Button>
+                        </>
+                    )
+                }
+            }]
+            break
+        case "QA":
+            columns = [...defaultcolumns, {
+                title: '操作',
+                search: false,
+                render: (a) => {
+                    return (
+                        <>
+                            <Button type='link' onClick={() => { history.push({ pathname: "/progress", query: { testId: a.id } }) }}>查看</Button>
+                        </>
+                    )
+                }
+            }]
+            break
+        default:
+            columns = defaultcolumns
+            break
+    }
 }
-
 const TestList = () => {
+    changeColumns()
     return (
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
