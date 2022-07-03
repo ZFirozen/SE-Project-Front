@@ -14,7 +14,7 @@ const loginOut = async () => {
   await outLogin();
   const { query = {}, pathname } = history.location;
   const { redirect } = query; // Note: There may be security issues, please note
-
+  // console.log(query, pathname);
   if (window.location.pathname !== '/user/login' && !redirect) {
     history.replace({
       pathname: '/user/login',
@@ -27,6 +27,7 @@ const loginOut = async () => {
 
 const AvatarDropdown = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
+  console.log(initialState);
   const onMenuClick = useCallback(
     (event) => {
       const { key } = event;
@@ -58,7 +59,11 @@ const AvatarDropdown = ({ menu }) => {
   }
 
   const { currentUser } = initialState;
-
+  if (currentUser) {
+    currentUser.name = localStorage.getItem("userName");
+    currentUser.avatar = localStorage.getItem("userAvatar");
+  }
+  console.log(currentUser);
   if (!currentUser || !currentUser.name) {
     return loading;
   }
@@ -74,7 +79,7 @@ const AvatarDropdown = ({ menu }) => {
       {menu && (
         <Menu.Item key="settings">
           <SettingOutlined />
-          个人设置
+          设置
         </Menu.Item>
       )}
       {menu && <Menu.Divider />}

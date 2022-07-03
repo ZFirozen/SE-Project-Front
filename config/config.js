@@ -39,13 +39,17 @@ export default defineConfig({
         {
 
           name: 'login',
-          path: '/ourlogin',
-          component: './OurLogin',
+          // path: '/ourlogin',
+          // component: './OurLogin',
+          // layout: false,
+          component: './user/Login',
+          path: '/user/login',
           layout: false,
         },
         {
           path: '/user',
-          redirect: '/ourlogin',
+          // redirect: '/ourlogin',
+          redirect: '/user/login',
         },
         {
           name: 'register-result',
@@ -497,12 +501,14 @@ export default defineConfig({
       icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
+      hideInMenu: true,
     },
     {
       name: 'userinfo',
       icon: 'user',
       path: '/userinfo',
       component: './UserInfo',
+      hideInMenu: true,
     },
     {
       path: '/signup',

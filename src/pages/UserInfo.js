@@ -125,7 +125,6 @@ export default class UserInfo extends React.Component {
                     localStorage.setItem("userName", response.data.userName);
                     localStorage.setItem("userRole", response.data.userRole);
                 } else {
-                    alert("获取用户信息失败，请先登录！");
                     console.log("Unknown error!");
                     if (this.state.isLoggedIn) {
                         this.setState({ isLoggedIn: false });
@@ -136,10 +135,9 @@ export default class UserInfo extends React.Component {
                 if (this.state.isLoggedIn) {
                     this.setState({ isLoggedIn: false });
                 }
-                if (error.response.status === 400) {
+                if (error.response.status === 403) {
                     alert("获取用户信息失败，请先登录！");
                 } else {
-                    alert("获取用户信息失败，请先登录！");
                     console.log("Unknown error!");
                 }
             })

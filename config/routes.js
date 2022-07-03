@@ -8,8 +8,10 @@ export default [
         routes: [
           {
             name: 'login',
-            path: '/ourlogin',
-            component: './Ourlogin',
+            // path: '/ourlogin',
+            // component: './Ourlogin',
+            path: '/user/login',
+            component: './user/Login'
           },
         ],
       },

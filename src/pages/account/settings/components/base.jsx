@@ -1,6 +1,6 @@
 import React from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Input, Upload, message } from 'antd';
+import { Button, Input, Upload, message, Typography } from 'antd';
 import ProForm, {
   ProFormDependency,
   ProFormFieldSet,
@@ -12,6 +12,11 @@ import { useRequest } from 'umi';
 import { queryCurrent } from '../service';
 import { queryProvince, queryCity } from '../service';
 import styles from './BaseView.less';
+import axios from 'axios';
+import localStorage from 'localStorage';
+import { conversionMomentValue } from '@ant-design/pro-utils';
+
+const { Title } = Typography;
 
 const validatorPhone = (rule, value, callback) => {
   if (!value[0]) {
@@ -69,7 +74,86 @@ const BaseView = () => {
       {loading ? null : (
         <>
           <div className={styles.left}>
+            <Title level={5}>修改用户名</Title>
+            <br />
             <ProForm
+              layout="horizontal"
+              scrollToFirstError="true"
+              submitter={{
+                resetButtonProps: {
+                  style: {
+                    display: 'none',
+                  },
+                },
+                // submitButtonProps: {
+                //   children: '更新基本信息',
+                // },
+              }}
+              onFinish={(values) => {
+                console.log(values.newName);
+                axios.post("/api/account/username?newValue=" + values.newName)
+                  .then((response) => {
+                    console.log(1, response)
+                    if (response.status === 200) {
+                      localStorage.setItem("userName", values.newName);
+                      message.success("用户名修改成功！");
+                      location.reload();
+                    } else {
+                      console.log("用户名修改成功？");
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(2, error);
+                    if (error.response.status === 400) {
+                      message.error("用户名已存在！\n请重新输入新的用户名！");
+                    } else {
+                      console.log("unknown error!");
+                      message.error("用户名修改失败！");
+                    }
+                  })
+              }}
+            >
+              <ProFormText width="md" required rules={[{ required: true, message: "这是必填项" }]} name={"newName"} placeholder={"请输入新用户名"} />
+            </ProForm>
+            <br />
+            <br />
+            <Title level={5}>修改密码</Title>
+            <br />
+            <ProForm
+              layout="horizontal"
+              scrollToFirstError="true"
+              submitter={{
+                resetButtonProps: {
+                  style: {
+                    display: 'none',
+                  },
+                },
+                // submitButtonProps: {
+                //   children: '更新基本信息',
+                // },
+              }}
+              onFinish={(values) => {
+                console.log(values.oldPassword, values.newPassword);
+                axios.post("/api/account/password?oldValue=" + values.oldPassword + "&newValue=" + values.newPassword)
+                  .then((response) => {
+                    if (response.status === 200) {
+                      message.success("密码修改成功！");
+                    } else {
+                      console.log("密码修改成功？");
+                    }
+                  })
+                  .catch((error) => {
+                    message.error("密码修改失败！\n请重新输入密码！");
+                    if (error.response.status !== 400) {
+                      console.log("unknown error!");
+                    }
+                  })
+              }}
+            >
+              <ProFormText.Password width="md" required rules={[{ required: true, message: "这是必填项" }]} name={"oldPassword"} placeholder={"请输入旧密码"} />
+              <ProFormText.Password width="md" required rules={[{ required: true, message: "这是必填项" }]} name={"newPassword"} placeholder={"请输入新密码"} />
+            </ProForm>
+            {/* <ProForm
               layout="vertical"
               onFinish={handleFinish}
               submitter={{
@@ -84,8 +168,8 @@ const BaseView = () => {
               }}
               initialValues={{ ...currentUser, phone: currentUser?.phone.split('-') }}
               hideRequiredMark
-            >
-              <ProFormText
+            > */}
+            {/* <ProFormText
                 width="md"
                 name="email"
                 label="邮箱"
@@ -95,19 +179,19 @@ const BaseView = () => {
                     message: '请输入您的邮箱!',
                   },
                 ]}
-              />
-              <ProFormText
+              /> */}
+            {/* <ProFormText
                 width="md"
-                name="name"
-                label="昵称"
+                name="userName"
+                label="用户名"
                 rules={[
                   {
                     required: true,
-                    message: '请输入您的昵称!',
+                    message: '请输入您的用户名!',
                   },
                 ]}
-              />
-              <ProFormTextArea
+              /> */}
+            {/* <ProFormTextArea
                 name="profile"
                 label="个人简介"
                 rules={[
@@ -223,8 +307,8 @@ const BaseView = () => {
               >
                 <Input className={styles.area_code} />
                 <Input className={styles.phone_number} />
-              </ProFormFieldSet>
-            </ProForm>
+              </ProFormFieldSet> */}
+            {/* </ProForm> */}
           </div>
           <div className={styles.right}>
             <AvatarView avatar={getAvatarURL()} />
