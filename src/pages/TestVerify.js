@@ -52,6 +52,7 @@ const TestVerify = () => {
                                             }).then((schemeReviewId) => {
                                                 console.log(schemeReviewId)
                                                 values.id = schemeReviewId;
+                                                values.projectId = testId;
                                                 let temp = values;
                                                 temp = JSON.parse(JSON.stringify(values));
                                                 console.log(temp);
@@ -64,7 +65,7 @@ const TestVerify = () => {
                                                                 .then((r) => {
                                                                     console.log(r)
                                                                     console.log("status change:pass")
-                                                                    //history.goBack();
+                                                                    history.goBack();
                                                                 })
                                                         }
                                                         else {
@@ -72,7 +73,7 @@ const TestVerify = () => {
                                                                 .then((r) => {
                                                                     console.log(r)
                                                                     console.log("status change:deny")
-                                                                    //history.goBack();
+                                                                    history.goBack();
                                                                 })
                                                         }
                                                     })
@@ -103,7 +104,7 @@ const TestVerify = () => {
                                         <Title level={4}>项目编号</Title>
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 200, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                        <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["projectId"]} />
+                                        {testId}
                                     </Col>
                                     <Col style={{ backgroundColor: whitecolor, width: 150, paddingLeft: 40, paddingTop: 23, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
                                         <Title level={4}>测试类别</Title>

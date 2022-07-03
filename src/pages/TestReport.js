@@ -41,12 +41,29 @@ const modificationColumns = [
         width: 50,
     },
 ];
-
 const TestReport = () => {
     const location = useLocation();
     const testId = location.query.testId;
     const [form] = ProForm.useForm();
     const [editableKeys, setEditableRowKeys] = useState([]);
+    const [projectSerialNumber, setProjectSerialNumber] = useState([])
+    
+    if (typeof testId !== "undefined") {
+        axios.get("/api/test/" + testId)
+            .then((response) => {
+                return response.data.projectFormIds.testReportId;
+            }).then((testReportId) => {
+                axios.get("/api/test/report/" + testReportId)
+                    .then((detail) => {
+                        //console.log(detail.data)
+                        setProjectSerialNumber(detail.data.content.projectSerialNumber)
+                        console.log(projectSerialNumber)
+                    })
+            })
+    }
+    console.log(123)
+    console.log(projectSerialNumber)
+    //结果没什么问题 但不知道为什么log会重复好多次
 
     return (
         <>
@@ -70,6 +87,7 @@ const TestReport = () => {
                                         }).then((testReportId) => {
                                             console.log(testReportId)
                                             console.log(124)
+                                            values.projectSerialNumber = projectSerialNumber
                                             
                                             let temp = values;
                                             temp = JSON.parse(JSON.stringify(values));
@@ -162,7 +180,7 @@ const TestReport = () => {
                                     <Title level={4}>项目编号</Title>
                                 </Col>
                                 <Col style={{width: 200, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["projectId"]} />
+                                    {projectSerialNumber}
                                 </Col>
                             </Row>
                             <Row>
