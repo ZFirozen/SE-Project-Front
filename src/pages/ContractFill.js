@@ -23,12 +23,16 @@ const Fragment = React.Fragment
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 
-
 const ContractFill = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     const [editableKeys, setEditableRowKeys] = useState([]);
     var contractId, marketerId, customerId
+    var isCustomer=false,isMarketer=false
+    if (userRole === "CUSTOMER")
+        isCustomer = true
+    if (userRole === "MARKETER")
+        isMarketer = true
     return (
         <>
             <div style={{ margin: 70 }}>
@@ -46,46 +50,70 @@ const ContractFill = () => {
                         values.marketerId = marketerId
                         values.customerId = customerId
                         console.log(values)
-                        axios.post("/api/contract/" + contractId + "/acceptance")
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    alert("同意成功！");
-                                    // window.location.href = "/progress/" + this.state.entrustId;
-                                    history.goBack();
-                                } else {
-                                    alert("同意失败！");
-                                    console.log("Unknown error!");
-                                }
-                            })
-                            .catch((error) => {
-                                if (error.response.status === 400) {
-                                    alert("同意失败！");
-                                } else {
-                                    alert("同意失败！");
-                                    console.log("Unknown error!");
-                                }
-                            })
-                            .finally(() => {
-                                axios.post("/api/contract/" + contractId, values)
-                                    .then((response) => {
-                                        if (response.status === 200) {
-                                            alert("提交成功！");
-                                            // window.location.href = "/progress/" + this.state.entrustId;
-                                            history.goBack();
-                                        } else {
-                                            alert("提交失败！");
-                                            console.log("Unknown error!");
-                                        }
-                                    })
-                                    .catch((error) => {
-                                        if (error.response.status === 400) {
-                                            alert("提交失败！");
-                                        } else {
-                                            alert("提交失败！");
-                                            console.log("Unknown error!");
-                                        }
-                                    });
-                            });
+                        if (userRole === "CUSTOMER") {
+                            axios.post("/api/contract/" + contractId + "/acceptance")
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        alert("同意成功！");
+                                        // window.location.href = "/progress/" + this.state.entrustId;
+                                        history.goBack();
+                                    } else {
+                                        alert("同意失败！");
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.response.status === 400) {
+                                        alert("同意失败！");
+                                    } else {
+                                        alert("同意失败！");
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .finally(() => {
+                                    axios.post("/api/contract/" + contractId, values)
+                                        .then((response) => {
+                                            if (response.status === 200) {
+                                                alert("提交成功！");
+                                                // window.location.href = "/progress/" + this.state.entrustId;
+                                                history.goBack();
+                                            } else {
+                                                alert("提交失败！");
+                                                console.log("Unknown error!");
+                                            }
+                                        })
+                                        .catch((error) => {
+                                            if (error.response.status === 400) {
+                                                alert("提交失败！");
+                                            } else {
+                                                alert("提交失败！");
+                                                console.log("Unknown error!");
+                                            }
+                                        });
+                                });
+                        }
+                        if (userRole === "MARKETER")
+                        {
+                            axios.post("/api/contract/" + contractId, values)
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        alert("提交成功！");
+                                        // window.location.href = "/progress/" + this.state.entrustId;
+                                        history.goBack();
+                                    } else {
+                                        alert("提交失败！");
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.response.status === 400) {
+                                        alert("提交失败！");
+                                    } else {
+                                        alert("提交失败！");
+                                        console.log("Unknown error!");
+                                    }
+                                });
+                        }
                     }}
                     request={async () => {
                         if (typeof entrustId !== "undefined") {
@@ -124,10 +152,14 @@ const ContractFill = () => {
                         <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={"projectName"} label="项目名称" />
                     </Row>
                     <Row style={white}>
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" />
+                        {userRole === "CUSTOMER" ?
+                            <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" />
+                            : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" disabled />}
                     </Row>
                     <Row style={gray}>
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" />
+                        {userRole === "MARKETER" ?
+                            <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" />
+                            : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" disabled />}
                     </Row>
                     <Row style={white}>
                         <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={"signedAt"} label="签订地点" />
@@ -135,14 +167,14 @@ const ContractFill = () => {
                     <Row style={gray}>
                         <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"signedDate"} label="签订日期" />
                     </Row>
-                    <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyCH"]} addonBefore={"本合同由作为委托方的"}
-                        addonAfter={"（以下简称“甲方”）"} />
+                    <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} addonBefore={"本合同由作为委托方的"}
+                        addonAfter={"（以下简称“甲方”）"} disabled/>
                     与作为受托方的南京大学计算机软件新技术国家重点实验室（以下简称“乙方”），在平等自愿的基础上，依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。
                     <br />
                     <br />
                     <Title level={4}> 一、 任务表述</Title>
                     <Row style={gray}>
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={"projectName"} addonBefore={"乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件"}
+                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={"targetSoftware"} addonBefore={"乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件"}
                             addonAfter={"(下称受测软件)的质量特性,进行测试，并出具相应的测试报告。"} />
                     </Row>
                     <br />
@@ -226,67 +258,52 @@ const ContractFill = () => {
                     <br />
                     <Title level={4}>十二、签章</Title>
                     <Title level={5}>委托方：</Title>
-                    <Row style={gray}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="单位全称（中文）" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyEN"]} label="单位全称（英文）" /></div></Row>
-                    <Row style={white}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "representative"]} label="授权代表" />
-                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "sigDate"]} label="签章日期" /></div></Row>
-                    <Row style={gray}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "contact"]} label="联系人" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "contactPhone"]} label="联系人电话" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyA", "contactEmail"]} label="联系人邮箱" /></div></Row>
-                    <Row style={white}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyPhone"]} label="单位电话" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyWebsite"]} label="单位网址" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyAddress"]} label="单位地址" /></div></Row>
                     <Row style={gray}><div>
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "zipCode"]} label="邮编" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "fax"]} label="传真" /></div></Row>
-                    <Row style={white}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "bankName"]} label="开户银行" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "account"]} label="户名" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "accountName"]} label="账号" /></div></Row>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="单位全称（中文）" disabled={isMarketer} />
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyEN"]} label="单位全称（英文）" disabled={isMarketer}/></div></Row>
+                    <Row style={white}><div>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "representative"]} label="授权代表" disabled={isMarketer} />
+                        <ProFormDatePicker required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "sigDate"]} label="签章日期" disabled={isMarketer}/></div></Row>
+                    <Row style={gray}><div>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "contact"]} label="联系人" disabled={isMarketer} />
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "contactPhone"]} label="联系人电话" disabled={isMarketer}/>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyA", "contactEmail"]} label="联系人邮箱" disabled={isMarketer}/></div></Row>
+                    <Row style={white}><div>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyPhone"]} label="单位电话" disabled={isMarketer} />
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyWebsite"]} label="单位网址" disabled={isMarketer}/>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyAddress"]} label="单位地址" disabled={isMarketer}/></div></Row>
+                    <Row style={gray}><div>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "zipCode"]} label="邮编" disabled={isMarketer}/>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "fax"]} label="传真" disabled={isMarketer}/></div></Row>
+                    <Row style={white}><div>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "bankName"]} label="开户银行" disabled={isMarketer} />
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "account"]} label="户名" disabled={isMarketer}/>
+                        <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "accountName"]} label="账号" disabled={isMarketer}/></div></Row>
                     <br />
                     <Title level={5}>受托方：</Title>
-                    <Row style={gray}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="单位全称（中文）" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyEN"]} label="单位全称（英文）" /></div></Row>
-                    <Row style={white}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "representative"]} label="授权代表" />
-                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "sigDate"]} label="签章日期" /></div></Row>
-                    <Row style={gray}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "contact"]} label="联系人" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "contactPhone"]} label="联系人电话" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyB", "contactEmail"]} label="联系人邮箱" /></div></Row>
-                    <Row style={white}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyPhone"]} label="单位电话" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyWebsite"]} label="单位网址" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyAddress"]} label="单位地址" /></div></Row>
                     <Row style={gray}><div>
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "zipCode"]} label="邮编" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "fax"]} label="传真" /></div></Row>
-                    <Row style={white}><div><ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "bankName"]} label="开户银行" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "account"]} label="户名" />
-                        <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "accountName"]} label="账号" /></div></Row>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="单位全称（中文）" disabled={isCustomer} />
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyEN"]} label="单位全称（英文）" disabled={isCustomer}/></div></Row>
+                    <Row style={white}><div>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "representative"]} label="授权代表" disabled={isCustomer}/>
+                        <ProFormDatePicker required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "sigDate"]} label="签章日期" disabled={isCustomer}/></div></Row>
+                    <Row style={gray}><div>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "contact"]} label="联系人" disabled={isCustomer}/>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "contactPhone"]} label="联系人电话" disabled={isCustomer}/>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyB", "contactEmail"]} label="联系人邮箱" disabled={isCustomer}/></div></Row>
+                    <Row style={white}><div>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyPhone"]} label="单位电话" disabled={isCustomer}/>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyWebsite"]} label="单位网址" disabled={isCustomer}/>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyAddress"]} label="单位地址" disabled={isCustomer}/></div></Row>
+                    <Row style={gray}><div>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "zipCode"]} label="邮编" disabled={isCustomer}/>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "fax"]} label="传真" disabled={isCustomer}/></div></Row>
+                    <Row style={white}><div>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "bankName"]} label="开户银行" disabled={isCustomer} />
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "account"]} label="户名" disabled={isCustomer}/>
+                        <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "accountName"]} label="账号" disabled={isCustomer}/></div></Row>
                     <br />
                 </ProForm>
-                {userRole === "CUSTOMER" ?
-                    <Form onFinish={() => {
-                        axios.post("/api/contract/" + contractId + "/acceptance")
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    alert("同意成功！");
-                                    // window.location.href = "/progress/" + this.state.entrustId;
-                                    history.goBack();
-                                } else {
-                                    alert("同意失败！");
-                                    console.log("Unknown error!");
-                                }
-                            })
-                            .catch((error) => {
-                                if (error.response.status === 400) {
-                                    alert("同意失败！");
-                                } else {
-                                    alert("同意失败！");
-                                    console.log("Unknown error!");
-                                }
-                            });
-                    }}>
-                        <Input type='submit' value='同意合同' />
-                    </Form>
-                    : ""}
                 {userRole === "CUSTOMER" ?
                     <Form onFinish={() => {
                         axios.post("/api/contract/" + contractId + "/denial")
