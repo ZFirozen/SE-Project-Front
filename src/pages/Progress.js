@@ -428,6 +428,15 @@ const Progress = () => {
                             console.log(response);
                         });
                 }
+                else if (error.response.status === 400 && testId !== "" && testId !== undefined) {
+                    console.log("error400");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    cstage=2;
+                    cstep=0;
+                    sstage=2;
+                }
             })
     }
 
