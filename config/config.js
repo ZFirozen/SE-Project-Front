@@ -453,6 +453,20 @@ export default defineConfig({
           path: '/sample/list',
           component: './SampleList',
         },
+        {
+          name: 'fill',
+          icon: 'smile',
+          path: '/sample/fill',
+          component: './SampleFill',
+          hideInMenu: true,
+        },
+        {
+          name: 'display',
+          icon: 'smile',
+          path: '/sample/display',
+          component: './SampleDisplay',
+          hideInMenu: true,
+        },
       ]
     },
     {
@@ -501,6 +515,13 @@ export default defineConfig({
       icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
+      hideInMenu: true,
+    },
+    {
+      name: 'download',
+      icon: 'team',
+      path: '/download',
+      component: './Download',
       hideInMenu: true,
     },
     {
