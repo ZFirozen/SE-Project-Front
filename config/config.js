@@ -39,13 +39,17 @@ export default defineConfig({
         {
 
           name: 'login',
-          path: '/ourlogin',
-          component: './OurLogin',
+          // path: '/ourlogin',
+          // component: './OurLogin',
+          // layout: false,
+          component: './user/Login',
+          path: '/user/login',
           layout: false,
         },
         {
           path: '/user',
-          redirect: '/ourlogin',
+          // redirect: '/ourlogin',
+          redirect: '/user/login',
         },
         {
           name: 'register-result',
@@ -390,11 +394,14 @@ export default defineConfig({
       name: 'test',
       icon: 'edit',
       path: '/test',
+      redirect: '/test/list'
+    },
+    {
+      name: 'test',
+      icon: 'edit',
+      path: '/test',
+      hideInMenu: true,
       routes: [
-        {
-          path: '/test',
-          redirect: '/test/list',
-        },
         {
           name: 'testassign',
           icon: 'smile',
@@ -477,13 +484,41 @@ export default defineConfig({
           component: './pageViewer/JS006',
           hideInMenu: true,
         },
+        {
+          name: 'rvupload',
+          icon: 'smile',
+          path: '/test/rvupload',
+          component: './uploads/RepoVerUpload',
+          hideInMenu: true,
+        },
+        {
+          name: 'rvdownload',
+          icon: 'smile',
+          path: '/test/rvdownload',
+          component: './downloads/RepoVerDownload',
+          hideInMenu: true,
+        },
+        {
+          name: 'svupload',
+          icon: 'smile',
+          path: '/test/svupload',
+          component: './uploads/ScheVerUpload',
+          hideInMenu: true,
+        },
+        {
+          name: 'svdownload',
+          icon: 'smile',
+          path: '/test/svdownload',
+          component: './downloads/ScheVerDownload',
+          hideInMenu: true,
+        },
       ],
     },
     {
       name: 'sample',
       icon: 'highlight',
       path: '/sample',
-      component: './SampleList',
+      redirect: '/sample/list',
     },
     {
       name: 'sample',
@@ -491,6 +526,13 @@ export default defineConfig({
       path: '/sample',
       hideInMenu: true,
       routes: [
+        {
+          name: 'list',
+          icon: 'smile',
+          path: '/sample/list',
+          component: './SampleList',
+          hideInMenu: true,
+        },
         {
           name: 'fill',
           icon: 'smile',
@@ -553,6 +595,7 @@ export default defineConfig({
       icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
+      hideInMenu: true,
     },
     {
       name: 'download',
@@ -566,6 +609,7 @@ export default defineConfig({
       icon: 'user',
       path: '/userinfo',
       component: './UserInfo',
+      hideInMenu: true,
     },
     {
       path: '/signup',

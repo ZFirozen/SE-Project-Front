@@ -1,5 +1,5 @@
 import { PlusOutlined, HomeOutlined, ContactsOutlined, ClusterOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Divider, Input, Row, Tag } from 'antd';
+import { Avatar, Card, Col, Divider, Input, Row, Tag, Typography } from 'antd';
 import React, { useState, useRef } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { Link, useRequest } from 'umi';
@@ -8,152 +8,162 @@ import Articles from './components/Articles';
 import Applications from './components/Applications';
 import { queryCurrent } from './service';
 import styles from './Center.less';
-const operationTabList = [
-  {
-    key: 'articles',
-    tab: (
-      <span>
-        文章{' '}
-        <span
-          style={{
-            fontSize: 14,
-          }}
-        >
-          (8)
-        </span>
-      </span>
-    ),
-  },
-  {
-    key: 'applications',
-    tab: (
-      <span>
-        应用{' '}
-        <span
-          style={{
-            fontSize: 14,
-          }}
-        >
-          (8)
-        </span>
-      </span>
-    ),
-  },
-  {
-    key: 'projects',
-    tab: (
-      <span>
-        项目{' '}
-        <span
-          style={{
-            fontSize: 14,
-          }}
-        >
-          (8)
-        </span>
-      </span>
-    ),
-  },
-];
 
-const TagList = ({ tags }) => {
-  const ref = useRef(null);
-  const [newTags, setNewTags] = useState([]);
-  const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+const { Title } = Typography;
 
-  const showInput = () => {
-    setInputVisible(true);
+// const operationTabList = [
+//   {
+//     key: 'articles',
+//     tab: (
+//       <span>
+//         文章{' '}
+//         <span
+//           style={{
+//             fontSize: 14,
+//           }}
+//         >
+//           (8)
+//         </span>
+//       </span>
+//     ),
+//   },
+//   {
+//     key: 'applications',
+//     tab: (
+//       <span>
+//         应用{' '}
+//         <span
+//           style={{
+//             fontSize: 14,
+//           }}
+//         >
+//           (8)
+//         </span>
+//       </span>
+//     ),
+//   },
+//   {
+//     key: 'projects',
+//     tab: (
+//       <span>
+//         项目{' '}
+//         <span
+//           style={{
+//             fontSize: 14,
+//           }}
+//         >
+//           (8)
+//         </span>
+//       </span>
+//     ),
+//   },
+// ];
 
-    if (ref.current) {
-      // eslint-disable-next-line no-unused-expressions
-      ref.current?.focus();
-    }
-  };
+// const TagList = ({ tags }) => {
+//   const ref = useRef(null);
+//   const [newTags, setNewTags] = useState([]);
+//   const [inputVisible, setInputVisible] = useState(false);
+//   const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
+//   const showInput = () => {
+//     setInputVisible(true);
 
-  const handleInputConfirm = () => {
-    let tempsTags = [...newTags];
+//     if (ref.current) {
+//       // eslint-disable-next-line no-unused-expressions
+//       ref.current?.focus();
+//     }
+//   };
 
-    if (inputValue && tempsTags.filter((tag) => tag.label === inputValue).length === 0) {
-      tempsTags = [
-        ...tempsTags,
-        {
-          key: `new-${tempsTags.length}`,
-          label: inputValue,
-        },
-      ];
-    }
+//   const handleInputChange = (e) => {
+//     setInputValue(e.target.value);
+//   };
 
-    setNewTags(tempsTags);
-    setInputVisible(false);
-    setInputValue('');
-  };
+//   const handleInputConfirm = () => {
+//     let tempsTags = [...newTags];
 
-  return (
-    <div className={styles.tags}>
-      <div className={styles.tagsTitle}>标签</div>
-      {(tags || []).concat(newTags).map((item) => (
-        <Tag key={item.key}>{item.label}</Tag>
-      ))}
-      {inputVisible && (
-        <Input
-          ref={ref}
-          type="text"
-          size="small"
-          style={{
-            width: 78,
-          }}
-          value={inputValue}
-          onChange={handleInputChange}
-          onBlur={handleInputConfirm}
-          onPressEnter={handleInputConfirm}
-        />
-      )}
-      {!inputVisible && (
-        <Tag
-          onClick={showInput}
-          style={{
-            borderStyle: 'dashed',
-          }}
-        >
-          <PlusOutlined />
-        </Tag>
-      )}
-    </div>
-  );
-};
+//     if (inputValue && tempsTags.filter((tag) => tag.label === inputValue).length === 0) {
+//       tempsTags = [
+//         ...tempsTags,
+//         {
+//           key: `new-${tempsTags.length}`,
+//           label: inputValue,
+//         },
+//       ];
+//     }
+
+//     setNewTags(tempsTags);
+//     setInputVisible(false);
+//     setInputValue('');
+//   };
+
+//   return (
+//     <div className={styles.tags}>
+//       <div className={styles.tagsTitle}>标签</div>
+//       {(tags || []).concat(newTags).map((item) => (
+//         <Tag key={item.key}>{item.label}</Tag>
+//       ))}
+//       {inputVisible && (
+//         <Input
+//           ref={ref}
+//           type="text"
+//           size="small"
+//           style={{
+//             width: 78,
+//           }}
+//           value={inputValue}
+//           onChange={handleInputChange}
+//           onBlur={handleInputConfirm}
+//           onPressEnter={handleInputConfirm}
+//         />
+//       )}
+//       {!inputVisible && (
+//         <Tag
+//           onClick={showInput}
+//           style={{
+//             borderStyle: 'dashed',
+//           }}
+//         >
+//           <PlusOutlined />
+//         </Tag>
+//       )}
+//     </div>
+//   );
+// };
 
 const Center = () => {
-  const [tabKey, setTabKey] = useState('articles'); //  获取用户信息
+  // const [tabKey, setTabKey] = useState('articles'); 
 
-  const { data: currentUser, loading } = useRequest(() => {
-    return queryCurrent();
-  }); //  渲染用户信息
+  //  获取用户信息
+  const { data: currentUser, loading } = useRequest(async () => {
+    const temp = await queryCurrent(); //TODO
+    temp.avatar = 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
+    // console.log(temp);
+    const accountInfo = { data: temp };
+    return accountInfo;
+    // return queryCurrent();
+  });
 
-  const renderUserInfo = ({ title, group, geographic }) => {
+  //  渲染用户信息
+  const renderUserInfo = ({ userId, userRole }) => {
     return (
       <div className={styles.detail}>
-        <p>
-          <ContactsOutlined
+        <Row>
+          {/* <ContactsOutlined
             style={{
               marginRight: 8,
             }}
-          />
-          {title}
-        </p>
-        <p>
-          <ClusterOutlined
+          /> */}
+          <Title level={4} style={{ marginRight: 8 }}>用户ID: {userId}</Title>
+        </Row>
+        <Row>
+          {/* <ClusterOutlined
             style={{
               marginRight: 8,
             }}
-          />
-          {group}
-        </p>
-        <p>
+          /> */}
+          <Title level={4} style={{ marginRight: 8 }}>用户身份: {userRole}</Title>
+        </Row>
+        {/* <p>
           <HomeOutlined
             style={{
               marginRight: 8,
@@ -177,31 +187,32 @@ const Center = () => {
               }
             ).city.label
           }
-        </p>
+        </p>  */}
       </div>
     );
   }; // 渲染tab切换
 
-  const renderChildrenByTabKey = (tabValue) => {
-    if (tabValue === 'projects') {
-      return <Projects />;
-    }
+  // const renderChildrenByTabKey = (tabValue) => {
+  //   // if (tabValue === 'projects') {
+  //   //   return <Projects />;
+  //   // }
 
-    if (tabValue === 'applications') {
-      return <Applications />;
-    }
+  //   // if (tabValue === 'applications') {
+  //   //   return <Applications />;
+  //   // }
 
-    if (tabValue === 'articles') {
-      return <Articles />;
-    }
+  //   // if (tabValue === 'articles') {
+  //   //   return <Articles />;
+  //   // }
 
-    return null;
-  };
+  //   return null;
+  // };
 
+  // console.log(loading, currentUser)
   return (
     <GridContent>
       <Row gutter={24}>
-        <Col lg={7} md={24}>
+        <Col lg={24} md={24}>
           <Card
             bordered={false}
             style={{
@@ -213,12 +224,13 @@ const Center = () => {
               <div>
                 <div className={styles.avatarHolder}>
                   <img alt="" src={currentUser.avatar} />
-                  <div className={styles.name}>{currentUser.name}</div>
-                  <div>{currentUser?.signature}</div>
+                  <div className={styles.name}>{currentUser.userName}</div>
+                  {/* <div>{currentUser?.signature}</div> */}
                 </div>
-                {renderUserInfo(currentUser)}
                 <Divider dashed />
-                <TagList tags={currentUser.tags || []} />
+                {renderUserInfo(currentUser)}
+
+                {/* <TagList tags={currentUser.tags || []} />
                 <Divider
                   style={{
                     marginTop: 16,
@@ -238,24 +250,24 @@ const Center = () => {
                         </Col>
                       ))}
                   </Row>
-                </div>
+                </div> */}
               </div>
             )}
           </Card>
         </Col>
-        <Col lg={17} md={24}>
-          <Card
+        {/* <Col lg={17} md={24}> */}
+        {/* <Card
             className={styles.tabsCard}
             bordered={false}
-            tabList={operationTabList}
+            // tabList={operationTabList}
             activeTabKey={tabKey}
             onTabChange={(_tabKey) => {
               setTabKey(_tabKey);
             }}
           >
             {renderChildrenByTabKey(tabKey)}
-          </Card>
-        </Col>
+          </Card> */}
+        {/* </Col> */}
       </Row>
     </GridContent>
   );

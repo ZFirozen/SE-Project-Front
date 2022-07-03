@@ -14,7 +14,18 @@ export const Nav30DataSource = {
         className: 'header3-item',
         children: {
           href: '#',
-          children: [{ children: <p>订订群</p>, name: 'text' }],
+          children: [
+            {
+              children: (
+                <span>
+                  <span>
+                    <p>移动端下载</p>
+                  </span>
+                </span>
+              ),
+              name: 'text',
+            },
+          ],
         },
         subItem: [
           {
@@ -26,7 +37,7 @@ export const Nav30DataSource = {
                   name: 'image0',
                   className: 'item-image jzj81c9wabh-editor_css',
                   children:
-                    'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*4_S6ToPfj-QAAAAAAAAAAABkARQnAQ',
+                    'https://s3.bmp.ovh/imgs/2022/07/03/8289736441d585e2.png',
                 },
               ],
             },
@@ -38,8 +49,17 @@ export const Nav30DataSource = {
         name: 'item2',
         className: 'header3-item',
         children: {
-          href: '#',
-          children: [{ children: <p>帮助中心</p>, name: 'text' }],
+          href: '/~docs',
+          children: [
+            {
+              children: (
+                <span>
+                  <p>帮助中心</p>
+                </span>
+              ),
+              name: 'text',
+            },
+          ],
         },
       },
     ],
@@ -85,7 +105,7 @@ export const Banner50DataSource = {
         name: 'button',
         className: 'banner5-button-wrapper',
         children: {
-          href: '#',
+          href: 'https://hs.blizzard.cn/',
           className: 'banner5-button',
           type: 'primary',
           children: (
@@ -449,11 +469,31 @@ export const Feature00DataSource = {
             {
               name: 'title',
               className: 'content0-block-title jzj8xt5kgv7-editor_css',
-              children: '一站式业务接入',
+              children: (
+                <span>
+                  <span>
+                    <span>
+                      <p>第一个服务</p>
+                    </span>
+                  </span>
+                </span>
+              ),
             },
             {
               name: 'content',
-              children: '支付、结算、核算接入产品效率翻四倍',
+              children: (
+                <span>
+                  <span>
+                    <span>
+                      <span>
+                        <p>
+                          这是第一个服务的内容，很长很长很长很长很长很长很长很长很长很长的一段话
+                        </p>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              ),
               className: 'jzj8z9sya9-editor_css',
             },
           ],
@@ -476,11 +516,25 @@ export const Feature00DataSource = {
             {
               name: 'title',
               className: 'content0-block-title jzjne54fwqm-editor_css',
-              children: '一站式事中风险监控',
+              children: (
+                <span>
+                  <span>
+                    <p>第二个服务</p>
+                  </span>
+                </span>
+              ),
             },
             {
               name: 'content',
-              children: '在所有需求配置环节事前风险控制和质量控制能力',
+              children: (
+                <span>
+                  <span>
+                    <p>
+                      这是第二个服务的内容，很长很长很长很长很长很长很长很长很长很长的一段话
+                    </p>
+                  </span>
+                </span>
+              ),
             },
           ],
         },
@@ -502,11 +556,21 @@ export const Feature00DataSource = {
             {
               name: 'title',
               className: 'content0-block-title jzjne24af8c-editor_css',
-              children: '一站式数据运营',
+              children: (
+                <span>
+                  <p>第三个服务</p>
+                </span>
+              ),
             },
             {
               name: 'content',
-              children: '沉淀产品接入效率和运营小二工作效率数据',
+              children: (
+                <span>
+                  <p>
+                    这是第三个服务的内容，很长很长很长很长很长很长很长很长很长很长的一段话
+                  </p>
+                </span>
+              ),
             },
           ],
         },
@@ -528,11 +592,21 @@ export const Feature00DataSource = {
             {
               name: 'title',
               className: 'content0-block-title jzjndw5oerk-editor_css',
-              children: '一站式数据运营',
+              children: (
+                <span>
+                  <p>第四个服务</p>
+                </span>
+              ),
             },
             {
               name: 'content',
-              children: '沉淀产品接入效率和运营小二工作效率数据',
+              children: (
+                <span>
+                  <p>
+                    这是第四个服务的内容，很长很长很长很长很长很长很长很长很长很长的一段话
+                  </p>
+                </span>
+              ),
             },
           ],
         },
@@ -559,7 +633,14 @@ export const Footer10DataSource = {
         childWrapper: {
           className: 'slogan',
           children: [
-            { name: 'content0', children: <p>蚂蚁金服计算机视觉平台</p> },
+            {
+              name: 'content0',
+              children: (
+                <span>
+                  <p>南京大学测试平台</p>
+                </span>
+              ),
+            },
           ],
         },
       },
@@ -572,7 +653,7 @@ export const Footer10DataSource = {
         childWrapper: {
           children: [
             {
-              href: '#',
+              href: 'https://github.com/ZFirozen/SE-Project-Front',
               name: 'link0',
               children: (
                 <span>
@@ -580,8 +661,14 @@ export const Footer10DataSource = {
                 </span>
               ),
               className: 'jzl0u1bko6-editor_css',
+              target: '_blank',
             },
-            { href: '#', name: 'link1', children: '联系我们' },
+            {
+              href: 'https://github.com/ZFirozen/SE-Project-Front',
+              name: 'link1',
+              children: '联系我们',
+              target: '_blank',
+            },
           ],
         },
       },
@@ -593,8 +680,16 @@ export const Footer10DataSource = {
         title: { children: '资源' },
         childWrapper: {
           children: [
-            { href: '#', name: 'link0', children: 'Ant Design' },
-            { href: '#', name: 'link1', children: 'Ant Motion' },
+            {
+              href: 'https://github.com/ZFirozen/SE-Project-Front',
+              name: 'link0',
+              children: 'Ant Design',
+            },
+            {
+              href: 'https://github.com/ZFirozen/SE-Project-Front',
+              name: 'link1',
+              children: 'Ant Motion',
+            },
           ],
         },
       },
@@ -606,10 +701,14 @@ export const Footer10DataSource = {
     className: 'copyright',
     children: (
       <span>
-        <a href="http://abc.alipay.com">隐私权政策</a>&nbsp; &nbsp; &nbsp;
-        |&nbsp; &nbsp; &nbsp; <a href="http://abc.alipay.com">权益保障承诺书</a>&nbsp;
-        &nbsp; &nbsp;&nbsp;ICP证:浙B2-20100257&nbsp; &nbsp;
-        &nbsp;&nbsp;Copyright © 2019 蚂蚁金融服务集团<br />
+        <span>
+          <a href="https://github.com/ZFirozen/SE-Project-Front">隐私权政策</a>&nbsp;
+          &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp;{' '}
+          <a href="https://github.com/ZFirozen/SE-Project-Front">
+            权益保障承诺书
+          </a>&nbsp; &nbsp; &nbsp;&nbsp;ICP证:XXX&nbsp; &nbsp; &nbsp; Copyright
+          © 2021 南京大学<br />
+        </span>
       </span>
     ),
   },

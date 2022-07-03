@@ -1,7 +1,8 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 import BaseView from './components/base';
+import AdminView from './components/admin';
 import BindingView from './components/binding';
 import NotificationView from './components/notification';
 import SecurityView from './components/security';
@@ -10,10 +11,11 @@ const { Item } = Menu;
 
 const Settings = () => {
   const menuMap = {
-    base: '基本设置',
-    security: '安全设置',
-    binding: '账号绑定',
-    notification: '新消息通知',
+    base: '账户设置',
+    admin: '管理员设置',
+    // security: '安全设置',
+    // binding: '账号绑定',
+    // notification: '新消息通知',
   };
   const [initConfig, setInitConfig] = useState({
     mode: 'inline',
@@ -64,14 +66,25 @@ const Settings = () => {
       case 'base':
         return <BaseView />;
 
-      case 'security':
-        return <SecurityView />;
+      case 'admin':
+        if (localStorage.getItem("userRole") === "ADMIN") {
+          return <AdminView />;
+        }
+        else {
+          message.warning("无权查看！");
+          return (
+            <></>
+          )
+        }
 
-      case 'binding':
-        return <BindingView />;
+      // case 'security':
+      //   return <SecurityView />;
 
-      case 'notification':
-        return <NotificationView />;
+      // case 'binding':
+      //   return <BindingView />;
+
+      // case 'notification':
+      //   return <NotificationView />;
 
       default:
         return null;
