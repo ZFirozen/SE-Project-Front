@@ -13,9 +13,6 @@ var testId = "";
 var schemeId = "";
 var schemeReviewId = "";
 var reportReviewId = "";
-var customerID = "";
-var testerID = "";
-var marketerID = "";
 
 const Progress = () => {
     const location = useLocation();
@@ -38,12 +35,10 @@ const Progress = () => {
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
+                    console.log("response="+response);
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
-                    customerId = response.data.customerId
-                    marketerId = response.data.marketerId
-                    testerId = response.data.testerId
                     console.log('ent testid=' + testId)
                     if (testId !== null && testId !== undefined && testId !== "") {
                         cstage = 2;
@@ -51,7 +46,7 @@ const Progress = () => {
                         sstage = 2;
                         getTestStatus();
                     }
-                    console.log(response.data.status.stage)
+                    console.log("response.data.status.stage"+response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
