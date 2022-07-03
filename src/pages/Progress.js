@@ -346,14 +346,14 @@ const Progress = () => {
                             cstep = 6;
                             sstage = 2;
                             break;
-                            case "REPORT_WAIT_SENT_TO_CUSTOMER":
-                                setCurrentStage(2);
-                                setCurrentStep(7);
-                                setShowStage(2);
-                                cstage = 2;
-                                cstep = 7;
-                                sstage = 2;
-                                break;
+                        case "REPORT_WAIT_SENT_TO_CUSTOMER":
+                            setCurrentStage(2);
+                            setCurrentStep(7);
+                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 7;
+                            sstage = 2;
+                            break;
                         case "REPORT_WAIT_CUSTOMER":
                             setCurrentStage(2);
                             setCurrentStep(8);
@@ -403,7 +403,7 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
-                if (error.response.status === 404 && testId!=="" &&testId!==undefined) {
+                if (error.response.status === 404 && testId !== "" && testId !== undefined) {
                     axios.post("/api/test?entrustId=" + entrustId)
                         .then((response) => {
                             if (response.status === 200) {

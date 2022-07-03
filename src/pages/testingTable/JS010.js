@@ -16,9 +16,10 @@ const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "
 
 const JS010 = () => {
     const location = useLocation();
-    const testId = location.query.testId;//TODO
+    const testId = location.query.testId;
     const [pass, setPass] = useState([true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
-    var reportReviewId = "";//TODO
+    var reportReviewId = "";
+    var passed = true;
 
     return (
         <>
@@ -28,26 +29,40 @@ const JS010 = () => {
                     style={{ font: "initial", border: "3px solid" }}
                     layout="horizontal"
                     scrollToFirstError="true"
-                    onFinish={async (values) => { //TODO
+                    onFinish={async (values) => {
                         values.projectId = testId
                         console.log(values)
+                        if (passed === false)
+                            passed = true;
+                        for (p in pass) {
+                            if (p === false) {
+                                passed = false;
+                                break;
+                            }
+                        }
+                        const newStage = { "stage": passed ? "REPORT_QA_PASSED" : "REPORT_QA_DENIED", "message": "" };
                         axios.post("/api/review/report/" + reportReviewId, values)
                             .then((response) => {
                                 if (response.status === 200) {
-                                    alert("提交成功！");
-                                    history.goBack();
+                                    message.success("提交成功！");
+                                    axios.post("/api/test/" + testId + "/status", newStage)
+                                        .then((response) => {
+                                            console.log(response);
+                                            message.success("成功进入下一阶段！");
+                                            history.goBack();
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                            message.error("提交失败，请重试！");
+                                        })
                                 } else {
-                                    alert("提交失败！");
+                                    message.error("提交失败？");
                                     console.log("Unknown error!");
                                 }
                             })
                             .catch((error) => {
-                                if (error.response.status === 400) {
-                                    alert("提交失败！");
-                                } else {
-                                    alert("提交失败！");
-                                    console.log("Unknown error!");
-                                }
+                                console.log(error);
+                                message.error("提交失败！");
                             });
                     }}
                     request={async () => {
