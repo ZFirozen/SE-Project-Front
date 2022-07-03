@@ -1,12 +1,17 @@
 import React from 'react';
 import { history } from "umi";
 import { useLocation } from 'umi';
-import { Upload, message, Button } from 'antd';
+import { Upload, message,Typography, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useHistory } from 'umi';
+import { ProCard } from "@ant-design/pro-card"
+const { Title, Paragraph } = Typography
+import axios from "axios";
 
 const ScheVerUpload = () => {
   const location = useLocation()
+  var cardOption = { colSpan: { xs: 12, sm: 12, md: 12, lg: 12, xl: 6 }, direction: "column", layout: "center", bordered: true }
+  var buttonOption = { size: "large", type: "primary" }
   const props = {
     name: 'scannedCopy',
     action: '/api/review/scheme/' + location.query.schemeReviewId + '/upload',

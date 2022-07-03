@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Divider, Steps, Button } from "antd";
+import { Divider, Steps, Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, DatePicker } from 'antd';
 import localStorage from "localStorage";
 import axios from "axios";
 import { history, useLocation } from "umi";
@@ -29,7 +29,7 @@ const Progress = () => {
     var cstage = -1, cstep = -1, sstage = -1;
     const getEntrustmentStatus = () => {
         console.log('ini testid=' + testId)
-        if (testId !== undefined) {
+        if (testId !== null && testId !== undefined && testId !== "") {
             cstage = 2;
             cstep = 0;
             sstage = 2;
@@ -45,7 +45,7 @@ const Progress = () => {
                     marketerId = response.data.marketerId
                     testerId = response.data.testerId
                     console.log('ent testid=' + testId)
-                    if (testId !== null) {
+                    if (testId !== null && testId !== undefined && testId !== "") {
                         cstage = 2;
                         cstep = 0;
                         sstage = 2;
@@ -841,32 +841,19 @@ const Progress = () => {
                 break;
             case 7:
                 if (userRole === "MARKETER") {
-                    if (currentStage === 2 && currentStep === 6) {
-
-                        confirm({
-                            title: '是否签发报告给客户?',
-                            icon: <ExclamationCircleOutlined />,
-                            content: <Text>委托ID：{entrustId}<br></br>测试项目ID：{testId}<br></br>客户ID：{customerID}<br></br>测试部人员ID：{testerId}<br></br>市场部人员ID：{marketerID}</Text>,
-                            onOk() {
-                                var temp;
-                                temp = { "stage": "REPORT_WAIT_CUSTOMER,", "message": "" }
-                                axios.post("/api/test/" + location.query.testId + "/status", temp).then(response => {
-                                    console.log(response)
-                                    message.success("成功签发报告给客户")
-                                    setCurrentStage(2);
-                                    setCurrentStep(8);
-                                    setShowStage(2);
-                                }).catch(error => {
-                                    console.log(error)
-                                    message.error("提交失败，请重试")
-                                })
-                            },
-                            onCancel() {
-                                console.log('Cancel');
-                            },
+                    if (currentStage === 2 && currentStep === 7) {
+                        var temp;
+                        temp = { "stage": "REPORT_WAIT_CUSTOMER", "message": "" }
+                        axios.post("/api/test/" + testId + "/status", temp).then(response => {
+                            console.log(response)
+                            message.success("成功签发报告给客户")
+                            setCurrentStage(2);
+                            setCurrentStep(8);
+                            setShowStage(2);
+                        }).catch(error => {
+                            console.log(error)
+                            message.error("提交失败，请重试")
                         })
-
-
                     }
                 } else {
                     alert("您没有权限访问！");

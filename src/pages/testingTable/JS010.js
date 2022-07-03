@@ -13,12 +13,12 @@ const formitemheight = 62
 const { Title, Paragraph } = Typography
 const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
+var reportReviewId = "";
 
 const JS010 = () => {
     const location = useLocation();
     const testId = location.query.testId;
     const [pass, setPass] = useState([true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
-    var reportReviewId = "";
     var passed = true;
 
     return (
@@ -31,16 +31,20 @@ const JS010 = () => {
                     scrollToFirstError="true"
                     onFinish={async (values) => {
                         values.projectId = testId
+                        values.id = reportReviewId
                         console.log(values)
                         if (passed === false)
                             passed = true;
-                        for (p in pass) {
-                            if (p === false) {
-                                passed = false;
-                                break;
+                            for (let i = 0; i < pass.length; i++) {
+                                console.log(pass[i]);
+                                if (pass[i] === false) {
+                                    passed = false;
+                                    break;
+                                }
                             }
-                        }
+    
                         const newStage = { "stage": passed ? "REPORT_QA_PASSED" : "REPORT_QA_DENIED", "message": "" };
+                        console.log("rrid="+reportReviewId)
                         axios.post("/api/review/report/" + reportReviewId, values)
                             .then((response) => {
                                 if (response.status === 200) {
@@ -69,7 +73,8 @@ const JS010 = () => {
                         return axios.get("/api/test/" + testId)
                             .then((project) => {
                                 console.log(project.data)
-                                reportReviewId = project.data.projectFormIds.testReportChecklistId
+                                reportReviewId = project.data.projectFormIds.testReportCecklistId
+                                console.log("get rrid="+reportReviewId)
                                 return {};
                             })
                             .catch((error) => {
