@@ -11,6 +11,11 @@ const { Step } = Steps;
 var contractId = "";
 var testId = "";
 var schemeId = "";
+var schemeReviewId = "";
+var reportReviewId = "";
+var customerID = "";
+var testerID = "";
+var marketerID = "";
 
 const Progress = () => {
     const location = useLocation();
@@ -36,6 +41,9 @@ const Progress = () => {
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
+                    customerId = response.data.customerId
+                    marketerId = response.data.marketerId
+                    testerId = response.data.testerId
                     console.log('ent testid=' + testId)
                     if (testId !== null) {
                         cstage = 2;
@@ -269,6 +277,8 @@ const Progress = () => {
                     console.log("tid=" + testId)
                     testId = testId
                     schemeId = response.data.projectFormIds.testSchemeId
+                    schemeReviewId = response.data.projectFormIds.testSchemeChecklistId
+                    reportReviewId = response.data.projectFormIds.testReportCecklistId
                     console.log("tschid=" + response.data.projectFormIds.testSchemeId)
                     console.log("twcid=" + response.data.projectFormIds.workChecklistId)
                     console.log("tschcheckid=" + response.data.projectFormIds.testSchemeChecklistId)
@@ -346,14 +356,14 @@ const Progress = () => {
                             cstep = 6;
                             sstage = 2;
                             break;
-                            case "REPORT_WAIT_SENT_TO_CUSTOMER":
-                                setCurrentStage(2);
-                                setCurrentStep(7);
-                                setShowStage(2);
-                                cstage = 2;
-                                cstep = 7;
-                                sstage = 2;
-                                break;
+                        case "REPORT_WAIT_SENT_TO_CUSTOMER":
+                            setCurrentStage(2);
+                            setCurrentStep(7);
+                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 7;
+                            sstage = 2;
+                            break;
                         case "REPORT_WAIT_CUSTOMER":
                             setCurrentStage(2);
                             setCurrentStep(8);
@@ -403,7 +413,7 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
-                if (error.response.status === 404 && testId!=="" &&testId!==undefined) {
+                if (error.response.status === 404 && testId !== "" && testId !== undefined) {
                     axios.post("/api/test?entrustId=" + entrustId)
                         .then((response) => {
                             if (response.status === 200) {
@@ -449,7 +459,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 0 && currentStep > 0) {
                         // window.location.href = "/entrustment/display/" + entrustId;
                         history.push({
                             pathname: "/entrustment/display",
@@ -493,7 +503,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 0 && currentStep > 2) {
                         // window.location.href = "/entrustment/display/" + entrustId;
                         history.push({
                             pathname: "/entrustment/display",
@@ -623,7 +633,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 1 && currentStep > 1) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/contract/display",
@@ -646,7 +656,7 @@ const Progress = () => {
                                 contractId: contractId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 1 && currentStep > 2) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/contract/display",
@@ -693,7 +703,7 @@ const Progress = () => {
                         alert("您没有权限访问！");
                     }
                 }
-                else {
+                else if (currentStage === 2 && currentStep > 0) {
                     if (userRole === "CUSTOMER") {
                         alert("您没有权限访问！");
                     }
@@ -719,7 +729,7 @@ const Progress = () => {
                                 projectId: testId
                             }
                         })
-                    } else {
+                    } else if (currentStage === 2 && currentStep > 1) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/test/schemeview",
@@ -742,7 +752,7 @@ const Progress = () => {
                                 testId: testId
                             }
                         })
-                    } else {
+                    } else if (currentStage === 2 && currentStep > 2) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/test/",
@@ -759,9 +769,18 @@ const Progress = () => {
                 if (userRole === "QA") {
                     if (currentStage === 2 && currentStep === 3) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/svupload",
                             query: {
+                                schemeReviewId: schemeReviewId,
                                 testId: testId
+                            }
+                        });
+                    }
+                    else if (currentStage === 2 && currentStep > 3) {
+                        history.push({
+                            pathname: "/test/svdownload",
+                            query: {
+                                schemeReviewId: schemeReviewId
                             }
                         });
                     }
@@ -785,14 +804,14 @@ const Progress = () => {
                 break;
             case 5:
                 if (userRole === "QA") {
-                    // if (currentStage === 2 && currentStep === 5) {
-                    history.push({
-                        pathname: "/test/reportcheck",
-                        query: {
-                            testId: testId
-                        }
-                    });
-                    // }
+                    if (currentStage === 2 && currentStep === 5) {
+                        history.push({
+                            pathname: "/test/reportcheck",
+                            query: {
+                                testId: testId
+                            }
+                        });
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -801,9 +820,18 @@ const Progress = () => {
                 if (userRole === "QA") {
                     if (currentStage === 2 && currentStep === 6) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/rvupload",
                             query: {
+                                reportReviewId: reportReviewId,
                                 testId: testId
+                            }
+                        });
+                    }
+                    else if (currentStage === 2 && currentStep > 6) {
+                        history.push({
+                            pathname: "/test/rvdownload",
+                            query: {
+                                reportReviewId: reportReviewId
                             }
                         });
                     }
@@ -814,9 +842,31 @@ const Progress = () => {
             case 7:
                 if (userRole === "MARKETER") {
                     if (currentStage === 2 && currentStep === 6) {
-                        setCurrentStage(2);
-                        setCurrentStep(7);
-                        setShowStage(2);
+
+                        confirm({
+                            title: '是否签发报告给客户?',
+                            icon: <ExclamationCircleOutlined />,
+                            content: <Text>委托ID：{entrustId}<br></br>测试项目ID：{testId}<br></br>客户ID：{customerID}<br></br>测试部人员ID：{testerId}<br></br>市场部人员ID：{marketerID}</Text>,
+                            onOk() {
+                                var temp;
+                                temp = { "stage": "REPORT_WAIT_CUSTOMER,", "message": "" }
+                                axios.post("/api/test/" + location.query.testId + "/status", temp).then(response => {
+                                    console.log(response)
+                                    message.success("成功签发报告给客户")
+                                    setCurrentStage(2);
+                                    setCurrentStep(8);
+                                    setShowStage(2);
+                                }).catch(error => {
+                                    console.log(error)
+                                    message.error("提交失败，请重试")
+                                })
+                            },
+                            onCancel() {
+                                console.log('Cancel');
+                            },
+                        })
+
+
                     }
                 } else {
                     alert("您没有权限访问！");
