@@ -23,8 +23,7 @@ const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "
 var testIssueId
 const JS011 = () => {
     const location = useLocation();
-    //const testId = location.query.testId;
-    const testId = "62bf00e6a91ee23a84ba37af"
+    const testId = location.query.testId;
     console.log(location.query.testId)
     console.log(testId)
     const [editableKeys, setEditableRowKeys] = useState([]);
