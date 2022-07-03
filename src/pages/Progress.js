@@ -15,17 +15,19 @@ var schemeId = "";
 const Progress = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
-    testId = location.query.testId
+    console.log("location.query.testId=" + location.query.testId)
+    testId = location.query.testId === undefined ? testId : location.query.testId;
     const [currentStage, setCurrentStage] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
     const [showStage, setShowStage] = useState(0);
     const userRole = localStorage.getItem("userRole");
-
+    var cstage = -1, cstep = -1, sstage = -1;
     const getEntrustmentStatus = () => {
-        if (testId !== "") {
-            setCurrentStage(2);
-            setCurrentStep(0);
-            setShowStage(2);
+        console.log('ini testid=' + testId)
+        if (testId !== undefined) {
+            cstage = 2;
+            cstep = 0;
+            sstage = 2;
             getTestStatus();
         }
         axios.get("/api/entrust/" + entrustId)
@@ -34,10 +36,11 @@ const Progress = () => {
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
-                    if (testId !== "") {
-                        setCurrentStage(2);
-                        setCurrentStep(0);
-                        setShowStage(2);
+                    console.log('ent testid=' + testId)
+                    if (testId !== null) {
+                        cstage = 2;
+                        cstep = 0;
+                        sstage = 2;
                         getTestStatus();
                     }
                     console.log(response.data.status.stage)
@@ -46,54 +49,84 @@ const Progress = () => {
                             setCurrentStage(0);
                             setCurrentStep(1);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 1;
+                            sstage = 0;
                             break;
                         case "MARKETER_AUDITING":
                             setCurrentStage(0);
                             setCurrentStep(2);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 2;
+                            sstage = 0;
                             break;
                         case "MARKETER_DENIED":
                             setCurrentStage(0);
                             setCurrentStep(0);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 0;
+                            sstage = 0;
                             break;
                         case "WAIT_FOR_TESTER":
                             setCurrentStage(0);
                             setCurrentStep(3);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 3;
+                            sstage = 0;
                             break;
                         case "TESTER_AUDITING":
                             setCurrentStage(0);
                             setCurrentStep(4);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 4;
+                            sstage = 0;
                             break;
                         case "TESTER_DENIED":
                             setCurrentStage(0);
                             setCurrentStep(0);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 0;
+                            sstage = 0;
                             break;
                         case "AUDITING_PASSED":
                             setCurrentStage(0);
                             setCurrentStep(5);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 5;
+                            sstage = 0;
                             break;
                         case "CUSTOMER_CHECK_QUOTE":
                             setCurrentStage(0);
                             setCurrentStep(6);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 6;
+                            sstage = 0;
                             break;
                         case "CUSTOMER_DENY_QUOTE":
                             setCurrentStage(0);
                             setCurrentStep(5);
                             setShowStage(0);
+                            cstage = 0;
+                            cstep = 5;
+                            sstage = 0;
                             break;
                         case "CUSTOMER_ACCEPT_QUOTE":
-                            setCurrentStage(1);
-                            setCurrentStep(0);
-                            setShowStage(1);
+                            cstage = 1;
+                            cstep = 0;
+                            sstage = 1;
                             getContractStatus();
                             break;
                         case "TERMINATED":
+                            cstage = 0;
+                            cstep = 0;
+                            sstage = 0;
                             break;
                         default:
                             break;
@@ -105,6 +138,13 @@ const Progress = () => {
             .catch((error) => {
                 console.log(error);
             })
+            .finally(() => {
+                if (cstage !== -1) {
+                    setCurrentStage(cstage);
+                    setCurrentStep(cstep);
+                    setShowStage(sstage);
+                }
+            });
     }
 
     const getContractStatus = () => {
@@ -119,41 +159,80 @@ const Progress = () => {
                             setCurrentStage(1);
                             setCurrentStep(0);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 0;
+                            sstage = 1;
                             break;
                         case "CUSTOMER_CHECKING":
                             setCurrentStage(1);
                             setCurrentStep(1);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 1;
+                            sstage = 1;
                             break;
                         case "CUSTOMER_DENY":
                             setCurrentStage(1);
                             setCurrentStep(0);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 0;
+                            sstage = 1;
                             break;
                         case "CUSTOMER_ACCEPT":
                             setCurrentStage(1);
                             setCurrentStep(1);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 1;
+                            sstage = 1;
                             break;
                         case "MARKETER_CHECKING":
                             setCurrentStage(1);
                             setCurrentStep(2);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 2;
+                            sstage = 1;
                             break;
                         case "MARKETER_DENY":
                             setCurrentStage(1);
                             setCurrentStep(1);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 1;
+                            sstage = 1;
                             break;
                         case "MARKETER_ACCEPT":
                             setCurrentStage(1);
                             setCurrentStep(3);
                             setShowStage(1);
+                            cstage = 1;
+                            cstep = 3;
+                            sstage = 1;
+                            axios.post("/api/test?entrustId=" + entrustId)
+                                .then((response) => {
+                                    if (response.status === 200) {
+                                        alert("测试项目创建成功！");
+                                        console.log("create test success");
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                })
+                                .catch((error) => {
+                                    if (error.response.status === 400) {
+                                        console.log(error);
+                                    } else {
+                                        console.log("Unknown error!");
+                                    }
+                                }).finally((response) => {
+                                    console.log(response);
+                                });
                             break;
                         case "COPY_SAVED":
-                            setCurrentStage(2);
-                            setCurrentStep(0);
-                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 0;
+                            sstage = 2;
                             getTestStatus();
                             break;
                         default:
@@ -164,9 +243,9 @@ const Progress = () => {
                 }
                 else if (response.status === 403) {
                     console.log("yes!403!");
-                    setCurrentStage(2);
-                    setCurrentStep(0);
-                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
                     getTestStatus();
                 }
             })
@@ -174,94 +253,146 @@ const Progress = () => {
                 console.log(error);
                 if (error.response.status === 403) {
                     console.log("yes!403!");
-                    setCurrentStage(2);
-                    setCurrentStep(0);
-                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
                     getTestStatus();
                 }
             })
     }
 
     const getTestStatus = () => {
+        console.log("bef get tid=" + testId)
         axios.get("/api/test/" + testId)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(testId)
+                    console.log("tid=" + testId)
+                    testId = testId
                     schemeId = response.data.projectFormIds.testSchemeId
-                    console.log(response.data.projectFormIds.testSchemeId)
-                    console.log(response.data.projectFormIds.workChecklistId)
-                    console.log(response.data.projectFormIds.testSchemeChecklistId)
+                    console.log("tschid=" + response.data.projectFormIds.testSchemeId)
+                    console.log("twcid=" + response.data.projectFormIds.workChecklistId)
+                    console.log("tschcheckid=" + response.data.projectFormIds.testSchemeChecklistId)
                     console.log(response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_QA":
                             setCurrentStage(2);
                             setCurrentStep(0);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 0;
+                            sstage = 2;
                             break;
                         case "SCHEME_UNFILLED":
                             setCurrentStage(2);
                             setCurrentStep(1);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 1;
+                            sstage = 2;
                             break;
                         case "SCHEME_AUDITING":
                             setCurrentStage(2);
                             setCurrentStep(2);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 2;
+                            sstage = 2;
                             break;
                         case "SCHEME_AUDITING_DENIED":
                             setCurrentStage(2);
                             setCurrentStep(1);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 1;
+                            sstage = 2;
                             break;
                         case "SCHEME_AUDITING_PASSED":
                             setCurrentStage(2);
                             setCurrentStep(3);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 3;
+                            sstage = 2;
                             break;
                         case "SCHEME_REVIEW_UPLOADED":
                             setCurrentStage(2);
                             setCurrentStep(4);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 4;
+                            sstage = 2;
                             break;
                         case "REPORT_AUDITING":
                             setCurrentStage(2);
                             setCurrentStep(5);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 5;
+                            sstage = 2;
                             break;
                         case "REPORT_QA_DENIED":
                             setCurrentStage(2);
                             setCurrentStep(4);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 4;
+                            sstage = 2;
                             break;
                         case "REPORT_QA_PASSED":
                             setCurrentStage(2);
                             setCurrentStep(6);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 6;
+                            sstage = 2;
+                            break;
+                        case "REPORT_WAIT_SENT_TO_CUSTOMER":
+                            setCurrentStage(2);
+                            setCurrentStep(7);
+                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 7;
+                            sstage = 2;
                             break;
                         case "REPORT_WAIT_CUSTOMER":
                             setCurrentStage(2);
                             setCurrentStep(8);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 8;
+                            sstage = 2;
                             break;
                         case "REPORT_CUSTOMER_CONFIRM":
                             setCurrentStage(2);
                             setCurrentStep(9);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 9;
+                            sstage = 2;
                             break;
                         case "REPORT_CUSTOMER_REJECT":
                             setCurrentStage(2);
                             setCurrentStep(4);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 4;
+                            sstage = 2;
                             break;
                         case "QA_ALL_REJECTED":
                             setCurrentStage(2);
                             setCurrentStep(4);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 4;
+                            sstage = 2;
                             break;
                         case "QA_ALL_PASSED":
                             setCurrentStage(2);
                             setCurrentStep(10);
                             setShowStage(2);
+                            cstage = 2;
+                            cstep = 10;
+                            sstage = 2;
                             break;
                         default:
                             break;
@@ -272,7 +403,7 @@ const Progress = () => {
             })
             .catch((error) => {
                 console.log(error);
-                if (error.response.status == 404) {
+                if (error.response.status === 404 && testId !== "" && testId !== undefined) {
                     axios.post("/api/test?entrustId=" + entrustId)
                         .then((response) => {
                             if (response.status === 200) {
@@ -538,26 +669,6 @@ const Progress = () => {
                             }
                         })
                     }
-                    else {
-                        history.push({
-                            pathname: "/test/workcheck",
-                            query: {
-                                entrustId: entrustId
-                            }
-                        })
-                    }
-                } else {
-                    if (userRole === "CUSTOMER") {
-                        alert("您没有权限访问！");
-                    }
-                    else {
-                        history.push({
-                            pathname: "/test/workcheck",
-                            query: {
-                                entrustId: entrustId
-                            }
-                        })
-                    }
                 }
                 break;
             default:
@@ -570,15 +681,31 @@ const Progress = () => {
         console.log(userRole);
         switch (value) {
             case 0:
-                if (userRole === "QA_SUPERVISOR") {
-                    history.push({
-                        pathname: "/test/assign",
-                        query: {
-                            testId: testId
-                        }
-                    })
-                } else {
-                    alert("您没有权限访问！");
+                if (currentStage === 2 && currentStep === 0) {
+                    if (userRole === "QA_SUPERVISOR") {
+                        history.push({
+                            pathname: "/test/assign",
+                            query: {
+                                testId: testId
+                            }
+                        })
+                    } else {
+                        alert("您没有权限访问！");
+                    }
+                }
+                else {
+                    if (userRole === "CUSTOMER") {
+                        alert("您没有权限访问！");
+                    }
+                    else {
+                        console.log("bef wokc tid=" + testId);
+                        history.push({
+                            pathname: "/test/workcheck",
+                            query: {
+                                testId: testId
+                            }
+                        })
+                    }
                 }
                 break;
             case 1:
@@ -588,15 +715,16 @@ const Progress = () => {
                         history.push({
                             pathname: "/test/scheme",
                             query: {
-                                schemeId: schemeId
+                                schemeId: schemeId,
+                                projectId: testId
                             }
                         })
                     } else {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/schemeview",
                             query: {
-                                testId: testId
+                                schemeId: schemeId
                             }
                         })
                     }
@@ -645,7 +773,7 @@ const Progress = () => {
                 if (userRole === "TESTER") {
                     if (currentStage === 2 && currentStep === 4) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/documents",
                             query: {
                                 testId: testId
                             }

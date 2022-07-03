@@ -86,10 +86,10 @@ const EntrustmentVerify = () => {
                 console.log("load from " + entrustId)
                 console.log(Detail.data.content)
                 var keysarray = []
-                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined) {
+                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined&& Detail.data.content.software.modules !== null) {
                   for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
                     Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-                    if (Detail.data.content.software.modules[i].functions !== undefined) {
+                    if (Detail.data.content.software.modules[i].functions !== undefined && Detail.data.content.software.modules[i].functions !== null) {
                       for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
                         Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
                       }

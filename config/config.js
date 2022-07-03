@@ -72,7 +72,7 @@ export default defineConfig({
       path: '/home',
       name: 'home',
       icon: 'home',
-      component: './home',
+      component: './Home/index',
     },
     {
       path: '/dashboard',
@@ -394,11 +394,14 @@ export default defineConfig({
       name: 'test',
       icon: 'edit',
       path: '/test',
+      redirect: '/test/list'
+    },
+    {
+      name: 'test',
+      icon: 'edit',
+      path: '/test',
+      hideInMenu: true,
       routes: [
-        {
-          path: '/test',
-          redirect: '/test/list',
-        },
         {
           name: 'testassign',
           icon: 'smile',
@@ -420,10 +423,38 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'report',
+          icon: 'smile',
+          path: '/test/report',
+          component: './TestReport',
+          hideInMenu: true,
+        },
+        {
           name: 'js012',
           icon: 'smile',
           path: '/test/workcheck',
-          component: './JS012',
+          component: './testingTable/JS012',
+          hideInMenu: true,
+        },
+        {
+          name: 'js008',
+          icon: 'smile',
+          path: '/test/testCase',
+          component: './testingTable/JS008',
+          hideInMenu: true,
+        },
+        {
+          name: 'js009',
+          icon: 'smile',
+          path: '/test/testRecord',
+          component: './testingTable/JS009',
+          hideInMenu: true,
+        },
+        {
+          name: 'js011',
+          icon: 'smile',
+          path: '/test/testIssue',
+          component: './testingTable/JS011',
           hideInMenu: true,
         },
         {
@@ -440,18 +471,39 @@ export default defineConfig({
           component: './testingTable/JS010',
           hideInMenu: true,
         },
+        {
+          name: 'documents',
+          icon: 'smile',
+          path: '/test/documents',
+          component: './Documents',
+          hideInMenu: true,
+        },
+        {
+          name: 'test scheme view',
+          path: '/test/schemeview',
+          component: './pageViewer/JS006',
+          hideInMenu: true,
+        },
       ],
     },
     {
       name: 'sample',
       icon: 'highlight',
       path: '/sample',
+      redirect: '/sample/list',
+    },
+    {
+      name: 'sample',
+      icon: 'highlight',
+      path: '/sample',
+      hideInMenu: true,
       routes: [
         {
           name: 'list',
           icon: 'smile',
           path: '/sample/list',
           component: './SampleList',
+          hideInMenu: true,
         },
         {
           name: 'fill',
@@ -468,7 +520,7 @@ export default defineConfig({
           hideInMenu: true,
         },
       ]
-    },
+    },  
     {
       path: '/progress',
       component: './Progress',

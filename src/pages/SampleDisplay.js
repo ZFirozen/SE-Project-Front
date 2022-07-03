@@ -7,7 +7,7 @@ import axios from "axios";
 import ProTable, { EditableProTable } from "@ant-design/pro-table";
 import { history, useLocation } from "umi";
 import ProDescriptions from "@ant-design/pro-descriptions";
-
+import {ProCard} from "@ant-design/pro-card"
 
 const SampleDisplay = () => {
   const [editableKeys, setEditableRowKeys] = useState([]);
@@ -17,6 +17,7 @@ const SampleDisplay = () => {
   return (
     <>
       <div style={{ margin: 70 }}>
+      <ProCard>
         <ProDescriptions
           size="large"
           layout="horizontal"
@@ -71,6 +72,7 @@ const SampleDisplay = () => {
           ]}
         >
         </ProDescriptions>
+        </ProCard>
         <ProTable ond toolBarRender={false} dataSource={editableKeys} columns={[
           {
             title: "存放地点",

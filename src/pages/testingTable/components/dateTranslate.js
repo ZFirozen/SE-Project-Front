@@ -1,4 +1,5 @@
 export function dateSend(orig) {
+    return orig
     const dict = {
         year: orig.substr(0, 4),
         month: orig.substr(5, 2),
@@ -8,6 +9,7 @@ export function dateSend(orig) {
 }
 
 export function dateReceived(orig) {
+    return orig
     if (orig.year == '' || orig.month == '' || orig.day == '') {
         return ''
     }
