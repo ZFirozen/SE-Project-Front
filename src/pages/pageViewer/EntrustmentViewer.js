@@ -182,7 +182,7 @@ const EntrustmentViewer = () => {
                         clientOS.push(" ")
                     }
                 }
-                else if (detail.data.content.software.clientOS[i].substr(0, 7) === "Linux") {
+                else if (detail.data.content.software.clientOS[i].substr(0, 5) === "Linux") {
                     clientOS.push("Linux")
                     if (typeof detail.data.content.toreplace_2 !== "undefined") {
                         clientOS.push(detail.data.content.toreplace_2)
