@@ -334,7 +334,7 @@ export default defineConfig({
           name: 'display',
           icon: 'smile',
           path: '/entrustment/display',
-          component: './EntrustmentDisplay',
+          component: './pageViewer/EntrustmentViewer',
           hideInMenu: true,
         },
         {
