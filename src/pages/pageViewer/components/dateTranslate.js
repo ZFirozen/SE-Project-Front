@@ -13,5 +13,5 @@ export function dateReceived(orig) {
     if (orig.year == '' || orig.month == '' || orig.day == '') {
         return ''
     }
-    return orig.year + '-' + orig.month + '-' + orig.day + 'T00:00:00Z'
+    return orig.year + '-' + orig.month + '-' + orig.day
 }

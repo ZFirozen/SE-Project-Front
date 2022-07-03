@@ -20,7 +20,13 @@ const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
 
-const defaultModificationData = [];
+const defaultModificationData = [{
+    version: '2',
+    modificationDate: '2022-07-05',
+    method: 'A',
+    modifier: 'ZF',
+    illustration: 'info',
+}];
 const modificationColumns = [
     {
         title: '版本号',
@@ -29,7 +35,7 @@ const modificationColumns = [
     },
     {
         title: '日期',
-        dataIndex: 'date',
+        dataIndex: 'modificationDate',
         valueType: 'date',
     },
     {
@@ -38,9 +44,9 @@ const modificationColumns = [
         dataIndex: 'method',
         valueType: 'select',
         valueEnum: {
-            all: { text: '添加', status: 'Default' },
-            open: { text: '修改', status: 'Error' },
-            closed: { text: '删减', status: 'Success' },
+            A: { text: '添加', status: 'Default' },
+            M: { text: '修改', status: 'Error' },
+            D: { text: '删减', status: 'Success' },
         },
     },
     {
@@ -120,6 +126,7 @@ const JS006Fill = () => {
     // const schemeId = props.match.params.id;
     const location = useLocation();
     const schemeId = location.query.schemeId;
+    const projectId = location.query.projectId;
 
     const [modificationEditableKeys, setModificationEditableRowKeys] = useState(() => defaultModificationData.map((item) => item.id));
     const [testEditableKeys, setTestEditableRowKeys] = useState(() => defaultTestData.map((item) => item.id));
@@ -142,8 +149,10 @@ const JS006Fill = () => {
                     onFinish={async (values) => {
                         let temp = values
                         for (var i in temp.modificationList) {
-                            temp.modificationList[i].date = dateSend(temp.modificationList[i].date)
+                            // temp.modificationList[i].modifacationDate = dateSend(temp.modificationList[i].modifacationDate)
                         }
+                        
+                        console.log(temp.modificationList)
                         for (var i in temp.testProgress) {
                             delete temp.testProgress[i].id
                             delete temp.testProgress[i].milestoneQuest
@@ -152,14 +161,14 @@ const JS006Fill = () => {
                         temp.designSchedule = temp.testProgress[1]
                         temp.executeSchedule = temp.testProgress[2]
                         temp.evaluateSchedule = temp.testProgress[3]
-                        temp.planSchedule.startDate = dateSend(temp.planSchedule.startDate)
-                        temp.designSchedule.startDate = dateSend(temp.designSchedule.startDate)
-                        temp.executeSchedule.startDate = dateSend(temp.executeSchedule.startDate)
-                        temp.evaluateSchedule.startDate = dateSend(temp.evaluateSchedule.startDate)
-                        temp.planSchedule.endDate = dateSend(temp.planSchedule.endDate)
-                        temp.designSchedule.endDate = dateSend(temp.designSchedule.endDate)
-                        temp.executeSchedule.endDate = dateSend(temp.executeSchedule.endDate)
-                        temp.evaluateSchedule.endDate = dateSend(temp.evaluateSchedule.endDate)
+                        // temp.planSchedule.startDate = dateSend(temp.planSchedule.startDate)
+                        // temp.designSchedule.startDate = dateSend(temp.designSchedule.startDate)
+                        // temp.executeSchedule.startDate = dateSend(temp.executeSchedule.startDate)
+                        // temp.evaluateSchedule.startDate = dateSend(temp.evaluateSchedule.startDate)
+                        // temp.planSchedule.endDate = dateSend(temp.planSchedule.endDate)
+                        // temp.designSchedule.endDate = dateSend(temp.designSchedule.endDate)
+                        // temp.executeSchedule.endDate = dateSend(temp.executeSchedule.endDate)
+                        // temp.evaluateSchedule.endDate = dateSend(temp.evaluateSchedule.endDate)
                         delete temp.testProgress
 
                         temp = JSON.stringify(temp)
@@ -169,7 +178,13 @@ const JS006Fill = () => {
                             axios.post("/api/test/scheme/" + schemeId + "/content", temp).then(response => {
                                 console.log(response)
                                 message.success('修改成功');
-                                history.goBack();
+                                axios.post("/api/test/" + projectId + "/status", {
+                                    stage: 'SCHEME_AUDITING',
+                                    message: ''
+                                }).then(response => {
+                                    console.log('Stage Step Forward Successfully', response)
+                                    history.goBack();
+                                })
                             })
                         } else {
                             message.warning('提交失败：没有指定测试ID！')
@@ -189,21 +204,37 @@ const JS006Fill = () => {
                                 detail.data.content.evaluateSchedule.id = 4
                                 setModificationEditableRowKeys(testKeysArray)
                                 for (var i in detail.data.content.modificationList) {
-                                    i.date = dateReceived(i.date)
+                                    // i.modifacationDate = dateReceived(i.modifacationDate)
+                                    detail.data.content.modificationList[i].id = i
+                                    if (typeof detail.data.content.modificationList[i].modifacationDate === "undefined") {
+                                        detail.data.content.modificationList[i].modifacationDate = ''
+                                    }
                                 }
                                 let modificationKeysArray = [...detail.data.content.modificationList.map(
-                                    (item) => item.version
+                                    (item) => item.id
                                 )]
-                                setModificationEditableRowKeys(modificationKeysArray)
+                                setModificationEditableRowKeys(detail.data.content.modificationList.map((item) => item.id))
 
-                                detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
-                                detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
-                                detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
-                                detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
-                                detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
-                                detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
-                                detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
-                                detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
+                                // detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
+                                // detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
+                                // detail.data.content.executeSchedule.startDate = dateReceived(detail.data.content.executeSchedule.startDate)
+                                // detail.data.content.evaluateSchedule.startDate = dateReceived(detail.data.content.evaluateSchedule.startDate)
+                                // detail.data.content.planSchedule.endDate = dateReceived(detail.data.content.planSchedule.endDate)
+                                // detail.data.content.designSchedule.endDate = dateReceived(detail.data.content.designSchedule.endDate)
+                                // detail.data.content.executeSchedule.endDate = dateReceived(detail.data.content.executeSchedule.endDate)
+                                // detail.data.content.evaluateSchedule.endDate = dateReceived(detail.data.content.evaluateSchedule.endDate)
+                                
+                                let testProgress = [
+                                    detail.data.content.planSchedule,
+                                    detail.data.content.designSchedule,
+                                    detail.data.content.executeSchedule,
+                                    detail.data.content.evaluateSchedule
+                                ]
+                                testProgress[0].milestoneQuest = '制定测试计划'
+                                testProgress[1].milestoneQuest = '设计测试计划'
+                                testProgress[2].milestoneQuest = '执行测试计划'
+                                testProgress[3].milestoneQuest = '评估测试计划'
+                                detail.data.content.testProgress = testProgress
 
                                 return JSON.parse(JSON.stringify(detail.data.content))
                             }).catch(Error => {

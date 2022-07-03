@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from "@ant-design/pro-form";
 import moment from "moment";
-import { history, useLocation } from "umi";
+import { history , useLocation } from "umi";
 import axios from 'axios';
 import localStorage from "localStorage";
 import { EditableProTable } from "@ant-design/pro-table";
@@ -39,6 +39,14 @@ const QuotationFill = () => {
                     scrollToFirstError="true"
                     onFinish={async (values) => {
                         if (userRole !== "CUSTOMER") {
+                            if (values.rowList === null)
+                                values.rowList = [{
+                                    projectName: ' ',
+                                    subProject: ' ',
+                                    price: ' ',
+                                    description: ' ',
+                                    rowTotal: ' '
+                                }]
                             axios.post("/api/entrust/" + entrustId + "/quote", values)
                                 .then((response) => {
                                     if (response.status === 200) {
@@ -58,7 +66,7 @@ const QuotationFill = () => {
                                         console.log("Unknown error!");
                                     }
                                 });
-                        }
+                        } 
                     }}
                     request={async () => {
                         console.log(entrustId)
@@ -66,6 +74,8 @@ const QuotationFill = () => {
                             return axios.get("/api/entrust/" + entrustId).then(Detail => {
                                 console.log("load from " + entrustId)
                                 console.log(Detail.data.quote)
+                                if (Detail.data.quote.rowList === null)
+                                    Detail.data.quote.rowList=[]
                                 if (Detail.data.quote !== null)
                                     return Detail.data.quote
                                 else return {}
@@ -116,11 +126,15 @@ const QuotationFill = () => {
                                     title: "行合计",
                                     dataIndex: "rowTotal",
                                     width: "20%",
+                                }, {
+                                    title: '操作',
+                                    valueType: 'option',
+                                    width: 50,
                                 }]}
                                 controlled={true}
                                 recordCreatorProps={{
                                     newRecordType: "dataSource",
-                                    position: "top",
+                                    position: "bottom",
                                     record: () => ({
                                         id: Date.now(),
                                     })
