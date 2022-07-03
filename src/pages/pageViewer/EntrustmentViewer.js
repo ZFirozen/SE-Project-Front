@@ -244,7 +244,7 @@ const EntrustmentViewer = () => {
                 techIndex: detail.data.content.techIndex,
                 softwareMedium: detail.data.content.softwareMedium,
                 document: detail.data.content.document,
-                sampleHandling: detail.data.content.sampleHandling,
+                sampleHandling: detail.data.content.sampleHandling === "1" ? "由本实验室销毁" : "退还给我们",
                 expectedTime: detail.data.content.expectedTime,
             })
             
@@ -410,7 +410,7 @@ const EntrustmentViewer = () => {
                                         </ProCard.Group>
                                         <Divider type={'horizontal'} />
                                         <ProCard>
-                                            <Statistic title="内存要求" value={part2.clientMemoryRequirement} />
+                                            <Statistic title="内存要求" value={part2.clientMemoryRequirement + ' MB'} />
                                         </ProCard>
                                         <Divider type={'horizontal'} />
                                         <ProCard>
@@ -428,11 +428,11 @@ const EntrustmentViewer = () => {
                                                 </ProCard>
                                                 <Divider type={'horizontal'} />
                                                 <ProCard>
-                                                    <Statistic title="内存要求" value={part2.servHardMemoryRequirement} />
+                                                    <Statistic title="内存要求" value={part2.servHardMemoryRequirement + ' MB'} />
                                                 </ProCard>
                                                 <Divider type={'horizontal'} />
                                                 <ProCard>
-                                                    <Statistic title="硬盘要求" value={part2.servHardDiskRequirement} />
+                                                    <Statistic title="硬盘要求" value={part2.servHardDiskRequirement + ' MB'} />
                                                 </ProCard>
                                                 <Divider type={'horizontal'} />
                                                 <ProCard>
