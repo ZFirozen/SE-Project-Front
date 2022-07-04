@@ -23,7 +23,7 @@ const basewidth = 1500
 const { Title, Paragraph } = Typography
 const { Divider } = ProCard
 
-const defaultModificationData = [];
+const defaultModuleFunction = [];
 const moduleFunctionColumns = [
     {
         title: '功能名称',
@@ -88,7 +88,7 @@ const EntrustmentViewer = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
 
-    const [moduleEditableKeys, setModuleEditableRowKeys] = useState(() => defaultModificationData.map((item) => item.id));
+    const [moduleEditableKeys, setModuleEditableRowKeys] = useState(() => defaultModuleFunction.map((item) => item.id));
 
     const [cardLoading, setCardLoadingState] = useState(true);
 
