@@ -1,8 +1,10 @@
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect } from 'antd';
+import { Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Statistic, Checkbox, TreeSelect } from 'antd';
 import { BorderBottomOutlined, PlusOutlined } from '@ant-design/icons';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from '@ant-design/pro-form';
+import { ProCard } from '@ant-design/pro-card'
+import { ProTable } from '@ant-design/pro-table'
 import axios from 'axios';
 import DescriptionsItem from 'antd/lib/descriptions/Item';
 import { Color } from '@antv/l7-react/lib/component/LayerAttribute';
@@ -20,584 +22,511 @@ const rowbegingap = 20
 const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
+const { Divider } = ProCard
+
+const defaultModuleFunction = [];
+const moduleFunctionColumns = [
+  {
+    title: '功能名称',
+    dataIndex: 'functionName',
+    width: '20%',
+  },
+  {
+    title: '功能说明',
+    dataIndex: 'functionDescription',
+    valueType: 'textarea',
+  },
+]
+const moduleColumns = [
+  {
+    title: '模块名称',
+    dataIndex: 'moduleName',
+    width: '10%',
+  },
+  {
+    title: '模块功能列表',
+    dataIndex: 'functions',
+    renderFormItem: (dataSource) => {
+      return (
+        <ProTable
+          columns={moduleFunctionColumns}
+          search={false}
+          rowKey="id"
+          dataSource={dataSource}
+        />
+      )
+    }
+  },
+];
+
+const multipleValueRender = (array) => {
+  var ret = ''
+  for (var i in array) {
+    if (i !== "0") {
+      ret += ' | '
+    }
+    ret += array[i]
+  }
+  return ret
+}
+
+const operatingSystemRender = (OS) => {
+  var renderResult = []
+  for (var i in OS) {
+    if (i % 2 === 0) {
+      renderResult.push(<Divider type={'vertical'} />)
+      renderResult.push(
+        <ProCard>
+          <Statistic title={OS[i]} value={OS[i + 1]} />
+        </ProCard>
+      )
+    }
+  }
+  return renderResult
+}
 
 const EntrustmentVerify = () => {
-  const replacetokenbegin = "_0641#toReplaceA1C1_"
-  const replacetokenend = "_0641#toReplaceA2C2_"
-  const [editableKeys, setEditableRowKeys] = useState([]);
-  const embedregLength = 8
   const location = useLocation();
   const entrustId = location.query.entrustId;
-  // if (localStorage.getItem("entrustmentFill_embedreg") !== null) {
-  //   embedreg = JSON.parse(localStorage.getItem("entrustmentFill_embedreg"))
-  // }
+
+  const [moduleEditableKeys, setModuleEditableRowKeys] = useState(() => defaultModuleFunction.map((item) => item.id));
+
+  const [cardLoading, setCardLoadingState] = useState(true);
+
+  const [part1, setPart1] = useState({
+    testType: [' '],
+    principal: {
+      account: " ",
+      accountName: " ",
+      bankName: " ",
+      companyAddress: " ",
+      companyCH: " ",
+      companyEN: " ",
+      companyPhone: " ",
+      companyWebsite: " ",
+      contact: " ",
+      contactEmail: " ",
+      contactPhone: " ",
+      fax: " ",
+      representative: " ",
+      sigDate: " ",
+      zipCode: " "
+    }
+  })
+  const [part2, setPart2] = useState({
+    clientMemoryRequirement: " ",
+    clientOS: ['Windows _0641#toReplaceA1C1_1_0641#toReplaceA2C2_1', 'Linux _0641#toReplaceA1C1_2_0641#toReplaceA2C2_2', '_0641#toReplaceA1C1_3_0641#toReplaceA2C2_3'],
+    clientOtherRequirement: " ",
+    codeLine: " ",
+    developer: " ",
+    developerType: " ",
+    functionIntro: " ",
+    functionNums: " ",
+    functionPoint: " ",
+    name: " ",
+    networkEnvironment: " ",
+    servHardDiskRequirement: " ",
+    servHardMemoryRequirement: " ",
+    servHardOtherRequirement: " ",
+    servSoftArch: [' '],
+    servSoftDatabase: " ",
+    servSoftMiddleware: " ",
+    servSoftOS: " ",
+    servSoftProgramLang: " ",
+    servSoftVersion: " ",
+    serverHardArch: [' ', 'UNIX/Linux服务器', '_0641#toReplaceA1C1_4_0641#toReplaceA2C2_4'],
+    serverSideOtherSupport: " ",
+    type: " ",
+    userDescription: " ",
+    version: " "
+  })
+  const [part3, setPart3] = useState({
+    testStandard: [' '],
+    techIndex: [' '],
+    softwareMedium: " ",
+    document: " ",
+    sampleHandling: " ",
+    expectedTime: " "
+  })
+
+  console.log(entrustId)
+  if (typeof entrustId !== "undefined" && (typeof part1.haveRefreshed === "undefined" || !part1.haveRefreshed)) {
+    axios.get("/api/entrust/" + entrustId).then(detail => {
+      setCardLoadingState(true)
+      console.log(detail.data.content)
+
+      setModuleEditableRowKeys(detail.data.content.software.modules)
+
+      for (var i in detail.data.content.testType) {
+        if (detail.data.content.testType[i].substr(0, 21) === "_0641#toReplaceA1C1_0") {
+          if (typeof detail.data.content.toreplace_0 !== "undefined") {
+            detail.data.content.testType[i] = detail.data.content.toreplace_0
+          } else {
+            detail.data.content.testType.splice(i, 1)
+          }
+        }
+      }
+      setPart1({
+        haveRefreshed: true,
+        testType: detail.data.content.testType,
+        principal: detail.data.content.principal
+      })
+
+      let clientOS = []
+      for (var i in detail.data.content.software.clientOS) {
+        if (detail.data.content.software.clientOS[i].substr(0, 7) === "Windows") {
+          clientOS.push("Windows")
+          if (typeof detail.data.content.toreplace_1 !== "undefined") {
+            clientOS.push(detail.data.content.toreplace_1)
+          }
+          else {
+            clientOS.push(" ")
+          }
+        }
+        else if (detail.data.content.software.clientOS[i].substr(0, 5) === "Linux") {
+          clientOS.push("Linux")
+          if (typeof detail.data.content.toreplace_2 !== "undefined") {
+            clientOS.push(detail.data.content.toreplace_2)
+          }
+          else {
+            clientOS.push(" ")
+          }
+        }
+        else {
+          clientOS.push("其他操作系统")
+          if (typeof detail.data.content.toreplace_3 !== "undefined") {
+            clientOS.push(detail.data.content.toreplace_3)
+          }
+          else {
+            clientOS.push(" ")
+          }
+        }
+      }
+      detail.data.content.software.clientOS = clientOS
+      for (var i in detail.data.content.software.serverHardArch) {
+        if (detail.data.content.software.serverHardArch[i].substr(0, 21) === "_0641#toReplaceA1C1_4") {
+          if (typeof detail.data.content.toreplace_4 !== "undefined") {
+            detail.data.content.software.serverHardArch[i] = detail.data.content.toreplace_4
+          } else {
+            detail.data.content.software.serverHardArch.splice(i, 1)
+          }
+        }
+      }
+      delete detail.data.content.software.modules
+      setPart2(detail.data.content.software)
+
+      for (var i in detail.data.content.testStandard) {
+        if (detail.data.content.testStandard[i].substr(0, 21) === "_0641#toReplaceA1C1_5") {
+          if (typeof detail.data.content.toreplace_5 !== "undefined") {
+            detail.data.content.testStandard[i] = detail.data.content.toreplace_5
+          } else {
+            detail.data.content.testStandard.splice(i, 1)
+          }
+        }
+      }
+      for (var i in detail.data.content.techIndex) {
+        if (detail.data.content.techIndex[i].substr(0, 21) === "_0641#toReplaceA1C1_6") {
+          if (typeof detail.data.content.toreplace_6 !== "undefined") {
+            detail.data.content.techIndex[i] = detail.data.content.toreplace_6
+          } else {
+            detail.data.content.techIndex.splice(i, 1)
+          }
+        }
+      }
+      if (detail.data.content.softwareMedium.substr(0, 21) === "_0641#toReplaceA1C1_7") {
+        if (typeof detail.data.content.toreplace_7 !== "undefined") {
+          detail.data.content.softwareMedium = detail.data.content.toreplace_7
+        } else {
+          detail.data.content.softwareMedium = "其他"
+        }
+      }
+      setPart3({
+        testStandard: detail.data.content.testStandard,
+        techIndex: detail.data.content.techIndex,
+        softwareMedium: detail.data.content.softwareMedium,
+        document: detail.data.content.document,
+        sampleHandling: detail.data.content.sampleHandling === "1" ? "由本实验室销毁" : "退还给我们",
+        expectedTime: detail.data.content.expectedTime,
+      })
+
+      setCardLoadingState(false)
+    }).catch(Error => {
+      console.log(Error)
+      setCardLoadingState(false)
+    })
+  } else if (typeof entrustId === "undefined") {
+    console.log("No Entrust ID was given!")
+  }
+
   return (
     <>
       <div style={{ margin: 70 }}>
         {/* <PageContainer title="输入表单"> */}
-        <ProForm
-          size='large'
-          style={{ font: 'initial', border: '3px solid' }}
-          // submitter={{
-          //   render: (_, dom) => <FooterToolbar>{dom}</FooterToolbar>,
-          // }}
-          layout="horizontal"
-          scrollToFirstError="true"
-          onFinish={async (values) => {
-            let temp = values
-            if (temp.software !== undefined && temp.software.modules !== undefined && temp.software.modules !== null) {
-              console.log(temp)
-              for (let i = 0; i < temp.software.modules.length; i++) {
-                delete temp.software.modules[i].id
-                if (temp.software.modules[i].functions !== undefined && temp.software.modules[i].functions !== null) {
-                  for (let j = 0; j < temp.software.modules[i].functions.length; j++) {
-                    delete temp.software.modules[i].functions[j].id
-                  }
-                }
-              }
-            }
-            temp = JSON.stringify(temp)
-            for (let i = 0; i < embedregLength; i++) {
-              let iisundefined = eval("values.toreplace_" + i + "=== undefined")
-              if (iisundefined !== true) {
-                eval("temp = temp.replace(replacetokenbegin + i + replacetokenend + i,replacetokenbegin + i + values.toreplace_" + i + " + replacetokenend + i)")
-              }
-            }
-            temp = JSON.parse(temp)
-            // localStorage.setItem('entrustmentFill_embedreg', JSON.stringify(embedreg))
-            console.log(temp)
-            if (entrustId !== null) {
-              axios.post("/api/entrust/" + entrustId + "/content", temp).then(response => {
-                console.log(response)
-                message.success('提交修改成功');
-              })
-            } else {
-              axios.post("/api/entrust/", temp).then(response => {
-                console.log(response)
-                message.success('提交成功');
-              })
-            }
-          }}
-          submitter={{ submitButtonProps: { style: { display: 'none' } }, resetButtonProps: { style: { display: 'none' } } }}
-          request={async () => {
-            console.log(entrustId)
-            if (entrustId !== undefined) {
-              return axios.get("/api/entrust/" + entrustId).then(Detail => {
-                console.log("load from " + entrustId)
-                console.log(Detail.data.content)
-                var keysarray = []
-                if (Detail.data.content.software !== null && Detail.data.content.software.modules !== undefined&& Detail.data.content.software.modules !== null) {
-                  for (let i = 0; i < Detail.data.content.software.modules.length; i++) {
-                    Detail.data.content.software.modules[i].id = Date.now() + random(100000, false)
-                    if (Detail.data.content.software.modules[i].functions !== undefined && Detail.data.content.software.modules[i].functions !== null) {
-                      for (let j = 0; j < Detail.data.content.software.modules[i].functions.length; j++) {
-                        Detail.data.content.software.modules[i].functions[j].id = Date.now() + random(10000, 200000, false)
-                      }
-                      keysarray = [...keysarray, ...Detail.data.content.software.modules[i].functions.map((item) => item.id)]
-                    }
-                  }
-                  keysarray = [...keysarray, ...Detail.data.content.software.modules.map((item) => item.id)]
-                  console.log(keysarray)
-                  setEditableRowKeys(keysarray)
-                }
-                console.log(Detail.data.content)
-                let temp = JSON.stringify(Detail.data.content)
-                let toreplacearray = Array(embedregLength)
-                for (let i = 0; i < embedregLength; i++) {
-                  let tt = temp.match("(?<=" + replacetokenbegin + i + ").+(?=" + replacetokenend + i + ")")
-                  console.log(tt)
-                  if (tt) {
-                    temp = temp.replace(replacetokenbegin + i + tt.at(0) + replacetokenend + i, replacetokenbegin + i + replacetokenend + i)
-                    toreplacearray[i] = tt.at(0)
-                  }
-                }
-                Detail.data.content = JSON.parse(temp)
-                for (let i = 0; i < embedregLength; i++) {
-                  eval("Detail.data.content.toreplace_" + i + "= toreplacearray[" + i + "]")
-                }
-                console.log("load finished")
-                console.log(Detail.data.content)
-                return Detail.data.content
-              }).catch(Error => {
-                console.log(Error)
-                return {}
-              })
-            } else {
-              console.log("new Entrustment")
-              return {}
-            }
-          }}>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
-            <ProFormCheckbox.Group
-              required disabled rules={[{ required: true, message: '这是必填项' }]}
-              layout='horizontal'
-              name="testType"
-              label="测试类型"
-              options={[{ value: '软件确认测试', label: '软件确认测试' },
-              { value: '成果/技术鉴定测试', label: '成果/技术鉴定测试' },
-              { value: '专项资金验收测试', label: '专项资金验收测试' },
-              { value: replacetokenbegin + 0 + replacetokenend + 0, label: "其他" }
-              ]}
+        <ProCard title="委托预览" loading={cardLoading}>
+          <ProCard.Group direction={'column'}>
+            <ProCard title="委托单位信息">
+              <ProCard.Group direction={'column'}>
+                <ProCard.Group direction={'row'}>
+                  <ProCard>
+                    <Statistic title="测试类型" value={multipleValueRender(part1.testType)} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'column'}>
+                  <ProCard>
+                    <Statistic title="委托单位" value={part1.principal.companyCH} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="Trustor" value={part1.principal.companyEN} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'row'}>
+                  <ProCard>
+                    <Statistic title="单位电话" value={part1.principal.companyPhone} />
+                  </ProCard>
+                  <Divider type={'vertical'} />
+                  <ProCard>
+                    <Statistic title="单位网址" value={part1.principal.companyWebsite} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'column'}>
+                  <ProCard>
+                    <Statistic title="单位地址" value={part1.principal.companyAddress} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'row'}>
+                  <ProCard>
+                    <Statistic title="联系人名称" value={part1.principal.contact} />
+                  </ProCard>
+                  <Divider type={'vertical'} />
+                  <ProCard>
+                    <Statistic title="联系人电话" value={part1.principal.contactPhone} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'column'}>
+                  <ProCard>
+                    <Statistic title="联系人邮箱" value={part1.principal.contactEmail} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="授权代表" value={part1.principal.representative} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="签章日期" value={part1.principal.sigDate} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'row'}>
+                  <ProCard>
+                    <Statistic title="邮编" value={part1.principal.zipCode} />
+                  </ProCard>
+                  <Divider type={'vertical'} />
+                  <ProCard>
+                    <Statistic title="传真" value={part1.principal.fax} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'column'}>
+                  <ProCard>
+                    <Statistic title="开户银行" value={part1.principal.bankName} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="银行账号" value={part1.principal.account} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="银行户名" value={part1.principal.accountName} />
+                  </ProCard>
+                </ProCard.Group>
+              </ProCard.Group>
+            </ProCard>
+            <Divider type={'horizontal'} />
 
-            />
-            {/* style={{ width: 300, height: 24, marginTop: 8 }} */}
-            <ProFormText disabled name={"toreplace_0"}></ProFormText>
-          </Row>
-          <Row>
-            <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 149, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
-              <Title level={4}>委<br></br>托<br></br>单<br></br>位<br></br>信<br></br>息</Title></Col>
-            <Col style={{ width: 1448, border: '2px solid', borderRight: "none" }}>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="委托单位（中文）" width="500px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyCH"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="委托单位（英文）" width="500px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyEN"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="单位电话" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyPhone"]} ></ProFormText>
-                <ProFormText label="单位网址" width="400px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyWebsite"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="单位地址" width="400px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "companyAddress"]} ></ProFormText>
-                <ProFormText label="联系人名称" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contact"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="联系人电话" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactPhone"]} ></ProFormText>
-                <ProFormText label="联系人邮箱" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "contactEmail"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="授权代表" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "representative"]} ></ProFormText>
-                <ProFormDatePicker required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "sigDate"]} label="签章日期" />
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="邮编" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "zipCode"]} ></ProFormText>
-                <ProFormText label="传真" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "fax"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="开户银行" width="500px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "bankName"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="银行账号" width="500px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "account"]} ></ProFormText>
-                <ProFormText label="银行户名" width="400px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["principal", "accountName"]} ></ProFormText>
-              </Row>
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{
-              backgroundColor: whitecolor, width: 52, paddingLeft: 14,
-              paddingTop: 519, border: "2px solid", borderRight: "none", borderLeft: "none", borderTop: "none"
-            }}>
-              <Title level={4}>软<br></br>件<br></br>详<br></br>情</Title></Col>
-            <Col style={{ width: 1448, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="软件名称" width="400px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "name"]} ></ProFormText>
-                <ProFormText label="版本号" width="lg" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "version"]} ></ProFormText>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormText label="开发单位" width="500px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "developer"]} ></ProFormText>
-                <ProFormRadio.Group
-                  required disabled rules={[{ required: true, message: '这是必填项' }]}
-                  name={["software", "developerType"]}
-                  label="开发单位性质"
-                  options={[{ value: '1', label: '内资企业' },
-                  { value: '2', label: '外（合）资企业' },
-                  { value: '3', label: '港澳台（合）资企业' },
-                  { value: '4', label: '科研院校' },
-                  { value: '5', label: '政府事业团体' },
-                  { value: '6', label: '其他' }]}
-                ></ProFormRadio.Group>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormTextArea label="软件用户对象描述" width="800px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "userDescription"]} ></ProFormTextArea>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormTextArea label="主要功能简介" width="830px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "functionIntro"]} ></ProFormTextArea>
-              </Row>
-              <Row>
-                <Col style={{ backgroundColor: whitecolor, width: 125, paddingLeft: 14, paddingTop: 55, border: "2px solid", borderRight: "none", borderLeft: "none" }}>
-                  <Row style={{ paddingLeft: 15 }}><Title level={5}>软件规模</Title></Row><Row><Title level={5}>（至少一种）</Title></Row></Col>
-                <Col style={{ width: 1321, border: '2px solid', borderRight: "none" }}>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 181, columnGap: 32 }}>
-                    <ProFormText disabled label="功能数（到最后一级菜单）" width="lg" name={["software", "functionNums"]} ></ProFormText>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 181, columnGap: 32 }}>
-                    <ProFormText disabled label="功能点数" width="lg" name={["software", "functionPoint"]} ></ProFormText>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 181, columnGap: 32 }}>
-                    <ProFormText disabled label="代码行数（不包括注释行、空行）" width="lg" name={["software", "codeLine"]} ></ProFormText>
-                  </Row>
-                </Col>
-              </Row>
-              <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 54, columnGap: 32 }}>
-                <ProFormTreeSelect
-                  name={["software", "type"]}
-                  placeholder="请选择软件类型"
-                  allowClear
-                  required disabled rules={[{ required: true, message: '这是必填项' }]}
-                  width={230}
-                  label="软件类型"
-                  request={async () => {
-                    return [
-                      {
-                        title: '系统软件',
-                        value: '系统软件',
-                        selectable: false,
-                        children: [
-                          {
-                            title: '操作系统',
-                            value: '操作系统',
-                          },
-                          {
-                            title: '中文操作系统',
-                            value: '中文操作系统',
-                          },
-                          {
-                            title: '网络系统',
-                            value: '网络系统',
-                          },
-                          {
-                            title: '嵌入式操作系统',
-                            value: '嵌入式操作系统',
-                          },
-                          {
-                            title: '其他',
-                            value: '其他系统软件',
-                          }
-                        ],
-                      },
-                      {
-                        title: '支持软件',
-                        value: '支持软件',
-                        selectable: false,
-                        children: [
-                          {
-                            title: '程序设计语言',
-                            value: '程序设计语言',
-                          },
-                          {
-                            title: '数据库系统设计',
-                            value: '数据库系统设计',
-                          },
-                          {
-                            title: '工具软件',
-                            value: '工具软件',
-                          },
-                          {
-                            title: '网络通信软件',
-                            value: '网络通信软件',
-                          },
-                          {
-                            title: '中间件',
-                            value: '中间件',
-                          },
-                          {
-                            title: '其他',
-                            value: '其他支持软件',
-                          }
-                        ],
-                      },
-                      {
-                        title: '应用软件',
-                        value: '应用软件',
-                        selectable: false,
-                        children: [
-                          {
-                            title: '行业管理软件',
-                            value: '行业管理软件',
-                          },
-                          {
-                            title: '办公软件',
-                            value: '办公软件',
-                          },
-                          {
-                            title: '模式识别软件',
-                            value: '模式识别软件',
-                          },
-                          {
-                            title: '图形图像软件',
-                            value: '图形图像软件',
-                          },
-                          {
-                            title: '控制软件',
-                            value: '控制软件',
-                          },
-                          {
-                            title: '网络应用软件',
-                            value: '网络应用软件',
-                          },
-                          {
-                            title: '信息管理软件',
-                            value: '信息管理软件',
-                          },
-                          {
-                            title: '数据库管理应用软件',
-                            value: '数据库管理应用软件',
-                          },
-                          {
-                            title: '安全与保密软件',
-                            value: '安全与保密软件',
-                          },
-                          {
-                            title: '嵌入式应用软件',
-                            value: '嵌入式应用软件',
-                          },
-                          {
-                            title: '教育软件',
-                            value: '教育软件',
-                          },
-                          {
-                            title: '游戏软件',
-                            value: '游戏软件',
-                          },
-                          {
-                            title: '其他',
-                            value: '其他应用软件',
-                          },
-                        ],
-                      },
-                      {
-                        title: '其他',
-                        value: '其他',
-                      },
-                    ];
-                  }}
-                  fieldProps={{
-                    showArrow: true,
-                    filterTreeNode: true,
-                    showSearch: true,
-                    dropdownMatchSelectWidth: false,
-                    autoClearSearchValue: true,
-                    treeNodeFilterProp: 'title',
-                    showCheckedStrategy: TreeSelect.SHOW_PARENT
-                  }}
+            <ProCard title="软件详情">
+              <ProCard.Group direction={'column'}>
+                <ProCard.Group direction={'row'}>
+                  <ProCard>
+                    <Statistic title="软件名称" value={part2.name} />
+                  </ProCard>
+                  <Divider type={'vertical'} />
+                  <ProCard>
+                    <Statistic title="版本号" value={part2.version} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'column'}>
+                  <ProCard>
+                    <Statistic title="开发单位" value={part2.developer} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="开发单位性质" value={part2.developerType} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="软件用户对象描述" value={part2.userDescription} />
+                  </ProCard>
+                  <Divider type={'horizontal'} />
+                  <ProCard>
+                    <Statistic title="主要功能简介" value={part2.functionIntro} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'row'}>
+                  <ProCard>
+                    <Statistic title="功能数" value={part2.functionNums} />
+                  </ProCard>
+                  <Divider type={'vertical'} />
+                  <ProCard>
+                    <Statistic title="功能点数" value={part2.functionPoint} />
+                  </ProCard>
+                  <Divider type={'vertical'} />
+                  <ProCard>
+                    <Statistic title="代码行数" value={part2.codeLine} />
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'horizontal'} />
+                <ProCard.Group direction={'column'}>
+                  <ProCard>
+                    <Statistic title="软件类型" value={part2.type} />
+                  </ProCard>
+                </ProCard.Group>
+              </ProCard.Group>
+            </ProCard>
+            <Divider type={'horizontal'} />
+
+            <ProCard title="运行环境">
+              <ProCard.Group direction={'column'}>
+                <ProCard title="客户端">
+                  <ProCard.Group direction={'column'}>
+                    <ProCard.Group title="操作系统" direction={'row'}>
+                      {operatingSystemRender(part2.clientOS)}
+                    </ProCard.Group>
+                    <Divider type={'horizontal'} />
+                    <ProCard>
+                      <Statistic title="内存要求" value={part2.clientMemoryRequirement + ' MB'} />
+                    </ProCard>
+                    <Divider type={'horizontal'} />
+                    <ProCard>
+                      <Statistic title="其他要求" value={part2.clientOtherRequirement} />
+                    </ProCard>
+                  </ProCard.Group>
+                </ProCard>
+                <Divider type={'horizontal'} />
+                <ProCard title="服务端">
+                  <ProCard.Group direction={'column'}>
+                    <ProCard title="硬件">
+                      <ProCard.Group direction={'column'}>
+                        <ProCard>
+                          <Statistic title="架构" value={multipleValueRender(part2.serverHardArch)} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="内存要求" value={part2.servHardMemoryRequirement + ' MB'} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="硬盘要求" value={part2.servHardDiskRequirement + ' MB'} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="其他要求" value={part2.servHardOtherRequirement} />
+                        </ProCard>
+                      </ProCard.Group>
+                    </ProCard>
+                    <Divider type={'horizontal'} />
+                    <ProCard title="软件">
+                      <ProCard.Group direction={'column'}>
+                        <ProCard.Group direction={'row'}>
+                          <ProCard>
+                            <Statistic title="操作系统" value={part2.servSoftOS} />
+                          </ProCard>
+                          <Divider type={'vertical'} />
+                          <ProCard>
+                            <Statistic title="版本" value={part2.servSoftVersion} />
+                          </ProCard>
+                        </ProCard.Group>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="编程语言" value={part2.servSoftProgramLang} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="构架" value={multipleValueRender(part2.servSoftArch)} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="数据库" value={part2.servSoftDatabase} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="中间件" value={part2.servSoftMiddleware} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
+                        <ProCard>
+                          <Statistic title="其他支撑软件" value={part2.serverSideOtherSupport} />
+                        </ProCard>
+                      </ProCard.Group>
+                    </ProCard>
+                    <Divider type={'horizontal'} />
+                    <ProCard>
+                      <Statistic title="网络环境" value={part2.networkEnvironment} />
+                    </ProCard>
+                  </ProCard.Group>
+                </ProCard>
+              </ProCard.Group>
+            </ProCard>
+            <Divider type={'horizontal'} />
+
+            <ProCard title="附表: NST-04-JS003-2011-委托测试软件功能列表">
+              <ProCard.Group direction={'column'}>
+                <ProTable
+                  headerTitle="模块列表"
+                  columns={moduleColumns}
+                  search={false}
+                  rowKey="id"
+                  dataSource={moduleEditableKeys}
                 />
-              </Row>
-              <Row>
-                <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 480, border: "2px solid", borderRight: "none", borderLeft: "none", borderBottom: "none" }}>
-                  <Title level={4}>运<br></br>行<br></br>环<br></br>境</Title></Col>
-                <Col style={{ width: basewidth - 106, border: '2px solid', borderRight: "none", borderBottom: "none" }}>
-                  <Row>
-                    <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 100, borderBottom: "2px solid" }}>
-                      <Title level={4}>客<br></br>户<br></br>端</Title></Col>
-                    <Col style={{ width: basewidth - 160, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, width: 1338, columnGap: 0 }}>
-                        <Col style={{ width: 240 }}>
-                          <ProFormCheckbox.Group name={["software", "clientOS"]} required disabled rules={[{ required: true, message: '这是必填项' }]} label='操作系统' layout='vertical'
-                            options={[{ value: 'Windows ' + replacetokenbegin + 1 + replacetokenend + 1, label: "Windows（版本）" },
-                            { value: 'Linux ' + replacetokenbegin + 2 + replacetokenend + 2, label: "Linux（版本）" },
-                            { value: replacetokenbegin + 3 + replacetokenend + 3, label: "其他" }]}>
-                          </ProFormCheckbox.Group>
-                        </Col>
-                        <Col>
-                          <ProFormText disabled name={"toreplace_1"}></ProFormText>
-                          <ProFormText disabled name={"toreplace_2"}></ProFormText>
-                          <ProFormText disabled name={"toreplace_3"}></ProFormText>
-                        </Col>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 1338, columnGap: 32 }}>
-                        <ProFormText label="内存要求" width='130px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "clientMemoryRequirement"]} addonAfter='MB' ></ProFormText>
-                      </Row>
-                      <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: 1338, columnGap: 32 }}>
-                        <ProFormTextArea label="其他要求" width="830px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "clientOtherRequirement"]} ></ProFormTextArea>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 263, borderBottom: "2px solid" }}>
-                      <Title level={4}>服<br></br>务<br></br>端</Title></Col>
-                    <Col style={{ width: basewidth - 160, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                      <Row>
-                        <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 118, borderBottom: '2px solid' }}>
-                          <Title level={4}>硬<br></br>件</Title></Col>
-                        <Col style={{ width: 1286, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: basewidth - 216, columnGap: 0 }}>
-                            <ProFormCheckbox.Group name={["software", "serverHardArch"]} required disabled rules={[{ required: true, message: '这是必填项' }]} label='架构' layout='horizontal'
-                              options={[{ value: "PC服务器", label: "PC服务器" },
-                              { value: "UNIX/Linux服务器", label: "UNIX/Linux服务器" },
-                              { value: replacetokenbegin + 4 + replacetokenend + 4, label: "其他" }]}>
-                            </ProFormCheckbox.Group>
-                            <ProFormText disabled name={"toreplace_4"}></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormText label="内存要求" width='130px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servHardMemoryRequirement"]} addonAfter='MB' ></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormText label="硬盘要求" width='130px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servHardDiskRequirement"]} addonAfter='MB' ></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormTextArea label="其他要求" width="830px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servHardOtherRequirement"]} ></ProFormTextArea>
-                          </Row>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col style={{ backgroundColor: whitecolor, width: 52, paddingLeft: 14, paddingTop: 113 }}>
-                          <Title level={4}>软<br></br>件</Title></Col>
-                        <Col style={{ width: 1286, border: '2px solid', borderRight: "none", borderTop: "none", borderBottom: 'none' }}>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormText label="操作系统" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftOS"]}></ProFormText>
-                            <ProFormText label="版本" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftVersion"]}></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, paddingTop: 11, height: 60, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormText label="编程语言" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftProgramLang"]}></ProFormText>
-                            <ProFormCheckbox.Group label="构架" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftArch"]} layout='horizontal'
-                              options={[{ value: "C/S", label: "C/S" },
-                              { value: "B/S", label: "B/S" },
-                              { value: "其他", label: "其他" }]}></ProFormCheckbox.Group>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, paddingTop: 11, height: 60, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormText label="数据库" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftDatabase"]}></ProFormText>
-                            <ProFormText label="中间件" width='400px' required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "servSoftMiddleware"]}></ProFormText>
-                          </Row>
-                          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: 120, paddingTop: 11, width: basewidth - 216, columnGap: 32 }}>
-                            <ProFormTextArea label="其他支撑软件" width="830px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "serverSideOtherSupport"]} ></ProFormTextArea>
-                          </Row>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth - 108, columnGap: 32, borderBottom: '2px solid' }}>
-                    <ProFormText label="网络环境" width="700px" required disabled rules={[{ required: true, message: '这是必填项' }]} name={["software", "networkEnvironment"]} ></ProFormText>
-                  </Row>
-                  <div style={{ backgroundColor: graycolor }}>
-                    <Title>附表：NST－04－JS003－2011－委托测试软件功能列表</Title>
-                    <ProForm.Item name={["software", "modules"]} trigger="onValuesChange">
-                      <EditableProTable rowKey="id" ond toolBarRender={false} columns={[
-                        {
-                          editable: false,
-                          title: '模块名称',
-                          dataIndex: 'moduleName',
-                          width: '10%',
-                        },
-                        {
-                          title: '模块功能列表',
-                          dataIndex: 'functions',
-                          renderFormItem: (dataSource) => {
-                            return (<EditableProTable disabled style={{ paddingRight: '0px', paddingLeft: '0px', paddingTop: 4, paddingBottom: 4 }} dataSource={dataSource} rowKey='id' toolBarRender={false} columns={[
-                              {
-                                editable: false,
-                                title: '功能名称',
-                                dataIndex: 'functionName',
-                                width: '20%',
-                              },
-                              {
-                                editable: false,
-                                title: '功能说明',
-                                dataIndex: 'functionDescription',
-                                valueType: 'textarea',
-                                width: '74%',
-                              },
-                            ]}
-                              controlled={true}
-                              recordCreatorProps={{
-                                newRecordType: 'dataSource',
-                                position: 'top',
-                                style: {
-                                  display: 'none',
-                                },
-                                record: () => ({
-                                  id: Date.now(),
-                                })
-                              }}
-                              editable={{
-                                type: 'multiple',
-                                editableKeys,
-                                onChange: setEditableRowKeys,
-                                actionRender: (row, _, dom) => {
-                                  return [dom.delete];
-                                }
-                              }}
-                            ></EditableProTable>)
-                          }
-                        },
-                      ]}
-                        recordCreatorProps={{
-                          newRecordType: 'dataSource',
-                          position: 'top',
-                          style: {
-                            display: 'none',
-                          },
-                          record: () => ({
-                            id: Date.now(),
-                          }),
-                        }} editable={{
-                          type: 'multiple',
-                          editableKeys,
-                          onChange: setEditableRowKeys,
-                          actionRender: (row, _, dom) => {
-                            return [dom.delete];
-                          },
-                        }} />
-                    </ProForm.Item>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
-            <ProFormCheckbox.Group
-              required disabled rules={[{ required: true, message: '这是必填项' }]}
-              layout='horizontal'
-              name="testStandard"
-              label="测试依据"
-              options={[{ value: 'GB/T 25000.51-2010', label: 'GB/T 25000.51-2010' },
-              { value: 'GB/T 16260.1-2006', label: 'GB/T 16260.1-2006' },
-              { value: 'NST-03-WI12-2011', label: 'NST-03-WI12-2011' },
-              { value: 'NST-03-WI13-2011', label: 'NST-03-WI13-2011' },
-              { value: replacetokenbegin + 5 + replacetokenend + 5, label: "其他" }]}
-            />
-            <ProFormText disabled name={"toreplace_5"}></ProFormText>
-          </Row>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
-            <ProFormCheckbox.Group
-              width={730}
-              required disabled rules={[{ required: true, message: '这是必填项' }]}
-              name="techIndex"
-              label="测试指标"
-              options={[{ value: '功能性', label: '功能性' },
-              { value: '可靠性', label: '可靠性' },
-              { value: '易用性', label: '易用性' },
-              { value: '效率', label: '效率' },
-              { value: '可维护性', label: '可维护性' },
-              { value: '可移植性', label: '可移植性' },
-              { value: '代码覆盖度', label: '代码覆盖度' },
-              { value: '缺陷检测率', label: '缺陷检测率' },
-              { value: '代码风格符合度', label: '代码风格符合度' },
-              { value: '代码不符合项检测率', label: '代码不符合项检测率' },
-              { value: '产品说明要求', label: '产品说明要求' },
-              { value: '用户文档集要求', label: '用户文档集要求' },
-              { value: replacetokenbegin + 6 + replacetokenend + 6, label: "其他" }]}
-            />
-            <ProFormText disabled name={"toreplace_6"}></ProFormText>
-          </Row>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
-            <ProFormRadio.Group
-              required disabled rules={[{ required: true, message: '这是必填项' }]}
-              layout='horizontal'
-              name="softwareMedium"
-              label="软件介质"
-              options={[{ value: '1', label: '光盘' },
-              { value: '2', label: 'U盘' },
-              { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
-            />
-            <ProFormText disabled name={"toreplace_7"}></ProFormText>
-          </Row>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: 120, paddingTop: 11, width: basewidth, columnGap: 32 }}>
-            <ProFormTextArea label="文档资料" width="900px" required disabled rules={[{ required: true, message: '这是必填项' }]} name="document" ></ProFormTextArea>
-          </Row>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 32 }}>
-            <ProFormRadio.Group label="提交样品（硬拷贝资料、硬件）五年保存期满" required disabled rules={[{ required: true, message: '这是必填项' }]}
-              name="sampleHandling"
-              options={[{ value: '1', label: '由本实验室销毁' },
-              { value: '2', label: '退还给我们' }]}>
+                <Divider type={'horizontal'} />
+                <ProCard>
+                  <Statistic title="测试依据" value={multipleValueRender(part3.testStandard)} />
+                </ProCard>
+                <Divider type={'horizontal'} />
+                <ProCard>
+                  <Statistic title="测试指标" value={multipleValueRender(part3.techIndex)} />
+                </ProCard>
+                <Divider type={'horizontal'} />
+                <ProCard>
+                  <Statistic title="软件介质" value={part3.softwareMedium} />
+                </ProCard>
+                <Divider type={'horizontal'} />
+                <ProCard>
+                  <Statistic title="文档资料" value={part3.document} />
+                </ProCard>
+                <Divider type={'horizontal'} />
+                <ProCard>
+                  <Statistic title="提交样品（硬拷贝资料、硬件）五年保存期满后:" value={part3.sampleHandling} />
+                </ProCard>
+                <Divider type={'horizontal'} />
+                <ProCard>
+                  <Statistic title="希望完成时间" value={part3.expectedTime} />
+                </ProCard>
+              </ProCard.Group>
+            </ProCard>
+          </ProCard.Group>
+        </ProCard>
 
-            </ProFormRadio.Group>
-          </Row>
-          <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 32, borderBottom: "2px solid" }}>
-            <ProFormText label="希望完成时间" width="500px" required disabled rules={[{ required: true, message: '这是必填项' }]} name="expectedTime" ></ProFormText>
-          </Row>
-          <Row style={{ height: 40 }}></Row>
-        </ProForm>
-
+        <ProCard>
+        <Col style={{ paddingLeft: 0, paddingTop: 0, borderBottom: "2px solid" }}>
+        <Title level={3}>审核项目</Title>
+        </Col>
         <ProForm
           scrollToFirstError="true"
           onFinish={async (values) => {
@@ -632,15 +561,15 @@ const EntrustmentVerify = () => {
                   console.log(response)
                   message.success('已受理委托');
                   // window.location.href = "/progress/" + entrustId;
-                  axios.post("/api/sample?entrustId="+entrustId).then(response => {
-                  console.log(response)
-                  message.success('成功创建样品集');
-                  history.goBack();
-                }).catch(error=>{
-                  console.log(error);
-                  history.goBack();
-                })
-                  
+                  axios.post("/api/sample?entrustId=" + entrustId).then(response => {
+                    console.log(response)
+                    message.success('成功创建样品集');
+                    history.goBack();
+                  }).catch(error => {
+                    console.log(error);
+                    history.goBack();
+                  })
+
                 })
             } else if (temp.acceptance === "1") {
               axios.post("/api/entrust/" + entrustId + "/content/denial?message=Denied:" + temp.confirmation)
@@ -661,8 +590,8 @@ const EntrustmentVerify = () => {
             }
           }} >
 
-          <Col>
-            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+          <Col style={{ paddingLeft: 0, paddingTop: 10 }}>
+            <Row>
               <ProFormRadio.Group label="密级" required rules={[{ required: true, message: '这是必填项' }]}
                 name="securityLevel"
                 options={[
@@ -672,7 +601,7 @@ const EntrustmentVerify = () => {
                 ]}>
               </ProFormRadio.Group>
             </Row>
-            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+            <Row>
               <ProFormRadio.Group label="查杀病毒" required rules={[{ required: true, message: '这是必填项' }]}
                 name="checkVirus"
                 options={[
@@ -682,12 +611,12 @@ const EntrustmentVerify = () => {
               </ProFormRadio.Group>
               <ProFormText label="所用查杀工具：" width="300px" required rules={[{ required: true, message: '这是必填项' }]} name="virusScantoolName" ></ProFormText>
             </Row>
-            <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight * 6, paddingTop: 11, width: 1500, columnGap: 32 }}>
-              <Col style={{ backgroundColor: whitecolor, width: 200, paddingLeft: 0, paddingTop: 0, borderBottom: "2px solid" }}>
+            <Row>
+              <Col style={{ width: 200, paddingLeft: 0, paddingTop: 0 }}>
                 <Title level={4}>材料检查</Title>
               </Col>
-              <Col style={{ width: 1300, border: '2px solid', borderRight: "none", borderTop: "none" }}>
-                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+              <Col>
+                <Row>
                   <ProFormCheckbox.Group
                     width={730}
                     required rules={[{ required: true, message: '这是必填项' }]}
@@ -699,7 +628,7 @@ const EntrustmentVerify = () => {
                     ]}
                   />
                 </Row>
-                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                <Row>
                   <ProFormCheckbox.Group
                     width={730}
                     required rules={[{ required: true, message: '这是必填项' }]}
@@ -712,7 +641,7 @@ const EntrustmentVerify = () => {
                     ]}
                   />
                 </Row>
-                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                <Row>
                   <ProFormCheckbox.Group
                     width={730}
                     required rules={[{ required: true, message: '这是必填项' }]}
@@ -724,7 +653,7 @@ const EntrustmentVerify = () => {
                     ]}
                   />
                 </Row>
-                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                <Row>
                   <ProFormCheckbox.Group
                     width={730}
                     required rules={[{ required: true, message: '这是必填项' }]}
@@ -738,12 +667,12 @@ const EntrustmentVerify = () => {
                     ]}
                   />
                 </Row>
-                <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: basewidth, columnGap: 0 }}>
+                <Row>
                   <ProFormText label="其他：" width="500px" name="materialCheckOther" ></ProFormText>
                 </Row>
               </Col>
             </Row>
-            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+            <Row>
               <ProFormRadio.Group label="确认意见" required rules={[{ required: true, message: '这是必填项' }]}
                 name="confirmation"
                 options={[
@@ -754,7 +683,7 @@ const EntrustmentVerify = () => {
                 ]}>
               </ProFormRadio.Group>
             </Row>
-            <Row style={{ paddingLeft: rowbegingap, backgroundColor: graycolor, height: formitemheight, paddingTop: 11, width: 1500, columnGap: 32 }}>
+            <Row>
               <ProFormRadio.Group label="受理意见" required rules={[{ required: true, message: '这是必填项' }]}
                 name="acceptance"
                 options={[
@@ -764,12 +693,14 @@ const EntrustmentVerify = () => {
                 ]}>
               </ProFormRadio.Group>
             </Row>
-            <Row style={{ paddingLeft: rowbegingap, backgroundColor: whitecolor, height: formitemheight, paddingTop: 11, width: 900, columnGap: 32 }}>
+            <Row>
               <ProFormText label="测试项目编号" width="500px" required rules={[{ required: true, message: '这是必填项' }]} name="serialNumber" ></ProFormText>
             </Row>
             <Row style={{ height: 40 }}></Row>
           </Col>
         </ProForm>
+        </ProCard>
+        {/* </PageContainer> */}
       </div>
     </>
   );
