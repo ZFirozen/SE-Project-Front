@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message } from 'antd';
+import { Form, Button, Col, Input, Popover, Progress, Row, Select, message, Typography } from 'antd';
 import { Link, useRequest, history } from 'umi';
-import { fakeRegister } from './service';
+import { userRegister } from './service';
 import styles from './style.less';
+const { Title } = Typography;
 const FormItem = Form.Item;
 const { Option } = Select;
 const InputGroup = Input.Group;
@@ -58,7 +59,7 @@ const Register = () => {
   };
 
   const getPasswordStatus = () => {
-    const value = form.getFieldValue('password');
+    const value = form.getFieldValue('userPassword');
 
     if (value && value.length > 9) {
       return 'ok';
@@ -71,29 +72,37 @@ const Register = () => {
     return 'poor';
   };
 
-  const { loading: submitting, run: register } = useRequest(fakeRegister, {
+  const { loading: submitting, run: register } = useRequest(userRegister, {
     manual: true,
-    onSuccess: (data, params) => {
-      if (data.status === 'ok') {
-        message.success('注册成功！');
-        history.push({
-          pathname: '/user/register-result',
-          state: {
-            account: params.email,
-          },
-        });
-      }
+    onSuccess: (response) => {
+      console.log(response)
+      message.success('注册成功！');
+      // history.push({
+      //   pathname: '/',
+      //   // state: {
+      //   //   account: params.email,
+      //   // },
+      // });
+      history.goBack();
     },
+    onError: (error) => {
+      console.log(error);
+      if (error.response.status === 400) {
+        message.error('注册失败！用户名重复！');
+      }
+    }
   });
 
   const onFinish = (values) => {
-    register(values);
+    const params = { userName: values.userName, userPassword: values.userPassword };
+    // console.log(params);
+    register(params);
   };
 
   const checkConfirm = (_, value) => {
     const promise = Promise;
 
-    if (value && value !== form.getFieldValue('password')) {
+    if (value && value !== form.getFieldValue('userPassword')) {
       return promise.reject('两次输入的密码不匹配!');
     }
 
@@ -114,9 +123,9 @@ const Register = () => {
 
     setPopover(!popover);
 
-    if (value.length < 6) {
-      return promise.reject('');
-    }
+    // if (value.length < 6) {
+    //   return promise.reject('');
+    // }
 
     if (value && confirmDirty) {
       form.validateFields(['confirm']);
@@ -130,7 +139,7 @@ const Register = () => {
   };
 
   const renderPasswordProgress = () => {
-    const value = form.getFieldValue('password');
+    const value = form.getFieldValue('userPassword');
     const passwordStatus = getPasswordStatus();
     return value && value.length ? (
       <div className={styles[`progress-${passwordStatus}`]}>
@@ -147,22 +156,23 @@ const Register = () => {
 
   return (
     <div className={styles.main}>
-      <h3>注册</h3>
-      <Form form={form} name="UserRegister" onFinish={onFinish}>
+      <Title level={2} style={{ textAlign: "center" }}>注册</Title>
+      <Form form={form} name="UserRegister" id="components-form-login" className="login-form" onFinish={onFinish}>
         <FormItem
-          name="mail"
+          name="userName"
           rules={[
             {
-              required: true,
-              message: '请输入邮箱地址!',
+              required: true, message: "请输入用户名！"
             },
             {
-              type: 'email',
-              message: '邮箱地址格式错误!',
+              max: 32, message: "名称不得超过32个字符！"
             },
+            {
+              pattern: new RegExp("^[0-9a-zA-Z_]{1,}$", "g"), message: "只允许包含数字、字母和下划线!"
+            }
           ]}
         >
-          <Input size="large" placeholder="邮箱" />
+          <Input size="large" placeholder="用户名" />
         </FormItem>
         <Popover
           getPopupContainer={(node) => {
@@ -186,7 +196,7 @@ const Register = () => {
                     marginTop: 10,
                   }}
                 >
-                  <span>请至少输入 6 个字符。请不要使用容易被猜到的密码。</span>
+                  <span>请不要使用容易被猜到的密码。</span>
                 </div>
               </div>
             )
@@ -198,10 +208,10 @@ const Register = () => {
           visible={visible}
         >
           <FormItem
-            name="password"
+            name="userPassword"
             className={
-              form.getFieldValue('password') &&
-              form.getFieldValue('password').length > 0 &&
+              form.getFieldValue('userPassword') &&
+              form.getFieldValue('userPassword').length > 0 &&
               styles.password
             }
             rules={[
@@ -210,7 +220,7 @@ const Register = () => {
               },
             ]}
           >
-            <Input size="large" type="password" placeholder="至少6位密码，区分大小写" />
+            <Input size="large" type="password" placeholder="输入密码，区分大小写" />
           </FormItem>
         </Popover>
         <FormItem
@@ -218,7 +228,7 @@ const Register = () => {
           rules={[
             {
               required: true,
-              message: '确认密码',
+              message: '请确认密码！',
             },
             {
               validator: checkConfirm,
@@ -227,7 +237,7 @@ const Register = () => {
         >
           <Input size="large" type="password" placeholder="确认密码" />
         </FormItem>
-        <InputGroup compact>
+        {/* <InputGroup compact>
           <Select
             size="large"
             value={prefix}
@@ -282,7 +292,7 @@ const Register = () => {
               {count ? `${count} s` : '获取验证码'}
             </Button>
           </Col>
-        </Row>
+        </Row> */}
         <FormItem>
           <Button
             size="large"

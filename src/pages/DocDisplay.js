@@ -8,10 +8,9 @@ import { error } from "jquery";
 import { ProCard } from "@ant-design/pro-card"
 const { Title, Paragraph } = Typography
 
-const Documents = () => {
+const DocDisplay = () => {
   const location = useLocation();
   const testId = location.query.testId
-  var contractId = undefined
   var schemeId = undefined
   var reportId = undefined
   var testcaseId = undefined
@@ -26,7 +25,7 @@ const Documents = () => {
     axios.get("/api/test/" + testId)
       .then((response) => {
         if (response.status === 200) {
-          console.log("/api/test/ + testId ="+testId)
+          console.log("/api/test/ + testId =" + testId)
           schemeId = response.data.projectFormIds.testSchemeId
           reportId = response.data.projectFormIds.reportId
           testcaseId = response.data.projectFormIds.testcaseId
@@ -44,10 +43,10 @@ const Documents = () => {
   return (
     <>
       <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="column" layout="center">
-        <Title level={1}>文档填写</Title>
+        <Title level={1}>文档查看</Title>
         <ProCard {...cardOption}>
           <Title level={4}>JS007</Title>
-          <Title level={4}>填写测试报告</Title>
+          <Title level={4}>查看测试报告</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             console.log("testId=" + testId)
@@ -57,11 +56,11 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试报告</Button>
+          }}>查看测试报告</Button>
         </ProCard>
         <ProCard {...cardOption}>
           <Title level={4}>JS008</Title>
-          <Title level={4}>填写测试用例表</Title>
+          <Title level={4}>查看测试用例表</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
@@ -70,11 +69,11 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试用例表</Button>
+          }}>查看测试用例表</Button>
         </ProCard>
         <ProCard {...cardOption}>
           <Title level={4}>JS009</Title>
-          <Title level={4}>填写测试记录表</Title>
+          <Title level={4}>查看测试记录表</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
@@ -83,11 +82,11 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试记录表</Button>
+          }}>查看测试记录表</Button>
         </ProCard>
         <ProCard {...cardOption}>
           <Title level={4}>JS011</Title>
-          <Title level={4}>填写测试问题清单</Title>
+          <Title level={4}>查看测试问题清单</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
@@ -96,9 +95,9 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试问题清单</Button>
+          }}>查看测试问题清单</Button>
         </ProCard>
-        <ProCard {...cardOption}>
+        {/* <ProCard {...cardOption}>
           <Title level={4}>文档填写完成</Title>
           <Title level={4}>提交所有文档</Title>
           <br></br>
@@ -114,10 +113,10 @@ const Documents = () => {
               message.error("提交失败，请重试")
             })
           }}>提交所有文档</Button>
-        </ProCard>
+        </ProCard> */}
       </ProCard>
     </>
   );
 }
 
-export default Documents;
+export default DocDisplay;

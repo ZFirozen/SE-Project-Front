@@ -26,7 +26,7 @@ const DocumentVerify = () => {
 
   return (
     <>
-      < div style={{ margin: 10 }}>
+      <div style={{ margin: 10 }}>
         <PageContainer title="软件文档评审表">
           <Card>
             <Space direction="vertical" size={44}>
@@ -42,10 +42,7 @@ const DocumentVerify = () => {
                 size="large"
                 style={{ font: 'initial', border: '3px solid' }}
                 grid="true"
-                submitter={{
-                  submitButtonProps: { style: { left: 300, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } },
-                  resetButtonProps: { style: { left: 850, fontSize: 28, paddingBottom: 50, paddingLeft: 50, paddingRight: 50, bottom: 20 } },
-                }}
+                submitter={{ submitButtonProps: { style: { display: 'none', } }, resetButtonProps: { style: { display: 'none', } } }}
                 layout="horizontal"
 
                 onFinish={(values) => {

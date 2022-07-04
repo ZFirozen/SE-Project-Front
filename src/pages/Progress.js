@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Divider, Steps, Button } from "antd";
+import { Divider, Steps, Button, Card, Cascader, Col, Descriptions, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, DatePicker } from 'antd';
 import localStorage from "localStorage";
 import axios from "axios";
 import { history, useLocation } from "umi";
@@ -11,6 +11,8 @@ const { Step } = Steps;
 var contractId = "";
 var testId = "";
 var schemeId = "";
+var schemeReviewId = "";
+var reportReviewId = "";
 
 const Progress = () => {
     const location = useLocation();
@@ -24,7 +26,7 @@ const Progress = () => {
     var cstage = -1, cstep = -1, sstage = -1;
     const getEntrustmentStatus = () => {
         console.log('ini testid=' + testId)
-        if (testId !== undefined) {
+        if (testId !== null && testId !== undefined && testId !== "") {
             cstage = 2;
             cstep = 0;
             sstage = 2;
@@ -33,17 +35,18 @@ const Progress = () => {
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
+                    console.log("response=" + response);
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
                     console.log('ent testid=' + testId)
-                    if (testId !== null) {
+                    if (testId !== null && testId !== undefined && testId !== "") {
                         cstage = 2;
                         cstep = 0;
                         sstage = 2;
                         getTestStatus();
                     }
-                    console.log(response.data.status.stage)
+                    console.log("response.data.status.stage" + response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
@@ -269,6 +272,8 @@ const Progress = () => {
                     console.log("tid=" + testId)
                     testId = testId
                     schemeId = response.data.projectFormIds.testSchemeId
+                    schemeReviewId = response.data.projectFormIds.testSchemeChecklistId
+                    reportReviewId = response.data.projectFormIds.testReportCecklistId
                     console.log("tschid=" + response.data.projectFormIds.testSchemeId)
                     console.log("twcid=" + response.data.projectFormIds.workChecklistId)
                     console.log("tschcheckid=" + response.data.projectFormIds.testSchemeChecklistId)
@@ -346,14 +351,14 @@ const Progress = () => {
                             cstep = 6;
                             sstage = 2;
                             break;
-                            case "REPORT_WAIT_SENT_TO_CUSTOMER":
-                                setCurrentStage(2);
-                                setCurrentStep(7);
-                                setShowStage(2);
-                                cstage = 2;
-                                cstep = 7;
-                                sstage = 2;
-                                break;
+                        case "REPORT_WAIT_SENT_TO_CUSTOMER":
+                            setCurrentStage(2);
+                            setCurrentStep(7);
+                            setShowStage(2);
+                            cstage = 2;
+                            cstep = 7;
+                            sstage = 2;
+                            break;
                         case "REPORT_WAIT_CUSTOMER":
                             setCurrentStage(2);
                             setCurrentStep(8);
@@ -388,10 +393,10 @@ const Progress = () => {
                             break;
                         case "QA_ALL_PASSED":
                             setCurrentStage(2);
-                            setCurrentStep(10);
+                            setCurrentStep(11);
                             setShowStage(2);
                             cstage = 2;
-                            cstep = 10;
+                            cstep = 11;
                             sstage = 2;
                             break;
                         default:
@@ -399,11 +404,20 @@ const Progress = () => {
                     }
 
 
+                } else if (response.status === 403) {
+                    console.log("yes!403!");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                    getTestStatus();
                 }
             })
             .catch((error) => {
                 console.log(error);
-                if (error.response.status === 404 && testId!=="" &&testId!==undefined) {
+                if (error.response.status === 404 && testId !== "" && testId !== undefined) {
                     axios.post("/api/test?entrustId=" + entrustId)
                         .then((response) => {
                             if (response.status === 200) {
@@ -423,6 +437,24 @@ const Progress = () => {
                             console.log(response);
                         });
                 }
+                else if (error.response.status === 400 && testId !== "" && testId !== undefined) {
+                    console.log("error400");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                }
+                else if (error.response.status === 403) {
+                    console.log("yes!403!");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                }
             })
     }
 
@@ -433,6 +465,23 @@ const Progress = () => {
     const onStageChange = (value) => {
         console.log("onStageChange: ", value);
         setShowStage(value);
+    }
+
+    const onChecklistClick = () => {
+        if (currentStage === 2 && currentStep > 0) {
+            if (userRole === "CUSTOMER") {
+                alert("您没有权限访问！");
+            }
+            else {
+                console.log("bef wokc tid=" + testId);
+                history.push({
+                    pathname: "/test/workcheck",
+                    query: {
+                        testId: testId
+                    }
+                })
+            }
+        }
     }
 
     const onEntrustmentClick = (value) => {
@@ -449,7 +498,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 0 && currentStep > 0) {
                         // window.location.href = "/entrustment/display/" + entrustId;
                         history.push({
                             pathname: "/entrustment/display",
@@ -493,7 +542,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 0 && currentStep > 2) {
                         // window.location.href = "/entrustment/display/" + entrustId;
                         history.push({
                             pathname: "/entrustment/display",
@@ -623,7 +672,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 1 && currentStep > 1) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/contract/display",
@@ -646,7 +695,7 @@ const Progress = () => {
                                 contractId: contractId
                             }
                         })
-                    } else {
+                    } else if (currentStage >= 1 && currentStep > 2) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/contract/display",
@@ -693,20 +742,20 @@ const Progress = () => {
                         alert("您没有权限访问！");
                     }
                 }
-                else {
-                    if (userRole === "CUSTOMER") {
-                        alert("您没有权限访问！");
-                    }
-                    else {
-                        console.log("bef wokc tid=" + testId);
-                        history.push({
-                            pathname: "/test/workcheck",
-                            query: {
-                                testId: testId
-                            }
-                        })
-                    }
-                }
+                // else if (currentStage === 2 && currentStep > 0) {
+                //     if (userRole === "CUSTOMER") {
+                //         alert("您没有权限访问！");
+                //     }
+                //     else {
+                //         console.log("bef wokc tid=" + testId);
+                //         history.push({
+                //             pathname: "/test/workcheck",
+                //             query: {
+                //                 testId: testId
+                //             }
+                //         })
+                //     }
+                // }
                 break;
             case 1:
                 if (userRole === "TESTER") {
@@ -719,7 +768,7 @@ const Progress = () => {
                                 projectId: testId
                             }
                         })
-                    } else {
+                    } else if (currentStage === 2 && currentStep > 1) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/test/schemeview",
@@ -728,7 +777,8 @@ const Progress = () => {
                             }
                         })
                     }
-                } else {
+                }
+                else {
                     alert("您没有权限访问！");
                 }
                 break;
@@ -742,7 +792,7 @@ const Progress = () => {
                                 testId: testId
                             }
                         })
-                    } else {
+                    } else if (currentStage === 2 && currentStep > 2) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/test/",
@@ -759,9 +809,18 @@ const Progress = () => {
                 if (userRole === "QA") {
                     if (currentStage === 2 && currentStep === 3) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/svupload",
                             query: {
+                                schemeReviewId: schemeReviewId,
                                 testId: testId
+                            }
+                        });
+                    }
+                    else if (currentStage === 2 && currentStep > 3) {
+                        history.push({
+                            pathname: "/test/svdownload",
+                            query: {
+                                schemeReviewId: schemeReviewId
                             }
                         });
                     }
@@ -779,29 +838,33 @@ const Progress = () => {
                             }
                         });
                     }
-                } else {
+                    else if (currentStage === 2 && currentStep > 4) {
+                        history.push({
+                            pathname: "/test/docview",
+                            query: {
+                                testId: testId
+                            }
+                        })
+
+                    }
+                }
+                else if ((userRole === "QA") && currentStage === 2 && currentStep > 4) {
+                    history.push({
+                        pathname: "/test/docview",
+                        query: {
+                            testId: testId
+                        }
+                    })
+                }
+                else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 5:
                 if (userRole === "QA") {
-                    // if (currentStage === 2 && currentStep === 5) {
-                    history.push({
-                        pathname: "/test/reportcheck",
-                        query: {
-                            testId: testId
-                        }
-                    });
-                    // }
-                } else {
-                    alert("您没有权限访问！");
-                }
-                break;
-            case 6:
-                if (userRole === "QA") {
-                    if (currentStage === 2 && currentStep === 6) {
+                    if (currentStage === 2 && currentStep === 5) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/reportcheck",
                             query: {
                                 testId: testId
                             }
@@ -811,12 +874,44 @@ const Progress = () => {
                     alert("您没有权限访问！");
                 }
                 break;
+            case 6:
+                if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep === 6) {
+                        history.push({
+                            pathname: "/test/rvupload",
+                            query: {
+                                reportReviewId: reportReviewId,
+                                testId: testId
+                            }
+                        });
+                    }
+                    else if (currentStage === 2 && currentStep > 6) {
+                        history.push({
+                            pathname: "/test/rvdownload",
+                            query: {
+                                reportReviewId: reportReviewId
+                            }
+                        });
+                    }
+                } else {
+                    alert("您没有权限访问！");
+                }
+                break;
             case 7:
                 if (userRole === "MARKETER") {
-                    if (currentStage === 2 && currentStep === 6) {
-                        setCurrentStage(2);
-                        setCurrentStep(7);
-                        setShowStage(2);
+                    if (currentStage === 2 && currentStep === 7) {
+                        var temp;
+                        temp = { "stage": "REPORT_WAIT_CUSTOMER", "message": "" }
+                        axios.post("/api/test/" + testId + "/status", temp).then(response => {
+                            console.log(response)
+                            message.success("成功签发报告给客户")
+                            setCurrentStage(2);
+                            setCurrentStep(8);
+                            setShowStage(2);
+                        }).catch(error => {
+                            console.log(error)
+                            message.error("提交失败，请重试")
+                        })
                     }
                 } else {
                     alert("您没有权限访问！");
@@ -826,8 +921,17 @@ const Progress = () => {
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 2 && currentStep === 8) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/repover",
                             query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                    else if (currentStage === 2 && currentStep > 8) {
+                        history.push({
+                            pathname: "/download",
+                            query: {
+                                entrustId: entrustId,
                                 testId: testId
                             }
                         });
@@ -840,7 +944,7 @@ const Progress = () => {
                 if (userRole === "QA") {
                     if (currentStage === 2 && currentStep === 9) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/docver",
                             query: {
                                 testId: testId
                             }
@@ -893,8 +997,36 @@ const Progress = () => {
                     </>
                 )
             case 2:
-                return (
+                if (userRole === "CUSTOMER")
+                    return (
+                        <>
+                            <Steps
+                                style={{ paddingLeft: 70 }}
+                                current={currentStage === 2 ? currentStep : 0}
+                                status={currentStage === 2 ? "process" : "wait"}
+                                direction="vertical"
+                            >
+                                <Step title="质量部分配人员" description="等待质量部主管分配人员" onClick={() => onTestClick(0)} />
+                                <Step title="填写测试方案" description="点此填写测试方案" onClick={() => onTestClick(1)} />
+                                <Step title="审核测试方案" description="点此审核测试方案" onClick={() => onTestClick(2)} />
+                                <Step title="上传评审表" description="点此上传评审表" onClick={() => onTestClick(3)} />
+                                <Step title="填写测试报告及文档" description="点此填写测试报告及文档" onClick={() => onTestClick(4)} />
+                                <Step title="审核测试报告" description="点此审核测试报告" onClick={() => onTestClick(5)} />
+                                <Step title="上传检查表" description="点此上传检查表" onClick={() => onTestClick(6)} />
+                                <Step title="发放报告" description="点此发放报告" onClick={() => onTestClick(7)} />
+                                <Step title="确认报告" description="点此确认报告" onClick={() => onTestClick(8)} />
+                                <Step title="审核测试文档" description="点此审核测试文档" onClick={() => onTestClick(9)} />
+                                <Step title="项目已完成" description="项目已全部完成" />
+                            </Steps>
+                        </>
+                    )
+                else return (
                     <>
+                        <Steps
+                            style={{ paddingLeft: 70 }}
+                            direction="vertical">
+                            <Step title="填写工作检查表" description="点此填写工作检查表" onClick={() => onChecklistClick()} />
+                        </Steps>
                         <Steps
                             style={{ paddingLeft: 70 }}
                             current={currentStage === 2 ? currentStep : 0}

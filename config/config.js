@@ -39,13 +39,17 @@ export default defineConfig({
         {
 
           name: 'login',
-          path: '/ourlogin',
-          component: './OurLogin',
+          // path: '/ourlogin',
+          // component: './OurLogin',
+          // layout: false,
+          component: './user/Login',
+          path: '/user/login',
           layout: false,
         },
         {
           path: '/user',
-          redirect: '/ourlogin',
+          // redirect: '/ourlogin',
+          redirect: '/user/login',
         },
         {
           name: 'register-result',
@@ -334,7 +338,7 @@ export default defineConfig({
           name: 'display',
           icon: 'smile',
           path: '/entrustment/display',
-          component: './EntrustmentDisplay',
+          component: './pageViewer/EntrustmentViewer',
           hideInMenu: true,
         },
         {
@@ -468,6 +472,27 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'docdisplay',
+          icon: 'smile',
+          path: '/test/docview',
+          component: './DocDisplay',
+          hideInMenu: true,
+        },
+        {
+          name: 'docverify',
+          icon: 'smile',
+          path: '/test/docver',
+          component: './DocVerify',
+          hideInMenu: true,
+        },
+        {
+          name: 'repoverify',
+          icon: 'smile',
+          path: '/test/repover',
+          component: './RepoVerify',
+          hideInMenu: true,
+        },
+        {
           name: 'documents',
           icon: 'smile',
           path: '/test/documents',
@@ -478,6 +503,34 @@ export default defineConfig({
           name: 'test scheme view',
           path: '/test/schemeview',
           component: './pageViewer/JS006',
+          hideInMenu: true,
+        },
+        {
+          name: 'rvupload',
+          icon: 'smile',
+          path: '/test/rvupload',
+          component: './uploads/RepoVerUpload',
+          hideInMenu: true,
+        },
+        {
+          name: 'rvdownload',
+          icon: 'smile',
+          path: '/test/rvdownload',
+          component: './downloads/RepoVerDownload',
+          hideInMenu: true,
+        },
+        {
+          name: 'svupload',
+          icon: 'smile',
+          path: '/test/svupload',
+          component: './uploads/ScheVerUpload',
+          hideInMenu: true,
+        },
+        {
+          name: 'svdownload',
+          icon: 'smile',
+          path: '/test/svdownload',
+          component: './downloads/ScheVerDownload',
           hideInMenu: true,
         },
       ],
@@ -563,6 +616,7 @@ export default defineConfig({
       icon: 'team',
       path: '/ourlogin',
       component: './OurLogin',
+      hideInMenu: true,
     },
     {
       name: 'download',
@@ -576,6 +630,7 @@ export default defineConfig({
       icon: 'user',
       path: '/userinfo',
       component: './UserInfo',
+      hideInMenu: true,
     },
     {
       path: '/signup',

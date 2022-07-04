@@ -97,13 +97,13 @@ const testColumns = [
     },
 ];
 
-const JS006Fill = () => {
+const JS006Viewer = () => {
     // const schemeId = props.match.params.id;
     const location = useLocation();
     const schemeId = location.query.schemeId;
 
-    const [modificationEditableKeys, setModificationEditableRowKeys] = useState(() => defaultModificationData.map((item) => item.id));
-    const [testEditableKeys, setTestEditableRowKeys] = useState(() => defaultTestData.map((item) => item.id));
+    const [modificationDataSource, setModificationDataSource] = useState(() => defaultModificationData.map((item) => item.id));
+    const [testDataSource, setTestDataSource] = useState(() => defaultTestData.map((item) => item.id));
 
     const [cardLoading, setCardLoadingState] = useState(true);
     
@@ -130,18 +130,12 @@ const JS006Fill = () => {
         axios.get("/api/test/scheme/" + schemeId).then(detail => {
             setCardLoadingState(true)
             console.log(detail.data.content)
-
-            let testKeysArray = [1, 2, 3, 4]
-            detail.data.content.planSchedule.id = 1
-            detail.data.content.designSchedule.id = 2
-            detail.data.content.executeSchedule.id = 3
-            detail.data.content.evaluateSchedule.id = 4
-            setModificationEditableRowKeys(testKeysArray)
+            
             // for (var i in detail.data.content.modificationList) {
             //     i.date = dateReceived(i.date)
             // }
             console.log(detail.data.content.modificationList)
-            setModificationEditableRowKeys(detail.data.content.modificationList)
+            setModificationDataSource(detail.data.content.modificationList)
             let testProgress = [
                 detail.data.content.planSchedule,
                 detail.data.content.designSchedule,
@@ -152,7 +146,7 @@ const JS006Fill = () => {
             testProgress[1].milestoneQuest = '设计测试计划'
             testProgress[2].milestoneQuest = '执行测试计划'
             testProgress[3].milestoneQuest = '评估测试计划'
-            setTestEditableRowKeys(testProgress)
+            setTestDataSource(testProgress)
 
             // detail.data.content.planSchedule.startDate = dateReceived(detail.data.content.planSchedule.startDate)
             // detail.data.content.designSchedule.startDate = dateReceived(detail.data.content.designSchedule.startDate)
@@ -196,7 +190,7 @@ const JS006Fill = () => {
                         columns={modificationColumns}
                         search={false}
                         rowKey="id"
-                        dataSource={modificationEditableKeys}
+                        dataSource={modificationDataSource}
                     />
 
                     <Divider type={'horizontal'} />
@@ -264,7 +258,7 @@ const JS006Fill = () => {
                         columns={testColumns}
                         search={false}
                         rowKey="id"
-                        dataSource={testEditableKeys}
+                        dataSource={testDataSource}
                     />
 
                     <Divider type={'horizontal'} />
@@ -280,4 +274,4 @@ const JS006Fill = () => {
     );
 }
 
-export default JS006Fill;
+export default JS006Viewer;

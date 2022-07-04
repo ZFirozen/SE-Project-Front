@@ -49,7 +49,7 @@ export const Nav30DataSource = {
         name: 'item2',
         className: 'header3-item',
         children: {
-          href: 'https://www.nju.edu.cn/main.htm',
+          href: '/~docs',
           children: [
             {
               children: (
@@ -60,7 +60,6 @@ export const Nav30DataSource = {
               name: 'text',
             },
           ],
-          target: '_blank',
         },
       },
     ],

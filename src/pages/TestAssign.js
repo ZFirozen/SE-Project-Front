@@ -48,9 +48,9 @@ const TestAssign = () => {
                 title: '操作',
                 search: false,
                 render: (a) => <Button type="primary" onClick={(b) => confirm({
-                    title: '是否将委托委派给该员工?',
+                    title: '是否将测试项目委派给该员工?',
                     icon: <ExclamationCircleOutlined />,
-                    content: <Text>委托ID：{testId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
+                    content: <Text>测试ID：{testId}<br></br>员工ID：{a.userId}<br></br>员工姓名：{a.userName}<br></br>员工职位：{a.userRole}</Text>,
                     onOk() {
                         console.log(a.userId + ' is assigned to ' + testId)
                         axios.post("/api/test/" + testId + "/qa?qaId=" + parseInt(a.userId), {

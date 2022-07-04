@@ -257,4 +257,5 @@ const ContractDisplay = () => {
     );
 }
 
+
 export default ContractDisplay;
