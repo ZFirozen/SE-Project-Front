@@ -7,6 +7,7 @@ import { history, useLocation } from "umi";
 import { error } from "jquery";
 import { ProCard } from "@ant-design/pro-card"
 const { Title, Paragraph } = Typography
+const { Divider } = ProCard
 
 const Download = () => {
   const location = useLocation();
@@ -53,8 +54,13 @@ const Download = () => {
   }, [])
   return (
     <>
-      <ProCard style={{ marginTop: 8}} gutter={[16, 16]} wrap title="文档下载" headStyle={{size:"large", fontSize:"33px"}}>
-      <Title level={1}>文档下载</Title>
+    <ProCard.Group direction="column">
+    <ProCard>
+    <Title level={1}>文档下载</Title>
+    </ProCard>
+    <Divider type={'horizontal'} />
+      <ProCard gutter={[16, 16]} wrap headStyle={{size:"large", fontSize:"33px"}}>
+      
         <ProCard {...cardOption}>
           <Title level={4}>NST－04－JS001－2011</Title>
           <Title level={4}>软件项目委托测试提交材料</Title>
@@ -281,6 +287,7 @@ const Download = () => {
           }}>委托报价单</Button>
         </ProCard>
       </ProCard>
+      </ProCard.Group>
     </>
   );
 }
