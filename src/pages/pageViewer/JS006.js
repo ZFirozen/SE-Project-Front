@@ -109,6 +109,7 @@ const JS006Viewer = () => {
     
     const [pageData, setPageData] = useState({
         version: ' ',
+        logo: ' ',
         systemSummary: ' ',
         documentSummary: ' ',
         baseline: ' ',
@@ -195,6 +196,10 @@ const JS006Viewer = () => {
 
                     <Divider type={'horizontal'} />
                     <ProCard.Group direction={'column'}>
+                        <ProCard>
+                            <Statistic title="标识" value={pageData.logo} />
+                        </ProCard>
+                        <Divider type={'horizontal'} />
                         <ProCard>
                             <Statistic title="系统概述" value={pageData.systemSummary} />
                         </ProCard>

@@ -152,7 +152,6 @@ const JS006Fill = () => {
                             // temp.modificationList[i].modifacationDate = dateSend(temp.modificationList[i].modifacationDate)
                         }
                         
-                        console.log(temp.modificationList)
                         for (var i in temp.testProgress) {
                             delete temp.testProgress[i].id
                             delete temp.testProgress[i].milestoneQuest
@@ -281,6 +280,12 @@ const JS006Fill = () => {
                             }}
                         />
                     </ProForm.Item>
+                    <ProFormText
+                        label="标识"
+                        width="200px"
+                        required rules={[{ required: true, message: '这是必填项' }]}
+                        name={["logo"]}
+                    />
                     <ProFormTextArea
                         label="系统概述"
                         required rules={[{ required: true, message: '这是必填项' }]}
