@@ -20,6 +20,7 @@ const rowbegingap = 20
 const formitemheight = 70
 const basewidth = 1500
 const { Title, Paragraph } = Typography
+const { Divider } = ProCard
 
 const EntrustmentFill = () => {
   const replacetokenbegin = "_0641#toReplaceA1C1_"
@@ -34,7 +35,7 @@ const EntrustmentFill = () => {
   return (
     <>
       <div style={{ margin: 10 }}>
-        {/* <PageContainer title="输入表单"> */}
+        <PageContainer title="软件项目委托测试申请表" waterMarkProps={{content: ""}}>
         <ProForm
           size="large"
           style={{ font: "initial", border: "3px solid" }}
@@ -142,11 +143,14 @@ const EntrustmentFill = () => {
               return {}
             }
           }}>
+          <ProCard bordered>
+          <Title level="1">软件项目委托测试申请表</Title>
+          </ProCard>
           <ProCard.Group bordered direction="row">
             <ProCard>
               <ProFormCheckbox.Group
                 required rules={[{ required: true, message: "这是必填项" }]}
-                layout="horizontal"
+                layout="vertical"
                 name="testType"
                 label="测试类型"
                 options={[{ value: "软件确认测试", label: "软件确认测试" },
@@ -156,8 +160,9 @@ const EntrustmentFill = () => {
                 ]}
               />
             </ProCard>
+            <Divider type={'vertical'} />
             <ProCard>
-              <ProFormText name={"toreplace_0"}></ProFormText>
+              <ProFormText label="其他" name={"toreplace_0"}></ProFormText>
             </ProCard>
           </ProCard.Group>
           <ProCard direction="column" bordered>
@@ -626,6 +631,7 @@ const EntrustmentFill = () => {
             </ProForm.Item>
           </ProCard>
         </ProForm>
+        </PageContainer>
       </div>
     </>
   );
