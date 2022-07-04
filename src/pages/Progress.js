@@ -35,7 +35,7 @@ const Progress = () => {
         axios.get("/api/entrust/" + entrustId)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log("response="+response);
+                    console.log("response=" + response);
                     console.log(response);
                     contractId = response.data.contractId
                     testId = response.data.projectId
@@ -46,7 +46,7 @@ const Progress = () => {
                         sstage = 2;
                         getTestStatus();
                     }
-                    console.log("response.data.status.stage"+response.data.status.stage)
+                    console.log("response.data.status.stage" + response.data.status.stage)
                     switch (response.data.status.stage) {
                         case "WAIT_FOR_MARKETER":
                             setCurrentStage(0);
@@ -404,6 +404,15 @@ const Progress = () => {
                     }
 
 
+                } else if (response.status === 403) {
+                    console.log("yes!403!");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                    getTestStatus();
                 }
             })
             .catch((error) => {
@@ -433,9 +442,18 @@ const Progress = () => {
                     setCurrentStage(2);
                     setCurrentStep(0);
                     setShowStage(2);
-                    cstage=2;
-                    cstep=0;
-                    sstage=2;
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
+                }
+                else if (error.response.status === 403) {
+                    console.log("yes!403!");
+                    setCurrentStage(2);
+                    setCurrentStep(0);
+                    setShowStage(2);
+                    cstage = 2;
+                    cstep = 0;
+                    sstage = 2;
                 }
             })
     }
@@ -742,7 +760,8 @@ const Progress = () => {
                             }
                         })
                     }
-                } else {
+                }
+                else {
                     alert("您没有权限访问！");
                 }
                 break;
@@ -802,7 +821,25 @@ const Progress = () => {
                             }
                         });
                     }
-                } else {
+                    else if (currentStage === 2 && currentStep > 4) {
+                        history.push({
+                            pathname: "/test/docview",
+                            query: {
+                                testId: testId
+                            }
+                        })
+
+                    }
+                }
+                else if ((userRole === "QA") && currentStage === 2 && currentStep > 4) {
+                    history.push({
+                        pathname: "/test/docview",
+                        query: {
+                            testId: testId
+                        }
+                    })
+                }
+                else {
                     alert("您没有权限访问！");
                 }
                 break;
@@ -867,8 +904,17 @@ const Progress = () => {
                 if (userRole === "CUSTOMER") {
                     if (currentStage === 2 && currentStep === 8) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/repover",
                             query: {
+                                testId: testId
+                            }
+                        });
+                    }
+                    else if (currentStage === 2 && currentStep > 8) {
+                        history.push({
+                            pathname: "/download",
+                            query: {
+                                entrustId: entrustId,
                                 testId: testId
                             }
                         });
@@ -881,7 +927,7 @@ const Progress = () => {
                 if (userRole === "QA") {
                     if (currentStage === 2 && currentStep === 9) {
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/test/docver",
                             query: {
                                 testId: testId
                             }
