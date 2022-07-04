@@ -472,6 +472,27 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'docdisplay',
+          icon: 'smile',
+          path: '/test/docview',
+          component: './DocDisplay',
+          hideInMenu: true,
+        },
+        {
+          name: 'docverify',
+          icon: 'smile',
+          path: '/test/docver',
+          component: './DocVerify',
+          hideInMenu: true,
+        },
+        {
+          name: 'repoverify',
+          icon: 'smile',
+          path: '/test/repover',
+          component: './RepoVerify',
+          hideInMenu: true,
+        },
+        {
           name: 'documents',
           icon: 'smile',
           path: '/test/documents',
