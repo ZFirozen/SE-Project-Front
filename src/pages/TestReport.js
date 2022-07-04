@@ -46,7 +46,7 @@ const TestReport = () => {
     const testId = location.query.testId;
     const [form] = ProForm.useForm();
     const [editableKeys, setEditableRowKeys] = useState([]);
-    const [projectSerialNumber, setProjectSerialNumber] = useState([])
+    const [projectSerialNumber, setProjectSerialNumber] = useState([""])
     
     if (typeof testId !== "undefined") {
         axios.get("/api/test/" + testId)
@@ -63,7 +63,7 @@ const TestReport = () => {
     }
     console.log(123)
     console.log(projectSerialNumber)
-    //结果没什么问题 但不知道为什么log会重复好多次
+    //结果没什么问题 但不知道为什么log会重复好多次，下面的填写 每填一个空都会log（救命
 
     return (
         <>
@@ -96,6 +96,7 @@ const TestReport = () => {
                                                 .then((res) => {
                                                     console.log("提交")
                                                     message.success('提交成功');
+                                                    history.goBack();
                                                 })
                                         })
                                 }
@@ -215,11 +216,14 @@ const TestReport = () => {
                                 <Col style={{width: 150, paddingLeft: 30, paddingTop: 23, border: "2px solid", borderTop: "none" }}>
                                     <Title level={4}>测试时间</Title>
                                 </Col>
-                                <Col style={{width: 200, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" , borderRight: "none"}}>
+                                <Col style={{width: 150, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" , borderRight: "none"}}>
                                     <ProFormDatePicker required rules={[{ required: true, message: '这是必填项' }]} name={["testStartTime"]} />
                                 </Col>
-                                <Col style={{width: 350, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
-                                    至<ProFormDatePicker required rules={[{ required: true, message: '这是必填项' }]} name={["testEndTime"]} />
+                                <Col style={{width: 100, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" , borderRight: "none"}}>
+                                    至
+                                </Col>
+                                <Col style={{width: 300, height: 80, paddingLeft: 10, paddingTop: 18, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none" }}>
+                                    <ProFormDatePicker required rules={[{ required: true, message: '这是必填项' }]} name={["testEndTime"]} />
                                 </Col>
                             </Row>
                             <Row>
@@ -309,7 +313,7 @@ const TestReport = () => {
                                     地址：
                                 </Col>
                                 <Col style={{width: 250, height: 50, paddingLeft: 10, paddingTop: 10, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["companyAddress"]} />
+                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["clientContact", "companyAddress"]} />
                                 </Col>
                                 <Col style={{width: 350, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
                                     单位地址：南京市栖霞区仙林大道163号
@@ -320,7 +324,7 @@ const TestReport = () => {
                                     邮编：
                                 </Col>
                                 <Col style={{width: 250, height: 50, paddingLeft: 10, paddingTop: 10, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["zipCode"]} />
+                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["clientContact", "zipCode"]} />
                                 </Col>
                                 <Col style={{width: 350, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
                                     邮政编码：210023
@@ -331,7 +335,7 @@ const TestReport = () => {
                                     电话：
                                 </Col>
                                 <Col style={{width: 250, height: 50, paddingLeft: 10, paddingTop: 10, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["companyPhone"]} />
+                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["clientContact", "companyPhone"]} />
                                 </Col>
                                 <Col style={{width: 350, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
                                     电话： 86-25-89683467
@@ -342,7 +346,7 @@ const TestReport = () => {
                                     传真：
                                 </Col>
                                 <Col style={{width: 250, height: 50, paddingLeft: 10, paddingTop: 10, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["fax"]} />
+                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["clientContact", "fax"]} />
                                 </Col>
                                 <Col style={{width: 350, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
                                     传真： 86-25-89686596
@@ -353,7 +357,7 @@ const TestReport = () => {
                                     联系人：
                                 </Col>
                                 <Col style={{width: 250, height: 50, paddingLeft: 10, paddingTop: 10, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["contact"]} />
+                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["clientContact", "contact"]} />
                                 </Col>
                                 <Col style={{width: 350, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none", borderTop: "none", borderBottom: "none"}}>
                                     网址： http://keysoftlab.nju.edu.cn 
@@ -364,7 +368,7 @@ const TestReport = () => {
                                     E-mail：
                                 </Col>
                                 <Col style={{width: 250, height: 50, paddingLeft: 10, paddingTop: 10, paddingRight: 10, border: "2px solid", borderLeft: "none", borderTop: "none"}}>
-                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }]} name={["contactEmail"]} />
+                                    <ProFormText required rules={[{ required: true, message: '这是必填项' }, { type: "email", message: "请输入正确邮箱格式" }]} name={["clientContact", "contactEmail"]} />
                                 </Col>
                                 <Col style={{width: 350, paddingLeft: 10, paddingTop: 10, border: "2px solid", borderLeft: "none", borderTop: "none"}}>
                                     E-mail: keysoftlab@nju.edu.cn 
@@ -458,72 +462,80 @@ const TestReport = () => {
                             </Row>
 
                             <Title level={4}>二、测试依据和参考资料</Title>
-                            <EditableProTable
-                                rowKey="id"
-                                toolBarRender={false}
-                                columns={[
-                                    {
-                                        title: "测试依据",
-                                        dataIndex: "testBases",
-                                        width: "80%",
-                                    },
-                                    {
-                                        title: '操作',
-                                        valueType: 'option',
-                                        width: 50,
-                                    },
-                                ]}
-                                recordCreatorProps={{
-                                    newRecordType: 'dataSource',
-                                    position: 'bottom',
-                                    record: () => ({
-                                        id: Date.now(),
-                                    }),
-                                    creatorButtonText: '新增'
-                                }}
-                                editable={{
-                                    type: 'multiple',
-                                    editableKeys,
-                                    onChange: setEditableRowKeys,
-                                    actionRender: (row, _, dom) => {
-                                        return [dom.delete];
-                                    },
+                            <ProForm.Item
+                                name={["testBases"]}
+                                trigger="onValuesChange"
+                            >
+                                <EditableProTable
+                                    rowKey="id"
+                                    toolBarRender={false}
+                                    columns={[
+                                        {
+                                            title: "测试依据",
+                                            width: "80%",
+                                        },
+                                        {
+                                            title: '操作',
+                                            valueType: 'option',
+                                            width: 50,
+                                        },
+                                    ]}
+                                    recordCreatorProps={{
+                                        newRecordType: 'dataSource',
+                                        position: 'bottom',
+                                        record: () => ({
+                                            id: Date.now(),
+                                        }),
+                                        creatorButtonText: '新增'
+                                    }}
+                                    editable={{
+                                        type: 'multiple',
+                                        editableKeys,
+                                        onChange: setEditableRowKeys,
+                                        actionRender: (row, _, dom) => {
+                                            return [dom.delete];
+                                        },
                                     }}
                                 >
-                            </EditableProTable>
-                            <EditableProTable
-                                rowKey="id"
-                                toolBarRender={false}
-                                columns={[
-                                    {
-                                        title: "参考资料",
-                                        dataIndex: "referenceMaterials",
-                                        width: "80%",
-                                    },
-                                    {
-                                        title: '操作',
-                                        valueType: 'option',
-                                        width: 50,
-                                    },
-                                ]}
-                                recordCreatorProps={{
-                                    newRecordType: 'dataSource',
-                                    position: 'bottom',
-                                    record: () => ({
-                                        id: Date.now(),
-                                    }),
-                                    creatorButtonText: '新增'
-                                }}
-                                editable={{
-                                    type: 'multiple',
-                                    editableKeys,
-                                    onChange: setEditableRowKeys,
-                                    actionRender: (row, _, dom) => {
-                                        return [dom.delete];
-                                    },
+                                </EditableProTable>
+                            </ProForm.Item>
+                            <ProForm.Item
+                                name={["referenceMaterials"]}
+                                trigger="onValuesChange"
+                            >
+                                <EditableProTable
+                                    rowKey="id"
+                                    toolBarRender={false}
+                                    columns={[
+                                        {
+                                            title: "参考资料",
+                                            width: "80%",
+                                        },
+                                        {
+                                            title: '操作',
+                                            valueType: 'option',
+                                            width: 50,
+                                        },
+                                    ]}
+                                    recordCreatorProps={{
+                                        newRecordType: 'dataSource',
+                                        position: 'bottom',
+                                        record: () => ({
+                                            id: Date.now(),
+                                        }),
+                                        creatorButtonText: '新增'
                                     }}
-                                >
-                            </EditableProTable>
+                                    editable={{
+                                        type: 'multiple',
+                                        editableKeys,
+                                        onChange: setEditableRowKeys,
+                                        actionRender: (row, _, dom) => {
+                                            return [dom.delete];
+                                        },
+                                        }}
+                                    >
+                                </EditableProTable>
+                            </ProForm.Item>
 
                             <Title level={4}>三、测试内容</Title>
                             <Title level={5}>功能性测试</Title>
@@ -804,6 +816,7 @@ const TestReport = () => {
                             </ProForm.Item>
                             
                             <Title level={4}>四、测试执行记录</Title>
+                            
 
 
                         </ProForm>
