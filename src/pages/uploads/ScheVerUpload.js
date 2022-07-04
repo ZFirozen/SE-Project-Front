@@ -1,7 +1,7 @@
 import React from 'react';
 import { history } from "umi";
 import { useLocation } from 'umi';
-import { Upload, message,Typography, Button } from 'antd';
+import { Upload, message, Typography, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useHistory } from 'umi';
 import { ProCard } from "@ant-design/pro-card"
@@ -40,7 +40,7 @@ const ScheVerUpload = () => {
   };
   return (
     <>
-      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap title="扫描件上传" headStyle={{ size: "large", fontSize: "33px" }} direction="column">
+      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="column" layout="center">
         <Title level={1}>扫描件上传</Title>
         <ProCard {...cardOption}>
           <Title level={4}>JS013</Title>
