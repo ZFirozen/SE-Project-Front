@@ -42,8 +42,8 @@ const DocVerify = () => {
   }, [])
   return (
     <>
-      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="column" layout="center">
-        <Title level={1}>文档确认</Title>
+      <Title level={1}>文档确认</Title>
+      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} layout="center">
         <ProCard {...cardOption}>
           <Title level={4}>JS007</Title>
           <Title level={4}>查看测试报告</Title>
@@ -97,8 +97,9 @@ const DocVerify = () => {
             })
           }}>查看测试问题清单</Button>
         </ProCard>
-        <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} layout="center">
-          <Title level={1}>确认结果</Title>
+        <br></br>
+        <Title level={1}>确认结果</Title>
+        <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} split="vertical" layout="center">
           <ProCard {...cardOption}>
             <Title level={4}>确认文档</Title>
             <br></br>

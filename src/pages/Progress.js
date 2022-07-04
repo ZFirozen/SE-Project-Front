@@ -393,10 +393,10 @@ const Progress = () => {
                             break;
                         case "QA_ALL_PASSED":
                             setCurrentStage(2);
-                            setCurrentStep(10);
+                            setCurrentStep(11);
                             setShowStage(2);
                             cstage = 2;
-                            cstep = 10;
+                            cstep = 11;
                             sstage = 2;
                             break;
                         default:
@@ -465,6 +465,23 @@ const Progress = () => {
     const onStageChange = (value) => {
         console.log("onStageChange: ", value);
         setShowStage(value);
+    }
+
+    const onChecklistClick = () => {
+        if (currentStage === 2 && currentStep > 0) {
+            if (userRole === "CUSTOMER") {
+                alert("您没有权限访问！");
+            }
+            else {
+                console.log("bef wokc tid=" + testId);
+                history.push({
+                    pathname: "/test/workcheck",
+                    query: {
+                        testId: testId
+                    }
+                })
+            }
+        }
     }
 
     const onEntrustmentClick = (value) => {
@@ -725,20 +742,20 @@ const Progress = () => {
                         alert("您没有权限访问！");
                     }
                 }
-                else if (currentStage === 2 && currentStep > 0) {
-                    if (userRole === "CUSTOMER") {
-                        alert("您没有权限访问！");
-                    }
-                    else {
-                        console.log("bef wokc tid=" + testId);
-                        history.push({
-                            pathname: "/test/workcheck",
-                            query: {
-                                testId: testId
-                            }
-                        })
-                    }
-                }
+                // else if (currentStage === 2 && currentStep > 0) {
+                //     if (userRole === "CUSTOMER") {
+                //         alert("您没有权限访问！");
+                //     }
+                //     else {
+                //         console.log("bef wokc tid=" + testId);
+                //         history.push({
+                //             pathname: "/test/workcheck",
+                //             query: {
+                //                 testId: testId
+                //             }
+                //         })
+                //     }
+                // }
                 break;
             case 1:
                 if (userRole === "TESTER") {
@@ -980,8 +997,36 @@ const Progress = () => {
                     </>
                 )
             case 2:
-                return (
+                if (userRole === "CUSTOMER")
+                    return (
+                        <>
+                            <Steps
+                                style={{ paddingLeft: 70 }}
+                                current={currentStage === 2 ? currentStep : 0}
+                                status={currentStage === 2 ? "process" : "wait"}
+                                direction="vertical"
+                            >
+                                <Step title="质量部分配人员" description="等待质量部主管分配人员" onClick={() => onTestClick(0)} />
+                                <Step title="填写测试方案" description="点此填写测试方案" onClick={() => onTestClick(1)} />
+                                <Step title="审核测试方案" description="点此审核测试方案" onClick={() => onTestClick(2)} />
+                                <Step title="上传评审表" description="点此上传评审表" onClick={() => onTestClick(3)} />
+                                <Step title="填写测试报告及文档" description="点此填写测试报告及文档" onClick={() => onTestClick(4)} />
+                                <Step title="审核测试报告" description="点此审核测试报告" onClick={() => onTestClick(5)} />
+                                <Step title="上传检查表" description="点此上传检查表" onClick={() => onTestClick(6)} />
+                                <Step title="发放报告" description="点此发放报告" onClick={() => onTestClick(7)} />
+                                <Step title="确认报告" description="点此确认报告" onClick={() => onTestClick(8)} />
+                                <Step title="审核测试文档" description="点此审核测试文档" onClick={() => onTestClick(9)} />
+                                <Step title="项目已完成" description="项目已全部完成" />
+                            </Steps>
+                        </>
+                    )
+                else return (
                     <>
+                        <Steps
+                            style={{ paddingLeft: 70 }}
+                            direction="vertical">
+                            <Step title="填写工作检查表" description="点此填写工作检查表" onClick={() => onChecklistClick()} />
+                        </Steps>
                         <Steps
                             style={{ paddingLeft: 70 }}
                             current={currentStage === 2 ? currentStep : 0}
