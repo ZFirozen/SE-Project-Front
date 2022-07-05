@@ -1006,16 +1006,16 @@ const Progress = () => {
                                 status={currentStage === 2 ? "process" : "wait"}
                                 direction="vertical"
                             >
-                                <Step title="质量部分配人员" description="等待质量部主管分配人员" onClick={() => onTestClick(0)} />
-                                <Step title="填写测试方案" description="点此填写测试方案" onClick={() => onTestClick(1)} />
-                                <Step title="审核测试方案" description="点此审核测试方案" onClick={() => onTestClick(2)} />
-                                <Step title="上传评审表" description="点此上传评审表" onClick={() => onTestClick(3)} />
-                                <Step title="填写测试报告及文档" description="点此填写测试报告及文档" onClick={() => onTestClick(4)} />
-                                <Step title="审核测试报告" description="点此审核测试报告" onClick={() => onTestClick(5)} />
-                                <Step title="上传检查表" description="点此上传检查表" onClick={() => onTestClick(6)} />
-                                <Step title="发放报告" description="点此发放报告" onClick={() => onTestClick(7)} />
-                                <Step title="确认报告" description="点此确认报告" onClick={() => onTestClick(8)} />
-                                <Step title="审核测试文档" description="点此审核测试文档" onClick={() => onTestClick(9)} />
+                                <Step title="质量部分配人员" description="质量部主管：点此分配人员" onClick={() => onTestClick(0)} />
+                                <Step title="填写测试方案" description="测试部人员：点此填写测试方案" onClick={() => onTestClick(1)} />
+                                <Step title="审核测试方案" description="质量部人员：点此审核测试方案" onClick={() => onTestClick(2)} />
+                                <Step title="上传评审表" description="质量部人员：点此上传评审表" onClick={() => onTestClick(3)} />
+                                <Step title="填写测试报告及文档" description="测试部人员：点此填写测试报告及文档" onClick={() => onTestClick(4)} />
+                                <Step title="审核测试报告" description="质量部人员：点此审核测试报告" onClick={() => onTestClick(5)} />
+                                <Step title="上传检查表" description="质量部人员：点此上传检查表" onClick={() => onTestClick(6)} />
+                                <Step title="发放报告" description="市场部人员：点此发放报告" onClick={() => onTestClick(7)} />
+                                <Step title="确认报告" description="客户：点此确认报告" onClick={() => onTestClick(8)} />
+                                <Step title="审核测试文档" description="质量部人员：点此审核测试文档" onClick={() => onTestClick(9)} />
                                 <Step title="项目已完成" description="项目已全部完成" />
                             </Steps>
                         </>
@@ -1033,16 +1033,16 @@ const Progress = () => {
                             status={currentStage === 2 ? "process" : "wait"}
                             direction="vertical"
                         >
-                            <Step title="质量部分配人员" description="等待质量部主管分配人员" onClick={() => onTestClick(0)} />
-                            <Step title="填写测试方案" description="点此填写测试方案" onClick={() => onTestClick(1)} />
-                            <Step title="审核测试方案" description="点此审核测试方案" onClick={() => onTestClick(2)} />
-                            <Step title="上传评审表" description="点此上传评审表" onClick={() => onTestClick(3)} />
-                            <Step title="填写测试报告及文档" description="点此填写测试报告及文档" onClick={() => onTestClick(4)} />
-                            <Step title="审核测试报告" description="点此审核测试报告" onClick={() => onTestClick(5)} />
-                            <Step title="上传检查表" description="点此上传检查表" onClick={() => onTestClick(6)} />
-                            <Step title="发放报告" description="点此发放报告" onClick={() => onTestClick(7)} />
-                            <Step title="确认报告" description="点此确认报告" onClick={() => onTestClick(8)} />
-                            <Step title="审核测试文档" description="点此审核测试文档" onClick={() => onTestClick(9)} />
+                            <Step title="质量部分配人员" description="质量部主管：点此分配人员" onClick={() => onTestClick(0)} />
+                            <Step title="填写测试方案" description="测试部人员：点此填写测试方案" onClick={() => onTestClick(1)} />
+                            <Step title="审核测试方案" description="质量部人员：点此审核测试方案" onClick={() => onTestClick(2)} />
+                            <Step title="上传评审表" description="质量部人员：点此上传评审表" onClick={() => onTestClick(3)} />
+                            <Step title="填写测试报告及文档" description="测试部人员：点此填写测试报告及文档" onClick={() => onTestClick(4)} />
+                            <Step title="审核测试报告" description="质量部人员：点此审核测试报告" onClick={() => onTestClick(5)} />
+                            <Step title="上传检查表" description="质量部人员：点此上传检查表" onClick={() => onTestClick(6)} />
+                            <Step title="发放报告" description="市场部人员：点此发放报告" onClick={() => onTestClick(7)} />
+                            <Step title="确认报告" description="客户：点此确认报告" onClick={() => onTestClick(8)} />
+                            <Step title="审核测试文档" description="质量部人员：点此审核测试文档" onClick={() => onTestClick(9)} />
                             <Step title="项目已完成" description="项目已全部完成" />
                         </Steps>
                     </>
