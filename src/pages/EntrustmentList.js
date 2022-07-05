@@ -15,7 +15,8 @@ var defaultcolumns = [
         title: '委托ID',
         dataIndex: 'id',
         key: 'id',
-        // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
+        filters: true,
+        onFilter: true,
         render: (a) => <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/display", query: { entrustId: a } }) }}>{a} </Button>
     },
     {
@@ -68,6 +69,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action1',
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
                 render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Button name='分派' type='link' onClick={() => { history.push({ pathname: "/entrustment/assign", query: { entrustId: a.id } }) }}>分派</Button> : null
             }]
@@ -76,6 +78,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action2',
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
                 render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Button type='link' name='分派' onClick={() => { history.push({ pathname: "/entrustment/assign", query: { entrustId: a.id } }) }}>分派</Button> : null
             }]
@@ -84,6 +87,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action3',
                 render: (a) => {
                     if (a.status.stage == "MARKETER_DENIED" || a.status.stage == "TESTER_DENIED") {
                         return (
@@ -107,6 +111,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action4',
                 render: (a) => {
                     return (
                         <>
@@ -120,6 +125,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action5',
                 render: (a) => {
                     return (
                         <>
@@ -142,8 +148,31 @@ const EntrustmentList = () => {
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
                 <ProTable columns={columns} style={{ margin: 20 }}
-
-                    request={async (params, sort, filter) => {
+                    search={{
+                        labelWidth: 100,
+                        span: 12,
+                        optionRender: ({ searchText, resetText }, { form }, dom) => [
+                            <Button
+                                key="searchText"
+                                type="primary"
+                                onClick={() => {
+                                    // console.log(params);
+                                    form?.submit();
+                                }}
+                            >
+                                {searchText}
+                            </Button>,
+                            <Button
+                                key="resetText"
+                                onClick={() => {
+                                    form?.resetFields();
+                                }}
+                            >
+                                {resetText}
+                            </Button>
+                        ]
+                    }}
+                    request={async (params) => {
                         return axios.get("/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
                             pageSize: params.pageSize,
