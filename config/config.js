@@ -685,7 +685,7 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
-  resolve: { includes: ['/docs'] },
+  resolve: { includes: ['docs'] },
   // menus: {
   //   // 需要自定义侧边菜单的路径，没有配置的路径还是会使用自动生成的配置
   //   '/': [
