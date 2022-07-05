@@ -54,6 +54,10 @@ var defaultcolumns = [
         key: ['status', 'message'],
         ellipsis: false,
     },
+    {
+        search: false,
+        render: (a) => <Button type='link' name='下载' onClick={() => { history.push({ pathname: "/download", query: { entrustId: a.entrustId, testId: a.id } }) }}>下载</Button>
+    }
 ];
 var columns = defaultcolumns
 console.log(localStorage.getItem("userRole") + ' visit')
