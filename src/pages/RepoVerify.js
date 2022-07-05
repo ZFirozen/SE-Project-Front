@@ -63,7 +63,6 @@ const RepoVerify = () => {
           <br></br>
           <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap direction="row" layout="center">
             <ProCard {...cardOption}>
-              <Title level={4}>确认报告</Title>
               <br></br>
               <Button {...buttonOption} onClick={() => {
                 var temp;
@@ -79,7 +78,6 @@ const RepoVerify = () => {
               }}>确认</Button>
             </ProCard>
             <ProCard {...cardOption}>
-              <Title level={4}>拒绝报告</Title>
               <br></br>
               <Button {...buttonOption} onClick={() => {
                 var temp;
