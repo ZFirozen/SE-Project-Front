@@ -585,26 +585,46 @@ const Progress = () => {
                 break;
             case 5:
                 if (userRole === "MARKETER") {
-                    // window.location.href = "/entrustment/quotation/fill/" + entrustId;
-                    history.push({
-                        pathname: "/entrustment/quotation/fill",
-                        query: {
-                            entrustId: entrustId
-                        }
-                    })
+                    if (currentStage === 0 && currentStep === 5) {
+                        // window.location.href = "/entrustment/quotation/fill/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/quotation/fill",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
+                    else if ((currentStage === 0 && currentStep > 5) || currentStage > 0) {
+                        history.push({
+                            pathname: "/entrustment/quotation/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
                 break;
             case 6:
                 if (userRole === "CUSTOMER") {
-                    // window.location.href = "/entrustment/quotation/fill/" + entrustId;
-                    history.push({
-                        pathname: "/entrustment/quotation/fill",
-                        query: {
-                            entrustId: entrustId
-                        }
-                    })
+                    if (currentStage === 0 && currentStep === 6) {
+                        // window.location.href = "/entrustment/quotation/fill/" + entrustId;
+                        history.push({
+                            pathname: "/entrustment/quotation/accept",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
+                    else if ((currentStage === 0 && currentStep > 6) || currentStage > 0) {
+                        history.push({
+                            pathname: "/entrustment/quotation/display",
+                            query: {
+                                entrustId: entrustId
+                            }
+                        })
+                    }
                 } else {
                     alert("您没有权限访问！");
                 }
@@ -672,7 +692,7 @@ const Progress = () => {
                                 entrustId: entrustId
                             }
                         })
-                    } else if (currentStage >= 1 && currentStep > 1) {
+                    } else if ((currentStage === 1 && currentStep > 1) || currentStage > 1) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/contract/display",
@@ -695,7 +715,7 @@ const Progress = () => {
                                 contractId: contractId
                             }
                         })
-                    } else if (currentStage >= 1 && currentStep > 2) {
+                    } else if ((currentStage === 1 && currentStep > 2) || currentStage > 1) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
                             pathname: "/contract/display",
