@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
 import { ProForm, ProFormText, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from "@ant-design/pro-form";
 import moment from "moment";
-import { history , useLocation } from "umi";
+import { history, useLocation } from "umi";
 import axios from 'axios';
 import localStorage from "localStorage";
 import { EditableProTable } from "@ant-design/pro-table";
@@ -78,7 +78,7 @@ const QuotationFill = () => {
                                 console.log("load from " + entrustId)
                                 console.log(Detail.data.quote)
                                 if (Detail.data.quote.rowList === null)
-                                    Detail.data.quote.rowList=[]
+                                    Detail.data.quote.rowList = []
                                 if (Detail.data.quote !== null)
                                     return Detail.data.quote
                                 else return {}
@@ -95,16 +95,16 @@ const QuotationFill = () => {
                 >
                     <Title level={3}>报价单</Title>
                     <Row style={gray}>
-                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"quotationDate"} label="报价日期" disabled={userRole !== "MARKETER"}/>
-                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"effectiveDate"} label="报价有效期" disabled={userRole !== "MARKETER"}/>
+                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"quotationDate"} label="报价日期" disabled={userRole !== "MARKETER"} />
+                        <ProFormDatePicker required rules={[{ required: true, message: "这是必填项" }]} name={"effectiveDate"} label="报价有效期" disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={white}>
-                        <ProFormText label="开户银行" required rules={[{ required: true, message: "这是必填项" }]} name={"bankName"} disabled={userRole !== "MARKETER"}/>
-                        <ProFormText label="户名" required rules={[{ required: true, message: "这是必填项" }]} name={"account"} disabled={userRole !== "MARKETER"}/>
-                        <ProFormText label="账号" required rules={[{ required: true, message: "这是必填项" }]} name={"accountName"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="开户银行" required rules={[{ required: true, message: "这是必填项" }]} name={"bankName"} disabled={userRole !== "MARKETER"} />
+                        <ProFormText label="户名" required rules={[{ required: true, message: "这是必填项" }]} name={"account"} disabled={userRole !== "MARKETER"} />
+                        <ProFormText label="账号" required rules={[{ required: true, message: "这是必填项" }]} name={"accountName"} disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={gray}>
-                        <ProFormText label="软件名称" required rules={[{ required: true, message: "这是必填项" }]} name={"softwareName"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="软件名称" required rules={[{ required: true, message: "这是必填项" }]} name={"softwareName"} disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={white} justify="space-around">
                         <ProForm.Item name={"rowList"} trigger="onValuesChange">
@@ -154,19 +154,19 @@ const QuotationFill = () => {
                         </ProForm.Item>
                     </Row>
                     <Row style={gray}>
-                        <ProFormText label="小计" required rules={[{ required: true, message: "这是必填项" }]} name={"subTotal"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="小计" required rules={[{ required: true, message: "这是必填项" }]} name={"subTotal"} disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={white}>
-                        <ProFormText label="税率" required rules={[{ required: true, message: "这是必填项" }]} name={"taxRate"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="税率" required rules={[{ required: true, message: "这是必填项" }]} name={"taxRate"} disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={gray}>
-                        <ProFormText label="总计" required rules={[{ required: true, message: "这是必填项" }]} name={"total"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="总计" required rules={[{ required: true, message: "这是必填项" }]} name={"total"} disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={white}>
-                        <ProFormText label="报价提供人" required rules={[{ required: true, message: "这是必填项" }]} name={"provider"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="报价提供人" required rules={[{ required: true, message: "这是必填项" }]} name={"provider"} disabled={userRole !== "MARKETER"} />
                     </Row>
                     <Row style={gray}>
-                        <ProFormText label="签字" required rules={[{ required: true, message: "这是必填项" }]} name={"signature"} disabled={userRole !== "MARKETER"}/>
+                        <ProFormText label="签字" required rules={[{ required: true, message: "这是必填项" }]} name={"signature"} disabled={userRole !== "MARKETER"} />
                     </Row>
                 </ProForm>
                 {userRole === "CUSTOMER" ?

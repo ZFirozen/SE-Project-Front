@@ -392,7 +392,7 @@ export default defineConfig({
     },
     {
       name: 'test',
-      icon: 'edit',
+      icon: 'experiment',
       path: '/test',
       redirect: '/test/list'
     },
@@ -537,7 +537,7 @@ export default defineConfig({
     },
     {
       name: 'sample',
-      icon: 'highlight',
+      icon: 'save',
       path: '/sample',
       redirect: '/sample/list',
     },
@@ -611,13 +611,13 @@ export default defineConfig({
         },
       ],
     },
-    {
-      name: 'ourlogin',
-      icon: 'team',
-      path: '/ourlogin',
-      component: './OurLogin',
-      hideInMenu: true,
-    },
+    // {
+    //   name: 'ourlogin',
+    //   icon: 'team',
+    //   path: '/ourlogin',
+    //   component: './OurLogin',
+    //   hideInMenu: true,
+    // },
     {
       name: 'download',
       icon: 'team',
@@ -625,17 +625,17 @@ export default defineConfig({
       component: './Download',
       hideInMenu: true,
     },
-    {
-      name: 'userinfo',
-      icon: 'user',
-      path: '/userinfo',
-      component: './UserInfo',
-      hideInMenu: true,
-    },
-    {
-      path: '/signup',
-      component: './SignUp',
-    },
+    // {
+    //   name: 'userinfo',
+    //   icon: 'user',
+    //   path: '/userinfo',
+    //   component: './UserInfo',
+    //   hideInMenu: true,
+    // },
+    // {
+    //   path: '/signup',
+    //   component: './SignUp',
+    // },
     {
       path: '/',
       redirect: '/home',
