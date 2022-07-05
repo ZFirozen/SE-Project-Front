@@ -613,7 +613,7 @@ export default defineConfig({
           name: 'download',
           icon: 'smile',
           path: '/contract/download',
-          component: './ContractDownload',
+          component: './downloads/ContractDownload',
         },
       ],
     },
