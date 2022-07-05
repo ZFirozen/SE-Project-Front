@@ -9,7 +9,7 @@ const Settings = {
   colorWeak: false,
   title: '南大在线测试平台',
   pwa: false,
-  logo: '01校标.png',
+  logo: '/01.png',
   iconfontUrl: '',
 };
 export default Settings;

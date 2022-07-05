@@ -59,12 +59,10 @@ const Login = () => {
         });
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
 
+        /** 此方法会跳转到首页 */
         if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query;
-        history.push(redirect || '/');
+        history.push('/');
         return;
       }
 

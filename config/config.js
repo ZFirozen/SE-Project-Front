@@ -694,5 +694,5 @@ export default defineConfig({
   //   ],
   // },
   mode: "site",
-  logo: "01校标.png",
+  logo: "/01.png",
 });

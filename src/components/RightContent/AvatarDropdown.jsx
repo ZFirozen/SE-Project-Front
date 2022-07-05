@@ -9,7 +9,7 @@ import { outLogin } from '@/services/ant-design-pro/api';
 import localStorage from 'localStorage';
 
 /**
- * 退出登录，并且将当前的 url 保存
+ * 退出登录
  */
 const loginOut = async () => {
   await outLogin();
@@ -17,15 +17,9 @@ const loginOut = async () => {
   localStorage.setItem("userRole", "");
   localStorage.setItem("userAvatar", 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png');
 
-  const { query = {}, pathname } = history.location;
-  const { redirect } = query; // Note: There may be security issues, please note
-  // console.log(query, pathname);
-  if (window.location.pathname !== '/user/login' && !redirect) {
+  if (window.location.pathname !== '/user/login') {
     history.replace({
       pathname: '/user/login',
-      search: stringify({
-        redirect: pathname,
-      }),
     });
   }
 };
