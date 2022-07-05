@@ -6,12 +6,17 @@ import { stringify } from 'querystring';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 import { outLogin } from '@/services/ant-design-pro/api';
+import localStorage from 'localStorage';
 
 /**
  * 退出登录，并且将当前的 url 保存
  */
 const loginOut = async () => {
   await outLogin();
+  localStorage.setItem("userName", "");
+  localStorage.setItem("userRole", "");
+  localStorage.setItem("userAvatar", 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png');
+
   const { query = {}, pathname } = history.location;
   const { redirect } = query; // Note: There may be security issues, please note
   // console.log(query, pathname);
@@ -27,7 +32,7 @@ const loginOut = async () => {
 
 const AvatarDropdown = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
-  console.log(initialState);
+  // console.log(initialState);
   const onMenuClick = useCallback(
     (event) => {
       const { key } = event;
@@ -63,7 +68,7 @@ const AvatarDropdown = ({ menu }) => {
     currentUser.name = localStorage.getItem("userName");
     currentUser.avatar = localStorage.getItem("userAvatar");
   }
-  console.log(currentUser);
+  // console.log(currentUser);
   if (!currentUser || !currentUser.name) {
     return loading;
   }

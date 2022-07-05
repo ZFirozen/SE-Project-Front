@@ -35,16 +35,16 @@ const JS010 = () => {
                         console.log(values)
                         if (passed === false)
                             passed = true;
-                            for (let i = 0; i < pass.length; i++) {
-                                console.log(pass[i]);
-                                if (pass[i] === false) {
-                                    passed = false;
-                                    break;
-                                }
+                        for (let i = 0; i < pass.length; i++) {
+                            console.log(pass[i]);
+                            if (pass[i] === false) {
+                                passed = false;
+                                break;
                             }
-    
+                        }
+
                         const newStage = { "stage": passed ? "REPORT_QA_PASSED" : "REPORT_QA_DENIED", "message": "" };
-                        console.log("rrid="+reportReviewId)
+                        console.log("rrid=" + reportReviewId)
                         axios.post("/api/review/report/" + reportReviewId, values)
                             .then((response) => {
                                 if (response.status === 200) {
@@ -74,7 +74,7 @@ const JS010 = () => {
                             .then((project) => {
                                 console.log(project.data)
                                 reportReviewId = project.data.projectFormIds.testReportCecklistId
-                                console.log("get rrid="+reportReviewId)
+                                console.log("get rrid=" + reportReviewId)
                                 return {};
                             })
                             .catch((error) => {

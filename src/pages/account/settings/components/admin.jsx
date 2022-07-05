@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Button, Descriptions, Table, Typography, Select, Input, Form, message } from "antd";
+import { Button, Descriptions, Table, Typography, Select, Input, Form, message, Row, Col } from "antd";
 import localStorage from "localStorage";
 import { history } from "umi";
 import ProForm, { ProFormText } from "@ant-design/pro-form";
@@ -176,19 +176,27 @@ const AdminView = () => {
     return (
         <>
             <Title level={5}>修改用户角色</Title>
-            <Select placeholder="选择搜索类型" width={"md"} name="searchMode" onChange={(value) => { setSearchMode(value); }}>
-                <Option value="userName">用户名</Option>
-                <Option value="userRole">用户角色</Option>
-            </Select>
-            <Input placeholder="输入搜索内容" width={"md"} onChange={(event) => { setSearchText(event.target.value); }} onPressEnter={() => { onSearch() }}></Input>
-            <Button
-                type="primary"
-                htmlType="button"
-                className="login-form-button"
-                onClick={() => { onSearch() }}
-            >
-                搜索
-            </Button>
+            <Row>
+                <Col width={2}>
+                    <Select placeholder="选择搜索类型" name="searchMode" onChange={(value) => { setSearchMode(value); }}>
+                        <Option value="userName">用户名</Option>
+                        <Option value="userRole">用户角色</Option>
+                    </Select>
+                </Col>
+                <Col width={20}>
+                    <Input placeholder="输入搜索内容" onChange={(event) => { setSearchText(event.target.value); }} onPressEnter={() => { onSearch() }}></Input>
+                </Col>
+                <Col width={2}>
+                    <Button
+                        type="primary"
+                        htmlType="button"
+                        className="login-form-button"
+                        onClick={() => { onSearch() }}
+                    >
+                        搜索
+                    </Button>
+                </Col>
+            </Row>
             <Table
                 components={components}
                 rowClassName={() => 'editable-row'}
