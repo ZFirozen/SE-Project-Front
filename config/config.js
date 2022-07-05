@@ -225,18 +225,18 @@ export default defineConfig({
       redirect: '/test/list'
     },
     {
-        name: 'display',
-        icon: 'smile',
-        path: '/entrustment/quotation/display',
-        component: './QuotationDisplay',
-        hideInMenu: true,
+      name: 'display',
+      icon: 'smile',
+      path: '/entrustment/quotation/display',
+      component: './QuotationDisplay',
+      hideInMenu: true,
     },
     {
-        name: 'accept',
-        icon: 'smile',
-        path: '/entrustment/quotation/accept',
-        component: './QuotationAccept',
-        hideInMenu: true,
+      name: 'accept',
+      icon: 'smile',
+      path: '/entrustment/quotation/accept',
+      component: './QuotationAccept',
+      hideInMenu: true,
     },
     {
       name: 'test',
@@ -528,6 +528,9 @@ export default defineConfig({
   webpack5: {},
   exportStatic: {},
   resolve: { includes: ['docs'] },
+  mode: "site",
+  logo: "/01.png",
+  // config now
   // menus: {
   //   // 需要自定义侧边菜单的路径，没有配置的路径还是会使用自动生成的配置
   //   '/': [
@@ -541,18 +544,11 @@ export default defineConfig({
   //     },
   //   ],
   // },
-  mode: "site",
-  logo: "/01.png",
-  navs: {
-    'en-US': [
-      null,
-      { title: 'GitHub', path: 'https://github.com/umijs/dumi' },
-      { title: 'Changelog', path: 'https://github.com/umijs/dumi/releases' },
-    ],
-    'zh-CN': [
-      // null,
-      { title: 'GitHub', path: 'https://github.com/umijs/dumi' },
-      { title: '更新日志', path: 'https://github.com/umijs/dumi/releases' },
-    ],
-  },
+  navs: [
+    null,
+    { title: 'GitHub', path: 'https://github.com/umijs/dumi' },
+    { title: '更新日志', path: 'https://github.com/umijs/dumi/releases' },
+  ],
+
+
 });
