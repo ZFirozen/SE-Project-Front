@@ -338,7 +338,7 @@ export default defineConfig({
           name: 'display',
           icon: 'smile',
           path: '/entrustment/display',
-          component: './EntrustmentDisplay',
+          component: './pageViewer/EntrustmentViewer',
           hideInMenu: true,
         },
         {
@@ -469,6 +469,27 @@ export default defineConfig({
           icon: 'smile',
           path: '/test/reportcheck',
           component: './testingTable/JS010',
+          hideInMenu: true,
+        },
+        {
+          name: 'docdisplay',
+          icon: 'smile',
+          path: '/test/docview',
+          component: './DocDisplay',
+          hideInMenu: true,
+        },
+        {
+          name: 'docverify',
+          icon: 'smile',
+          path: '/test/docver',
+          component: './DocVerify',
+          hideInMenu: true,
+        },
+        {
+          name: 'repoverify',
+          icon: 'smile',
+          path: '/test/repover',
+          component: './RepoVerify',
           hideInMenu: true,
         },
         {

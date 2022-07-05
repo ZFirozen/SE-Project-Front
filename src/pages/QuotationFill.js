@@ -11,7 +11,6 @@ import { EditableProTable } from "@ant-design/pro-table";
 
 const whitecolor = '#ffffff'
 const graycolor = '#f1f1f1'
-const userRole = localStorage.getItem("userRole");
 const rowbegingap = 20
 const formitemheight = 62
 const { Title, Paragraph } = Typography
@@ -22,6 +21,7 @@ const gray = { paddingLeft: rowbegingap, backgroundColor: graycolor, height: "10
 const white = { paddingLeft: rowbegingap, backgroundColor: whitecolor, height: "100%", paddingTop: 11, paddingBottom: 11, width: "100%", columnGap: 32 }
 
 const QuotationFill = () => {
+    const userRole = localStorage.getItem("userRole");
     const location = useLocation();
     const entrustId = location.query.entrustId;
     const [editableKeys, setEditableRowKeys] = useState([]);
