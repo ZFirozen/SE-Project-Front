@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from requests import NullHandler
 from selenium import webdriver
 import time
 from selenium.webdriver.common.by import By
@@ -7,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 url = "http://localhost:7777"
 path = r"D:/chromedirver/chromedriver.exe"
 driver = webdriver.Chrome(executable_path=path)
-driver.implicitly_wait(10)
+driver.implicitly_wait(60)
 driver.maximize_window()
 driver.get(url)
 time.sleep(3)
@@ -15,6 +17,7 @@ driver.find_element(By.ID, "userName").send_keys("c")
 time.sleep(1)
 driver.find_element(By.ID, "userPassword").send_keys("123")
 time.sleep(1)
+print(driver.find_element(By.ID, "userPassword"))
 driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
 time.sleep(5)
 wt = driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
@@ -22,13 +25,19 @@ time.sleep(1)
 driver.find_element(By.LINK_TEXT, "填表").click()
 time.sleep(1)
 
-i = driver.find_element(By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']")
+tj = driver.find_elements(
+    By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
+)
 time.sleep(1)
-if i.get_attribute("textContent") == "添加一行数据":
-    # driver.execute_script("arguments[0].scrollIntoView();", i)
-    # driver.execute_script("window.scrollBy(0,-100)")
-    ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
+for i in tj:
+    if i.get_attribute("textContent") != "添加一行数据":
+        # driver.execute_script("arguments[0].scrollIntoView();", i)
+        # driver.execute_script("window.scrollBy(0,-100)")
+        tj.remove(i)
     time.sleep(1)
+i = tj[0]
+ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
+time.sleep(1)
 tj = driver.find_elements(
     By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
 )
@@ -41,7 +50,7 @@ for i in tj:
     time.sleep(1)
 i = tj[1]
 ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
-time.sleep(1)
+time.sleep(10)
 driver.execute_script("var q=document.documentElement.scrollTop=0")
 cb = driver.find_elements(By.CLASS_NAME, "ant-checkbox-input")
 for i in cb:
