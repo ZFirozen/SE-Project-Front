@@ -1,6 +1,7 @@
 ---
 sidemenu: true
 toc: 'menu'
+title: '用户手册'
 ---
 
 # **用户手册**
