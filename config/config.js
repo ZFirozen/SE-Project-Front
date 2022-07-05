@@ -338,7 +338,7 @@ export default defineConfig({
           name: 'display',
           icon: 'smile',
           path: '/entrustment/display',
-          component: './EntrustmentDisplay',
+          component: './pageViewer/EntrustmentViewer',
           hideInMenu: true,
         },
         {
@@ -472,6 +472,27 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'docdisplay',
+          icon: 'smile',
+          path: '/test/docview',
+          component: './DocDisplay',
+          hideInMenu: true,
+        },
+        {
+          name: 'docverify',
+          icon: 'smile',
+          path: '/test/docver',
+          component: './DocVerify',
+          hideInMenu: true,
+        },
+        {
+          name: 'repoverify',
+          icon: 'smile',
+          path: '/test/repover',
+          component: './RepoVerify',
+          hideInMenu: true,
+        },
+        {
           name: 'documents',
           icon: 'smile',
           path: '/test/documents',
@@ -548,7 +569,7 @@ export default defineConfig({
           hideInMenu: true,
         },
       ]
-    },  
+    },
     {
       path: '/progress',
       component: './Progress',
@@ -630,7 +651,7 @@ export default defineConfig({
   // esbuild is father build tools
   // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},
-  title: false,
+  title: "帮助中心",
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {
@@ -658,4 +679,20 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  resolve: { includes: ['/docs'] },
+  // menus: {
+  //   // 需要自定义侧边菜单的路径，没有配置的路径还是会使用自动生成的配置
+  //   '/': [
+  //     {
+  //       title: '菜单项',
+  //       path: '菜单路由（可选）',
+  //       children: [
+  //         // 菜单子项（可选）
+  //         'index.md', // 对应的 Markdown 文件，路径是相对于 resolve.includes 目录识别的
+  //       ],
+  //     },
+  //   ],
+  // },
+  mode: "site",
+  logo: "/01.png",
 });

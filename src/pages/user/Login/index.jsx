@@ -59,12 +59,10 @@ const Login = () => {
         });
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
 
+        /** 此方法会跳转到首页 */
         if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query;
-        history.push(redirect || '/');
+        history.push('/');
         return;
       }
 
@@ -88,11 +86,11 @@ const Login = () => {
       </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
-          subTitle={intl.formatMessage({
-            id: 'pages.layouts.userLayout.title',
-          })}
+          logo={<img alt="logo" src="/01校标.png" />}
+          title="南大在线测试平台"
+          // subTitle={intl.formatMessage({
+          //   id: 'pages.layouts.userLayout.title',
+          // })}
           initialValues={{
             autoLogin: true,
           }}
@@ -110,6 +108,7 @@ const Login = () => {
             await handleSubmit(values);
           }}
         >
+          <br />
           <Tabs activeKey={type} onChange={setType}>
             <Tabs.TabPane
               key="account"
@@ -143,10 +142,7 @@ const Login = () => {
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.username.placeholder',
-                  // defaultMessage: '用户名: admin or user',
-                })}
+                placeholder="用户名"
                 rules={[
                   {
                     required: true,
@@ -165,10 +161,7 @@ const Login = () => {
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.password.placeholder',
-                  // defaultMessage: '密码: ant.design',
-                })}
+                placeholder="密码"
                 rules={[
                   {
                     required: true,
@@ -288,7 +281,7 @@ const Login = () => {
           </div>
         </LoginForm>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

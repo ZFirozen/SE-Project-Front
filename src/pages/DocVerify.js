@@ -8,10 +8,9 @@ import { error } from "jquery";
 import { ProCard } from "@ant-design/pro-card"
 const { Title, Paragraph } = Typography
 
-const Documents = () => {
+const DocVerify = () => {
   const location = useLocation();
   const testId = location.query.testId
-  var contractId = undefined
   var schemeId = undefined
   var reportId = undefined
   var testcaseId = undefined
@@ -43,11 +42,11 @@ const Documents = () => {
   }, [])
   return (
     <>
-      <Title level={1}>文档填写</Title>
-      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="row" layout="center">
+      <Title level={1}>文档确认</Title>
+      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} layout="center">
         <ProCard {...cardOption}>
           <Title level={4}>JS007</Title>
-          <Title level={4}>填写测试报告</Title>
+          <Title level={4}>查看测试报告</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             console.log("testId=" + testId)
@@ -57,11 +56,11 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试报告</Button>
+          }}>查看测试报告</Button>
         </ProCard>
         <ProCard {...cardOption}>
           <Title level={4}>JS008</Title>
-          <Title level={4}>填写测试用例表</Title>
+          <Title level={4}>查看测试用例表</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
@@ -70,11 +69,11 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试用例表</Button>
+          }}>查看测试用例表</Button>
         </ProCard>
         <ProCard {...cardOption}>
           <Title level={4}>JS009</Title>
-          <Title level={4}>填写测试记录表</Title>
+          <Title level={4}>查看测试记录表</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
@@ -83,11 +82,11 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试记录表</Button>
+          }}>查看测试记录表</Button>
         </ProCard>
         <ProCard {...cardOption}>
           <Title level={4}>JS011</Title>
-          <Title level={4}>填写测试问题清单</Title>
+          <Title level={4}>查看测试问题清单</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
@@ -96,28 +95,47 @@ const Documents = () => {
                 testId: testId
               }
             })
-          }}>填写测试问题清单</Button>
+          }}>查看测试问题清单</Button>
         </ProCard>
-      </ProCard>
-      <ProCard {...cardOption}>
-        <Title level={4}>文档填写完成</Title>
-        <Title level={4}>提交所有文档</Title>
         <br></br>
-        <Button {...buttonOption} onClick={() => {
-          var temp;
-          temp = { "stage": "REPORT_AUDITING", "message": "" }
-          axios.post("/api/test/" + testId + "/status", temp).then(response => {
-            console.log(response)
-            message.success("成功进入下一阶段")
-            history.goBack();
-          }).catch(error => {
-            console.log(error)
-            message.error("提交失败，请重试")
-          })
-        }}>提交所有文档</Button>
+        <Title level={1}>确认结果</Title>
+        <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} split="vertical" layout="center">
+          <ProCard {...cardOption}>
+            <Title level={4}>确认文档</Title>
+            <br></br>
+            <Button {...buttonOption} onClick={() => {
+              var temp;
+              temp = { "stage": "QA_ALL_PASSED", "message": "" }
+              axios.post("/api/test/" + testId + "/status", temp).then(response => {
+                console.log(response)
+                message.success("确认成功")
+                history.goBack();
+              }).catch(error => {
+                console.log(error)
+                message.error("确认失败，请重试")
+              })
+            }}>确认</Button>
+          </ProCard>
+          <ProCard {...cardOption}>
+            <Title level={4}>拒绝文档</Title>
+            <br></br>
+            <Button {...buttonOption} onClick={() => {
+              var temp;
+              temp = { "stage": "QA_ALL_REJECTED", "message": "" }
+              axios.post("/api/test/" + testId + "/status", temp).then(response => {
+                console.log(response)
+                message.success("拒绝成功")
+                history.goBack();
+              }).catch(error => {
+                console.log(error)
+                message.error("拒绝失败，请重试")
+              })
+            }}>拒绝</Button>
+          </ProCard>
+        </ProCard>
       </ProCard>
     </>
   );
 }
 
-export default Documents;
+export default DocVerify;

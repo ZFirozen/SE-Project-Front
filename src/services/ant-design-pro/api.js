@@ -6,10 +6,11 @@ import { request } from 'umi';
 /** 获取当前的用户 GET /api/currentUser */
 
 export async function currentUser(options) {
-  return request('/api/currentUser', {
-    method: 'GET',
-    ...(options || {}),
-  });
+  // return request('/api/currentUser', {
+  //   method: 'GET',
+  //   ...(options || {}),
+  // });
+  return axios.get("/api/account");
 }
 /** 获取当前的用户信息 GET /api/account */
 
