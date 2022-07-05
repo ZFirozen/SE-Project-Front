@@ -1032,8 +1032,10 @@ const Progress = () => {
                     <>
                         <Steps
                             style={{ paddingLeft: 70 }}
+                            current={0}
+                            status={currentStage === 2 ? (currentStep === 11 ? "finish" : "process") : "wait"}
                             direction="vertical">
-                            <Step title="填写工作检查表" description="点此填写工作检查表" onClick={() => onChecklistClick()} />
+                            <Step title="填写工作检查表" description="工作人员：每步完成后点此填写工作检查表" onClick={() => onChecklistClick()} />
                         </Steps>
                         <Steps
                             style={{ paddingLeft: 70 }}

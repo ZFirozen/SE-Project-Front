@@ -86,7 +86,7 @@ const Login = () => {
       </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/01校标.png" />}
+          logo={<img alt="logo" src="/01.png" />}
           title="南大在线测试平台"
           // subTitle={intl.formatMessage({
           //   id: 'pages.layouts.userLayout.title',
