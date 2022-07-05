@@ -6,7 +6,6 @@
 /.pnp
 .pnp.js
 /src/.umi
-/dist
 /src/.umi-production/.cache
 
 # testing
@@ -14,8 +13,9 @@
 
 # production
 /build
-/dist/
+/dist
 dist.zip
+.VSCodeCounter
 
 # misc
 .DS_Store
