@@ -148,30 +148,6 @@ const EntrustmentList = () => {
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
                 <ProTable columns={columns} style={{ margin: 20 }}
-                    search={{
-                        labelWidth: 100,
-                        span: 12,
-                        optionRender: ({ searchText, resetText }, { form }, dom) => [
-                            <Button
-                                key="searchText"
-                                type="primary"
-                                onClick={() => {
-                                    // console.log(params);
-                                    form?.submit();
-                                }}
-                            >
-                                {searchText}
-                            </Button>,
-                            <Button
-                                key="resetText"
-                                onClick={() => {
-                                    form?.resetFields();
-                                }}
-                            >
-                                {resetText}
-                            </Button>
-                        ]
-                    }}
                     request={async (params) => {
                         return axios.get("/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
@@ -187,6 +163,7 @@ const EntrustmentList = () => {
                         })
                     }}
                     postData={(data) => {
+                        console.log(data)
                         return data
                     }}
                     rowKey="id"
