@@ -1,19 +1,30 @@
 @import '~antd/es/style/themes/default.less';
 
 .main {
-  width: 368px;
-  // display: flex;
-  // flex-direction: column;
-  // height: 100vh;
-  // overflow: auto;
-  // background: @layout-body-background;
-  margin: 0 auto;
-  flex: 1;
-  padding: 60px 0;
+  // width: 368px;
+  // margin: 0 auto;
+  // flex: 1;
+  // padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: auto;
+  background: @layout-body-background;
 
-  h3 {
-    margin-bottom: 20px;
-    font-size: 16px;
+  .content {
+    flex: 1;
+    padding: 32px 0;
+  }
+
+  .lang {
+    width: 100%;
+    height: 40px;
+    line-height: 44px;
+    text-align: right;
+
+    :global(.ant-dropdown-trigger) {
+      margin-right: 24px;
+    }
   }
 
   .password {
@@ -41,14 +52,18 @@
   }
 }
 
-// @media (min-width: @screen-md-min) {
-//   .main {
-//     background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
-//     background-repeat: no-repeat;
-//     background-position: center 110px;
-//     background-size: 100%;
-//   }
-// }
+@media (min-width: @screen-md-min) {
+  .main {
+    background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
+    background-repeat: no-repeat;
+    background-position: center 110px;
+    background-size: 100%;
+  }
+
+  .content {
+    padding: 32px 0 24px;
+  }
+}
 
 .success,
 .warning,

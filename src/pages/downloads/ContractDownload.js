@@ -8,9 +8,9 @@ import { error } from "jquery";
 import { ProCard } from "@ant-design/pro-card"
 const { Title, Paragraph } = Typography
 
-const RepoVerDownload = () => {
+const ContractDownload = () => {
   const location = useLocation();
-  const reportReviewId = location.query.reportReviewId
+  const contractId = location.query.contractId
   var cardOption = { colSpan: { xs: 12, sm: 12, md: 12, lg: 12, xl: 6 }, direction: "column", layout: "center", bordered: true }
   var buttonOption = { size: "large", type: "primary" }
   return (
@@ -18,16 +18,15 @@ const RepoVerDownload = () => {
       <Title level={1}>扫描件下载</Title>
       <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} layout="center">
         <ProCard {...cardOption}>
-          <Title level={4}>JS010</Title>
-          <Title level={4}>下载测试报告检查表</Title>
+          <Title level={4}>JS004</Title>
+          <Title level={4}>下载合同</Title>
           <br></br>
           <Button {...buttonOption} onClick={() => {
-            axios.get("/api/review/report/" + reportReviewId + "/download", { responseType: "blob" }).then(response => {
+            axios.get("/api/contract/" + contractId + "/download", { responseType: "blob" }).then(response => {
               console.log(response)
-
               let content = response.data; // 文件流
               let blob = new Blob([content], { type: 'application/octet-stream' });
-              // let fileName = 'download.png';
+              //let fileName = 'download.png';
               // 如果后端返回文件名
               let contentDisposition = response.headers['content-disposition'];
               let fileName = decodeURI(contentDisposition.split('=')[1]);
@@ -43,7 +42,6 @@ const RepoVerDownload = () => {
               } else {  // IE10+下载
                 navigator.msSaveBlob(blob, fileName);
               }
-
               message.success("文件下载成功")
             }).catch(error => {
               console.log(error)
@@ -56,4 +54,4 @@ const RepoVerDownload = () => {
   );
 }
 
-export default RepoVerDownload;
+export default ContractDownload;

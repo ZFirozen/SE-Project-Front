@@ -26,7 +26,7 @@ const Documents = () => {
     axios.get("/api/test/" + testId)
       .then((response) => {
         if (response.status === 200) {
-          console.log("/api/test/ + testId ="+testId)
+          console.log("/api/test/ + testId =" + testId)
           schemeId = response.data.projectFormIds.testSchemeId
           reportId = response.data.projectFormIds.reportId
           testcaseId = response.data.projectFormIds.testcaseId
@@ -43,8 +43,8 @@ const Documents = () => {
   }, [])
   return (
     <>
-      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="column" layout="center">
-        <Title level={1}>文档填写</Title>
+      <Title level={1}>文档填写</Title>
+      <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="row" layout="center">
         <ProCard {...cardOption}>
           <Title level={4}>JS007</Title>
           <Title level={4}>填写测试报告</Title>
@@ -98,23 +98,23 @@ const Documents = () => {
             })
           }}>填写测试问题清单</Button>
         </ProCard>
-        <ProCard {...cardOption}>
-          <Title level={4}>文档填写完成</Title>
-          <Title level={4}>提交所有文档</Title>
-          <br></br>
-          <Button {...buttonOption} onClick={() => {
-            var temp;
-            temp = { "stage": "REPORT_AUDITING", "message": "" }
-            axios.post("/api/test/" + testId + "/status", temp).then(response => {
-              console.log(response)
-              message.success("成功进入下一阶段")
-              history.goBack();
-            }).catch(error => {
-              console.log(error)
-              message.error("提交失败，请重试")
-            })
-          }}>提交所有文档</Button>
-        </ProCard>
+      </ProCard>
+      <ProCard {...cardOption}>
+        <Title level={4}>文档填写完成</Title>
+        <Title level={4}>提交所有文档</Title>
+        <br></br>
+        <Button {...buttonOption} onClick={() => {
+          var temp;
+          temp = { "stage": "REPORT_AUDITING", "message": "" }
+          axios.post("/api/test/" + testId + "/status", temp).then(response => {
+            console.log(response)
+            message.success("成功进入下一阶段")
+            history.goBack();
+          }).catch(error => {
+            console.log(error)
+            message.error("提交失败，请重试")
+          })
+        }}>提交所有文档</Button>
       </ProCard>
     </>
   );

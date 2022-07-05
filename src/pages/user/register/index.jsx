@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message, Typography } from 'antd';
-import { Link, useRequest, history } from 'umi';
+import {
+  AlipayCircleOutlined,
+  LockOutlined,
+  MobileOutlined,
+  TaobaoCircleOutlined,
+  UserOutlined,
+  WeiboCircleOutlined,
+} from '@ant-design/icons';
+import { Form, Button, Col, Input, Popover, Progress, Row, Select, message, Typography, Tabs } from 'antd';
+import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
+import { Link, useRequest, history, SelectLang } from 'umi';
 import { userRegister } from './service';
 import styles from './style.less';
 const { Title } = Typography;
@@ -156,88 +165,112 @@ const Register = () => {
 
   return (
     <div className={styles.main}>
-      <Title level={2} style={{ textAlign: "center" }}>注册</Title>
-      <Form form={form} name="UserRegister" id="components-form-login" className="login-form" onFinish={onFinish}>
-        <FormItem
-          name="userName"
-          rules={[
-            {
-              required: true, message: "请输入用户名！"
-            },
-            {
-              max: 32, message: "名称不得超过32个字符！"
-            },
-            {
-              pattern: new RegExp("^[0-9a-zA-Z_]{1,}$", "g"), message: "只允许包含数字、字母和下划线!"
-            }
-          ]}
-        >
-          <Input size="large" placeholder="用户名" />
-        </FormItem>
-        <Popover
-          getPopupContainer={(node) => {
-            if (node && node.parentNode) {
-              return node.parentNode;
-            }
-
-            return node;
-          }}
-          content={
-            visible && (
-              <div
-                style={{
-                  padding: '4px 0',
-                }}
-              >
-                {passwordStatusMap[getPasswordStatus()]}
-                {renderPasswordProgress()}
-                <div
-                  style={{
-                    marginTop: 10,
-                  }}
-                >
-                  <span>请不要使用容易被猜到的密码。</span>
-                </div>
-              </div>
-            )
-          }
-          overlayStyle={{
-            width: 240,
-          }}
-          placement="right"
-          visible={visible}
-        >
-          <FormItem
-            name="userPassword"
-            className={
-              form.getFieldValue('userPassword') &&
-              form.getFieldValue('userPassword').length > 0 &&
-              styles.password
-            }
+      <div className={styles.lang} data-lang>
+        {SelectLang && <SelectLang />}
+      </div>
+      <div className={styles.content}>
+        <LoginForm
+          logo={<img alt="logo" src="/01.png" />}
+          title="南大在线测试平台"
+          submitter={{ submitButtonProps: { style: { display: 'none', } } }}
+          form={form} name="UserRegister" id="components-form-login" className="login-form" onFinish={onFinish}>
+          <br />
+          {/* <Title level={4} style={{ textAlign: "center" }}>注册账户</Title> */}
+          <Tabs>
+            <Tabs.TabPane
+              key="register"
+              tab="注册账户"
+            />
+          </Tabs>
+          <ProFormText
+            name="userName"
+            fieldProps={{
+              size: 'large',
+              prefix: <UserOutlined className={styles.prefixIcon} />,
+            }}
+            placeholder="用户名"
             rules={[
               {
-                validator: checkPassword,
+                required: true, message: "请输入用户名！"
+              },
+              {
+                max: 32, message: "名称不得超过32个字符！"
+              },
+              {
+                pattern: new RegExp("^[0-9a-zA-Z_]{1,}$", "g"), message: "只允许包含数字、字母和下划线!"
+              }
+            ]}
+          />
+          <Popover
+            getPopupContainer={(node) => {
+              if (node && node.parentNode) {
+                return node.parentNode;
+              }
+
+              return node;
+            }}
+            content={
+              visible && (
+                <div
+                  style={{
+                    padding: '4px 0',
+                  }}
+                >
+                  {passwordStatusMap[getPasswordStatus()]}
+                  {renderPasswordProgress()}
+                  <div
+                    style={{
+                      marginTop: 10,
+                    }}
+                  >
+                    <span>请不要使用容易被猜到的密码。</span>
+                  </div>
+                </div>
+              )
+            }
+            overlayStyle={{
+              width: 240,
+            }}
+            placement="right"
+            visible={visible}
+          >
+            <ProFormText.Password
+              name="userPassword"
+              fieldProps={{
+                size: 'large',
+                prefix: <LockOutlined className={styles.prefixIcon} />,
+              }}
+              placeholder="输入密码，区分大小写"
+              className={
+                form.getFieldValue('userPassword') &&
+                form.getFieldValue('userPassword').length > 0 &&
+                styles.password
+              }
+              rules={[
+                {
+                  validator: checkPassword,
+                },
+              ]}
+            />
+          </Popover>
+          <ProFormText.Password
+            name="confirm"
+            fieldProps={{
+              size: 'large',
+              prefix: <LockOutlined className={styles.prefixIcon} />,
+            }}
+            placeholder="确认密码"
+            rules={[
+              {
+                required: true,
+                message: '请确认密码！',
+              },
+              {
+                validator: checkConfirm,
               },
             ]}
-          >
-            <Input size="large" type="password" placeholder="输入密码，区分大小写" />
-          </FormItem>
-        </Popover>
-        <FormItem
-          name="confirm"
-          rules={[
-            {
-              required: true,
-              message: '请确认密码！',
-            },
-            {
-              validator: checkConfirm,
-            },
-          ]}
-        >
-          <Input size="large" type="password" placeholder="确认密码" />
-        </FormItem>
-        {/* <InputGroup compact>
+          />
+          {/* <InputGroup compact>
           <Select
             size="large"
             value={prefix}
@@ -293,21 +326,22 @@ const Register = () => {
             </Button>
           </Col>
         </Row> */}
-        <FormItem>
-          <Button
-            size="large"
-            loading={submitting}
-            className={styles.submit}
-            type="primary"
-            htmlType="submit"
-          >
-            <span>注册</span>
-          </Button>
-          <Link className={styles.login} to="/user/login">
-            <span>使用已有账户登录</span>
-          </Link>
-        </FormItem>
-      </Form>
+          <FormItem>
+            <Button
+              size="large"
+              loading={submitting}
+              className={styles.submit}
+              type="primary"
+              htmlType="submit"
+            >
+              <span>注册</span>
+            </Button>
+            <Link className={styles.login} to="/user/login">
+              <span>使用已有账户登录</span>
+            </Link>
+          </FormItem>
+        </LoginForm>
+      </div>
     </div>
   );
 };

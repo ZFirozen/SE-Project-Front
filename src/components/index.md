@@ -1,6 +1,6 @@
 ﻿---
 title: 业务组件
-sidemenu: false
+sidemenu: true
 ---
 
 > 此功能由[dumi](https://d.umijs.org/zh-CN/guide/advanced#umi-%E9%A1%B9%E7%9B%AE%E9%9B%86%E6%88%90%E6%A8%A1%E5%BC%8F)提供，dumi 是一个 📖 为组件开发场景而生的文档工具，用过的都说好。

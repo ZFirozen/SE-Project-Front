@@ -80,7 +80,7 @@ const Download = () => {
           </ProCard>
           <ProCard {...cardOption}>
             <Title level={4}>NST－04－JS002－2011</Title>
-            <Title level={4}>软件项目委托测试申请表-空白表</Title>
+            <Title level={4}>软件项目委托测试申请表</Title>
             <br></br>
             <Button {...buttonOption} onClick={() => {
               axios.get("/api/doc/JS002/" + entrustId).then(response => {
