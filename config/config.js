@@ -609,6 +609,12 @@ export default defineConfig({
           path: '/contract/upload',
           component: './ContractUpload',
         },
+        {
+          name: 'download',
+          icon: 'smile',
+          path: '/contract/download',
+          component: './ContractDownload',
+        },
       ],
     },
     {

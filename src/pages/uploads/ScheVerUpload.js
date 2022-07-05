@@ -40,8 +40,8 @@ const ScheVerUpload = () => {
   };
   return (
     <>
+      <Title level={1}>扫描件上传</Title>
       <ProCard style={{ marginTop: 8 }} gutter={[16, 16]} wrap headStyle={{ size: "large", fontSize: "33px" }} direction="column" layout="center">
-        <Title level={1}>扫描件上传</Title>
         <ProCard {...cardOption}>
           <Title level={4}>JS013</Title>
           <Title level={4}>上传测试方案评审表</Title>

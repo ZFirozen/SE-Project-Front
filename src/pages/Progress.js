@@ -718,6 +718,14 @@ const Progress = () => {
                             }
                         })
                     }
+                    else if ((currentStage === 1 && currentStep > 3) || currentStage > 1) {
+                        history.push({
+                            pathname: "/contract/download",
+                            query: {
+                                contractId: contractId
+                            }
+                        })
+                    }
                 }
                 break;
             default:
