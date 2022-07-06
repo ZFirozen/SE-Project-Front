@@ -7,15 +7,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
+
 class TestClass:
     url = "http://localhost:7777"
     path = r"D:/chromedirver/chromedriver.exe"
-    driver = webdriver.Chrome(executable_path=path)
+    # driver = webdriver.Chrome(executable_path=path)
 
-    def test_1(self):
+    def setup_method(self, method):
+        self.driver = webdriver.Chrome(executable_path=self.path)
         self.driver.implicitly_wait(60)
         self.driver.maximize_window()
         self.driver.get(self.url)
+
+    def teardown_method(self, method):
+        self.driver.quit()
+
+    def test_1(self):
         time.sleep(3)
         self.driver.find_element(By.ID, "userName").send_keys("c")
         time.sleep(1)
@@ -28,7 +35,10 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托申请").click()
         time.sleep(1)
-
+        self.driver = webdriver.Chrome(executable_path=self.path)
+        self.driver.implicitly_wait(60)
+        self.driver.maximize_window()
+        self.driver.get(self.url)
         tj = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
         )
@@ -39,10 +49,10 @@ class TestClass:
                 # self.driver.execute_script("window.scrollBy(0,-100)")
                 tj.remove(i)
             time.sleep(1)
-        # print(tj)
-        # input()
         i = tj[0]
-        ActionChains(self.driver).scroll_to_element(i).move_to_element(i).click(i).perform()
+        ActionChains(self.driver).scroll_to_element(i).move_to_element(i).click(
+            i
+        ).perform()
         time.sleep(1)
         tj = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
@@ -54,20 +64,21 @@ class TestClass:
                 # self.driver.execute_script("window.scrollBy(0,-100)")
                 tj.remove(i)
             time.sleep(1)
-        # print(tj)
-        # input()
-        i = tj[2]
-        ActionChains(self.driver).scroll_to_element(i).move_to_element(i).click(i).perform()
-        time.sleep(1)
+        i = tj[1]
+        ActionChains(self.driver).scroll_to_element(i).move_to_element(i).click(
+            i
+        ).perform()
+        time.sleep(10)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
-        time.sleep(1)
         cb = self.driver.find_elements(By.CLASS_NAME, "ant-checkbox-input")
         for i in cb:
             i.click()
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         time.sleep(1)
-        tb = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-input ant-input-lg']")
+        tb = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
+        )
         for i in tb:
             i.send_keys("1")
         time.sleep(1)
@@ -84,7 +95,9 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.ID, "software_type").send_keys(Keys.ENTER)
         time.sleep(1)
-        self.driver.find_element(By.ID, "principal_contactEmail").send_keys("junzhi_cn@qq.com")
+        self.driver.find_element(By.ID, "principal_contactEmail").send_keys(
+            "junzhi_cn@qq.com"
+        )
         time.sleep(1)
         self.driver.find_element(By.ID, "principal_sigDate").click()
         time.sleep(1)
@@ -95,19 +108,17 @@ class TestClass:
         ).click()
         time.sleep(5)
         self.driver.find_element(
-            By.XPATH, "/html/body/div[1]/div/section/div[2]/header[2]/div/div[3]/div[1]/span"
+            By.XPATH,
+            "/html/body/div[1]/div/section/div[2]/header[2]/div/div[3]/div[1]/span",
         ).click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "/html/body/div[3]/div/div/ul/li[4]").click()
         time.sleep(1)
 
     def test_2(self):
-        self.driver.implicitly_wait(60)
-        self.driver.maximize_window()
-        self.driver.get(self.url)
-        self.driver.find_element(By.ID, "userName").send_keys("mm")
+        self.driver.find_element(By.ID, "userName").send_keys("MARKETING_SUPERVISOR")
         time.sleep(1)
-        self.driver.find_element(By.ID, "userPassword").send_keys("123")
+        self.driver.find_element(By.ID, "userPassword").send_keys("123456")
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
         time.sleep(5)
@@ -120,26 +131,22 @@ class TestClass:
         fp = self.driver.find_elements(By.NAME, "分派")
         fp[len(fp) - 1].click()
         time.sleep(1)
-        fpry = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']")
-        fpry[len(fpry) - 2].click()
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
+        )
+        fpry[len(fp) - 1].click()
         time.sleep(1)
-        qr = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']")
-        qr[5].send_keys(Keys.ENTER)
-        time.sleep(5)
-        self.driver.find_element(
-            By.XPATH, "/html/body/div[1]/div/section/div[2]/header[2]/div/div[3]/div[1]/span"
-        ).click()
-        time.sleep(1)
-        self.driver.find_element(By.XPATH, "/html/body/div[3]/div/div/ul/li[4]").click()
+        self.driver.find_elements(By.NAME, "确 定").click()
         time.sleep(1)
 
-# self.driver.find_element(By.ID,'login_用户名').send_keys('MARKETER')
+
+# driver.find_element(By.ID,'login_用户名').send_keys('MARKETER')
 # time.sleep(1)
-# self.driver.find_element(By.ID,'login_密码').send_keys('123456')
+# driver.find_element(By.ID,'login_密码').send_keys('123456')
 # time.sleep(1)
-# self.driver.find_element(By.ID,'login_密码').send_keys(Keys.ENTER)
+# driver.find_element(By.ID,'login_密码').send_keys(Keys.ENTER)
 # time.sleep(10)
-# self.driver.switch_to.alert.accept()
+# driver.switch_to.alert.accept()
 # time.sleep(10)
 if __name__ == "__main__":
     pytest.main()
