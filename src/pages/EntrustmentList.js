@@ -15,44 +15,52 @@ var defaultcolumns = [
         title: '委托ID',
         dataIndex: 'id',
         key: 'id',
-        // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
+        filters: true,
+        onFilter: true,
         render: (a) => <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/display", query: { entrustId: a } }) }}>{a} </Button>
     },
     {
         title: '客户ID',
         dataIndex: 'customerId',
         key: 'customerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '市场人员ID',
         dataIndex: 'marketerId',
         key: 'marketerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '测试人员ID',
         dataIndex: 'testerId',
         key: 'testerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '软件名称',
         dataIndex: 'softwareName',
         key: 'softwareName',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '软件版本号',
         dataIndex: 'softwareVersion',
         key: 'softwareVersion',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '委托状态',
         dataIndex: ['status', 'stage'],
         key: ['status', 'stage'],
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '附加信息',
         dataIndex: ['status', 'message'],
         key: ['status', 'message'],
         ellipsis: false,
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         search: false,
@@ -68,6 +76,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action1',
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
                 render: (a) => a.status.stage == "WAIT_FOR_MARKETER" ? <Button name='分派' type='link' onClick={() => { history.push({ pathname: "/entrustment/assign", query: { entrustId: a.id } }) }}>分派</Button> : null
             }]
@@ -76,6 +85,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action2',
                 //render: (a) => <Button onClick={(e)=>{console.log(a)}}>分派</Button>
                 render: (a) => a.status.stage == "WAIT_FOR_TESTER" ? <Button type='link' name='分派' onClick={() => { history.push({ pathname: "/entrustment/assign", query: { entrustId: a.id } }) }}>分派</Button> : null
             }]
@@ -84,19 +94,20 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action3',
                 render: (a) => {
                     if (a.status.stage == "MARKETER_DENIED" || a.status.stage == "TESTER_DENIED") {
                         return (
                             <>
                                 <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/fill", query: { entrustId: a.id } }) }}>修改委托</Button>
                                 <br />
-                                <Button type='link' name='下载进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
+                                <Button type='link' name='查看进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                             </>
                         )
                     }
                     return (
                         <>
-                            <Button type='link' name='下载进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
+                            <Button type='link' name='查看进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                         </>
                     )
                 }
@@ -107,6 +118,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action4',
                 render: (a) => {
                     return (
                         <>
@@ -120,6 +132,7 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
+                key: 'action5',
                 render: (a) => {
                     return (
                         <>
@@ -142,8 +155,7 @@ const EntrustmentList = () => {
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
                 <ProTable columns={columns} style={{ margin: 20 }}
-
-                    request={async (params, sort, filter) => {
+                    request={async (params) => {
                         return axios.get("/api/entrust?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
                             pageSize: params.pageSize,
@@ -158,6 +170,7 @@ const EntrustmentList = () => {
                         })
                     }}
                     postData={(data) => {
+                        console.log(data)
                         return data
                     }}
                     rowKey="id"

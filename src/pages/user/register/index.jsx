@@ -170,7 +170,7 @@ const Register = () => {
       </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/01校标.png" />}
+          logo={<img alt="logo" src="/01.png" />}
           title="南大在线测试平台"
           submitter={{ submitButtonProps: { style: { display: 'none', } } }}
           form={form} name="UserRegister" id="components-form-login" className="login-form" onFinish={onFinish}>

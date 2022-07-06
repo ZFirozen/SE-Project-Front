@@ -17,43 +17,55 @@ var defaultcolumns = [
         key: 'id',
         // render: (a) => <a href={"entrustment/" + a}>{a}</a>,
         //render: (a) => <Link to={"display/" + a}>{a}</Link>
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '委托ID',
         dataIndex: 'entrustId',
         key: 'entrustId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '市场人员ID',
         dataIndex: 'marketerId',
         key: 'marketerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '测试人员ID',
         dataIndex: 'testerId',
         key: 'testerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '质量人员ID',
         dataIndex: 'qaId',
         key: 'qaId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '软件名称',
         dataIndex: 'softwareName',
         key: 'softwareName',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '测试项目状态',
         dataIndex: ['status', 'stage'],
         key: ['status', 'stage'],
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '附加信息',
         dataIndex: ['status', 'message'],
         key: ['status', 'message'],
         ellipsis: false,
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
+    {
+        search: false,
+        render: (a) => <Button type='link' name='下载' onClick={() => { history.push({ pathname: "/download", query: { entrustId: a.entrustId, testId: a.id } }) }}>下载</Button>
+    }
 ];
 var columns = defaultcolumns
 console.log(localStorage.getItem("userRole") + ' visit')

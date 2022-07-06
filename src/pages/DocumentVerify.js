@@ -21,7 +21,7 @@ const formitemheight = 70
 const { Title, Paragraph } = Typography
 const { Divider } = ProCard
 const threeCol = { first: 7, second: 7, third: 10 }
-const twoCol = { first: 4, second: 20 }
+const twoCol = { first: 7, second: 17 }
 const twoCombCol = { first: 4, second: 20 }
 const DocumentVerify = () => {
   const location = useLocation();
@@ -32,13 +32,6 @@ const DocumentVerify = () => {
     <>
       <div style={{ margin: 10 }}>
         <PageContainer title="软件文档评审表">
-          <Button type="primary" size='large'
-            onClick={() => {
-              axios.post("/api/entrust/" + entrustId + "/content/denial").then(response => {
-                console.log(response)
-                message.success('已拒绝委托');
-              });
-            }}>拒绝委托</Button>
           <ProForm
             form={form}
             size="large"
@@ -249,7 +242,7 @@ const DocumentVerify = () => {
               <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
                 <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
-                <ProCard colSpan={twoCol.first}>
+                  <ProCard colSpan={twoCol.first}>
                     <Title level={4}>3</Title>
                   </ProCard>
                   <ProCard colSpan={twoCol.second}>
@@ -304,10 +297,10 @@ const DocumentVerify = () => {
               <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
                 <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.first}>
                     <Title level={4}>4</Title>
                   </ProCard>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.second}>
                     <Title level={4}>功能性陈述</Title>
                   </ProCard>
                 </ProCard.Group>
@@ -331,10 +324,10 @@ const DocumentVerify = () => {
               <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
                 <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.first}>
                     <Title level={4}>5</Title>
                   </ProCard>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.second}>
                     <Title level={4}>可靠性陈述</Title>
                   </ProCard>
                 </ProCard.Group>
@@ -358,10 +351,10 @@ const DocumentVerify = () => {
               <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
                 <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.first}>
                     <Title level={4}>6</Title>
                   </ProCard>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.second}>
                     <Title level={4}>易用性陈述</Title>
                   </ProCard>
                 </ProCard.Group>
@@ -385,10 +378,10 @@ const DocumentVerify = () => {
               <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
                 <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.first}>
                     <Title level={4}>7</Title>
                   </ProCard>
-                  <ProCard>
+                  <ProCard colSpan={twoCol.second}>
                     <Title level={4}>效率陈述</Title>
                   </ProCard>
                 </ProCard.Group>
@@ -411,329 +404,469 @@ const DocumentVerify = () => {
               </ProCard.Group>
               <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>8</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>维护性陈述</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>根据GB/T 25000.51-2010规范对软件的维护性进行陈述</Title>
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 11, "result"]} />
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 11, "description"]} />
-                </ProCard>
-              </ProCard.Group>
-              <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>9</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>可移植性陈述</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>根据GB/T 25000.51-2010规范对软件的可移植性进行陈述</Title>
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 12, "result"]} />
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 12, "description"]} />
-                </ProCard>
-              </ProCard.Group>
-              <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>10</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>使用质量陈述</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>根据GB/T 25000.51-2010规范对软件的使用质量进行陈述</Title>
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 13, "result"]} />
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 13, "description"]} />
-                </ProCard>
-              </ProCard.Group>
-              <ProCard.Group direction='row'>
-                <Title level={4}>  二、软件文档集评审</Title>
-              </ProCard.Group>
-              <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>1</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>完备性</Title>
-                </ProCard>
-                <ProCard>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>8</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>维护性陈述</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>根据GB/T 25000.51-2010规范对软件的维护性进行陈述</Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 11, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 11, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
+                </ProCard>
+              </ProCard.Group>
+              <Divider type={'horizontal'} />
+              <ProCard.Group direction='row'>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>9</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>可移植性陈述</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>根据GB/T 25000.51-2010规范对软件的可移植性进行陈述</Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 12, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 12, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
+                </ProCard>
+              </ProCard.Group>
+              <Divider type={'horizontal'} />
+              <ProCard.Group direction='row'>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>10</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>使用质量陈述</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>根据GB/T 25000.51-2010规范对软件的使用质量进行陈述</Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 13, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 13, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
+                </ProCard>
+              </ProCard.Group>
+              <Divider type={'horizontal'} />
+              <ProCard>
+                <Title level={4}>  二、软件文档集评审</Title>
+              </ProCard>
+              <Divider type={'horizontal'} />
+              <ProCard.Group direction='row'>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>1</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>完备性</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>包含所有必需信息</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 14, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 14, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>包含产品说明中所有功能以及可调用功能的说明</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 15, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 15, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>包含可靠性特征及其操作</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 16, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 16, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>包含已处理的和可造成系统失效终止的差错和失效</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 17, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 17, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>必要的数据备份与恢复指南</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 18, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 18, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>所有关键功能的完备的细则信息和参考信息</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 19, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 19, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>陈述产品说明中所有限制</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 20, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 20, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>陈述最大最小磁盘空间</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 21, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 21, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>关于应用管理职能的所有必要信息</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 22, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 22, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>让用户验证是否完成应用管理职能的信息</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 23, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 23, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>文档集分若干部分，需给出完整标识</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 24, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 24, "description"]} />
                     </ProCard>
                   </ProCard.Group>
                 </ProCard>
               </ProCard.Group>
+              <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>2</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>正确性</Title>
-                </ProCard>
-                <ProCard>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>2</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>正确性</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>文档中所有的信息都是正确的。</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 25, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 25, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>没有歧义的信息。</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 26, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 26, "description"]} />
                     </ProCard>
                   </ProCard.Group>
                 </ProCard>
               </ProCard.Group>
+              <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>3</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>一致性</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>文档集中的各文档不相互矛盾, 与产品说明也不矛盾. </Title>
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 27, "result"]} />
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 27, "description"]} />
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>3</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>一致性</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>文档集中的各文档不相互矛盾, 与产品说明也不矛盾. </Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 27, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 27, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
                 </ProCard>
               </ProCard.Group>
+              <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>4</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>易理解性</Title>
-                </ProCard>
-                <ProCard>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>4</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>易理解性</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>使用用户可理解的术语和文体。</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 28, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 28, "description"]} />
                     </ProCard>
                   </ProCard.Group>
+                  <Divider type={'horizontal'} />
                   <ProCard.Group direction='row'>
-                    <ProCard>
+                    <ProCard colSpan={threeCol.first}>
                       <Title level={4}>文档集为用户使用该软件提供必要的信息</Title>
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 29, "result"]} />
                     </ProCard>
-                    <ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
                       <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 29, "description"]} />
                     </ProCard>
                   </ProCard.Group>
                 </ProCard>
               </ProCard.Group>
+              <Divider type={'horizontal'} />
               <ProCard.Group direction='row'>
-                <ProCard>
-                  <Title level={4}>5</Title>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>5</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>易学性</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>为如何使用该软件提供了足够的信息 </Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 30, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 30, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
                 </ProCard>
-                <ProCard>
-                  <Title level={4}>易学性</Title>
-                </ProCard>
-                <ProCard>
-                  <Title level={4}>为如何使用该软件提供了足够的信息 </Title>
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 30, "result"]} />
-                </ProCard>
-                <ProCard>
-                  <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 30, "description"]} />
+              </ProCard.Group>
+              <Divider type={'horizontal'} />
+              <ProCard.Group direction='row'>
+                <ProCard.Group direction='row' colSpan={twoCombCol.first} layout='center'>
+                  <ProCard colSpan={twoCol.first}>
+                    <Title level={4}>6</Title>
+                  </ProCard>
+                  <ProCard colSpan={twoCol.second}>
+                    <Title level={4}>可操作性</Title>
+                  </ProCard>
+                </ProCard.Group>
+                <Divider type={'vertical'} />
+                <ProCard colSpan={twoCombCol.second}>
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>电子文档可打印</Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 31, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 31, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
+                  <Divider type={'horizontal'} />
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>有目次(主题词列表)和索引</Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 32, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 32, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
+                  <Divider type={'horizontal'} />
+                  <ProCard.Group direction='row'>
+                    <ProCard colSpan={threeCol.first}>
+                      <Title level={4}>不常用术语缩略语有定义</Title>
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.second}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 33, "result"]} />
+                    </ProCard>
+                    <Divider type={'vertical'} />
+                    <ProCard colSpan={threeCol.third}>
+                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 33, "description"]} />
+                    </ProCard>
+                  </ProCard.Group>
                 </ProCard>
               </ProCard.Group>
               <ProCard.Group direction='row'>
                 <ProCard>
-                  <Title level={4}>6</Title>
+                </ProCard>
+                <ProCard layout="center" >
+                  <ProForm.Item >
+                    <Button size="large" type="primary" htmlType="submit">
+                      提交
+                    </Button>
+                  </ProForm.Item>
+                </ProCard>
+                <ProCard layout="center" >
+                  <Button type="primary" size='large'
+                    onClick={() => {
+                      axios.post("/api/entrust/" + entrustId + "/content/denial").then(response => {
+                        console.log(response)
+                        message.success('已拒绝委托');
+                      });
+                    }}>
+                    拒绝委托
+                  </Button>
                 </ProCard>
                 <ProCard>
-                  <Title level={4}>可操作性</Title>
-                </ProCard>
-                <ProCard>
-                  <ProCard.Group direction='row'>
-                    <ProCard>
-                      <Title level={4}>电子文档可打印</Title>
-                    </ProCard>
-                    <ProCard>
-                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 31, "result"]} />
-                    </ProCard>
-                    <ProCard>
-                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 31, "description"]} />
-                    </ProCard>
-                  </ProCard.Group>
-                  <ProCard.Group direction='row'>
-                    <ProCard>
-                      <Title level={4}>有目次(主题词列表)和索引</Title>
-                    </ProCard>
-                    <ProCard>
-                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 32, "result"]} />
-                    </ProCard>
-                    <ProCard>
-                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 32, "description"]} />
-                    </ProCard>
-                  </ProCard.Group>
-                  <ProCard.Group direction='row'>
-                    <ProCard>
-                      <Title level={4}>不常用术语缩略语有定义</Title>
-                    </ProCard>
-                    <ProCard>
-                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 33, "result"]} />
-                    </ProCard>
-                    <ProCard>
-                      <ProFormTextArea required rules={[{ required: true, message: '这是必填项' }]} name={["comments", 33, "description"]} />
-                    </ProCard>
-                  </ProCard.Group>
                 </ProCard>
               </ProCard.Group>
             </ProCard.Group>
