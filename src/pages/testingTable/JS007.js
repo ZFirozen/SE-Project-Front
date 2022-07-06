@@ -418,31 +418,31 @@ const JS007 = () => {
                                         </ProCard>               
                                     </ProCard.Group>
                                     <ProForm.Item 
-                                                    name={["softwareEnvironments"]}
-                                                    trigger="onValuesChange"
+                                        name={["softwareEnvironments"]}
+                                        trigger="onValuesChange"
                                     >
-                                                    <EditableProTable
-                                                        rowKey="id"
-                                                        toolBarRender={false}
-                                                        columns={modificationColumns}
-                                                        recordCreatorProps={{
-                                                            newRecordType: 'dataSource',
-                                                            position: 'bottom',
-                                                            record: () => ({
-                                                                id: Date.now(),
-                                                            }),
-                                                            creatorButtonText: '新增'
-                                                        }}
-                                                        editable={{
-                                                            type: 'multiple',
-                                                            editableKeys,
-                                                            onChange: setEditableRowKeys,
-                                                            actionRender: (row, _, dom) => {
-                                                                return [dom.delete];
-                                                            },
-                                                        }}
-                                                    >
-                                                    </EditableProTable>
+                                        <EditableProTable
+                                            rowKey="id"
+                                            toolBarRender={false}
+                                            columns={modificationColumns}
+                                            recordCreatorProps={{
+                                                newRecordType: 'dataSource',
+                                                position: 'bottom',
+                                                record: () => ({
+                                                    id: Date.now(),
+                                                }),
+                                                creatorButtonText: '新增'
+                                            }}
+                                            editable={{
+                                                type: 'multiple',
+                                                editableKeys,
+                                                onChange: setEditableRowKeys,
+                                                actionRender: (row, _, dom) => {
+                                                    return [dom.delete];
+                                                },
+                                            }}
+                                        >
+                                        </EditableProTable>
                                     </ProForm.Item>
                                     <Divider type={'horizontal'}>
                                     </Divider>
