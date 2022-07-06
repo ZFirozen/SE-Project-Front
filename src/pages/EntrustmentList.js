@@ -101,13 +101,13 @@ const changeColumns = () => {
                             <>
                                 <Button type='link' onClick={() => { history.push({ pathname: "/entrustment/fill", query: { entrustId: a.id } }) }}>修改委托</Button>
                                 <br />
-                                <Button type='link' name='下载进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
+                                <Button type='link' name='查看进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                             </>
                         )
                     }
                     return (
                         <>
-                            <Button type='link' name='下载进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
+                            <Button type='link' name='查看进度' onClick={() => { history.push({ pathname: "/progress", query: { entrustId: a.id } }) }}>查看进度</Button>
                         </>
                     )
                 }
