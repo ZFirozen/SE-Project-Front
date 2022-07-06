@@ -23,37 +23,44 @@ var defaultcolumns = [
         title: '客户ID',
         dataIndex: 'customerId',
         key: 'customerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '市场人员ID',
         dataIndex: 'marketerId',
         key: 'marketerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '测试人员ID',
         dataIndex: 'testerId',
         key: 'testerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '软件名称',
         dataIndex: 'softwareName',
         key: 'softwareName',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '软件版本号',
         dataIndex: 'softwareVersion',
         key: 'softwareVersion',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '委托状态',
         dataIndex: ['status', 'stage'],
         key: ['status', 'stage'],
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '附加信息',
         dataIndex: ['status', 'message'],
         key: ['status', 'message'],
         ellipsis: false,
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         search: false,
