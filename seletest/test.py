@@ -12,6 +12,8 @@ driver = webdriver.Chrome(executable_path=path)
 driver.implicitly_wait(60)
 driver.maximize_window()
 driver.get(url)
+
+"""
 time.sleep(3)
 driver.find_element(By.ID, "userName").send_keys("c")
 time.sleep(1)
@@ -22,7 +24,7 @@ driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
 time.sleep(5)
 wt = driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
 time.sleep(1)
-driver.find_element(By.LINK_TEXT, "填表").click()
+driver.find_element(By.LINK_TEXT, "委托申请").click()
 time.sleep(1)
 
 tj = driver.find_elements(
@@ -35,6 +37,8 @@ for i in tj:
         # driver.execute_script("window.scrollBy(0,-100)")
         tj.remove(i)
     time.sleep(1)
+# print(tj)
+# input()
 i = tj[0]
 ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
 time.sleep(1)
@@ -48,10 +52,13 @@ for i in tj:
         # driver.execute_script("window.scrollBy(0,-100)")
         tj.remove(i)
     time.sleep(1)
-i = tj[1]
+# print(tj)
+# input()
+i = tj[2]
 ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
-time.sleep(10)
+time.sleep(1)
 driver.execute_script("var q=document.documentElement.scrollTop=0")
+time.sleep(1)
 cb = driver.find_elements(By.CLASS_NAME, "ant-checkbox-input")
 for i in cb:
     i.click()
@@ -92,15 +99,17 @@ driver.find_element(
 time.sleep(1)
 driver.find_element(By.XPATH, "/html/body/div[3]/div/div/ul/li[4]").click()
 time.sleep(1)
-driver.find_element(By.ID, "userName").send_keys("MARKETING_SUPERVISOR")
+"""
+
+driver.find_element(By.ID, "userName").send_keys("mm")
 time.sleep(1)
-driver.find_element(By.ID, "userPassword").send_keys("123456")
+driver.find_element(By.ID, "userPassword").send_keys("123")
 time.sleep(1)
 driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
 time.sleep(5)
 wt = driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
 time.sleep(1)
-driver.find_element(By.LINK_TEXT, "查看").click()
+driver.find_element(By.LINK_TEXT, "委托列表").click()
 time.sleep(1)
 driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
 time.sleep(5)
@@ -108,9 +117,17 @@ fp = driver.find_elements(By.NAME, "分派")
 fp[len(fp) - 1].click()
 time.sleep(1)
 fpry = driver.find_elements(By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']")
-fpry[len(fp) - 1].click()
+fpry[len(fpry) - 2].click()
 time.sleep(1)
-driver.find_elements(By.NAME, "确 定").click()
+qr = driver.find_elements(By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']")
+qr[5].send_keys(Keys.ENTER)
+time.sleep(5)
+
+driver.find_element(
+    By.XPATH, "/html/body/div[1]/div/section/div[2]/header[2]/div/div[3]/div[1]/span"
+).click()
+time.sleep(1)
+driver.find_element(By.XPATH, "/html/body/div[3]/div/div/ul/li[4]").click()
 time.sleep(1)
 
 # driver.find_element(By.ID,'login_用户名').send_keys('MARKETER')
