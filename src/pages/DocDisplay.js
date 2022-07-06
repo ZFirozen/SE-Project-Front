@@ -51,7 +51,7 @@ const DocDisplay = () => {
           <Button {...buttonOption} onClick={() => {
             console.log("testId=" + testId)
             history.push({
-              pathname: "/test/report",
+              pathname: "/test/reportDisplay",
               query: {
                 testId: testId
               }
@@ -64,7 +64,7 @@ const DocDisplay = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "/test/testCase",
+              pathname: "/test/testcaseDisplay",
               query: {
                 testId: testId
               }
@@ -77,7 +77,7 @@ const DocDisplay = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "/test/testRecord",
+              pathname: "/test/testRecordDisplay",
               query: {
                 testId: testId
               }
@@ -90,7 +90,7 @@ const DocDisplay = () => {
           <br></br>
           <Button {...buttonOption} onClick={() => {
             history.push({
-              pathname: "/test/testIssue",
+              pathname: "/test/testIssueDisplay",
               query: {
                 testId: testId
               }

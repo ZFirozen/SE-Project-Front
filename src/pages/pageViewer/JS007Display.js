@@ -167,7 +167,6 @@ const JS007Display = () => {
     const [maintainabilityTestsDataSource, setMaintainabilityTestsDataSource] = useState(() => defaultMaintainabilityTestsData.map((item) => item.id));
 
     const [cardLoading, setCardLoadingState] = useState(true);
-    const [data, setData] = useState([]);
 
 
     const [reportData, setreportData] = useState({
@@ -256,7 +255,7 @@ const JS007Display = () => {
     return (
         <>
             <div style={{ margin: 10 }}>
-                <ProCard.Group title="测试报告预览" direction={'column'} loading={cardLoading}>
+                <ProCard.Group title="测试报告展示" direction={'column'} loading={cardLoading}>
                     <ProCard.Group direction="column">
                         <ProCard>
                             <Statistic title="报告编号" value={reportData.id}/>

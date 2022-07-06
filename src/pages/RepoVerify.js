@@ -51,7 +51,7 @@ const RepoVerify = () => {
           <Button {...buttonOption} onClick={() => {
             console.log("testId=" + testId)
             history.push({
-              pathname: "/test/report",
+              pathname: "/test/reportDisplay",
               query: {
                 testId: testId
               }

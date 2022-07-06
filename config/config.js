@@ -451,6 +451,13 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'testcaseDisplay',
+          icon: 'smile',
+          path: '/test/testcaseDisplay',
+          component: './pageViewer/JS008Display',
+          hideInMenu: true,
+        },
+        {
           name: 'js009',
           icon: 'smile',
           path: '/test/testRecord',
@@ -458,10 +465,24 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'testRecordDisplay',
+          icon: 'smile',
+          path: '/test/testRecordDisplay',
+          component: './pageViewer/JS009Display',
+          hideInMenu: true,
+        },
+        {
           name: 'js011',
           icon: 'smile',
           path: '/test/testIssue',
           component: './testingTable/JS011',
+          hideInMenu: true,
+        },
+        {
+          name: 'testIssueDisplay',
+          icon: 'smile',
+          path: '/test/testIssueDisplay',
+          component: './pageViewer/JS011Display',
           hideInMenu: true,
         },
         {
