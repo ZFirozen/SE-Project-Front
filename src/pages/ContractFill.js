@@ -28,9 +28,7 @@ const ContractFill = () => {
     const userRole = localStorage.getItem("userRole");
     const location = useLocation();
     const entrustId = location.query.entrustId;
-    const [editableKeys, setEditableRowKeys] = useState([]);
-    var [contractId, setContractId] = useState(0);
-    var marketerId, customerId
+    var marketerId, customerId, contractId
     var isCustomer = false, isMarketer = false
     if (userRole === "CUSTOMER")
         isCustomer = true
