@@ -203,6 +203,20 @@ export default defineConfig({
           hideInMenu: true,
         },
         {
+          name: 'display',
+          icon: 'smile',
+          path: '/entrustment/quotation/display',
+          component: './QuotationDisplay',
+          hideInMenu: true,
+        },
+        {
+          name: 'accept',
+          icon: 'smile',
+          path: '/entrustment/quotation/accept',
+          component: './QuotationAccept',
+          hideInMenu: true,
+        },
+        {
           name: 'verify',
           icon: 'smile',
           path: '/entrustment/verify',
@@ -223,20 +237,6 @@ export default defineConfig({
       icon: 'experiment',
       path: '/test',
       redirect: '/test/list'
-    },
-    {
-      name: 'display',
-      icon: 'smile',
-      path: '/entrustment/quotation/display',
-      component: './QuotationDisplay',
-      hideInMenu: true,
-    },
-    {
-      name: 'accept',
-      icon: 'smile',
-      path: '/entrustment/quotation/accept',
-      component: './QuotationAccept',
-      hideInMenu: true,
     },
     {
       name: 'test',
