@@ -29,7 +29,8 @@ const ContractFill = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     const [editableKeys, setEditableRowKeys] = useState([]);
-    var contractId, marketerId, customerId
+    var [contractId, setContractId] = useState(0);
+    var marketerId, customerId
     var isCustomer = false, isMarketer = false
     if (userRole === "CUSTOMER")
         isCustomer = true
