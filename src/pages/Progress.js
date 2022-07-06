@@ -712,7 +712,7 @@ const Progress = () => {
                         history.push({
                             pathname: "/contract/verify",
                             query: {
-                                contractId: contractId
+                                entrustId: entrustId
                             }
                         })
                     } else if ((currentStage === 1 && currentStep > 2) || currentStage > 1) {

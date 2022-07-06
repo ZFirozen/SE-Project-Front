@@ -9,6 +9,7 @@ import ProTable from '@ant-design/pro-table';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
 import { history } from "umi";
+import { layout } from '@/app';
 
 var defaultcolumns = [
     {
@@ -21,16 +22,19 @@ var defaultcolumns = [
         title: '委托ID',
         dataIndex: 'entrustId',
         key: 'entrustId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '市场人员ID',
         dataIndex: 'marketerId',
         key: 'marketerId',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '集合名称',
         dataIndex: 'name',
         key: 'name',
+        render: (a) => <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>{a}</div>
     },
     {
         title: '样品个数',
@@ -70,7 +74,6 @@ const SampleList = () => {
         <>
             <PageContainer style={{ margin: 20, border: "3px solid #6666ff" }}>
                 <ProTable columns={columns} style={{ margin: 20 }}
-
                     request={async (params, sort, filter) => {
                         return axios.get("/api/sample?page=" + params.current + "&pageSize=" + params.pageSize, {
                             page: params.current,
