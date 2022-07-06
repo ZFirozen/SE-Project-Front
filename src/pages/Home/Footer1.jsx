@@ -3,8 +3,8 @@ import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import { Row, Col } from 'antd';
-import { getChildrenToRender } from './utils';
-import { isImg } from './utils';
+import { getChildrenToRender, isLocalImg } from './utils';
+import { isImg} from './utils';
 
 class Footer extends React.Component {
   static defaultProps = {
@@ -18,7 +18,7 @@ class Footer extends React.Component {
         <Col key={i.toString()} {...itemProps} title={null} content={null}>
           <h2 {...title}>
             {typeof title.children === 'string' &&
-            title.children.match(isImg) ? (
+            (title.children.match(isImg) || title.children.match(isLocalImg)) ? (
               <img src={title.children} width="100%" alt="img" />
             ) : (
               title.children
