@@ -517,7 +517,7 @@ class TestClass:
         self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
         time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "查看进度")
-        fp[len(fp) - 2].click()
+        fp[len(fp) - 1].click()
         time.sleep(2)
         fpry = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-steps-item-container']")
         fpry[11].click()
