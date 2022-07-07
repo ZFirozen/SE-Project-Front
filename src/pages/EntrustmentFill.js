@@ -24,9 +24,9 @@ const { Title, Paragraph } = Typography
 const { Divider } = ProCard
 
 const EntrustmentFill = () => {
-  if(localStorage.getItem("userRole")!=="CUSTOMER"){
-    message.warning("无权访问该页面！")
-    return(<div><Title level={1}>无权访问该页面！</Title></div>)
+  if (localStorage.getItem("userRole") !== "CUSTOMER") {
+    message.error("无权填写委托，已为您切换至列表");
+    history.push({ pathname: "/entrustment", })
   }
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
@@ -691,21 +691,21 @@ const EntrustmentFill = () => {
               </ProCard.Group>
               <Divider type={'horizontal'} />
               <ProCard.Group direction="row">
-              <ProCard>
-                <ProFormRadio.Group
-                  required rules={[{ required: true, message: "这是必填项" }]}
-                  layout="horizontal"
-                  name="softwareMedium"
-                  label="软件介质"
-                  options={[{ value: "1", label: "光盘" },
-                  { value: "2", label: "U盘" },
-                  { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
-                />
+                <ProCard>
+                  <ProFormRadio.Group
+                    required rules={[{ required: true, message: "这是必填项" }]}
+                    layout="horizontal"
+                    name="softwareMedium"
+                    label="软件介质"
+                    options={[{ value: "1", label: "光盘" },
+                    { value: "2", label: "U盘" },
+                    { value: replacetokenbegin + 7 + replacetokenend + 7, label: "其他" }]}
+                  />
                 </ProCard>
                 <Divider type={'vertical'} />
                 <ProCard>
-                <ProFormText label="其他" name={"toreplace_7"}></ProFormText>
-              </ProCard>
+                  <ProFormText label="其他" name={"toreplace_7"}></ProFormText>
+                </ProCard>
               </ProCard.Group>
               <Divider type={'horizontal'} />
               <ProCard>
