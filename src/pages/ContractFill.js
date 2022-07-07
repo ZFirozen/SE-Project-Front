@@ -29,7 +29,8 @@ const ContractFill = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     var [contractId, setContractId] = useState(0);
-    var marketerId = undefined, customerId = undefined;
+    var [marketerId, setMarketerId] = useState(0);
+    var [customerId, setCustomerId] = useState(0);
     var isCustomer = false, isMarketer = false
     if (userRole === "CUSTOMER")
         isCustomer = true
@@ -123,8 +124,8 @@ const ContractFill = () => {
                                         if (response.status === 200) {
                                             console.log("success");
                                             setContractId(response.data.contractId)
-                                            marketerId = response.data.marketerId
-                                            customerId = response.data.customerId
+                                            setMarketerId(response.data.marketerId)
+                                            setCustomerId(response.data.customerId)
                                         }
                                         else {
                                             console.log(response);
