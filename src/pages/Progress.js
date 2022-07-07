@@ -470,7 +470,7 @@ const Progress = () => {
     const onChecklistClick = () => {
         if (currentStage === 2 && currentStep > 0) {
             if (userRole === "CUSTOMER") {
-                message.fail("您没有权限访问！");
+                message.error("您没有权限访问！");
             }
             else {
                 console.log("bef wokc tid=" + testId);
@@ -516,7 +516,7 @@ const Progress = () => {
                         }
                     })
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 1:
@@ -529,7 +529,7 @@ const Progress = () => {
                         }
                     })
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 2:
@@ -552,7 +552,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 3:
@@ -565,7 +565,7 @@ const Progress = () => {
                         }
                     })
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 4:
@@ -580,7 +580,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 5:
@@ -603,7 +603,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 6:
@@ -626,7 +626,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             default:
@@ -679,7 +679,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 1:
@@ -702,7 +702,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 2:
@@ -725,7 +725,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 3:
@@ -767,12 +767,12 @@ const Progress = () => {
                             }
                         })
                     } else {
-                        message.fail("您没有权限访问！");
+                        message.error("您没有权限访问！");
                     }
                 }
                 // else if (currentStage === 2 && currentStep > 0) {
                 //     if (userRole === "CUSTOMER") {
-                //         message.fail("您没有权限访问！");
+                //         message.error("您没有权限访问！");
                 //     }
                 //     else {
                 //         console.log("bef wokc tid=" + testId);
@@ -807,7 +807,7 @@ const Progress = () => {
                     }
                 }
                 else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 2:
@@ -830,7 +830,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 3:
@@ -853,7 +853,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 4:
@@ -885,7 +885,7 @@ const Progress = () => {
                     })
                 }
                 else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 5:
@@ -899,7 +899,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 6:
@@ -922,7 +922,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 7:
@@ -942,7 +942,7 @@ const Progress = () => {
                         })
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 8:
@@ -965,7 +965,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             case 9:
@@ -979,7 +979,7 @@ const Progress = () => {
                         });
                     }
                 } else {
-                    message.fail("您没有权限访问！");
+                    message.error("您没有权限访问！");
                 }
                 break;
             default:
