@@ -329,31 +329,6 @@ const ContractDisplay = () => {
                             <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "accountName"]} label="账号" disabled /></Row>
                         <br />
                     </ProForm>
-                    {userRole === "CUSTOMER" ?
-                        <Form onFinish={() => {
-                            axios.post("/api/contract/" + contractId + "/denial")
-                                .then((response) => {
-                                    if (response.status === 200) {
-                                        alert("拒绝成功！");
-                                        // window.location.href = "/progress/" + this.state.entrustId;
-                                        history.goBack();
-                                    } else {
-                                        alert("拒绝失败！");
-                                        console.log("Unknown error!");
-                                    }
-                                })
-                                .catch((error) => {
-                                    if (error.response.status === 400) {
-                                        alert("拒绝失败！");
-                                    } else {
-                                        alert("拒绝失败！");
-                                        console.log("Unknown error!");
-                                    }
-                                });
-                        }}>
-                            <Input type='submit' value='拒绝合同' />
-                        </Form>
-                        : ""}
                 </PageContainer>
             </div>
         </>
