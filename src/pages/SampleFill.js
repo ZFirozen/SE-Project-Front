@@ -57,10 +57,10 @@ const SampleFill = () => {
             <ProFormText name="id" disabled label="样品集Id"></ProFormText>
           </ProCard>
           <ProCard>
-            <ProFormText name="entrustId" label="委托Id"></ProFormText>
+            <ProFormText name="entrustId" disabled label="委托Id"></ProFormText>
           </ProCard>
           <ProCard>
-            <ProFormDigit name="marketerId" label="市场部人员Id"></ProFormDigit>
+            <ProFormDigit name="marketerId" disabled label="市场部人员Id"></ProFormDigit>
           </ProCard>
           <ProCard>
             <ProFormText name="name" label="集合名称"></ProFormText>
