@@ -13,6 +13,7 @@ import { random, size } from "lodash";
 import { EditableProTable } from "@ant-design/pro-table";
 import { history, useLocation } from "umi";
 import { ProCard } from "@ant-design/pro-card"
+import { Tile } from "@antv/l7";
 
 const whitecolor = "#ffffff"
 const graycolor = "#d6d6d6"
