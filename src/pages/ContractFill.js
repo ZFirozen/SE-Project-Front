@@ -29,7 +29,8 @@ const ContractFill = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     var [contractId, setContractId] = useState(0);
-    var marketerId, customerId
+    var [marketerId, setMarketerId] = useState(0);
+    var [customerId, setCustomerId] = useState(0);
     var isCustomer = false, isMarketer = false
     if (userRole === "CUSTOMER")
         isCustomer = true
