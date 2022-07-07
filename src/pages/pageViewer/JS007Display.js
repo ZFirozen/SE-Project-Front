@@ -207,7 +207,8 @@ const JS007Display = () => {
         osSoftwareName: ' ',
         osVersion: ' ',
         networkEnvironment: ' ',
-
+        testBases: [' '],
+        referenceMaterials: [' '],
     })
 
 
@@ -222,8 +223,8 @@ const JS007Display = () => {
                         console.log(detail.data.content)
 
                         setSoftwareDataSource(detail.data.content.softwareEnvironments)
-                        setTestBasesDataSource(detail.data.content.testBases)
-                        setReferenceMaterialsDataSource(detail.data.content.referenceMaterials)
+                        //setTestBasesDataSource(detail.data.content.testBases)
+                        //setReferenceMaterialsDataSource(detail.data.content.referenceMaterials)
                         setFunctionalTestsDataSource(detail.data.content.functionalTests)
                         setEfficiencyTestsDataSource(detail.data.content.efficiencyTests)
                         setPortableTestsDataSource(detail.data.content.portableTests)
@@ -582,18 +583,24 @@ const JS007Display = () => {
                             </Divider>
                         </ProCard>
                         <ProCard.Group>
-                            <ProTable
+                            {/* <ProTable
                                 columns={testBasesColumns}
                                 search={false}
                                 rowKey="id"
                                 dataSource={testBasesDataSource}
-                            />
-                            <ProTable
+                            /> */}
+                            <ProCard>
+                                <Statistic title="测试依据" value={reportData.testBases} />  
+                            </ProCard>
+                            <ProCard>
+                                <Statistic title="参考资料" value={reportData.referenceMaterials} />  
+                            </ProCard>
+                            {/* <ProTable
                                 columns={referenceMaterialsColumns}
                                 search={false}
                                 rowKey="id"
                                 dataSource={referenceMaterialsDataSource}
-                            />
+                            /> */}
                         </ProCard.Group>
                     </ProCard.Group>
                     <ProCard.Group direction="column">
