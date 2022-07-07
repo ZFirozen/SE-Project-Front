@@ -9,12 +9,12 @@ class TestClass:
     url = "http://localhost:7777"
     path = r"D:/chromedriver/chromedriver.exe"
     driver = webdriver.Chrome(executable_path=path)
-    customer = "c"
-    marketer = "MARKETER"
+    customer = "CUSTOMER114"
+    marketer = "MARKETER114"
     marketing_supervisor = "MARKETING_SUPERVISOR114"
-    tester = "TESTER"
+    tester = "TESTER114"
     testing_supervisor = "TESTING_SUPERVISOR114"
-    qa = "QA"
+    qa = "QA114"
     qa_supervisor = "QA_SUPERVISOR114"
     password = "123456"
 
