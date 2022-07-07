@@ -71,7 +71,7 @@ export const layout = ({ initialState }) => {
         // </Link>,
         <Link to="/~docs">
           <BookOutlined />
-          <span>帮助中心</span>
+          <span>用户手册</span>
         </Link>,
       ]
       : [],
