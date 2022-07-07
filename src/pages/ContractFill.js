@@ -28,7 +28,9 @@ const ContractFill = () => {
     const userRole = localStorage.getItem("userRole");
     const location = useLocation();
     const entrustId = location.query.entrustId;
-    var marketerId, customerId, contractId
+    var [contractId, setContractId] = useState(0);
+    var [marketerId, setMarketerId] = useState(0);
+    var [customerId, setCustomerId] = useState(0);
     var isCustomer = false, isMarketer = false
     if (userRole === "CUSTOMER")
         isCustomer = true
@@ -159,12 +161,12 @@ const ContractFill = () => {
                         <Row style={white}>
                             {userRole === "CUSTOMER" ?
                                 <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" />
-                                : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" 查看进度 />}
+                                : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" disabled />}
                         </Row>
                         <Row style={gray}>
                             {userRole === "MARKETER" ?
                                 <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" />
-                                : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" 查看进度 />}
+                                : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" disabled />}
                         </Row>
                         <Row style={white}>
                             <ProFormText required rules={[{ required: true, message: "这是必填项" }]} name={"signedAt"} label="签订地点" />
@@ -174,7 +176,7 @@ const ContractFill = () => {
                         </Row>
                         <Row style={white}>
                             本合同由作为委托方的（以下简称“甲方”）
-                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} 查看进度 />
+                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} disabled />
                             与作为受托方的（以下简称“乙方”）南京大学计算机软件新技术国家重点实验室，<br />
                             在平等自愿的基础上，依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。
                         </Row>
@@ -271,49 +273,49 @@ const ContractFill = () => {
                         <Title level={4}>十二、签章</Title>
                         <Title level={5}>委托方：</Title>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="单位全称（中文）" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyEN"]} label="单位全称（英文）" 查看进度={isMarketer} /></Row>
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="单位全称（中文）" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyEN"]} label="单位全称（英文）" disabled={isMarketer} /></Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "representative"]} label="授权代表" 查看进度={isMarketer} />
-                            <ProFormDatePicker required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "sigDate"]} label="签章日期" 查看进度={isMarketer} /></Row>
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "representative"]} label="授权代表" disabled={isMarketer} />
+                            <ProFormDatePicker required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "sigDate"]} label="签章日期" disabled={isMarketer} /></Row>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "contact"]} label="联系人" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "contactPhone"]} label="联系人电话" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyA", "contactEmail"]} label="联系人邮箱" 查看进度={isMarketer} /></Row>
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "contact"]} label="联系人" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "contactPhone"]} label="联系人电话" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyA", "contactEmail"]} label="联系人邮箱" disabled={isMarketer} /></Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyPhone"]} label="单位电话" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyWebsite"]} label="单位网址" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyAddress"]} label="单位地址" 查看进度={isMarketer} /></Row>
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyPhone"]} label="单位电话" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyWebsite"]} label="单位网址" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "companyAddress"]} label="单位地址" disabled={isMarketer} /></Row>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "zipCode"]} label="邮编" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "fax"]} label="传真" 查看进度={isMarketer} /></Row>
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "zipCode"]} label="邮编" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "fax"]} label="传真" disabled={isMarketer} /></Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "bankName"]} label="开户银行" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "account"]} label="户名" 查看进度={isMarketer} />
-                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "accountName"]} label="账号" 查看进度={isMarketer} /></Row>
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "bankName"]} label="开户银行" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "account"]} label="户名" disabled={isMarketer} />
+                            <ProFormText required rules={[{ required: isCustomer, message: "这是必填项" }]} name={["partyA", "accountName"]} label="账号" disabled={isMarketer} /></Row>
                         <br />
                         <Title level={5}>受托方：</Title>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="单位全称（中文）" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyEN"]} label="单位全称（英文）" 查看进度={isCustomer} /></Row>
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="单位全称（中文）" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyEN"]} label="单位全称（英文）" disabled={isCustomer} /></Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "representative"]} label="授权代表" 查看进度={isCustomer} />
-                            <ProFormDatePicker required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "sigDate"]} label="签章日期" 查看进度={isCustomer} /></Row>
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "representative"]} label="授权代表" disabled={isCustomer} />
+                            <ProFormDatePicker required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "sigDate"]} label="签章日期" disabled={isCustomer} /></Row>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "contact"]} label="联系人" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "contactPhone"]} label="联系人电话" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyB", "contactEmail"]} label="联系人邮箱" 查看进度={isCustomer} /></Row>
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "contact"]} label="联系人" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "contactPhone"]} label="联系人电话" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }, { type: "email", message: "请输入正确邮箱格式" }]} name={["partyB", "contactEmail"]} label="联系人邮箱" disabled={isCustomer} /></Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyPhone"]} label="单位电话" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyWebsite"]} label="单位网址" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyAddress"]} label="单位地址" 查看进度={isCustomer} /></Row>
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyPhone"]} label="单位电话" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyWebsite"]} label="单位网址" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "companyAddress"]} label="单位地址" disabled={isCustomer} /></Row>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "zipCode"]} label="邮编" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "fax"]} label="传真" 查看进度={isCustomer} /></Row>
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "zipCode"]} label="邮编" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "fax"]} label="传真" disabled={isCustomer} /></Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "bankName"]} label="开户银行" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "account"]} label="户名" 查看进度={isCustomer} />
-                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "accountName"]} label="账号" 查看进度={isCustomer} /></Row>
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "bankName"]} label="开户银行" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "account"]} label="户名" disabled={isCustomer} />
+                            <ProFormText required rules={[{ required: isMarketer, message: "这是必填项" }]} name={["partyB", "accountName"]} label="账号" disabled={isCustomer} /></Row>
                         <br />
                     </ProForm>
                     {userRole === "CUSTOMER" ?
