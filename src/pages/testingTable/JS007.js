@@ -88,8 +88,21 @@ const JS007 = () => {
                                         console.log(testReportId)
                                         console.log(124)
                                         values.projectSerialNumber = projectSerialNumber
-                                        
+                                        let testb = [""];
+                                        for(let i = 0; i < values.testBases.length; i++) {
+                                            testb[i] = values.testBases[i].testBases;
+                                        }
+                                        let refM = [""];
+                                        for(let i = 0; i < values.referenceMaterials.length; i++) {
+                                            refM[i] = values.referenceMaterials[i].referenceMaterials;
+                                        }
+
+
+                                        values.testBases = testb
+                                        values.referenceMaterials = refM
+
                                         let temp = values;
+                                        
                                         temp = JSON.parse(JSON.stringify(values));
                                         console.log(temp);
                                         axios.post("/api/test/report/" + testReportId + "/content", temp)
@@ -475,6 +488,7 @@ const JS007 = () => {
                                             columns={[
                                                 {
                                                     title: "测试依据",
+                                                    dataIndex: 'testBases',
                                                     width: "80%",
                                                 },
                                                 {
@@ -512,6 +526,7 @@ const JS007 = () => {
                                             columns={[
                                                 {
                                                     title: "参考资料",
+                                                    dataIndex: 'referenceMaterials',
                                                     width: "80%",
                                                 },
                                                 {

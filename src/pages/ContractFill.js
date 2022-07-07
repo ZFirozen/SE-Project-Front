@@ -29,8 +29,7 @@ const ContractFill = () => {
     const location = useLocation();
     const entrustId = location.query.entrustId;
     var [contractId, setContractId] = useState(0);
-    var [marketerId, setMarketerId] = useState(0);
-    var [customerId, setCustomerId] = useState(0);
+    var marketerId = undefined, customerId = undefined;
     var isCustomer = false, isMarketer = false
     if (userRole === "CUSTOMER")
         isCustomer = true
@@ -58,19 +57,18 @@ const ContractFill = () => {
                                 axios.post("/api/contract/" + contractId + "/acceptance")
                                     .then((response) => {
                                         if (response.status === 200) {
-                                            alert("同意成功！");
+                                            message.success("同意成功！");
                                             // window.location.href = "/progress/" + this.state.entrustId;
-                                            history.goBack();
                                         } else {
-                                            alert("同意失败！");
+                                            message.error("同意失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
                                     .catch((error) => {
                                         if (error.response.status === 400) {
-                                            alert("同意失败！");
+                                            message.error("同意失败！");
                                         } else {
-                                            alert("同意失败！");
+                                            message.error("同意失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
@@ -78,19 +76,19 @@ const ContractFill = () => {
                                         axios.post("/api/contract/" + contractId, values)
                                             .then((response) => {
                                                 if (response.status === 200) {
-                                                    alert("提交成功！");
+                                                    message.success("提交成功！");
                                                     // window.location.href = "/progress/" + this.state.entrustId;
                                                     history.goBack();
                                                 } else {
-                                                    alert("提交失败！");
+                                                    message.error("提交失败！");
                                                     console.log("Unknown error!");
                                                 }
                                             })
                                             .catch((error) => {
                                                 if (error.response.status === 400) {
-                                                    alert("提交失败！");
+                                                    message.error("提交失败！");
                                                 } else {
-                                                    alert("提交失败！");
+                                                    message.error("提交失败！");
                                                     console.log("Unknown error!");
                                                 }
                                             });
@@ -100,19 +98,19 @@ const ContractFill = () => {
                                 axios.post("/api/contract/" + contractId, values)
                                     .then((response) => {
                                         if (response.status === 200) {
-                                            alert("提交成功！");
+                                            message.success("提交成功！");
                                             // window.location.href = "/progress/" + this.state.entrustId;
                                             history.goBack();
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
                                     .catch((error) => {
                                         if (error.response.status === 400) {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     });
@@ -124,7 +122,7 @@ const ContractFill = () => {
                                     .then((response) => {
                                         if (response.status === 200) {
                                             console.log("success");
-                                            contractId = response.data.contractId
+                                            setContractId(response.data.contractId)
                                             marketerId = response.data.marketerId
                                             customerId = response.data.customerId
                                         }
@@ -323,19 +321,19 @@ const ContractFill = () => {
                             axios.post("/api/contract/" + contractId + "/denial")
                                 .then((response) => {
                                     if (response.status === 200) {
-                                        alert("拒绝成功！");
+                                        message.success("拒绝成功！");
                                         // window.location.href = "/progress/" + this.state.entrustId;
                                         history.goBack();
                                     } else {
-                                        alert("拒绝失败！");
+                                        message.error("拒绝失败！");
                                         console.log("Unknown error!");
                                     }
                                 })
                                 .catch((error) => {
                                     if (error.response.status === 400) {
-                                        alert("拒绝失败！");
+                                        message.error("拒绝失败！");
                                     } else {
-                                        alert("拒绝失败！");
+                                        message.error("拒绝失败！");
                                         console.log("Unknown error!");
                                     }
                                 });
