@@ -13,6 +13,7 @@ import { random, size } from "lodash";
 import { EditableProTable } from "@ant-design/pro-table";
 import { history, useLocation } from "umi";
 import { ProCard } from "@ant-design/pro-card"
+import { Tile } from "@antv/l7";
 
 const whitecolor = "#ffffff"
 const graycolor = "#d6d6d6"
@@ -25,7 +26,7 @@ const { Divider } = ProCard
 const EntrustmentFill = () => {
   if(localStorage.getItem("userRole")!=="CUSTOMER"){
     message.warning("无权访问该页面！")
-    return(<div>无权访问该页面！</div>)
+    return(<div><Title level={1}>无权访问该页面！</Title></div>)
   }
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
