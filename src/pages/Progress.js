@@ -823,7 +823,7 @@ const Progress = () => {
                     } else if (currentStage === 2 && currentStep > 2) {
                         // window.location.href = "/contract/display/" + contractId;
                         history.push({
-                            pathname: "/test/",
+                            pathname: "/download",
                             query: {
                                 testId: testId
                             }
