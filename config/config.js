@@ -152,7 +152,30 @@ export default defineConfig({
         },
       ],
     },
-
+    {
+      name: 'account',
+      icon: 'user',
+      path: '/account',
+      hideInMenu: true,
+      routes: [
+        {
+          path: '/account',
+          redirect: '/account/center',
+        },
+        {
+          name: 'center',
+          icon: 'smile',
+          path: '/account/center',
+          component: './account/center',
+        },
+        {
+          name: 'settings',
+          icon: 'smile',
+          path: '/account/settings',
+          component: './account/settings',
+        },
+      ],
+    },
     {
       name: 'entrustment',
       icon: 'edit',
