@@ -53,25 +53,25 @@ const QuotationAccept = () => {
                                 axios.post("/api/entrust/" + entrustId + "/quote", values)
                                     .then((response) => {
                                         if (response.status === 200) {
-                                            alert("提交成功！");
+                                            message.success("提交成功！");
                                             // window.location.href = "/progress/" + this.state.entrustId;
                                             history.goBack();
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
                                     .catch((error) => {
                                         if (error.response.status === 400) {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     });
                             }
                             if (userRole === "CUSTOMER") {
-                                alert("请点击同意报价或拒绝报价！");
+                                message.error("请点击同意报价或拒绝报价！");
                             }
                         }}
                         request={async () => {
@@ -186,19 +186,19 @@ const QuotationAccept = () => {
                             axios.post("/api/entrust/" + entrustId + "/quote/acceptance")
                                 .then((response) => {
                                     if (response.status === 200) {
-                                        alert("同意成功！");
+                                        message.success("同意成功！");
                                         // window.location.href = "/progress/" + this.state.entrustId;
                                         history.goBack();
                                     } else {
-                                        alert("同意失败！");
+                                        message.error("同意失败！");
                                         console.log("Unknown error!");
                                     }
                                 })
                                 .catch((error) => {
                                     if (error.response.status === 400) {
-                                        alert("同意失败！");
+                                        message.error("同意失败！");
                                     } else {
-                                        alert("同意失败！");
+                                        message.error("同意失败！");
                                         console.log("Unknown error!");
                                     }
                                 });
@@ -211,19 +211,19 @@ const QuotationAccept = () => {
                             axios.post("/api/entrust/" + entrustId + "/quote/denial")
                                 .then((response) => {
                                     if (response.status === 200) {
-                                        alert("拒绝成功！");
+                                        message.success("拒绝成功！");
                                         // window.location.href = "/progress/" + this.state.entrustId;
                                         history.goBack();
                                     } else {
-                                        alert("拒绝失败！");
+                                        message.error("拒绝失败！");
                                         console.log("Unknown error!");
                                     }
                                 })
                                 .catch((error) => {
                                     if (error.response.status === 400) {
-                                        alert("拒绝失败！");
+                                        message.error("拒绝失败！");
                                     } else {
-                                        alert("拒绝失败！");
+                                        message.error("拒绝失败！");
                                         console.log("Unknown error!");
                                     }
                                 });

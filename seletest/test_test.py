@@ -19,11 +19,11 @@ class TestClass:
     qa_supervisor = "QA_SUPERVISOR114"
     password = "123456"
 
-    def __init__(self):
-        self.setup()
+    # def __init__(self):
+    #     self.setup()
 
     def setup(self):
-        self.driver.implicitly_wait(60)
+        self.driver.implicitly_wait(30)
         self.driver.maximize_window()
         self.driver.get(self.url)
 
@@ -115,8 +115,10 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
         self.logout()
+        assert 1
 
     def test_2(self):
+
         self.driver.implicitly_wait(60)
         self.driver.maximize_window()
         self.driver.get(self.url)
@@ -131,7 +133,9 @@ class TestClass:
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
         self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        time.sleep(2)
+        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        time.sleep(2)
         fp = self.driver.find_elements(By.NAME, "分派")
         fp[len(fp) - 1].click()
         time.sleep(1)
@@ -144,9 +148,12 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
         qr[6].send_keys(Keys.ENTER)
+        time.sleep(3)
         self.logout()
+        assert 1
 
     def test_3(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -186,8 +193,10 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         ).send_keys(Keys.ENTER)
         self.logout()
+        assert 1
 
     def test_4(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.testing_supervisor)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -197,6 +206,8 @@ class TestClass:
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
+        time.sleep(1)
+        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
         time.sleep(1)
         self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
         time.sleep(3)
@@ -211,10 +222,12 @@ class TestClass:
         qr = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
-        qr[6].send_keys(Keys.ENTER)
+        qr[5].send_keys(Keys.ENTER)
         self.logout()
+        assert 1
 
     def test_5(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.tester)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -247,8 +260,210 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).send_keys(Keys.ENTER)
         self.logout()
+        assert 1
+
+    def test_6(self):
+
+        self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
+        time.sleep(2)
+        wt = self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
+        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, "委托列表").click()
+        time.sleep(1)
+        fp = self.driver.find_elements(By.NAME, "查看")
+        fp[len(fp) - 1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-steps-item-container']"
+        )
+        fpry[8].click()
+        time.sleep(1)
+        tj = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
+        )
+        time.sleep(1)
+        for i in tj:
+            if i.get_attribute("textContent") != "添加一行数据":
+                tj.remove(i)
+        i = tj[0]
+        ActionChains(self.driver).scroll_to_element(i).move_to_element(i).click(
+            i
+        ).perform()
+        time.sleep(1)
+        tb = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
+        )
+        for i in tb:
+            i.send_keys("2")
+            time.sleep(0.2)
+        time.sleep(1)
+        self.driver.execute_script("var q=document.documentElement.scrollTop=0")
+        time.sleep(1)
+        tn = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input-number-input']"
+        )
+        print(tn)
+        for i in tn:
+            i.send_keys("2")
+            time.sleep(0.2)
+        self.driver.find_element(By.ID, "quotationDate").send_keys("2022-07-07")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "quotationDate").send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "effectiveDate").send_keys("2022-07-07")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "effectiveDate").send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.driver.find_element(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
+        ).click()
+        time.sleep(3)
+        self.logout()
+        assert 1
+
+    def test_7(self):
+        self.driver.find_element(By.ID, "userName").send_keys(self.customer)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
+        time.sleep(2)
+        wt = self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
+        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, "委托列表").click()
+        time.sleep(1)
+        fp = self.driver.find_elements(By.NAME, "查看进度")
+        fp[len(fp) - 1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-steps-item-container']"
+        )
+        fpry[9].click()
+        time.sleep(1)
+        self.driver.find_element(By.CSS_SELECTOR, "[class='ant-input']").click()
+        time.sleep(3)
+
+        self.logout()
+        assert 1
+
+    def test_8(self):
+        self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
+        time.sleep(2)
+        wt = self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
+        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, "委托列表").click()
+        time.sleep(1)
+        fp = self.driver.find_elements(By.NAME, "查看")
+        fp[len(fp) - 1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-steps-item-container']"
+        )
+        fpry[1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-steps-item-container']"
+        )
+        fpry[3].click()
+        time.sleep(1)
+        tb = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
+        )
+        for i in tb:
+            i.send_keys("2")
+            time.sleep(0.2)
+        time.sleep(1)
+        self.driver.execute_script("var q=document.documentElement.scrollTop=0")
+        time.sleep(1)
+        tn = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input-number-input']"
+        )
+        print(tn)
+        for i in tn:
+            i.send_keys("2")
+            time.sleep(0.2)
+        self.driver.find_element(By.ID, "partyB_contactEmail").send_keys("@2.com")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "signedDate").send_keys("2022-07-07")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "signedDate").send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "partyB_sigDate").send_keys("2022-07-07")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "partyB_sigDate").send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.driver.find_element(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
+        ).click()
+        time.sleep(3)
+
+        self.logout()
+        assert 1
+
+    def test_9(self):
+        self.driver.find_element(By.ID, "userName").send_keys(self.customer)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
+        time.sleep(2)
+        wt = self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
+        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, "委托列表").click()
+        time.sleep(1)
+        fp = self.driver.find_elements(By.NAME, "查看进度")
+        fp[len(fp) - 1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-steps-item-container']"
+        )
+        fpry[1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-steps-item-container']"
+        )
+        fpry[4].click()
+        time.sleep(1)
+        tb = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
+        )
+        for i in tb:
+            i.send_keys("2")
+            time.sleep(0.2)
+        tn = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input-number-input']"
+        )
+        for i in tn:
+            i.send_keys("2")
+            time.sleep(0.2)
+        self.driver.find_element(By.ID, "partyA_contactEmail").send_keys("@2.com")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "signedDate").send_keys("2022-07-07")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "signedDate").send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "partyA_sigDate").send_keys("2022-07-07")
+        time.sleep(1)
+        self.driver.find_element(By.ID, "partyA_sigDate").send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.driver.find_element(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
+        ).click()
+        time.sleep(5)
+
+        self.logout()
+        assert 1
 
     def test_10(self):
+
         # 合并了两步骤
         self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
         time.sleep(1)
@@ -290,9 +505,12 @@ class TestClass:
         self.driver.find_element(By.XPATH, "//input").send_keys(
             "./testFiles/2021 CCF中国软件大会会议手册_v2.8.pdf"
         )  # 如果嫌麻烦就改成绝对路径
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_11(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.qa_supervisor)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -315,9 +533,12 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
         qr[4].send_keys(Keys.ENTER)
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_12(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.tester)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -362,9 +583,12 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         ).send_keys(Keys.ENTER)
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_13(self):
+
         # 合并了两个步骤
         self.driver.find_element(By.ID, "userName").send_keys(self.qa)
         time.sleep(1)
@@ -413,9 +637,12 @@ class TestClass:
         self.driver.find_element(By.XPATH, "//input").send_keys(
             "./testFiles/NST－04－JS013－2011 - 测试方案评审表.doc"
         )  # 如果嫌麻烦就改成绝对路径
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_14(self):
+
         # 在这一步骤中需要填写多张表格
         self.driver.find_element(By.ID, "userName").send_keys(self.tester)
         time.sleep(1)
@@ -548,9 +775,12 @@ class TestClass:
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         )[4].send_keys(Keys.ENTER)
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_15(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.qa)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -596,9 +826,12 @@ class TestClass:
         self.driver.find_element(By.XPATH, "//input").send_keys(
             "./testFiles/NST－04－JS010－2011－测试报告检查表.doc"
         )  # 如果嫌麻烦就改成绝对路径
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_16(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -616,9 +849,12 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-steps-item-container']"
         )
         fpry[11].click()
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_17(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.customer)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -642,9 +878,12 @@ class TestClass:
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         )[1].click()
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_18(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.qa)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -666,9 +905,12 @@ class TestClass:
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         )[4].click()
+        time.sleep(1)
         self.logout()
+        assert 1
 
     def test_ex_1(self):
+
         self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
@@ -697,9 +939,31 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
+        time.sleep(1)
         self.logout()
+        assert 1
 
 
 if __name__ == "__main__":
+    pytest.main("-s  test_test.py")
     myTest = TestClass()
-    myTest.test_1()
+    # myTest.setup()
+    # myTest.test_1()
+    # myTest.test_2()
+    # myTest.test_3()
+    # myTest.test_4()
+    # myTest.test_5()
+    # myTest.test_6()
+    # myTest.test_7()
+    # myTest.test_8()
+    # myTest.test_9()
+    # myTest.test_10()
+    # myTest.test_11()
+    # myTest.test_12()
+    # myTest.test_13()
+    # myTest.test_14()
+    # myTest.test_15()
+    # myTest.test_ex_1()
+    # myTest.test_16()
+    # myTest.test_17()
+    # myTest.test_18()

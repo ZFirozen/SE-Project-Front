@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from "react"
 import { Button, Card, Cascader, Col, Descriptions, Form, Input, message, Row, Select, Space, Spin, Typography, Checkbox, TreeSelect, InputNumber, DatePicker } from 'antd';
-import { ProForm, ProFormText, ProFormDigit,FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from "@ant-design/pro-form";
+import { ProForm, ProFormText, ProFormDigit, FormComponents, ProFormCascader, ProFormSelect, ProFormDateRangePicker, ProFormGroup, ProFormCheckbox, ProFormRadio, ProFormTextArea, ProFormDatePicker, ProFormTreeSelect } from "@ant-design/pro-form";
 import moment from "moment";
 import { history, useLocation } from "umi";
 import axios from 'axios';
@@ -53,25 +53,25 @@ const QuotationFill = () => {
                                 axios.post("/api/entrust/" + entrustId + "/quote", values)
                                     .then((response) => {
                                         if (response.status === 200) {
-                                            alert("提交成功！");
+                                            message.success("提交成功！");
                                             // window.location.href = "/progress/" + this.state.entrustId;
                                             history.goBack();
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
                                     .catch((error) => {
                                         if (error.response.status === 400) {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     });
                             }
                             if (userRole === "CUSTOMER") {
-                                alert("请点击同意报价或拒绝报价！");
+                                message.error("请点击同意报价或拒绝报价！");
                             }
                         }}
                         request={async () => {
@@ -182,19 +182,19 @@ const QuotationFill = () => {
                             axios.post("/api/entrust/" + entrustId + "/termination")
                                 .then((response) => {
                                     if (response.status === 200) {
-                                        alert("终止成功！");
+                                        message.success("终止成功！");
                                         // window.location.href = "/progress/" + this.state.entrustId;
                                         history.goBack();
                                     } else {
-                                        alert("终止失败！");
+                                        message.error("终止失败！");
                                         console.log("Unknown error!");
                                     }
                                 })
                                 .catch((error) => {
                                     if (error.response.status === 400) {
-                                        alert("终止失败！");
+                                        message.error("终止失败！");
                                     } else {
-                                        alert("终止失败！");
+                                        message.error("终止失败！");
                                         console.log("Unknown error!");
                                     }
                                 });

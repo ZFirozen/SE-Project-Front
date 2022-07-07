@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>测试报告</title>
+       <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src=" https://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/5.1.2/echarts.min.js"></script>
+    <!--    页面样式-->
+    <style type="text/css">
+        /*标题样式*/
+
+        .main {
+            background: rgba(7, 10, 88, 0.99);
+        }
+
+        .title {
+            width: auto;
+            height: 80px;
+            text-align: center;
+            font: bolder 30px/80px "Microsoft YaHei UI";
+            color: #fff;
+            background: rgba(3, 14, 70, 0.5);
+            border-bottom: solid 1px rgb(3, 14, 70);
+            margin-bottom: 10px;
+        }
+
+        .content-box {
+            height: 700px;
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .box1 {
+            flex: 3;
+        }
+
+        .box2 {
+            flex: 5;
+            margin: 0 10px;
+        }
+
+        .box3 {
+            flex: 4;
+        }
+
+        .panel {
+            position: relative;
+            border: 1px solid rgba(25, 186, 139, 0.17);
+            background: rgba(3, 14, 70, 0.5);
+            padding: 0 10px 50px;
+            margin-bottom: 10px;
+        }
+
+        .panel h2, .test_info h2 {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #007bff;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .panel .chart {
+            height: 250px;
+        }
+
+        .panel .chart2 {
+            height: 350px;
+        }
+
+        .panel .desc {
+            height: 150px;
+        }
+
+        .panel .desc .info {
+            font: normal 18px/25px "Microsoft YaHei UI";
+            color: #fff;
+            display: flex;
+        }
+
+        .panel .desc .info div {
+            padding: 10px;
+            border: solid 1px #6c757d;
+        }
+
+        .panel .desc .info div span {
+            margin-left: 20px;
+        }
+
+
+        /* 执行信息样式   */
+        .test_info {
+            width: 100%;
+            padding: 20px 100px;
+            background: rgba(3, 14, 70, 0.5);
+
+        }
+
+        .table td, .table th {
+            border: solid 1px #5765a4 !important;
+            padding: 0 !important;
+            line-height: 40px;
+            text-align: center;
+            height: 40px;
+            color: #fff;
+        }
+
+        select {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            height: 2em;
+            width: 8em;
+            margin-left: 2em;
+        }
+
+        option {
+            text-align: center;
+            height: 36px;
+            font: none 18px/36px "Microsoft YaHei UI";
+            color: #28a745 !important;
+        }
+
+        .test_log {
+            background: rgba(163, 171, 189, 0.15);
+            width: 100%;
+            height: 50px;
+            border-top: none;
+            border-bottom: none;
+            display: none;
+            text-align: left;
+        }
+
+        .test_log td {
+            text-align: left;
+            height: 30px;
+            margin: 0;
+            padding-left: 3em;
+            padding-right: 3em;
+            font: none 18px/24px "Microsoft YaHei UI";
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            color: #fff;
+            line-height: 22px;
+            font-size: 14px
+        }
+
+        .chart4 {
+            overflow: auto;
+            width: 100%;
+            height: 600px;
+
+        }
+
+        .chart4::-webkit-scrollbar {
+            width: 10px;
+
+        }
+
+        .chart4::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(4, 0, 225, 0.62);
+            background: #272789;
+            height: 10px;
+
+        }
+
+        .chart4::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 21, 255, 0.54);
+            border-radius: 10px;
+            background: rgba(214, 214, 214, 0.64);
+
+        }
+
+        /*详细内容描述的小标题*/
+        .table_title {
+            text-align: center;
+            background: rgba(1, 2, 37, 0.72);
+            font: bold 18px/30px 'Microsoft YaHei UI';
+            color: #fff;
+            border-radius: 10px
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="main">
+    <div class="title">
+        测试报告
+    </div>
+    <div class="content-box">
+        <div class="box1">
+            <div class="panel">
+                <h2>执行结果</h2>
+                <div class="chart" id="char3"></div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel ">
+                <h2>成功占比</h2>
+                <div class="chart" id="char1"></div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+        <div class="box2">
+            <div class="panel">
+                <h2>运行信息</h2>
+                <div class="desc">
+
+                    <div class="info">
+                        <div style="flex:5">
+                            <button type="button" class="btn btn-primary btn-sm">开始时间</button>
+                            <span>2022-07-08 01:07:26</span>
+                        </div>
+                        <div style="flex:5">
+                            <button type="button" class="btn btn-primary btn-sm">用例总数</button>
+                            <span>7</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div style="flex:5">
+                            <button type="button" class="btn btn-primary btn-sm">运行时长</button>
+                            <span>209.611763 S</span>
+                        </div>
+                        <div style="flex:5">
+                            <button type="button" class="btn btn-primary btn-sm ">测试人员</button>
+                            <span>Junzhi</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div style="flex:5">
+                            <button type="button" class="btn btn-primary btn-sm">成功用例</button>
+                            <span>1</span>
+                        </div>
+                        <div style="flex:5">
+                            <button type="button" class="btn btn-primary btn-sm ">通过率</button>
+                            <span>14.29%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>通过率趋势图</h2>
+                <div class="chart2" id="char2"></div>
+            </div>
+        </div>
+        <div class="box3">
+            <div class="panel">
+                <h2>历史构建结果</h2>
+                <div class="chart4">
+                    <table class="table" style="color: #d6d6d6;padding: 0">
+                        <thead>
+                        <tr>
+                            <th scope="col">执行时间</th>
+                            <th scope="col">用例总数</th>
+                            <th scope="col">成功用例数</th>
+                            <th scope="col">通过率</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr>
+                            <th scope="row">2022-07-08 01:07:26</th>
+                            <td>7</td>
+                            <td>1</td>
+                            <td>14.29%</td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row">2022-07-08 01:01:43</th>
+                            <td>19</td>
+                            <td>2</td>
+                            <td>10.53%</td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row">2022-07-08 00:57:14</th>
+                            <td>19</td>
+                            <td>2</td>
+                            <td>10.53%</td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row">2022-07-08 00:56:06</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row">2022-07-08 00:54:30</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row">2022-07-08 00:51:53</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0%</td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="test_info">
+        <h2>本次运行详情</h2>
+        <div class="table_data">
+
+            <table class="table" style="color: #fff">
+                <thead class="text-light" style="background: rgba(3, 14, 70, 0.5)">
+                <tr>
+                    <th scope="col" style="width: 5%;padding: 0">编号</th>
+                    <th scope="col" style="width: 20%;padding: 0">
+                        <span>用例模块</span>
+                        <select id="testClass">
+                            <option>所有</option>
+                            
+                            <option value="seletesttest_testpy">seletest\test_test.py</option>
+                            
+                        </select>
+
+                    </th>
+                    <th scope="col" style="width: 15%;padding: 0">测试方法</th>
+                    <th scope="col" style="width: 20%;padding: 0">用例描述</th>
+                    <th scope="col" style="width: 10%;padding: 0">执行时间</th>
+                    <th scope="col" style="width: 20%;padding: 0">
+
+                        <span>执行结果</span>
+                        <select id="testResult">
+                            <option>所有</option>
+                            <option class="text-success">成功</option>
+                            <option class="text-danger">失败</option>
+                            <option class="text-warning">错误</option>
+                            <option class="text-info">跳过</option>
+                        </select>
+
+                    </th>
+                    <th scope="col" style="width: 10%;padding: 0">详细信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <tr class="case_">
+                    <td>1</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_1</td>
+                    <td>None</td>
+                    <td>44.330089</td>
+                    
+                    
+                    <td class="text-success">通过</td>
+                    
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="case_">
+                    <td>2</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_2</td>
+                    <td>None</td>
+                    <td>14.826885</td>
+                    
+                    <td class="text-warning">失败</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contact"
+                                           aria-selected="false" style="padding: 0 16px">异常信息</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " role="tabpanel" aria-labelledby="home-tab">
+                                        <pre style="line-height: 18px">self = <test_test.TestClass object at 0x00000288B9A5F640>
+
+    def test_2(self):
+        self.setup()
+        self.driver.implicitly_wait(60)
+        self.driver.maximize_window()
+        self.driver.get(self.url)
+        self.driver.find_element(By.ID, "userName").send_keys(self.marketing_supervisor)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
+        time.sleep(3)
+        self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
+        time.sleep(1)
+        self.driver.find_element(By.LINK_TEXT, "委托列表").click()
+        time.sleep(1)
+        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        time.sleep(2)
+        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        time.sleep(2)
+        fp = self.driver.find_elements(By.NAME, "分派")
+        fp[len(fp) - 1].click()
+        time.sleep(1)
+        fpry = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
+        )
+        fpry[len(fpry) - 1].click()
+        time.sleep(1)
+        qr = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
+        )
+>       qr[7].send_keys(Keys.ENTER)
+E       IndexError: list index out of range
+
+seletest\test_test.py:151: IndexError</pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="case_">
+                    <td>3</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_3</td>
+                    <td>None</td>
+                    <td>60.328681</td>
+                    
+                    <td class="text-warning">失败</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contact"
+                                           aria-selected="false" style="padding: 0 16px">异常信息</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " role="tabpanel" aria-labelledby="home-tab">
+                                        <pre style="line-height: 18px">self = <test_test.TestClass object at 0x00000288B9A5F790>
+
+    def test_3(self):
+        self.setup()
+>       self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
+
+seletest\test_test.py:157: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:857: in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:435: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x00000288B90C7F70>
+response = {'status': 404, 'value': '{"value":{"error":"no such element","message":"no such element: Unable to locate element: {\...\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A9E+286]\\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A6E+238]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = self._value_or_default(frame, 'lineNumber', '')
+                        file = self._value_or_default(frame, 'fileName', '<anonymous>')
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = self._value_or_default(frame, 'methodName', '<anonymous>')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="userName"]"}
+E         (Session info: chrome=103.0.5060.114)
+E       Stacktrace:
+E       Backtrace:
+E       	Ordinal0 [0x010B6463+2188387]
+E       	Ordinal0 [0x0104E461+1762401]
+E       	Ordinal0 [0x00F63D78+802168]
+E       	Ordinal0 [0x00F91880+989312]
+E       	Ordinal0 [0x00F91B1B+989979]
+E       	Ordinal0 [0x00FBE912+1173778]
+E       	Ordinal0 [0x00FAC824+1099812]
+E       	Ordinal0 [0x00FBCC22+1166370]
+E       	Ordinal0 [0x00FAC5F6+1099254]
+E       	Ordinal0 [0x00F86BE0+945120]
+E       	Ordinal0 [0x00F87AD6+948950]
+E       	GetHandleVerifier [0x013571F2+2712546]
+E       	GetHandleVerifier [0x0134886D+2652765]
+E       	GetHandleVerifier [0x0114002A+520730]
+E       	GetHandleVerifier [0x0113EE06+516086]
+E       	Ordinal0 [0x0105468B+1787531]
+E       	Ordinal0 [0x01058E88+1805960]
+E       	Ordinal0 [0x01058F75+1806197]
+E       	Ordinal0 [0x01061DF1+1842673]
+E       	BaseThreadInitThunk [0x757DFA29+25]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A9E+286]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A6E+238]
+
+C:\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:247: NoSuchElementException</pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="case_">
+                    <td>4</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_4</td>
+                    <td>None</td>
+                    <td>35.068093</td>
+                    
+                    <td class="text-warning">失败</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contact"
+                                           aria-selected="false" style="padding: 0 16px">异常信息</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " role="tabpanel" aria-labelledby="home-tab">
+                                        <pre style="line-height: 18px">self = <test_test.TestClass object at 0x00000288B9A5F8E0>
+
+    def test_4(self):
+        self.setup()
+>       self.driver.find_element(By.ID, "userName").send_keys(self.testing_supervisor)
+E       AttributeError: 'NoneType' object has no attribute 'send_keys'
+
+seletest\test_test.py:200: AttributeError</pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="case_">
+                    <td>5</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_5</td>
+                    <td>None</td>
+                    <td>12.088753</td>
+                    
+                    <td class="text-danger">错误</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contact"
+                                           aria-selected="false" style="padding: 0 16px">异常信息</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " role="tabpanel" aria-labelledby="home-tab">
+                                        <pre style="line-height: 18px">self = <test_test.TestClass object at 0x00000288B9A5FA30>
+
+    def setup(self):
+        self.driver.implicitly_wait(60)
+>       self.driver.maximize_window()
+
+seletest\test_test.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:598: in maximize_window
+    self.execute(command, None)
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:435: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x00000288B90C7F70>
+response = {'status': 500, 'value': '{"value":{"error":"chrome not reachable","message":"chrome not reachable\\n  (Session info: ...\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A9E+286]\\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A6E+238]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = self._value_or_default(frame, 'lineNumber', '')
+                        file = self._value_or_default(frame, 'fileName', '<anonymous>')
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = self._value_or_default(frame, 'methodName', '<anonymous>')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.WebDriverException: Message: chrome not reachable
+E         (Session info: chrome=103.0.5060.114)
+E       Stacktrace:
+E       Backtrace:
+E       	Ordinal0 [0x010B6463+2188387]
+E       	Ordinal0 [0x0104E461+1762401]
+E       	Ordinal0 [0x00F63C40+801856]
+E       	Ordinal0 [0x00F58932+756018]
+E       	Ordinal0 [0x00F59168+758120]
+E       	Ordinal0 [0x00F5AA22+764450]
+E       	Ordinal0 [0x00F54379+738169]
+E       	Ordinal0 [0x00F650D0+807120]
+E       	Ordinal0 [0x00FBC402+1164290]
+E       	Ordinal0 [0x00FAC5F6+1099254]
+E       	Ordinal0 [0x00F86BE0+945120]
+E       	Ordinal0 [0x00F87AD6+948950]
+E       	GetHandleVerifier [0x013571F2+2712546]
+E       	GetHandleVerifier [0x0134886D+2652765]
+E       	GetHandleVerifier [0x0114002A+520730]
+E       	GetHandleVerifier [0x0113EE06+516086]
+E       	Ordinal0 [0x0105468B+1787531]
+E       	Ordinal0 [0x01058E88+1805960]
+E       	Ordinal0 [0x01058F75+1806197]
+E       	Ordinal0 [0x01061DF1+1842673]
+E       	BaseThreadInitThunk [0x757DFA29+25]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A9E+286]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A6E+238]
+
+C:\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:247: WebDriverException</pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="case_">
+                    <td>6</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_6</td>
+                    <td>None</td>
+                    <td>12.109361</td>
+                    
+                    <td class="text-danger">错误</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contact"
+                                           aria-selected="false" style="padding: 0 16px">异常信息</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " role="tabpanel" aria-labelledby="home-tab">
+                                        <pre style="line-height: 18px">self = <test_test.TestClass object at 0x00000288B9A5F760>
+
+    def setup(self):
+        self.driver.implicitly_wait(60)
+>       self.driver.maximize_window()
+
+seletest\test_test.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:598: in maximize_window
+    self.execute(command, None)
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:435: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x00000288B90C7F70>
+response = {'status': 500, 'value': '{"value":{"error":"chrome not reachable","message":"chrome not reachable\\n  (Session info: ...\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A9E+286]\\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A6E+238]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = self._value_or_default(frame, 'lineNumber', '')
+                        file = self._value_or_default(frame, 'fileName', '<anonymous>')
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = self._value_or_default(frame, 'methodName', '<anonymous>')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.WebDriverException: Message: chrome not reachable
+E         (Session info: chrome=103.0.5060.114)
+E       Stacktrace:
+E       Backtrace:
+E       	Ordinal0 [0x010B6463+2188387]
+E       	Ordinal0 [0x0104E461+1762401]
+E       	Ordinal0 [0x00F63C40+801856]
+E       	Ordinal0 [0x00F58932+756018]
+E       	Ordinal0 [0x00F59168+758120]
+E       	Ordinal0 [0x00F5AA22+764450]
+E       	Ordinal0 [0x00F54379+738169]
+E       	Ordinal0 [0x00F650D0+807120]
+E       	Ordinal0 [0x00FBC402+1164290]
+E       	Ordinal0 [0x00FAC5F6+1099254]
+E       	Ordinal0 [0x00F86BE0+945120]
+E       	Ordinal0 [0x00F87AD6+948950]
+E       	GetHandleVerifier [0x013571F2+2712546]
+E       	GetHandleVerifier [0x0134886D+2652765]
+E       	GetHandleVerifier [0x0114002A+520730]
+E       	GetHandleVerifier [0x0113EE06+516086]
+E       	Ordinal0 [0x0105468B+1787531]
+E       	Ordinal0 [0x01058E88+1805960]
+E       	Ordinal0 [0x01058F75+1806197]
+E       	Ordinal0 [0x01061DF1+1842673]
+E       	BaseThreadInitThunk [0x757DFA29+25]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A9E+286]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A6E+238]
+
+C:\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:247: WebDriverException</pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="case_">
+                    <td>7</td>
+                    <td class="seletesttest_testpy">seletest\test_test.py</td>
+                    <td>TestClass.test_7</td>
+                    <td>None</td>
+                    <td>12.078265</td>
+                    
+                    <td class="text-danger">错误</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn_info btn-primary btn-sm">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all;padding: 0">
+                        <div class="card" style="background: rgba(3, 14, 70, 0.5)">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="home"
+                                           aria-selected="true" style="padding: 0 16px">运行日志</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile"
+                                           aria-selected="false" style="padding: 0 16px">调试输出</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contact"
+                                           aria-selected="false" style="padding: 0 16px">异常信息</a>
+                                    </li>
+                                    
+                                    
+
+                                </ul>
+                                <div class="tab-content" style="height: 300px;overflow-y: auto;padding: 20px">
+
+                                    <div class="tab-pane fade show active" role="tabpanel"
+                                         aria-labelledby="profile-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    <div class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                        <pre style="line-height: 18px"></pre>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " role="tabpanel" aria-labelledby="home-tab">
+                                        <pre style="line-height: 18px">self = <test_test.TestClass object at 0x00000288B9A5FAF0>
+
+    def setup(self):
+        self.driver.implicitly_wait(60)
+>       self.driver.maximize_window()
+
+seletest\test_test.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:598: in maximize_window
+    self.execute(command, None)
+C:\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:435: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x00000288B90C7F70>
+response = {'status': 500, 'value': '{"value":{"error":"chrome not reachable","message":"chrome not reachable\\n  (Session info: ...\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A9E+286]\\n\\tRtlGetAppContainerNamedObjectPath [0x772E7A6E+238]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = self._value_or_default(frame, 'lineNumber', '')
+                        file = self._value_or_default(frame, 'fileName', '<anonymous>')
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = self._value_or_default(frame, 'methodName', '<anonymous>')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.WebDriverException: Message: chrome not reachable
+E         (Session info: chrome=103.0.5060.114)
+E       Stacktrace:
+E       Backtrace:
+E       	Ordinal0 [0x010B6463+2188387]
+E       	Ordinal0 [0x0104E461+1762401]
+E       	Ordinal0 [0x00F63C40+801856]
+E       	Ordinal0 [0x00F58932+756018]
+E       	Ordinal0 [0x00F59168+758120]
+E       	Ordinal0 [0x00F5AA22+764450]
+E       	Ordinal0 [0x00F54379+738169]
+E       	Ordinal0 [0x00F650D0+807120]
+E       	Ordinal0 [0x00FBC402+1164290]
+E       	Ordinal0 [0x00FAC5F6+1099254]
+E       	Ordinal0 [0x00F86BE0+945120]
+E       	Ordinal0 [0x00F87AD6+948950]
+E       	GetHandleVerifier [0x013571F2+2712546]
+E       	GetHandleVerifier [0x0134886D+2652765]
+E       	GetHandleVerifier [0x0114002A+520730]
+E       	GetHandleVerifier [0x0113EE06+516086]
+E       	Ordinal0 [0x0105468B+1787531]
+E       	Ordinal0 [0x01058E88+1805960]
+E       	Ordinal0 [0x01058F75+1806197]
+E       	Ordinal0 [0x01061DF1+1842673]
+E       	BaseThreadInitThunk [0x757DFA29+25]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A9E+286]
+E       	RtlGetAppContainerNamedObjectPath [0x772E7A6E+238]
+
+C:\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:247: WebDriverException</pre>
+                                    </div>
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+
+        <div style="height: 200px"></div>
+    </div>
+
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    const resulte = {
+            "success": `1`,
+            "all": `7`,
+            "fail": `3`,
+            "skip": '0',
+            "error": `3`,
+            "runtime": '209.611763 S',
+            "begin_time": "1657213646.027657",
+            "pass_rate": '14.29',
+        }
+    ;
+    const history = [{'success': 0, 'all': 0, 'fail': 0, 'skip': 0, 'error': 0, 'runtime': '2.736842 S', 'begin_time': '2022-07-08 00:51:53', 'pass_rate': 0}, {'success': 0, 'all': 0, 'fail': 0, 'skip': 0, 'error': 0, 'runtime': '5.333113 S', 'begin_time': '2022-07-08 00:54:30', 'pass_rate': 0}, {'success': 0, 'all': 0, 'fail': 0, 'skip': 0, 'error': 0, 'runtime': '2.711270 S', 'begin_time': '2022-07-08 00:56:06', 'pass_rate': 0}, {'success': 2, 'all': 19, 'fail': 1, 'skip': 0, 'error': 16, 'runtime': '133.567302 S', 'begin_time': '2022-07-08 00:57:14', 'pass_rate': '10.53'}, {'success': 2, 'all': 19, 'fail': 1, 'skip': 0, 'error': 16, 'runtime': '188.033211 S', 'begin_time': '2022-07-08 01:01:43', 'pass_rate': '10.53'}, {'success': 1, 'all': 7, 'fail': 3, 'skip': 0, 'error': 3, 'runtime': '209.611763 S', 'begin_time': '2022-07-08 01:07:26', 'pass_rate': '14.29'}];
+
+    var passRate = [];
+    var dTime = [];
+    history.forEach(function (item, index, array) {
+        passRate.push(item.pass_rate);
+        dTime.push(item.begin_time)
+    });
+    if (passRate.length === 1) {
+        passRate.unshift(0);
+        dTime.unshift(0)
+    }
+
+    function char01() {
+        let myChart = echarts.init(document.getElementById('char1'));
+        let option = {
+            color: ['#28a745', '#ffc107', '#dc3545', '#17a2b8'],
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)',
+                backgroundColor: 'rgba(3, 14, 70, 0.5)',
+                borderColor: '#333',
+                textStyle: {
+                    color: '#fff',
+                    fontSize: "13"
+                },
+            },
+            legend: {
+                bottom: "0%",
+                // 小图标的宽度和高度
+                itemWidth: 10,
+                itemHeight: 10,
+                data: ['通过', '失败', '错误', '跳过'],
+                textStyle: {
+                    color: "rgba(255,255,255,.5)",
+                    fontSize: "12"
+                },
+            },
+            series: [
+                {
+                    name: '测试结果',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '20',
+                            fontWeight: 'bold',
+                            color: '#fff',
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        {value: resulte.success, name: '通过'},
+                        {value: resulte.fail, name: '失败'},
+                        {value: resulte.error, name: '错误'},
+                        {value: resulte.skip, name: '跳过'}
+                    ]
+                }
+            ]
+        };
+        myChart.setOption(option)
+
+    }
+
+    char01();
+
+    //    大图
+    function char02() {
+
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = echarts.init(document.getElementById("char2"));
+        // 2. 指定配置和数据
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: '{a} <br/>{b}:  ({c}%)',
+                backgroundColor: 'rgba(3, 14, 70, 0.5)',
+                borderColor: '#333',
+                textStyle: {
+                    color: '#fff',
+                    fontSize: "13"
+                },
+            },
+
+            grid: {
+                left: "10",
+                top: "30",
+                right: "10",
+                bottom: "0",
+                containLabel: true
+            },
+
+            xAxis: [{
+                type: "category",
+                boundaryGap: false,
+                show: false,
+                axisLabel: {
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: 12
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.2)"
+                    }
+                },
+
+                data: dTime
+            },
+                {
+                    axisPointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    },
+                    position: "bottom",
+                    offset: 20
+                }
+            ],
+
+            yAxis: [{
+                type: "value",
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)"
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: 12
+                    }
+                },
+
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)"
+                    }
+                }
+            }],
+            series: [{
+                name: "通过率",
+                type: "line",
+                smooth: true,
+                symbol: "circle",
+                symbolSize: 5,
+                showSymbol: true,
+                lineStyle: {
+                    normal: {
+                        color: "#0184d5",
+                        width: 2
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0,
+                            0,
+                            0,
+                            1,
+                            [{
+                                offset: 0,
+                                color: "rgba(1, 132, 213, 0.4)"
+                            },
+                                {
+                                    offset: 0.8,
+                                    color: "rgba(1, 132, 213, 0.1)"
+                                }
+                            ],
+                            false
+                        ),
+                        shadowColor: "rgba(0, 0, 0, 0.1)"
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: "#0184d5",
+                        borderColor: "rgba(221, 220, 107, .1)",
+                        borderWidth: 18
+                    }
+                },
+                data: passRate
+            },
+            ]
+        };
+        // 重新把配置好的新数据给实例对象
+        myChart.setOption(option);
+
+    }
+
+    char02();
+
+    function char03() {
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = echarts.init(document.getElementById("char3"));
+        var data = [resulte.success, resulte.fail, resulte.error, resulte.skip];
+        var titlename = ["通过用例", "失败用例", "错误用例", "跳过用例",];
+        var valdata = [resulte.all, resulte.all, resulte.all, resulte.all];
+        var myColor = ['#28a745', '#ffc107', '#dc3545', '#17a2b8'];
+        option = {
+            //图标位置
+            grid: {
+                top: "10%",
+                left: "22%",
+                bottom: "10%"
+            },
+            xAxis: {
+                show: false
+            },
+            yAxis: [{
+                show: true,
+                data: titlename,
+                inverse: true,
+                axisLine: {
+                    show: false
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    color: "#fff",
+
+                    rich: {
+                        lg: {
+                            backgroundColor: "#339911",
+                            color: "#fff",
+                            borderRadius: 15,
+                            align: "center",
+                            width: 15,
+                            height: 15
+                        }
+                    }
+                }
+            },
+                {
+                    show: false,
+                    inverse: true,
+                    data: valdata,
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 12,
+                            color: "#fff"
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    },
+                }
+            ],
+            series: [{
+                type: "bar",
+                yAxisIndex: 0,
+                data: data,
+                barCategoryGap: 50,
+                barWidth: 18,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 20,
+                        color: function (params) {
+                            var num = myColor.length;
+                            return myColor[params.dataIndex % num];
+                        }
+                    }
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: "right",
+                        formatter: "{c}条",
+                        color: "#fff",
+
+                    }
+                }
+            },
+                {
+                    type: "bar",
+                    yAxisIndex: 1,
+                    barCategoryGap: 50,
+                    data: valdata,
+                    barWidth: 20,
+                    itemStyle: {
+                        normal: {
+                            color: "none",
+                            borderColor: "#00c1de",
+                            borderWidth: 2,
+                            barBorderRadius: 15
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+    }
+
+    char03()
+
+</script>
+
+
+<script>
+    var tbodyTr = $('tbody .case_');
+    var testResult = $("#testResult");
+    var testClass = $("#testClass");
+    <!--    用例执行详细信息显示切换-->
+    $(".btn_info").click(function () {
+        $(this).parent().parent().next().toggle();
+
+    });
+    // 当选择用例类之后触发
+    testClass.change(function () {
+        $('.test_log').hide();
+        var cls = $(this).val();
+        var res = testResult.val();
+        elementDisplay(cls, res);
+        sort()
+    });
+    testResult.change(function () {
+        var res = $(this).val();
+        var cls = testClass.val();
+        elementDisplay(cls, res);
+        sort()
+    });
+
+    function elementDisplay(cls, res) {
+        // 用例数据的显示
+        if (cls === "所有") {
+            if (res === "所有") {
+                tbodyTr.has('button').show();
+            } else if (res === '成功') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-success').show()
+
+            } else if (res === '错误') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-danger').show()
+
+            } else if (res === '失败') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-warning').show()
+
+            } else if (res === '跳过') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-info').show()
+            }
+        } else {
+            if (res === "所有") {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').show()
+            } else if (res === '成功') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-success').show()
+            } else if (res === '错误') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-danger').show()
+            } else if (res === '失败') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-warning').show()
+            } else if (res === '跳过') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-info').show()
+            }
+        }
+    }
+
+    function sort() {
+        //重新排列显示序号
+        // 选择所有可以见的tr
+        var visibleTr = tbodyTr.filter(":visible");
+
+        visibleTr.each(function (index, element) {
+            element.firstElementChild.innerHTML = index + 1;
+
+        })
+
+    }
+
+    $('.nav-tabs li').click(function () {
+        $(this).find('a').addClass('active');
+        $(this).siblings().find('a').removeClass('active');
+        $(this).parent().next().children('.tab-content div').eq($(this).index()).addClass('active show').siblings().removeClass('active show')
+    });
+
+</script>
+
+
+</body>
+</html>

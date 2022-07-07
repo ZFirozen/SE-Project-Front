@@ -57,19 +57,19 @@ const ContractDisplay = () => {
                                 axios.post("/api/contract/" + contractId + "/acceptance")
                                     .then((response) => {
                                         if (response.status === 200) {
-                                            alert("同意成功！");
+                                            message.success("同意成功！");
                                             // window.location.href = "/progress/" + this.state.entrustId;
                                             history.goBack();
                                         } else {
-                                            alert("同意失败！");
+                                            message.error("同意失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
                                     .catch((error) => {
                                         if (error.response.status === 400) {
-                                            alert("同意失败！");
+                                            message.error("同意失败！");
                                         } else {
-                                            alert("同意失败！");
+                                            message.error("同意失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
@@ -77,19 +77,19 @@ const ContractDisplay = () => {
                                         axios.post("/api/contract/" + contractId, values)
                                             .then((response) => {
                                                 if (response.status === 200) {
-                                                    alert("提交成功！");
+                                                    message.success("提交成功！");
                                                     // window.location.href = "/progress/" + this.state.entrustId;
                                                     history.goBack();
                                                 } else {
-                                                    alert("提交失败！");
+                                                    message.error("提交失败！");
                                                     console.log("Unknown error!");
                                                 }
                                             })
                                             .catch((error) => {
                                                 if (error.response.status === 400) {
-                                                    alert("提交失败！");
+                                                    message.error("提交失败！");
                                                 } else {
-                                                    alert("提交失败！");
+                                                    message.error("提交失败！");
                                                     console.log("Unknown error!");
                                                 }
                                             });
@@ -99,19 +99,19 @@ const ContractDisplay = () => {
                                 axios.post("/api/contract/" + contractId, values)
                                     .then((response) => {
                                         if (response.status === 200) {
-                                            alert("提交成功！");
+                                            message.success("提交成功！");
                                             // window.location.href = "/progress/" + this.state.entrustId;
                                             history.goBack();
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     })
                                     .catch((error) => {
                                         if (error.response.status === 400) {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                         } else {
-                                            alert("提交失败！");
+                                            message.error("提交失败！");
                                             console.log("Unknown error!");
                                         }
                                     });
@@ -167,23 +167,23 @@ const ContractDisplay = () => {
                             <Divider type={'horizontal'} />
                         </ProCard>
                         <Row style={gray}>
-                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={"projectName"} label="项目名称" disabled/>
+                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={"projectName"} label="项目名称" disabled />
                         </Row>
                         <Row style={white}>
                             {userRole === "CUSTOMER" ?
-                                <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" disabled/>
+                                <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" disabled />
                                 : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyA", "companyCH"]} label="委托人（甲方）" disabled />}
                         </Row>
                         <Row style={gray}>
                             {userRole === "MARKETER" ?
-                                <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" disabled/>
+                                <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" disabled />
                                 : <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={["partyB", "companyCH"]} label="受托人（乙方）" disabled />}
                         </Row>
                         <Row style={white}>
-                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={"signedAt"} label="签订地点" disabled/>
+                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={"signedAt"} label="签订地点" disabled />
                         </Row>
                         <Row style={gray}>
-                            <ProFormDatePicker required rules={[{ required: false, message: "这是必填项" }]} name={"signedDate"} label="签订日期" disabled/>
+                            <ProFormDatePicker required rules={[{ required: false, message: "这是必填项" }]} name={"signedDate"} label="签订日期" disabled />
                         </Row>
                         <Row style={white}>
                             本合同由作为委托方的（以下简称“甲方”）
@@ -195,7 +195,7 @@ const ContractDisplay = () => {
                         <Title level={4}> 一、 任务表述</Title>
                         <Row style={white}>
                             乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件
-                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={"targetSoftware"} disabled/>
+                            <ProFormText required rules={[{ required: false, message: "这是必填项" }]} name={"targetSoftware"} disabled />
                             (下称受测软件)的质量特性,进行测试，并出具相应的测试报告。
                         </Row>
                         <br />
@@ -221,7 +221,7 @@ const ContractDisplay = () => {
                         <Title level={4}>四、合同价款</Title>
                         <Row style={white}>
                             本合同软件测试费用为人民币
-                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"price"} width={"xs"} disabled/>
+                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"price"} width={"xs"} disabled />
                             （¥元）。
                         </Row>
                         <br />
@@ -233,7 +233,7 @@ const ContractDisplay = () => {
                         <Title level={4}>六、履行的期限</Title>
                         <Row style={white}>
                             1.本次测试的履行期限为合同生效之日起
-                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"totalWorkingDays"} width={"xs"} disabled/>
+                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"totalWorkingDays"} width={"xs"} disabled />
                             个自然日内完成。
                             <br />
                         </Row>
@@ -243,9 +243,9 @@ const ContractDisplay = () => {
                         </Row>
                         <Row style={white}>
                             在整个测试过程中，整改次数限于
-                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"rectificationLimit"} width={"xs"} disabled/>
+                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"rectificationLimit"} width={"xs"} disabled />
                             次，每次不超过
-                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"rectificationDaysEachTime"} width={"xs"} disabled/>
+                            <ProFormDigit required rules={[{ required: false, message: "这是必填项" }]} name={"rectificationDaysEachTime"} width={"xs"} disabled />
                             天。<br />
                         </Row>
                         <Row style={white}>
