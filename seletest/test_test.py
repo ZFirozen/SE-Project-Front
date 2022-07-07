@@ -354,7 +354,7 @@ class TestClass:
         fpry[7].click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "//input").send_keys(
-            "C:/Users/Junko/Documents/GitHub/SE-Project-Front/seletest/testFiles/NST－04－JS013－2011 - 测试方案评审表.doc")  # 如果嫌麻烦就改成绝对路径
+            "./testFiles/NST－04－JS013－2011 - 测试方案评审表.doc")  # 如果嫌麻烦就改成绝对路径
         self.logout()
 
     def test_14(self):
@@ -482,7 +482,7 @@ class TestClass:
         fpry[10].click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "//input").send_keys(
-            "C:/Users/Junko/Documents/GitHub/SE-Project-Front/seletest/testFiles/NST－04－JS010－2011－测试报告检查表.doc")  # 如果嫌麻烦就改成绝对路径
+            "./testFiles/NST－04－JS010－2011－测试报告检查表.doc")  # 如果嫌麻烦就改成绝对路径
         self.logout()
 
     def test_16(self):
