@@ -23,6 +23,9 @@ const { Title, Paragraph } = Typography
 const { Divider } = ProCard
 
 const EntrustmentFill = () => {
+  if(localStorage.getItem("userRole")!=="CUSTOMER"){
+    history.push({pathname: "/entrustment",})
+  }
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
   const [editableKeys, setEditableRowKeys] = useState([]);
