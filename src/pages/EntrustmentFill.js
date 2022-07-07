@@ -24,7 +24,8 @@ const { Divider } = ProCard
 
 const EntrustmentFill = () => {
   if(localStorage.getItem("userRole")!=="CUSTOMER"){
-    history.push({pathname: "/entrustment",})
+    message.warning("无权访问该页面！")
+    return(<div>无权访问该页面！</div>)
   }
   const replacetokenbegin = "_0641#toReplaceA1C1_"
   const replacetokenend = "_0641#toReplaceA2C2_"
