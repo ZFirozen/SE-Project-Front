@@ -524,13 +524,13 @@ export default defineConfig({
       component: './Download',
       hideInMenu: true,
     },
-    // {
-    //   name: 'userinfo',
-    //   icon: 'user',
-    //   path: '/userinfo',
-    //   component: './UserInfo',
-    //   hideInMenu: true,
-    // },
+    {
+      name: 'userinfo',
+      icon: 'user',
+      path: '/userinfo',
+      component: './UserInfo',
+      hideInMenu: true,
+    },
     // {
     //   path: '/signup',
     //   component: './SignUp',

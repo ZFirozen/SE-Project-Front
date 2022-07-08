@@ -1,6 +1,6 @@
 import { request } from 'umi';
 export async function queryCurrent() {
-  return request('/api/accountSettingCurrentUser');
+  return request('/api/account');
 }
 export async function queryProvince() {
   return request('/api/geographic/province');
