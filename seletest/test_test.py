@@ -7,7 +7,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 class TestClass:
-    url = "http://localhost:7777"
+    url = "http://210.28.133.13:21325"
+    # url = "http://localhost:7777"
     path = r"D:/chromedriver/chromedriver.exe"
     driver = webdriver.Chrome(executable_path=path)
     customer = "CUSTOMER114"

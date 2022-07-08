@@ -58,6 +58,7 @@ const AvatarDropdown = ({ menu }) => {
   }
 
   const { currentUser } = initialState;
+  console.log(currentUser);
   if (currentUser) {
     currentUser.name = localStorage.getItem("userName");
     currentUser.avatar = localStorage.getItem("userAvatar");

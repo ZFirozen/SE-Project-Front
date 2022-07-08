@@ -117,8 +117,8 @@
 |   |   |   |-- index.jsx
 |   |   |   `-- index.less
 |   |   |-- RightContent
-|   |   |   |-- AvatarDropdown.jsx
-|   |   |   |-- index.jsx
+|   |   |   |-- AvatarDropdown.jsx 	        ysy
+|   |   |   |-- index.jsx 			        ysy
 |   |   |   `-- index.less
 |   |   |-- SearchBar
 |   |   |   |-- index.css
@@ -131,7 +131,7 @@
 |   |-- e2e
 |   |   `-- baseLayout.e2e.js
 |   |-- global.jsx
-|   |-- global.less
+|   |-- global.less                         ysy
 |   |-- locales
 |   |   |-- bn-BD
 |   |   |   |-- component.js
@@ -190,7 +190,7 @@
 |   |   |-- zh-CN
 |   |   |   |-- component.js
 |   |   |   |-- globalHeader.js
-|   |   |   |-- menu.js
+|   |   |   |-- menu.js                     ysy
 |   |   |   |-- pages.js
 |   |   |   |-- pwa.js
 |   |   |   |-- settingDrawer.js
@@ -216,10 +216,10 @@
 |   |   |-- ContractFill.css
 |   |   |-- ContractFill.js
 |   |   |-- ContractUpload.js
-|   |   |-- ContractVerify.js
+|   |   |-- ContractVerify.js               ysy ?
 |   |   |-- DocDisplay.js
 |   |   |-- DocVerify.js
-|   |   |-- DocumentVerify.js
+|   |   |-- DocumentVerify.js               ysy chb
 |   |   |-- Documents.js
 |   |   |-- Download.js
 |   |   |-- EntrustmentDisplay.js
@@ -273,9 +273,9 @@
 |   |   |   |   `-- nav3.less
 |   |   |   `-- utils.js
 |   |   |-- Home.js
-|   |   |-- OurLogin.css
-|   |   |-- OurLogin.js
-|   |   |-- Progress.js
+|   |   |-- OurLogin.css                    ysy
+|   |   |-- OurLogin.js                     ysy
+|   |   |-- Progress.js                     ysy byf
 |   |   |-- QuotationAccept.js
 |   |   |-- QuotationDisplay.js
 |   |   |-- QuotationFill.css
@@ -285,14 +285,14 @@
 |   |   |-- SampleFill.js
 |   |   |-- SampleList.js
 |   |   |-- Search.js
-|   |   |-- SignUp.js
+|   |   |-- SignUp.js                       ysy
 |   |   |-- TableList
 |   |   |   |-- components
 |   |   |   |   `-- UpdateForm.jsx
 |   |   |   `-- index.jsx
 |   |   |-- TestAssign.js
 |   |   |-- TestList.js
-|   |   |-- UserInfo.js
+|   |   |-- UserInfo.js                     ysy
 |   |   |-- Welcome.jsx
 |   |   |-- Welcome.less
 |   |   |-- account
@@ -315,23 +315,23 @@
 |   |   |   |   |   `-- Projects
 |   |   |   |   |       |-- index.jsx
 |   |   |   |   |       `-- index.less
-|   |   |   |   |-- index.jsx
-|   |   |   |   `-- service.js
+|   |   |   |   |-- index.jsx                   ysy
+|   |   |   |   `-- service.js                  ysy
 |   |   |   `-- settings
 |   |   |       |-- _mock.js
 |   |   |       |-- components
 |   |   |       |   |-- BaseView.less
 |   |   |       |   |-- PhoneView.jsx
-|   |   |       |   |-- admin.jsx
-|   |   |       |   |-- base.jsx
+|   |   |       |   |-- admin.jsx               ysy
+|   |   |       |   |-- base.jsx                ysy
 |   |   |       |   |-- binding.jsx
 |   |   |       |   |-- notification.jsx
 |   |   |       |   `-- security.jsx
 |   |   |       |-- geographic
 |   |   |       |   |-- city.json
 |   |   |       |   `-- province.json
-|   |   |       |-- index.jsx
-|   |   |       |-- service.js
+|   |   |       |-- index.jsx                   ysy
+|   |   |       |-- service.js                  ysy
 |   |   |       `-- style.less
 |   |   |-- dashboard
 |   |   |   |-- analysis
@@ -662,7 +662,7 @@
 |   |   |   |-- JS007.js
 |   |   |   |-- JS008.js
 |   |   |   |-- JS009.js
-|   |   |   |-- JS010.js
+|   |   |   |-- JS010.js                    ysy
 |   |   |   |-- JS011.js
 |   |   |   |-- JS012.js
 |   |   |   |-- JS013.js
@@ -673,20 +673,20 @@
 |   |   |   `-- ScheVerUpload.js
 |   |   `-- user
 |   |       |-- Login
-|   |       |   |-- index.jsx
-|   |       |   `-- index.less
+|   |       |   |-- index.jsx               ysy
+|   |       |   `-- index.less              ysy
 |   |       |-- register
 |   |       |   |-- _mock.js
-|   |       |   |-- index.jsx
-|   |       |   |-- service.js
-|   |       |   `-- style.less
+|   |       |   |-- index.jsx               ysy
+|   |       |   |-- service.js              ysy
+|   |       |   `-- style.less              ysy
 |   |       `-- register-result
 |   |           |-- index.jsx
 |   |           `-- style.less
 |   |-- service-worker.js
 |   `-- services
 |       |-- ant-design-pro
-|       |   |-- api.js
+|       |   |-- api.js                      ysy
 |       |   |-- index.js
 |       |   `-- login.js
 |       `-- swagger
