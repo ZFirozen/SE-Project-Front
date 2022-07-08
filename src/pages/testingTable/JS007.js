@@ -89,13 +89,19 @@ const JS007 = () => {
                                         console.log(124)
                                         values.projectSerialNumber = projectSerialNumber
                                         let testb = [""];
-                                        for(let i = 0; i < values.testBases.length; i++) {
-                                            testb[i] = values.testBases[i].testBases;
+                                        if(values.testBases !== undefined) {
+                                            for(let i = 0; i < values.testBases.length; i++) {
+                                                testb[i] = values.testBases[i].testBases;
+                                            }
                                         }
+                                        
                                         let refM = [""];
-                                        for(let i = 0; i < values.referenceMaterials.length; i++) {
-                                            refM[i] = values.referenceMaterials[i].referenceMaterials;
+                                        if(values.referenceMaterials !== undefined) {
+                                            for(let i = 0; i < values.referenceMaterials.length; i++) {
+                                                refM[i] = values.referenceMaterials[i].referenceMaterials;
+                                            }
                                         }
+                                        
 
 
                                         values.testBases = testb
