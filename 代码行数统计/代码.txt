@@ -2,7 +2,7 @@
 |-- README.md
 |-- config
 |   |-- config.dev.js
-|   |-- config.js
+|   |-- config.js                       byf chb ssm xyz ysy zyc 561
 |   |-- defaultSettings.js
 |   |-- oneapi.json
 |   |-- proxy.js
@@ -15,14 +15,14 @@
 |   |-- db-1649507953619.json
 |   |-- db-1649594162262.json
 |   |-- db-1649594178239.json
-|   |-- db.json
+|   |-- db.json                         chb 164
 |   |-- package-lock.json
 |   |-- package.json
-|   |-- people.json
+|   |-- people.json                     ssm 20
 |   |-- readme.md
 |   |-- result.json
-|   |-- router.json
-|   `-- server.js
+|   |-- router.json                     chb 3
+|   `-- server.js                       chb 18
 |-- mock
 |   |-- listTableList.js
 |   |-- notices.js
@@ -45,26 +45,26 @@
 |   |-- TestRepo.html
 |   `-- history.json
 |-- seletest
-|   |-- CustomerContractFill.py
-|   |-- CustomerEntrustFill.py
-|   |-- CustomerQuotationAccept.py
-|   |-- assign.py
-|   |-- entvertest.py
-|   |-- fill.py
-|   |-- mktContractFill.py
-|   |-- mktContractVerify.py
-|   |-- mktEntrustVerify.py
-|   |-- mktQuotationFill.py
-|   |-- mktUpload.py
-|   |-- qasTestAssign.py
-|   |-- test.py
-|   |-- testEntrustVerify.py
+|   |-- CustomerContractFill.py         xyz 52
+|   |-- CustomerEntrustFill.py          xyz 53
+|   |-- CustomerQuotationAccept.py      xyz 34
+|   |-- assign.py                       byf 19
+|   |-- entvertest.py                   ssm 24
+|   |-- fill.py                         byf 42
+|   |-- mktContractFill.py              xyz 52
+|   |-- mktContractVerify.py            xyz chb 32
+|   |-- mktEntrustVerify.py             chb 49
+|   |-- mktQuotationFill.py             xyz 56
+|   |-- mktUpload.py                    chb 31
+|   |-- qasTestAssign.py                chb 33
+|   |-- test.py                         byf 124
+|   |-- testEntrustVerify.py            chb 37
 |   |-- testFiles
 |   |   |-- 2021 CCF\326\320\271\372\310\355\274\376\264\363\273\341\273\341\322\351\312\326\262\341_v2.8.pdf
 |   |   |-- NST\243\25504\243\255JS010\243\2552011\243\255\262\342\312\324\261\250\270\346\274\354\262\351\261\355.doc
 |   |   `-- NST\243\25504\243\255JS013\243\2552011 - \262\342\312\324\267\275\260\270\306\300\311\363\261\355.doc
-|   |-- test_test.py
-|   `-- testsEntrustAssign.py
+|   |-- test_test.py                    chb byf 898
+|   `-- testsEntrustAssign.py           chb 35
 |-- src
 |   |-- access.js
 |   |-- app.jsx
@@ -117,12 +117,12 @@
 |   |   |   |-- index.jsx
 |   |   |   `-- index.less
 |   |   |-- RightContent
-|   |   |   |-- AvatarDropdown.jsx 	        ysy
-|   |   |   |-- index.jsx 			        ysy
+|   |   |   |-- AvatarDropdown.jsx 	        ysy 88
+|   |   |   |-- index.jsx 			        ysy 26
 |   |   |   `-- index.less
 |   |   |-- SearchBar
-|   |   |   |-- index.css                   zyc
-|   |   |   `-- index.js                    zyc
+|   |   |   |-- index.css                   zyc 34
+|   |   |   `-- index.js                    zyc 83
 |   |   |-- index.js
 |   |   |-- index.md
 |   |   `-- paper
@@ -131,7 +131,7 @@
 |   |-- e2e
 |   |   `-- baseLayout.e2e.js
 |   |-- global.jsx
-|   |-- global.less                         ysy
+|   |-- global.less                         ysy 45
 |   |-- locales
 |   |   |-- bn-BD
 |   |   |   |-- component.js
@@ -190,7 +190,7 @@
 |   |   |-- zh-CN
 |   |   |   |-- component.js
 |   |   |   |-- globalHeader.js
-|   |   |   |-- menu.js                     ysy
+|   |   |   |-- menu.js                     ysy 101
 |   |   |   |-- pages.js
 |   |   |   |-- pwa.js
 |   |   |   |-- settingDrawer.js
@@ -208,24 +208,24 @@
 |   |-- pages
 |   |   |-- 404.jsx
 |   |   |-- Admin.jsx
-|   |   |-- Assign.js
-|   |   |-- Attachment.js
+|   |   |-- Assign.js                       chb 109
+|   |   |-- Attachment.js                   chb 38
 |   |   |-- Contract.css
 |   |   |-- Contract.js
-|   |   |-- ContractDisplay.js
-|   |   |-- ContractFill.css
-|   |   |-- ContractFill.js
-|   |   |-- ContractUpload.js
-|   |   |-- ContractVerify.js               ysy ?
-|   |   |-- DocDisplay.js
-|   |   |-- DocVerify.js
-|   |   |-- DocumentVerify.js               ysy chb
-|   |   |-- Documents.js
-|   |   |-- Download.js
-|   |   |-- EntrustmentDisplay.js
-|   |   |-- EntrustmentFill.js
-|   |   |-- EntrustmentList.js
-|   |   |-- EntrustmentVerify.js            zyc
+|   |   |-- ContractDisplay.js              xyz 326
+|   |   |-- ContractFill.css                xyz 64
+|   |   |-- ContractFill.js                 xyz 338
+|   |   |-- ContractUpload.js               chb 30
+|   |   |-- ContractVerify.js               xyz 373
+|   |   |-- DocDisplay.js                   byf 105
+|   |   |-- DocVerify.js                    byf 139
+|   |   |-- DocumentVerify.js               ysy chb 870
+|   |   |-- Documents.js                    byf 121
+|   |   |-- Download.js                     chb 358
+|   |   |-- EntrustmentDisplay.js           chb 594
+|   |   |-- EntrustmentFill.js              chb 729
+|   |   |-- EntrustmentList.js              chb 174
+|   |   |-- EntrustmentVerify.js            zyc 682
 |   |   |-- Form.js
 |   |   |-- FormFill.css
 |   |   |-- FormFill.js
@@ -240,10 +240,10 @@
 |   |   |   |-- Feature7.jsx
 |   |   |   |-- Feature8.jsx
 |   |   |   |-- Footer0.jsx
-|   |   |   |-- Footer1.jsx
+|   |   |   |-- Footer1.jsx                 chb 65
 |   |   |   |-- Nav0.jsx
 |   |   |   |-- Nav3.jsx
-|   |   |   |-- data.source.js
+|   |   |   |-- data.source.js              chb 747
 |   |   |   |-- documentation.md
 |   |   |   |-- image
 |   |   |   |   |-- A_-wAhRYnWQscAAAAAAAAAAABkARQnAQ.png
@@ -271,28 +271,28 @@
 |   |   |   |   |-- footer1.less
 |   |   |   |   |-- nav0.less
 |   |   |   |   `-- nav3.less
-|   |   |   `-- utils.js
+|   |   |   `-- utils.js                    chb 17
 |   |   |-- Home.js
-|   |   |-- OurLogin.css                    ysy
-|   |   |-- OurLogin.js                     ysy
-|   |   |-- Progress.js                     ysy byf
-|   |   |-- QuotationAccept.js
-|   |   |-- QuotationDisplay.js
-|   |   |-- QuotationFill.css
-|   |   |-- QuotationFill.js
-|   |   |-- RepoVerify.js
-|   |   |-- SampleDisplay.js
-|   |   |-- SampleFill.js
-|   |   |-- SampleList.js
-|   |   |-- Search.js                       zyc
-|   |   |-- SignUp.js                       ysy
+|   |   |-- OurLogin.css                    ysy 6
+|   |   |-- OurLogin.js                     ysy 142
+|   |   |-- Progress.js                     ysy byf 1043
+|   |   |-- QuotationAccept.js              xyz 229
+|   |   |-- QuotationDisplay.js             xyz 181
+|   |   |-- QuotationFill.css               xyz 64
+|   |   |-- QuotationFill.js                xyz 201
+|   |   |-- RepoVerify.js                   byf 100
+|   |   |-- SampleDisplay.js                chb 100
+|   |   |-- SampleFill.js                   chb 135
+|   |   |-- SampleList.js                   chb 96
+|   |   |-- Search.js                       zyc 11
+|   |   |-- SignUp.js                       ysy 186
 |   |   |-- TableList
 |   |   |   |-- components
 |   |   |   |   `-- UpdateForm.jsx
 |   |   |   `-- index.jsx
-|   |   |-- TestAssign.js
-|   |   |-- TestList.js
-|   |   |-- UserInfo.js                     ysy
+|   |   |-- TestAssign.js                   byf 106
+|   |   |-- TestList.js                     byf 189
+|   |   |-- UserInfo.js                     ysy 371
 |   |   |-- Welcome.jsx
 |   |   |-- Welcome.less
 |   |   |-- account
@@ -315,23 +315,23 @@
 |   |   |   |   |   `-- Projects
 |   |   |   |   |       |-- index.jsx
 |   |   |   |   |       `-- index.less
-|   |   |   |   |-- index.jsx                   ysy
-|   |   |   |   `-- service.js                  ysy
+|   |   |   |   |-- index.jsx                   ysy 58
+|   |   |   |   `-- service.js                  ysy 9
 |   |   |   `-- settings
 |   |   |       |-- _mock.js
 |   |   |       |-- components
 |   |   |       |   |-- BaseView.less
 |   |   |       |   |-- PhoneView.jsx
-|   |   |       |   |-- admin.jsx               ysy
-|   |   |       |   |-- base.jsx                ysy
+|   |   |       |   |-- admin.jsx               ysy 193
+|   |   |       |   |-- base.jsx                ysy 147
 |   |   |       |   |-- binding.jsx
 |   |   |       |   |-- notification.jsx
 |   |   |       |   `-- security.jsx
 |   |   |       |-- geographic
 |   |   |       |   |-- city.json
 |   |   |       |   `-- province.json
-|   |   |       |-- index.jsx                   ysy
-|   |   |       |-- service.js                  ysy
+|   |   |       |-- index.jsx                   ysy 97
+|   |   |       |-- service.js                  ysy 13
 |   |   |       `-- style.less
 |   |   |-- dashboard
 |   |   |   |-- analysis
@@ -422,9 +422,9 @@
 |   |   |       `-- style.less
 |   |   |-- document.ejs
 |   |   |-- downloads
-|   |   |   |-- ContractDownload.js
-|   |   |   |-- RepoVerDownload.js
-|   |   |   `-- ScheVerDownload.js
+|   |   |   |-- ContractDownload.js             byf 53
+|   |   |   |-- RepoVerDownload.js              byf 53
+|   |   |   `-- ScheVerDownload.js              byf 53
 |   |   |-- editor
 |   |   |   |-- flow
 |   |   |   |   |-- common
@@ -631,14 +631,14 @@
 |   |   |       |-- index.jsx
 |   |   |       `-- service.js
 |   |   |-- pageViewer
-|   |   |   |-- EntrustmentViewer.js        zyc
-|   |   |   |-- JS006.js                    zyc
-|   |   |   |-- JS007Display.js
-|   |   |   |-- JS008Display.js
-|   |   |   |-- JS009Display.js
-|   |   |   |-- JS011Display.js
+|   |   |   |-- EntrustmentViewer.js        zyc chb 511
+|   |   |   |-- JS006.js                    zyc 252
+|   |   |   |-- JS007Display.js             ssm 644
+|   |   |   |-- JS008Display.js             ssm 109
+|   |   |   |-- JS009Display.js             ssm 141
+|   |   |   |-- JS011Display.js             ssm 110
 |   |   |   `-- components
-|   |   |       `-- dateTranslate.js        zyc
+|   |   |       `-- dateTranslate.js        zyc 16
 |   |   |-- profile
 |   |   |   |-- advanced
 |   |   |   |   |-- _mock.js
@@ -658,35 +658,35 @@
 |   |   |       |-- index.jsx
 |   |   |       `-- index.less
 |   |   |-- testingTable
-|   |   |   |-- JS006.js                    zyc
-|   |   |   |-- JS007.js
-|   |   |   |-- JS008.js
-|   |   |   |-- JS009.js
-|   |   |   |-- JS010.js                    ysy
-|   |   |   |-- JS011.js
-|   |   |   |-- JS012.js
-|   |   |   |-- JS013.js
+|   |   |   |-- JS006.js                    zyc 337
+|   |   |   |-- JS007.js                    ssm 889
+|   |   |   |-- JS008.js                    xyz 160
+|   |   |   |-- JS009.js                    xyz 219
+|   |   |   |-- JS010.js                    ysy 514
+|   |   |   |-- JS011.js                    xyz 168
+|   |   |   |-- JS012.js                    xyz 229
+|   |   |   |-- JS013.js                    ssm 429
 |   |   |   `-- components
-|   |   |       `-- dateTranslate.js        zyc
+|   |   |       `-- dateTranslate.js        zyc 16
 |   |   |-- uploads
-|   |   |   |-- RepoVerUpload.js
-|   |   |   `-- ScheVerUpload.js
+|   |   |   |-- RepoVerUpload.js            byf 55
+|   |   |   `-- ScheVerUpload.js            byf 54
 |   |   `-- user
 |   |       |-- Login
-|   |       |   |-- index.jsx               ysy
-|   |       |   `-- index.less              ysy
+|   |       |   |-- index.jsx               ysy 255
+|   |       |   `-- index.less              ysy 43
 |   |       |-- register
 |   |       |   |-- _mock.js
-|   |       |   |-- index.jsx               ysy
-|   |       |   |-- service.js              ysy
-|   |       |   `-- style.less              ysy
+|   |       |   |-- index.jsx               ysy 258
+|   |       |   |-- service.js              ysy 5
+|   |       |   `-- style.less              ysy 72
 |   |       `-- register-result
 |   |           |-- index.jsx
 |   |           `-- style.less
 |   |-- service-worker.js
 |   `-- services
 |       |-- ant-design-pro
-|       |   |-- api.js                      ysy
+|       |   |-- api.js                      ysy 44
 |       |   |-- index.js
 |       |   `-- login.js
 |       `-- swagger
