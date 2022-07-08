@@ -48,15 +48,17 @@ const AvatarView = ({ avatar }) => (
 );
 
 const BaseView = () => {
-  const { data: currentUser, loading } = useRequest(() => {
-    return queryCurrent();
+  const { data: currentUser, loading } = useRequest(async () => {
+    const temp = await queryCurrent();
+    const currentUser = { data: temp };
+    return currentUser;
   });
 
   const getAvatarURL = () => {
     if (currentUser) {
-      if (currentUser.avatar) {
-        return currentUser.avatar;
-      }
+      // if (currentUser.avatar) {
+      //   return currentUser.avatar;
+      // }
 
       const url = 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png';
       return url;

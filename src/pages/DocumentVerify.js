@@ -861,6 +861,7 @@ const DocumentVerify = () => {
                       axios.post("/api/entrust/" + entrustId + "/content/denial").then(response => {
                         console.log(response)
                         message.success('已拒绝委托');
+                        history.goBack();
                       });
                     }}>
                     拒绝委托
