@@ -1,0 +1,733 @@
+Date : 2022-07-08 16:25:53
+Directory : d:\工作\软工实验\sep\SE-Project-Front
+Total : 525 files,  81933 codes, 1625 comments, 3344 blanks, all 86902 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |         19 |     38,222 |         60 |          7 |     38,289 |
+| JavaScript         |        201 |     20,731 |        789 |        850 |     22,370 |
+| JavaScript React   |        170 |     13,484 |        625 |      1,103 |     15,212 |
+| Less               |         86 |      4,546 |         35 |        549 |      5,130 |
+| HTML               |          2 |      1,878 |          5 |        425 |      2,308 |
+| Python             |         16 |      1,571 |         96 |         82 |      1,749 |
+| Markdown           |         10 |      1,057 |          0 |        272 |      1,329 |
+| CSS                |         12 |        357 |         10 |         56 |        423 |
+| XML                |          8 |         80 |          1 |          0 |         81 |
+| JSON with Comments |          1 |          7 |          4 |          0 |         11 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                        |        525 |     81,933 |      1,625 |      3,344 |     86,902 |
+| .idea                                                                                                    |          5 |         42 |          0 |          0 |         42 |
+| config                                                                                                   |          6 |      1,266 |         55 |          9 |      1,330 |
+| docs                                                                                                     |          1 |        224 |          0 |        136 |        360 |
+| json-server                                                                                              |         11 |      3,840 |        125 |          6 |      3,971 |
+| mock                                                                                                     |          4 |        402 |         70 |         45 |        517 |
+| public                                                                                                   |          2 |          6 |          0 |          0 |          6 |
+| reports                                                                                                  |          2 |      1,678 |          2 |        402 |      2,082 |
+| seletest                                                                                                 |         16 |      1,571 |         96 |         82 |      1,749 |
+| src                                                                                                      |        461 |     40,426 |      1,224 |      2,534 |     44,184 |
+| src\components                                                                                           |         38 |      2,238 |        161 |        217 |      2,616 |
+| src\components\ApplicationForm                                                                           |          2 |        433 |         13 |         46 |        492 |
+| src\components\Footer                                                                                    |          1 |         36 |          0 |          1 |         37 |
+| src\components\HeaderDropdown                                                                            |          2 |         22 |          0 |          6 |         28 |
+| src\components\HeaderSearch                                                                              |          2 |        103 |          0 |          7 |        110 |
+| src\components\JSONSchemaForm                                                                            |         17 |        603 |        102 |         32 |        737 |
+| src\components\JSONSchemaForm\Fields                                                                     |          5 |        141 |         37 |          8 |        186 |
+| src\components\JSONSchemaForm\Fields\ArrayField                                                          |          1 |         31 |         10 |          1 |         42 |
+| src\components\JSONSchemaForm\Fields\ObjectField                                                         |          1 |         37 |          9 |          2 |         48 |
+| src\components\JSONSchemaForm\Fields\SchemaField                                                         |          1 |         39 |          8 |          2 |         49 |
+| src\components\JSONSchemaForm\Fields\StringField                                                         |          1 |         29 |         10 |          2 |         41 |
+| src\components\JSONSchemaForm\Widgets                                                                    |          9 |        335 |         64 |         12 |        411 |
+| src\components\JSONSchemaForm\Widgets\ArrayTable                                                         |          2 |        182 |         36 |          4 |        222 |
+| src\components\JSONSchemaForm\Widgets\CheckboxWidget                                                     |          1 |         45 |          5 |          1 |         51 |
+| src\components\JSONSchemaForm\Widgets\RadioWidget                                                        |          1 |         38 |          6 |          1 |         45 |
+| src\components\JSONSchemaForm\Widgets\StringInputWidget                                                  |          2 |         31 |          9 |          4 |         44 |
+| src\components\JSONSchemaForm\Widgets\TextareaWidget                                                     |          2 |         27 |          8 |          1 |         36 |
+| src\components\JSONSchemaForm\utils                                                                      |          1 |         60 |          0 |          4 |         64 |
+| src\components\NoticeIcon                                                                                |          5 |        455 |          0 |         47 |        502 |
+| src\components\RightContent                                                                              |          3 |        193 |         39 |         24 |        256 |
+| src\components\SearchBar                                                                                 |          2 |        117 |          7 |         19 |        143 |
+| src\components\paper                                                                                     |          2 |         28 |          0 |          1 |         29 |
+| src\e2e                                                                                                  |          1 |         54 |          0 |          8 |         62 |
+| src\locales                                                                                              |         63 |      2,078 |          0 |         63 |      2,141 |
+| src\locales\bn-BD                                                                                        |          7 |        241 |          0 |          7 |        248 |
+| src\locales\en-US                                                                                        |          7 |        241 |          0 |          7 |        248 |
+| src\locales\fa-IR                                                                                        |          7 |        240 |          0 |          7 |        247 |
+| src\locales\id-ID                                                                                        |          7 |        243 |          0 |          7 |        250 |
+| src\locales\ja-JP                                                                                        |          7 |        238 |          0 |          7 |        245 |
+| src\locales\pt-BR                                                                                        |          7 |        244 |          0 |          7 |        251 |
+| src\locales\zh-CN                                                                                        |          7 |        282 |          0 |          7 |        289 |
+| src\locales\zh-TW                                                                                        |          6 |        166 |          0 |          6 |        172 |
+| src\pages                                                                                                |        346 |     35,550 |        942 |      2,160 |     38,652 |
+| src\pages\Home                                                                                           |         36 |      3,268 |         20 |        277 |      3,565 |
+| src\pages\Home\image                                                                                     |          1 |         32 |          1 |          0 |         33 |
+| src\pages\Home\less                                                                                      |         18 |      1,372 |         10 |        202 |      1,584 |
+| src\pages\TableList                                                                                      |          2 |        549 |         29 |         23 |        601 |
+| src\pages\TableList\components                                                                           |          1 |        194 |          0 |          3 |        197 |
+| src\pages\account                                                                                        |         27 |      3,613 |        382 |        174 |      4,169 |
+| src\pages\account\center                                                                                 |         14 |        852 |        203 |         87 |      1,142 |
+| src\pages\account\center\components                                                                      |         10 |        489 |          3 |         44 |        536 |
+| src\pages\account\center\components\Applications                                                         |          2 |        171 |          2 |         10 |        183 |
+| src\pages\account\center\components\ArticleListContent                                                   |          2 |         51 |          0 |          6 |         57 |
+| src\pages\account\center\components\Articles                                                             |          2 |         66 |          0 |          6 |         72 |
+| src\pages\account\center\components\AvatarList                                                           |          2 |         99 |          0 |         14 |        113 |
+| src\pages\account\center\components\Projects                                                             |          2 |        102 |          1 |          8 |        111 |
+| src\pages\account\settings                                                                               |         13 |      2,761 |        179 |         87 |      3,027 |
+| src\pages\account\settings\components                                                                    |          7 |        570 |        166 |         55 |        791 |
+| src\pages\account\settings\geographic                                                                    |          2 |      1,922 |          0 |          2 |      1,924 |
+| src\pages\dashboard                                                                                      |         54 |      5,489 |         48 |        475 |      6,012 |
+| src\pages\dashboard\analysis                                                                             |         33 |      2,874 |         21 |        261 |      3,156 |
+| src\pages\dashboard\analysis\components                                                                  |         26 |      2,261 |         17 |        192 |      2,470 |
+| src\pages\dashboard\analysis\components\Charts                                                           |         16 |      1,489 |         15 |        158 |      1,662 |
+| src\pages\dashboard\analysis\components\Charts\Bar                                                       |          1 |        114 |          0 |         11 |        125 |
+| src\pages\dashboard\analysis\components\Charts\ChartCard                                                 |          2 |        165 |          0 |         14 |        179 |
+| src\pages\dashboard\analysis\components\Charts\Field                                                     |          2 |         25 |          0 |          5 |         30 |
+| src\pages\dashboard\analysis\components\Charts\Gauge                                                     |          1 |        161 |          0 |         11 |        172 |
+| src\pages\dashboard\analysis\components\Charts\MiniArea                                                  |          1 |        110 |          0 |          3 |        113 |
+| src\pages\dashboard\analysis\components\Charts\MiniBar                                                   |          1 |         40 |          0 |          4 |         44 |
+| src\pages\dashboard\analysis\components\Charts\MiniProgress                                              |          1 |         43 |          0 |          3 |         46 |
+| src\pages\dashboard\analysis\components\Charts\Pie                                                       |          1 |        241 |          4 |         26 |        271 |
+| src\pages\dashboard\analysis\components\Charts\TagCloud                                                  |          1 |        165 |          5 |         20 |        190 |
+| src\pages\dashboard\analysis\components\Charts\TimelineChart                                             |          1 |        127 |          2 |          8 |        137 |
+| src\pages\dashboard\analysis\components\Charts\WaterWave                                                 |          1 |        207 |          4 |         35 |        246 |
+| src\pages\dashboard\analysis\components\NumberInfo                                                       |          2 |        115 |          0 |          5 |        120 |
+| src\pages\dashboard\analysis\components\PageLoading                                                      |          1 |         11 |          1 |          2 |         14 |
+| src\pages\dashboard\analysis\components\Trend                                                            |          2 |         58 |          0 |          8 |         66 |
+| src\pages\dashboard\analysis\utils                                                                       |          3 |        111 |          3 |         18 |        132 |
+| src\pages\dashboard\monitor                                                                              |         13 |      1,445 |         22 |        138 |      1,605 |
+| src\pages\dashboard\monitor\components                                                                   |          9 |      1,220 |         13 |        127 |      1,360 |
+| src\pages\dashboard\monitor\components\ActiveChart                                                       |          2 |        132 |          0 |         14 |        146 |
+| src\pages\dashboard\monitor\components\Charts                                                            |          6 |        946 |         13 |        110 |      1,069 |
+| src\pages\dashboard\monitor\components\Charts\Gauge                                                      |          1 |        161 |          0 |         11 |        172 |
+| src\pages\dashboard\monitor\components\Charts\MiniArea                                                   |          1 |        110 |          0 |          3 |        113 |
+| src\pages\dashboard\monitor\components\Charts\Pie                                                        |          1 |        241 |          4 |         27 |        272 |
+| src\pages\dashboard\monitor\components\Charts\TagCloud                                                   |          1 |        165 |          5 |         20 |        190 |
+| src\pages\dashboard\monitor\components\Charts\WaterWave                                                  |          1 |        207 |          4 |         35 |        246 |
+| src\pages\dashboard\monitor\components\Map                                                               |          1 |        142 |          0 |          3 |        145 |
+| src\pages\dashboard\workplace                                                                            |          8 |      1,170 |          5 |         76 |      1,251 |
+| src\pages\dashboard\workplace\components                                                                 |          4 |        274 |          2 |         32 |        308 |
+| src\pages\dashboard\workplace\components\EditableLinkGroup                                               |          2 |         46 |          0 |          5 |         51 |
+| src\pages\dashboard\workplace\components\Radar                                                           |          2 |        228 |          2 |         27 |        257 |
+| src\pages\downloads                                                                                      |          3 |        159 |          6 |          8 |        173 |
+| src\pages\editor                                                                                         |         79 |      1,895 |          0 |        246 |      2,141 |
+| src\pages\editor\flow                                                                                    |         26 |        585 |          0 |         82 |        667 |
+| src\pages\editor\flow\common                                                                             |          1 |          5 |          0 |          1 |          6 |
+| src\pages\editor\flow\common\IconFont                                                                    |          1 |          5 |          0 |          1 |          6 |
+| src\pages\editor\flow\components                                                                         |         23 |        505 |          0 |         72 |        577 |
+| src\pages\editor\flow\components\EditorContextMenu                                                       |          6 |        108 |          0 |         19 |        127 |
+| src\pages\editor\flow\components\EditorDetailPanel                                                       |          6 |        163 |          0 |         21 |        184 |
+| src\pages\editor\flow\components\EditorItemPanel                                                         |          4 |        116 |          0 |         10 |        126 |
+| src\pages\editor\flow\components\EditorMinimap                                                           |          1 |          8 |          0 |          3 |         11 |
+| src\pages\editor\flow\components\EditorToolbar                                                           |          6 |        110 |          0 |         19 |        129 |
+| src\pages\editor\koni                                                                                    |         26 |        592 |          0 |         81 |        673 |
+| src\pages\editor\koni\common                                                                             |          1 |          5 |          0 |          1 |          6 |
+| src\pages\editor\koni\common\IconFont                                                                    |          1 |          5 |          0 |          1 |          6 |
+| src\pages\editor\koni\components                                                                         |         23 |        505 |          0 |         70 |        575 |
+| src\pages\editor\koni\components\EditorContextMenu                                                       |          6 |        108 |          0 |         18 |        126 |
+| src\pages\editor\koni\components\EditorDetailPanel                                                       |          6 |        163 |          0 |         21 |        184 |
+| src\pages\editor\koni\components\EditorItemPanel                                                         |          4 |        116 |          0 |         10 |        126 |
+| src\pages\editor\koni\components\EditorMinimap                                                           |          1 |          8 |          0 |          3 |         11 |
+| src\pages\editor\koni\components\EditorToolbar                                                           |          6 |        110 |          0 |         18 |        128 |
+| src\pages\editor\mind                                                                                    |         27 |        718 |          0 |         83 |        801 |
+| src\pages\editor\mind\common                                                                             |          1 |          5 |          0 |          1 |          6 |
+| src\pages\editor\mind\common\IconFont                                                                    |          1 |          5 |          0 |          1 |          6 |
+| src\pages\editor\mind\components                                                                         |         23 |        505 |          0 |         71 |        576 |
+| src\pages\editor\mind\components\EditorContextMenu                                                       |          6 |        108 |          0 |         18 |        126 |
+| src\pages\editor\mind\components\EditorDetailPanel                                                       |          6 |        163 |          0 |         21 |        184 |
+| src\pages\editor\mind\components\EditorItemPanel                                                         |          4 |        116 |          0 |         10 |        126 |
+| src\pages\editor\mind\components\EditorMinimap                                                           |          1 |          8 |          0 |          3 |         11 |
+| src\pages\editor\mind\components\EditorToolbar                                                           |          6 |        110 |          0 |         19 |        129 |
+| src\pages\exception                                                                                      |          3 |         51 |          0 |          3 |         54 |
+| src\pages\exception\403                                                                                  |          1 |         17 |          0 |          1 |         18 |
+| src\pages\exception\404                                                                                  |          1 |         17 |          0 |          1 |         18 |
+| src\pages\exception\500                                                                                  |          1 |         17 |          0 |          1 |         18 |
+| src\pages\form                                                                                           |         13 |      1,266 |          5 |         80 |      1,351 |
+| src\pages\form\advanced-form                                                                             |          5 |        815 |          3 |         53 |        871 |
+| src\pages\form\advanced-form\components                                                                  |          1 |        222 |          1 |         29 |        252 |
+| src\pages\form\basic-form                                                                                |          4 |        205 |          1 |         14 |        220 |
+| src\pages\form\step-form                                                                                 |          4 |        246 |          1 |         13 |        260 |
+| src\pages\list                                                                                           |         47 |      3,814 |         44 |        302 |      4,160 |
+| src\pages\list\basic-list                                                                                |          6 |        745 |          4 |         49 |        798 |
+| src\pages\list\basic-list\components                                                                     |          1 |        117 |          0 |          5 |        122 |
+| src\pages\list\basic-list\utils                                                                          |          1 |         46 |          2 |          3 |         51 |
+| src\pages\list\card-list                                                                                 |          5 |        355 |          3 |         25 |        383 |
+| src\pages\list\card-list\utils                                                                           |          1 |         46 |          2 |          3 |         51 |
+| src\pages\list\search                                                                                    |         31 |      2,096 |         10 |        166 |      2,272 |
+| src\pages\list\search\applications                                                                       |          9 |        640 |          4 |         45 |        689 |
+| src\pages\list\search\applications\components                                                            |          4 |        233 |          0 |         27 |        260 |
+| src\pages\list\search\applications\components\StandardFormRow                                            |          2 |        103 |          0 |          9 |        112 |
+| src\pages\list\search\applications\components\TagSelect                                                  |          2 |        130 |          0 |         18 |        148 |
+| src\pages\list\search\applications\utils                                                                 |          1 |         46 |          2 |          3 |         51 |
+| src\pages\list\search\articles                                                                           |         10 |        689 |          1 |         51 |        741 |
+| src\pages\list\search\articles\components                                                                |          6 |        286 |          0 |         31 |        317 |
+| src\pages\list\search\articles\components\ArticleListContent                                             |          2 |         51 |          0 |          6 |         57 |
+| src\pages\list\search\articles\components\StandardFormRow                                                |          2 |        105 |          0 |          8 |        113 |
+| src\pages\list\search\articles\components\TagSelect                                                      |          2 |        130 |          0 |         17 |        147 |
+| src\pages\list\search\projects                                                                           |         11 |        691 |          4 |         58 |        753 |
+| src\pages\list\search\projects\components                                                                |          6 |        334 |          0 |         39 |        373 |
+| src\pages\list\search\projects\components\AvatarList                                                     |          2 |         99 |          0 |         14 |        113 |
+| src\pages\list\search\projects\components\StandardFormRow                                                |          2 |        105 |          0 |          8 |        113 |
+| src\pages\list\search\projects\components\TagSelect                                                      |          2 |        130 |          0 |         17 |        147 |
+| src\pages\list\search\projects\utils                                                                     |          1 |         46 |          2 |          3 |         51 |
+| src\pages\list\table-list                                                                                |          5 |        618 |         27 |         62 |        707 |
+| src\pages\list\table-list\components                                                                     |          2 |        158 |          0 |          6 |        164 |
+| src\pages\pageViewer                                                                                     |          7 |      1,783 |         26 |         90 |      1,899 |
+| src\pages\pageViewer\components                                                                          |          1 |         16 |          0 |          1 |         17 |
+| src\pages\profile                                                                                        |          8 |        879 |          0 |         40 |        919 |
+| src\pages\profile\advanced                                                                               |          4 |        556 |          0 |         22 |        578 |
+| src\pages\profile\basic                                                                                  |          4 |        323 |          0 |         18 |        341 |
+| src\pages\result                                                                                         |          4 |        226 |          0 |          7 |        233 |
+| src\pages\result\fail                                                                                    |          2 |         82 |          0 |          3 |         85 |
+| src\pages\result\success                                                                                 |          2 |        144 |          0 |          4 |        148 |
+| src\pages\testingTable                                                                                   |          9 |      2,961 |         81 |         52 |      3,094 |
+| src\pages\testingTable\components                                                                        |          1 |         16 |          0 |          1 |         17 |
+| src\pages\uploads                                                                                        |          2 |        109 |          0 |          6 |        115 |
+| src\pages\user                                                                                           |          8 |        699 |         96 |         69 |        864 |
+| src\pages\user\Login                                                                                     |          2 |        298 |         19 |         24 |        341 |
+| src\pages\user\register                                                                                  |          4 |        345 |         77 |         41 |        463 |
+| src\pages\user\register-result                                                                           |          2 |         56 |          0 |          4 |         60 |
+| src\services                                                                                             |          7 |        245 |         68 |         46 |        359 |
+| src\services\ant-design-pro                                                                              |          3 |         58 |         38 |         16 |        112 |
+| src\services\swagger                                                                                     |          4 |        187 |         30 |         30 |        247 |
+| tests                                                                                                    |          5 |        140 |         24 |         26 |        190 |
+| 代码行数统计                                                                                                   |          5 |        453 |          0 |         26 |        479 |
+| 代码行数统计\0627                                                                                              |          5 |        453 |          0 |         26 |        479 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                 | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| d:\工作\软工实验\sep\SE-Project-Front\.idea\SE-Project-Front.iml                                               | XML                |          9 |          0 |          0 |          9 |
+| d:\工作\软工实验\sep\SE-Project-Front\.idea\misc.xml                                                           | XML                |          9 |          0 |          0 |          9 |
+| d:\工作\软工实验\sep\SE-Project-Front\.idea\modules.xml                                                        | XML                |          8 |          0 |          0 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\.idea\runConfigurations.xml                                              | XML                |         10 |          0 |          0 |         10 |
+| d:\工作\软工实验\sep\SE-Project-Front\.idea\vcs.xml                                                            | XML                |          6 |          0 |          0 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\README.md                                                                | Markdown           |         60 |          0 |         41 |        101 |
+| d:\工作\软工实验\sep\SE-Project-Front\config\config.dev.js                                                     | JavaScript         |         11 |          3 |          1 |         15 |
+| d:\工作\软工实验\sep\SE-Project-Front\config\config.js                                                         | JavaScript         |        561 |         41 |          4 |        606 |
+| d:\工作\软工实验\sep\SE-Project-Front\config\defaultSettings.js                                                | JavaScript         |         14 |          1 |          1 |         16 |
+| d:\工作\软工实验\sep\SE-Project-Front\config\oneapi.json                                                       | JSON               |        593 |          0 |          1 |        594 |
+| d:\工作\软工实验\sep\SE-Project-Front\config\proxy.js                                                          | JavaScript         |         29 |          8 |          1 |         38 |
+| d:\工作\软工实验\sep\SE-Project-Front\config\routes.js                                                         | JavaScript         |         58 |          2 |          1 |         61 |
+| d:\工作\软工实验\sep\SE-Project-Front\docs\index.md                                                            | Markdown           |        224 |          0 |        136 |        360 |
+| d:\工作\软工实验\sep\SE-Project-Front\jest.config.js                                                           | JavaScript         |         10 |          0 |          1 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\jsconfig.json                                                            | JSON with Comments |          7 |          4 |          0 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\db-1649507953619.json                                        | JSON               |         20 |          0 |          0 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\db-1649594162262.json                                        | JSON               |         20 |          0 |          0 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\db-1649594178239.json                                        | JSON               |         20 |          0 |          0 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\db.json                                                      | JSON               |        164 |         35 |          0 |        199 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\package-lock.json                                            | JSON               |      3,538 |          0 |          1 |      3,539 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\package.json                                                 | JSON               |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\people.json                                                  | JSON               |         20 |          0 |          0 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\readme.md                                                    | Markdown           |         12 |          0 |          1 |         13 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\result.json                                                  | JSON               |         20 |          0 |          0 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\router.json                                                  | JSON               |          3 |          0 |          0 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\json-server\server.js                                                    | JavaScript         |         18 |         90 |          3 |        111 |
+| d:\工作\软工实验\sep\SE-Project-Front\mock\listTableList.js                                                    | JavaScript         |        148 |          2 |         29 |        179 |
+| d:\工作\软工实验\sep\SE-Project-Front\mock\notices.js                                                          | JavaScript         |        104 |          0 |          2 |        106 |
+| d:\工作\软工实验\sep\SE-Project-Front\mock\route.js                                                            | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\mock\user.js                                                             | JavaScript         |        143 |         68 |         13 |        224 |
+| d:\工作\软工实验\sep\SE-Project-Front\package-lock.json                                                        | JSON               |     31,601 |          0 |          1 |     31,602 |
+| d:\工作\软工实验\sep\SE-Project-Front\package.json                                                             | JSON               |        124 |         25 |          0 |        149 |
+| d:\工作\软工实验\sep\SE-Project-Front\people.json                                                              | JSON               |         19 |          0 |          0 |         19 |
+| d:\工作\软工实验\sep\SE-Project-Front\public\logo.svg                                                          | XML                |          1 |          0 |          0 |          1 |
+| d:\工作\软工实验\sep\SE-Project-Front\public\pro_icon.svg                                                      | XML                |          5 |          0 |          0 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\reports\TestRepo.html                                                    | HTML               |      1,677 |          2 |        402 |      2,081 |
+| d:\工作\软工实验\sep\SE-Project-Front\reports\history.json                                                     | JSON               |          1 |          0 |          0 |          1 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\CustomerContractFill.py                                         | Python             |         52 |          0 |          3 |         55 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\CustomerEntrustFill.py                                          | Python             |         53 |          0 |          2 |         55 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\CustomerQuotationAccept.py                                      | Python             |         34 |          0 |          2 |         36 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\assign.py                                                       | Python             |         19 |          0 |          0 |         19 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\entvertest.py                                                   | Python             |         24 |          1 |          1 |         26 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\fill.py                                                         | Python             |         42 |         41 |          2 |         85 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\mktContractFill.py                                              | Python             |         52 |          0 |          3 |         55 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\mktContractVerify.py                                            | Python             |         32 |          2 |          2 |         36 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\mktEntrustVerify.py                                             | Python             |         49 |          1 |          2 |         52 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\mktQuotationFill.py                                             | Python             |         56 |          0 |          3 |         59 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\mktUpload.py                                                    | Python             |         31 |          1 |          2 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\qasTestAssign.py                                                | Python             |         33 |          1 |          2 |         36 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\test.py                                                         | Python             |        124 |         16 |          6 |        146 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\testEntrustVerify.py                                            | Python             |         37 |          1 |          2 |         40 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\test_test.py                                                    | Python             |        898 |         31 |         48 |        977 |
+| d:\工作\软工实验\sep\SE-Project-Front\seletest\testsEntrustAssign.py                                           | Python             |         35 |          1 |          2 |         38 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\access.js                                                            | JavaScript         |          6 |          3 |          1 |         10 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\app.jsx                                                              | JavaScript React   |         59 |         17 |          8 |         84 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\ApplicationForm\index.css                                 | CSS                |         62 |          3 |         13 |         78 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\ApplicationForm\index.js                                  | JavaScript         |        371 |         10 |         33 |        414 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\Footer\index.jsx                                          | JavaScript React   |         36 |          0 |          1 |         37 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\HeaderDropdown\index.jsx                                  | JavaScript React   |          8 |          0 |          3 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\HeaderDropdown\index.less                                 | Less               |         14 |          0 |          3 |         17 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\HeaderSearch\index.jsx                                    | JavaScript React   |         80 |          0 |          4 |         84 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\HeaderSearch\index.less                                   | Less               |         23 |          0 |          3 |         26 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Fields\ArrayField\index.js                 | JavaScript         |         31 |         10 |          1 |         42 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Fields\ObjectField\index.js                | JavaScript         |         37 |          9 |          2 |         48 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Fields\SchemaField\index.js                | JavaScript         |         39 |          8 |          2 |         49 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Fields\StringField\index.js                | JavaScript         |         29 |         10 |          2 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Fields\index.js                            | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\ArrayTable\index.css               | CSS                |         41 |          0 |          2 |         43 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\ArrayTable\index.js                | JavaScript         |        141 |         36 |          2 |        179 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\CheckboxWidget\index.js            | JavaScript         |         45 |          5 |          1 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\RadioWidget\index.js               | JavaScript         |         38 |          6 |          1 |         45 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\StringInputWidget\index.css        | CSS                |         11 |          0 |          3 |         14 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\StringInputWidget\index.js         | JavaScript         |         20 |          9 |          1 |         30 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\TextareaWidget\index.css           | CSS                |          3 |          0 |          0 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\TextareaWidget\index.js            | JavaScript         |         24 |          8 |          1 |         33 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\Widgets\index.js                           | JavaScript         |         12 |          0 |          1 |         13 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\index.css                                  | CSS                |         20 |          0 |          2 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\index.js                                   | JavaScript         |         47 |          1 |          6 |         54 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\JSONSchemaForm\utils\index.js                             | JavaScript         |         60 |          0 |          4 |         64 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\NoticeIcon\NoticeIcon.jsx                                 | JavaScript React   |        106 |          0 |          9 |        115 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\NoticeIcon\NoticeList.jsx                                 | JavaScript React   |         93 |          0 |          5 |         98 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\NoticeIcon\NoticeList.less                                | Less               |         96 |          0 |          8 |        104 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\NoticeIcon\index.jsx                                      | JavaScript React   |        130 |          0 |         19 |        149 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\NoticeIcon\index.less                                     | Less               |         30 |          0 |          6 |         36 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\RightContent\AvatarDropdown.jsx                           | JavaScript React   |         88 |          5 |         11 |        104 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\RightContent\index.jsx                                    | JavaScript React   |         26 |         34 |          7 |         67 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\RightContent\index.less                                   | Less               |         79 |          0 |          6 |         85 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\SearchBar\index.css                                       | CSS                |         34 |          0 |          7 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\SearchBar\index.js                                        | JavaScript         |         83 |          7 |         12 |        102 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\index.js                                                  | JavaScript         |          6 |          0 |          3 |          9 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\index.md                                                  | Markdown           |        242 |          0 |         31 |        273 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\paper\index.css                                           | CSS                |         15 |          0 |          0 |         15 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\components\paper\index.js                                            | JavaScript         |         13 |          0 |          1 |         14 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\e2e\baseLayout.e2e.js                                                | JavaScript         |         54 |          0 |          8 |         62 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\global.jsx                                                           | JavaScript React   |         92 |          5 |         12 |        109 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\global.less                                                          | Less               |         45 |          5 |         12 |         62 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD.js                                                     | JavaScript         |         25 |          0 |          1 |         26 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\pages.js                                               | JavaScript         |         70 |          0 |          1 |         71 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\pwa.js                                                 | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\settingDrawer.js                                       | JavaScript         |         31 |          0 |          1 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\bn-BD\settings.js                                            | JavaScript         |         59 |          0 |          1 |         60 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US.js                                                     | JavaScript         |         24 |          0 |          1 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\pages.js                                               | JavaScript         |         70 |          0 |          1 |         71 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\pwa.js                                                 | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\settingDrawer.js                                       | JavaScript         |         31 |          0 |          1 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\en-US\settings.js                                            | JavaScript         |         60 |          0 |          1 |         61 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR.js                                                     | JavaScript         |         23 |          0 |          1 |         24 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\pages.js                                               | JavaScript         |         67 |          0 |          1 |         68 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\pwa.js                                                 | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\settingDrawer.js                                       | JavaScript         |         32 |          0 |          1 |         33 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\fa-IR\settings.js                                            | JavaScript         |         60 |          0 |          1 |         61 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID.js                                                     | JavaScript         |         24 |          0 |          1 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\pages.js                                               | JavaScript         |         70 |          0 |          1 |         71 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\pwa.js                                                 | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\settingDrawer.js                                       | JavaScript         |         32 |          0 |          1 |         33 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\id-ID\settings.js                                            | JavaScript         |         60 |          0 |          1 |         61 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP.js                                                     | JavaScript         |         23 |          0 |          1 |         24 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\pages.js                                               | JavaScript         |         67 |          0 |          1 |         68 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\pwa.js                                                 | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\settingDrawer.js                                       | JavaScript         |         31 |          0 |          1 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\ja-JP\settings.js                                            | JavaScript         |         59 |          0 |          1 |         60 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR.js                                                     | JavaScript         |         21 |          0 |          1 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\globalHeader.js                                        | JavaScript         |         18 |          0 |          1 |         19 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\pages.js                                               | JavaScript         |         70 |          0 |          1 |         71 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\pwa.js                                                 | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\settingDrawer.js                                       | JavaScript         |         32 |          0 |          1 |         33 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\pt-BR\settings.js                                            | JavaScript         |         60 |          0 |          1 |         61 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN.js                                                     | JavaScript         |         24 |          0 |          1 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\menu.js                                                | JavaScript         |        101 |          0 |          1 |        102 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\pages.js                                               | JavaScript         |         67 |          0 |          1 |         68 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\pwa.js                                                 | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\settingDrawer.js                                       | JavaScript         |         31 |          0 |          1 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-CN\settings.js                                            | JavaScript         |         55 |          0 |          1 |         56 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW.js                                                     | JavaScript         |         19 |          0 |          1 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW\component.js                                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW\globalHeader.js                                        | JavaScript         |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW\menu.js                                                | JavaScript         |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW\pwa.js                                                 | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW\settingDrawer.js                                       | JavaScript         |         31 |          0 |          1 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\locales\zh-TW\settings.js                                            | JavaScript         |         55 |          0 |          1 |         56 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\manifest.json                                                        | JSON               |         22 |          0 |          0 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\404.jsx                                                        | JavaScript React   |         16 |          0 |          3 |         19 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Admin.jsx                                                      | JavaScript React   |         52 |          0 |          1 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Assign.js                                                      | JavaScript         |        109 |          4 |          8 |        121 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Attachment.js                                                  | JavaScript         |         38 |          0 |          6 |         44 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Contract.css                                                   | CSS                |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Contract.js                                                    | JavaScript         |         48 |          0 |          6 |         54 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\ContractDisplay.js                                             | JavaScript         |        326 |          7 |          6 |        339 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\ContractFill.css                                               | CSS                |         64 |          0 |         10 |         74 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\ContractFill.js                                                | JavaScript         |        338 |          8 |          6 |        352 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\ContractUpload.js                                              | JavaScript         |         30 |          0 |          3 |         33 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\ContractVerify.js                                              | JavaScript         |        373 |          9 |          5 |        387 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\DocDisplay.js                                                  | JavaScript         |        105 |         15 |          2 |        122 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\DocVerify.js                                                   | JavaScript         |        139 |          0 |          2 |        141 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\DocumentVerify.js                                              | JavaScript         |        870 |          2 |         10 |        882 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Documents.js                                                   | JavaScript         |        121 |          0 |          2 |        123 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Download.js                                                    | JavaScript         |        358 |          0 |          6 |        364 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\EntrustmentDisplay.js                                          | JavaScript         |        594 |          7 |          8 |        609 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\EntrustmentFill.js                                             | JavaScript         |        729 |          9 |          4 |        742 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\EntrustmentList.js                                             | JavaScript         |        174 |          2 |          8 |        184 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\EntrustmentVerify.js                                           | JavaScript         |        682 |          4 |         23 |        709 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Form.js                                                        | JavaScript         |         20 |          0 |          1 |         21 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\FormFill.css                                                   | CSS                |         33 |          0 |          6 |         39 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\FormFill.js                                                    | JavaScript         |        102 |         15 |         12 |        129 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home.js                                                        | JavaScript         |          2 |         36 |          2 |         40 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Banner0.jsx                                               | JavaScript React   |         52 |          0 |          2 |         54 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Banner5.jsx                                               | JavaScript React   |         44 |          0 |          2 |         46 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Content0.jsx                                              | JavaScript React   |         47 |          0 |          3 |         50 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Content1.jsx                                              | JavaScript React   |         68 |          0 |          3 |         71 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Content3.jsx                                              | JavaScript React   |         91 |          0 |          4 |         95 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Feature0.jsx                                              | JavaScript React   |         47 |          0 |          3 |         50 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Feature6.jsx                                              | JavaScript React   |        144 |          0 |         10 |        154 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Feature7.jsx                                              | JavaScript React   |         38 |          0 |          4 |         42 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Feature8.jsx                                              | JavaScript React   |        130 |          0 |         10 |        140 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Footer0.jsx                                               | JavaScript React   |         25 |          0 |          3 |         28 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Footer1.jsx                                               | JavaScript React   |         65 |          0 |          5 |         70 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Nav0.jsx                                                  | JavaScript React   |        130 |          0 |          6 |        136 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\Nav3.jsx                                                  | JavaScript React   |        131 |          0 |          6 |        137 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\data.source.js                                            | JavaScript         |        747 |          0 |          1 |        748 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\documentation.md                                          | Markdown           |          3 |          0 |          2 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\image\e339fc34-b022-4cde-9607-675ca9e05231.svg            | XML                |         32 |          1 |          0 |         33 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\index.jsx                                                 | JavaScript React   |         85 |          9 |          8 |        102 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\antMotionStyle.less                                  | Less               |          9 |          0 |          0 |          9 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\banner0.less                                         | Less               |         82 |          1 |          2 |         85 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\banner5.less                                         | Less               |         94 |          1 |         16 |        111 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\common.less                                          | Less               |         30 |          6 |          7 |         43 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\content.less                                         | Less               |         42 |          0 |          3 |         45 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\content0.less                                        | Less               |         46 |          0 |         10 |         56 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\content1.less                                        | Less               |         75 |          0 |          2 |         77 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\content3.less                                        | Less               |         51 |          0 |          2 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\custom.less                                          | Less               |         26 |          2 |          8 |         36 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\edit.less                                            | Less               |         84 |          0 |          2 |         86 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\feature0.less                                        | Less               |         46 |          0 |         10 |         56 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\feature6.less                                        | Less               |         97 |          0 |         22 |        119 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\feature7.less                                        | Less               |         68 |          0 |         14 |         82 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\feature8.less                                        | Less               |        182 |          0 |         36 |        218 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\footer0.less                                         | Less               |         27 |          0 |          2 |         29 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\footer1.less                                         | Less               |         96 |          0 |          3 |         99 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\nav0.less                                            | Less               |        156 |          0 |         32 |        188 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\less\nav3.less                                            | Less               |        161 |          0 |         31 |        192 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Home\utils.js                                                  | JavaScript         |         17 |          0 |          3 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\OurLogin.css                                                   | CSS                |          6 |          7 |          2 |         15 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\OurLogin.js                                                    | JavaScript         |        142 |          9 |         15 |        166 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Progress.js                                                    | JavaScript         |      1,043 |         37 |         23 |      1,103 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\QuotationAccept.js                                             | JavaScript         |        229 |          7 |          3 |        239 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\QuotationDisplay.js                                            | JavaScript         |        181 |          5 |          3 |        189 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\QuotationFill.css                                              | CSS                |         64 |          0 |         10 |         74 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\QuotationFill.js                                               | JavaScript         |        201 |          6 |          4 |        211 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\RepoVerify.js                                                  | JavaScript         |        100 |          0 |          2 |        102 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\SampleDisplay.js                                               | JavaScript         |        100 |          0 |          3 |        103 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\SampleFill.js                                                  | JavaScript         |        135 |          1 |          4 |        140 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\SampleList.js                                                  | JavaScript         |         96 |          0 |          6 |        102 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Search.js                                                      | JavaScript         |         11 |          0 |          1 |         12 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\SignUp.js                                                      | JavaScript         |        186 |          4 |         18 |        208 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\TableList\components\UpdateForm.jsx                            | JavaScript React   |        194 |          0 |          3 |        197 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\TableList\index.jsx                                            | JavaScript React   |        355 |         29 |         20 |        404 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\TestAssign.js                                                  | JavaScript         |        106 |          3 |         11 |        120 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\TestList.js                                                    | JavaScript         |        189 |          3 |          5 |        197 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\UserInfo.js                                                    | JavaScript         |        371 |          2 |         27 |        400 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Welcome.jsx                                                    | JavaScript React   |         61 |          0 |          3 |         64 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\Welcome.less                                                   | Less               |          7 |          0 |          2 |          9 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\Center.less                                     | Less               |         74 |          0 |         13 |         87 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\_mock.js                                        | JavaScript         |        222 |          2 |          8 |        232 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\Applications\index.jsx               | JavaScript React   |        123 |          1 |          7 |        131 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\Applications\index.less              | Less               |         48 |          1 |          3 |         52 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\ArticleListContent\index.jsx         | JavaScript React   |         15 |          0 |          3 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\ArticleListContent\index.less        | Less               |         36 |          0 |          3 |         39 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\Articles\index.jsx                   | JavaScript React   |         55 |          0 |          4 |         59 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\Articles\index.less                  | Less               |         11 |          0 |          2 |         13 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\AvatarList\index.jsx                 | JavaScript React   |         55 |          0 |          7 |         62 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\AvatarList\index.less                | Less               |         44 |          0 |          7 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\Projects\index.jsx                   | JavaScript React   |         52 |          1 |          3 |         56 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\components\Projects\index.less                  | Less               |         50 |          0 |          5 |         55 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\index.jsx                                       | JavaScript React   |         58 |        198 |         21 |        277 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\center\service.js                                      | JavaScript         |          9 |          0 |          1 |         10 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\_mock.js                                      | JavaScript         |         71 |          2 |          6 |         79 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\BaseView.less                      | Less               |         59 |          0 |          7 |         66 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\PhoneView.jsx                      | JavaScript React   |         33 |          0 |          5 |         38 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\admin.jsx                          | JavaScript React   |        193 |          1 |         18 |        212 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\base.jsx                           | JavaScript React   |        147 |        165 |         13 |        325 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\binding.jsx                        | JavaScript React   |         43 |          0 |          4 |         47 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\notification.jsx                   | JavaScript React   |         39 |          0 |          4 |         43 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\components\security.jsx                       | JavaScript React   |         56 |          0 |          4 |         60 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\geographic\city.json                          | JSON               |      1,784 |          0 |          1 |      1,785 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\geographic\province.json                      | JSON               |        138 |          0 |          1 |        139 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\index.jsx                                     | JavaScript React   |         97 |          9 |         19 |        125 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\service.js                                    | JavaScript         |         13 |          0 |          1 |         14 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\account\settings\style.less                                    | Less               |         88 |          2 |          4 |         94 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\_mock.js                                    | JavaScript         |        195 |          1 |         15 |        211 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\Bar\index.jsx             | JavaScript React   |        114 |          0 |         11 |        125 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\ChartCard\index.jsx       | JavaScript React   |         91 |          0 |         12 |        103 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\ChartCard\index.less      | Less               |         74 |          0 |          2 |         76 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\Field\index.jsx           | JavaScript React   |          9 |          0 |          3 |         12 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\Field\index.less          | Less               |         16 |          0 |          2 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\Gauge\index.jsx           | JavaScript React   |        161 |          0 |         11 |        172 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\MiniArea\index.jsx        | JavaScript React   |        110 |          0 |          3 |        113 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\MiniBar\index.jsx         | JavaScript React   |         40 |          0 |          4 |         44 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\MiniProgress\index.jsx    | JavaScript React   |         43 |          0 |          3 |         46 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\Pie\index.jsx             | JavaScript React   |        241 |          4 |         26 |        271 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\TagCloud\index.jsx        | JavaScript React   |        165 |          5 |         20 |        190 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\TimelineChart\index.jsx   | JavaScript React   |        127 |          2 |          8 |        137 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\WaterWave\index.jsx       | JavaScript React   |        207 |          4 |         35 |        246 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\autoHeight.jsx            | JavaScript React   |         62 |          0 |         14 |         76 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\index.jsx                 | JavaScript React   |         10 |          0 |          3 |         13 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Charts\index.less                | Less               |         19 |          0 |          1 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\IntroduceRow.jsx                 | JavaScript React   |        146 |          0 |          4 |        150 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\NumberInfo\index.jsx             | JavaScript React   |         48 |          0 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\NumberInfo\index.less            | Less               |         67 |          0 |          2 |         69 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\OfflineData.jsx                  | JavaScript React   |         74 |          0 |          5 |         79 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\PageLoading\index.jsx            | JavaScript React   |         11 |          1 |          2 |         14 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\ProportionSales.jsx              | JavaScript React   |         61 |          1 |          3 |         65 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\SalesCard.jsx                    | JavaScript React   |        181 |          0 |          4 |        185 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\TopSearch.jsx                    | JavaScript React   |        126 |          0 |          3 |        129 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Trend\index.jsx                  | JavaScript React   |         25 |          0 |          3 |         28 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\components\Trend\index.less                 | Less               |         33 |          0 |          5 |         38 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\index.jsx                                   | JavaScript React   |        128 |          0 |         20 |        148 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\service.js                                  | JavaScript         |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\style.less                                  | Less               |        175 |          0 |         15 |        190 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\utils\Yuan.jsx                              | JavaScript React   |         26 |          1 |          7 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\utils\utils.js                              | JavaScript         |         39 |          0 |          8 |         47 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\analysis\utils\utils.less                            | Less               |         46 |          2 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\_mock.js                                     | JavaScript         |         17 |          0 |          3 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\ActiveChart\index.jsx             | JavaScript React   |         83 |          0 |         11 |         94 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\ActiveChart\index.less            | Less               |         49 |          0 |          3 |         52 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Charts\Gauge\index.jsx            | JavaScript React   |        161 |          0 |         11 |        172 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Charts\MiniArea\index.jsx         | JavaScript React   |        110 |          0 |          3 |        113 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Charts\Pie\index.jsx              | JavaScript React   |        241 |          4 |         27 |        272 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Charts\TagCloud\index.jsx         | JavaScript React   |        165 |          5 |         20 |        190 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Charts\WaterWave\index.jsx        | JavaScript React   |        207 |          4 |         35 |        246 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Charts\autoHeight.jsx             | JavaScript React   |         62 |          0 |         14 |         76 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\components\Map\index.jsx                     | JavaScript React   |        142 |          0 |          3 |        145 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\index.jsx                                    | JavaScript React   |        186 |          9 |          3 |        198 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\service.js                                   | JavaScript         |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\monitor\style.less                                   | Less               |         18 |          0 |          4 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\_mock.js                                   | JavaScript         |        392 |          1 |         18 |        411 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\components\EditableLinkGroup\index.jsx     | JavaScript React   |         31 |          0 |          3 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\components\EditableLinkGroup\index.less    | Less               |         15 |          0 |          2 |         17 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\components\Radar\autoHeight.jsx            | JavaScript React   |         62 |          0 |         14 |         76 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\components\Radar\index.jsx                 | JavaScript React   |        166 |          2 |         13 |        181 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\index.jsx                                  | JavaScript React   |        260 |          0 |         10 |        270 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\service.js                                 | JavaScript         |         10 |          0 |          1 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\dashboard\workplace\style.less                                 | Less               |        234 |          2 |         15 |        251 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\document.ejs                                                   | HTML               |        201 |          3 |         23 |        227 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\downloads\ContractDownload.js                                  | JavaScript         |         53 |          2 |          2 |         57 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\downloads\RepoVerDownload.js                                   | JavaScript         |         53 |          2 |          4 |         59 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\downloads\ScheVerDownload.js                                   | JavaScript         |         53 |          2 |          2 |         57 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\common\IconFont\index.js                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorContextMenu\FlowContextMenu.jsx   | JavaScript React   |         31 |          0 |          3 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorContextMenu\KoniContextMenu.jsx   | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorContextMenu\MenuItem.jsx          | JavaScript React   |         17 |          0 |          4 |         21 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorContextMenu\MindContextMenu.jsx   | JavaScript React   |         19 |          0 |          3 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorContextMenu\index.jsx             | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorContextMenu\index.less            | Less               |         35 |          0 |          7 |         42 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorDetailPanel\DetailForm.jsx        | JavaScript React   |        113 |          0 |         11 |        124 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorDetailPanel\FlowDetailPanel.jsx   | JavaScript React   |         24 |          0 |          3 |         27 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorDetailPanel\KoniDetailPanel.jsx   | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorDetailPanel\MindDetailPanel.jsx   | JavaScript React   |         15 |          0 |          3 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorDetailPanel\index.jsx             | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorDetailPanel\index.less            | Less               |          5 |          0 |          2 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorItemPanel\FlowItemPanel.jsx       | JavaScript React   |         50 |          0 |          3 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorItemPanel\KoniItemPanel.jsx       | JavaScript React   |         46 |          0 |          3 |         49 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorItemPanel\index.jsx               | JavaScript React   |          3 |          0 |          1 |          4 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorItemPanel\index.less              | Less               |         17 |          0 |          3 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorMinimap\index.jsx                 | JavaScript React   |          8 |          0 |          3 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorToolbar\FlowToolbar.jsx           | JavaScript React   |         27 |          0 |          3 |         30 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorToolbar\KoniToolbar.jsx           | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorToolbar\MindToolbar.jsx           | JavaScript React   |         22 |          0 |          3 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorToolbar\ToolbarButton.jsx         | JavaScript React   |         21 |          0 |          4 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorToolbar\index.jsx                 | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\components\EditorToolbar\index.less                | Less               |         34 |          0 |          7 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\index.jsx                                          | JavaScript React   |         34 |          0 |          1 |         35 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\flow\index.less                                         | Less               |         41 |          0 |          8 |         49 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\common\IconFont\index.js                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorContextMenu\FlowContextMenu.jsx   | JavaScript React   |         31 |          0 |          3 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorContextMenu\KoniContextMenu.jsx   | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorContextMenu\MenuItem.jsx          | JavaScript React   |         17 |          0 |          4 |         21 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorContextMenu\MindContextMenu.jsx   | JavaScript React   |         19 |          0 |          3 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorContextMenu\index.jsx             | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorContextMenu\index.less            | Less               |         35 |          0 |          6 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorDetailPanel\DetailForm.jsx        | JavaScript React   |        113 |          0 |         11 |        124 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorDetailPanel\FlowDetailPanel.jsx   | JavaScript React   |         24 |          0 |          3 |         27 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorDetailPanel\KoniDetailPanel.jsx   | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorDetailPanel\MindDetailPanel.jsx   | JavaScript React   |         15 |          0 |          3 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorDetailPanel\index.jsx             | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorDetailPanel\index.less            | Less               |          5 |          0 |          2 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorItemPanel\FlowItemPanel.jsx       | JavaScript React   |         50 |          0 |          3 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorItemPanel\KoniItemPanel.jsx       | JavaScript React   |         46 |          0 |          3 |         49 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorItemPanel\index.jsx               | JavaScript React   |          3 |          0 |          1 |          4 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorItemPanel\index.less              | Less               |         17 |          0 |          3 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorMinimap\index.jsx                 | JavaScript React   |          8 |          0 |          3 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorToolbar\FlowToolbar.jsx           | JavaScript React   |         27 |          0 |          3 |         30 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorToolbar\KoniToolbar.jsx           | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorToolbar\MindToolbar.jsx           | JavaScript React   |         22 |          0 |          3 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorToolbar\ToolbarButton.jsx         | JavaScript React   |         21 |          0 |          4 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorToolbar\index.jsx                 | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\components\EditorToolbar\index.less                | Less               |         34 |          0 |          6 |         40 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\index.jsx                                          | JavaScript React   |         34 |          0 |          1 |         35 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\koni\index.less                                         | Less               |         48 |          0 |          9 |         57 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\common\IconFont\index.js                           | JavaScript         |          5 |          0 |          1 |          6 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorContextMenu\FlowContextMenu.jsx   | JavaScript React   |         31 |          0 |          3 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorContextMenu\KoniContextMenu.jsx   | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorContextMenu\MenuItem.jsx          | JavaScript React   |         17 |          0 |          4 |         21 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorContextMenu\MindContextMenu.jsx   | JavaScript React   |         19 |          0 |          3 |         22 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorContextMenu\index.jsx             | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorContextMenu\index.less            | Less               |         35 |          0 |          6 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorDetailPanel\DetailForm.jsx        | JavaScript React   |        113 |          0 |         11 |        124 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorDetailPanel\FlowDetailPanel.jsx   | JavaScript React   |         24 |          0 |          3 |         27 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorDetailPanel\KoniDetailPanel.jsx   | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorDetailPanel\MindDetailPanel.jsx   | JavaScript React   |         15 |          0 |          3 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorDetailPanel\index.jsx             | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorDetailPanel\index.less            | Less               |          5 |          0 |          2 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorItemPanel\FlowItemPanel.jsx       | JavaScript React   |         50 |          0 |          3 |         53 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorItemPanel\KoniItemPanel.jsx       | JavaScript React   |         46 |          0 |          3 |         49 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorItemPanel\index.jsx               | JavaScript React   |          3 |          0 |          1 |          4 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorItemPanel\index.less              | Less               |         17 |          0 |          3 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorMinimap\index.jsx                 | JavaScript React   |          8 |          0 |          3 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorToolbar\FlowToolbar.jsx           | JavaScript React   |         27 |          0 |          3 |         30 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorToolbar\KoniToolbar.jsx           | JavaScript React   |          2 |          0 |          1 |          3 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorToolbar\MindToolbar.jsx           | JavaScript React   |         22 |          0 |          3 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorToolbar\ToolbarButton.jsx         | JavaScript React   |         21 |          0 |          4 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorToolbar\index.jsx                 | JavaScript React   |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\components\EditorToolbar\index.less                | Less               |         34 |          0 |          7 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\index.jsx                                          | JavaScript React   |         31 |          0 |          1 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\index.less                                         | Less               |         48 |          0 |          9 |         57 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\editor\mind\worldCup2018.json                                  | JSON               |        129 |          0 |          1 |        130 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\exception\403\index.jsx                                        | JavaScript React   |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\exception\404\index.jsx                                        | JavaScript React   |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\exception\500\index.jsx                                        | JavaScript React   |         17 |          0 |          1 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\advanced-form\_mock.js                                    | JavaScript         |          9 |          1 |          1 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\advanced-form\components\TableForm.jsx                    | JavaScript React   |        222 |          1 |         29 |        252 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\advanced-form\index.jsx                                   | JavaScript React   |        519 |          1 |         14 |        534 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\advanced-form\service.js                                  | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\advanced-form\style.less                                  | Less               |         58 |          0 |          8 |         66 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\basic-form\_mock.js                                       | JavaScript         |          9 |          1 |          1 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\basic-form\index.jsx                                      | JavaScript React   |        184 |          0 |         10 |        194 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\basic-form\service.js                                     | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\basic-form\style.less                                     | Less               |          5 |          0 |          2 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\step-form\_mock.js                                        | JavaScript         |          9 |          1 |          1 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\step-form\index.jsx                                       | JavaScript React   |        221 |          0 |          8 |        229 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\step-form\service.js                                      | JavaScript         |          7 |          0 |          1 |          8 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\form\step-form\style.less                                      | Less               |          9 |          0 |          3 |         12 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\index.js                                                       | JavaScript         |         33 |          0 |          2 |         35 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\basic-list\_mock.js                                       | JavaScript         |        140 |          2 |         15 |        157 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\basic-list\components\OperationModal.jsx                  | JavaScript React   |        117 |          0 |          5 |        122 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\basic-list\index.jsx                                      | JavaScript React   |        232 |          0 |         15 |        247 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\basic-list\service.js                                     | JavaScript         |         24 |          0 |          1 |         25 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\basic-list\style.less                                     | Less               |        186 |          0 |         10 |        196 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\basic-list\utils\utils.less                               | Less               |         46 |          2 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\card-list\_mock.js                                        | JavaScript         |        104 |          1 |          6 |        111 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\card-list\index.jsx                                       | JavaScript React   |        102 |          0 |          4 |        106 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\card-list\service.js                                      | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\card-list\style.less                                      | Less               |         97 |          0 |         11 |        108 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\card-list\utils\utils.less                                | Less               |         46 |          2 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\_mock.js                              | JavaScript         |        104 |          1 |          6 |        111 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\components\StandardFormRow\index.jsx  | JavaScript React   |         21 |          0 |          3 |         24 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\components\StandardFormRow\index.less | Less               |         82 |          0 |          6 |         88 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\components\TagSelect\index.jsx        | JavaScript React   |         98 |          0 |         15 |        113 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\components\TagSelect\index.less       | Less               |         32 |          0 |          3 |         35 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\index.jsx                             | JavaScript React   |        204 |          0 |          5 |        209 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\service.js                            | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\style.less                            | Less               |         47 |          1 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\applications\utils\utils.less                      | Less               |         46 |          2 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\_mock.js                                  | JavaScript         |        104 |          1 |          6 |        111 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\components\ArticleListContent\index.jsx   | JavaScript React   |         15 |          0 |          3 |         18 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\components\ArticleListContent\index.less  | Less               |         36 |          0 |          3 |         39 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\components\StandardFormRow\index.jsx      | JavaScript React   |         21 |          0 |          3 |         24 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\components\StandardFormRow\index.less     | Less               |         84 |          0 |          5 |         89 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\components\TagSelect\index.jsx            | JavaScript React   |         98 |          0 |         15 |        113 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\components\TagSelect\index.less           | Less               |         32 |          0 |          2 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\index.jsx                                 | JavaScript React   |        264 |          0 |         10 |        274 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\service.js                                | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\articles\style.less                                | Less               |         29 |          0 |          3 |         32 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\index.jsx                                          | JavaScript React   |         76 |          1 |         12 |         89 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\_mock.js                                  | JavaScript         |        104 |          0 |          6 |        110 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\components\AvatarList\index.jsx           | JavaScript React   |         55 |          0 |          7 |         62 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\components\AvatarList\index.less          | Less               |         44 |          0 |          7 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\components\StandardFormRow\index.jsx      | JavaScript React   |         21 |          0 |          3 |         24 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\components\StandardFormRow\index.less     | Less               |         84 |          0 |          5 |         89 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\components\TagSelect\index.jsx            | JavaScript React   |         98 |          0 |         15 |        113 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\components\TagSelect\index.less           | Less               |         32 |          0 |          2 |         34 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\index.jsx                                 | JavaScript React   |        150 |          2 |          4 |        156 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\service.js                                | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\style.less                                | Less               |         51 |          0 |          5 |         56 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\search\projects\utils\utils.less                          | Less               |         46 |          2 |          3 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\table-list\_mock.js                                       | JavaScript         |        153 |          3 |         31 |        187 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\table-list\components\CreateForm.jsx                      | JavaScript React   |         17 |          0 |          3 |         20 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\table-list\components\UpdateForm.jsx                      | JavaScript React   |        141 |          0 |          3 |        144 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\table-list\index.jsx                                      | JavaScript React   |        278 |         18 |         19 |        315 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\list\table-list\service.js                                     | JavaScript         |         29 |          6 |          6 |         41 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\EntrustmentViewer.js                                | JavaScript         |        511 |          0 |         19 |        530 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\JS006.js                                            | JavaScript         |        252 |         12 |         18 |        282 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\JS007Display.js                                     | JavaScript         |        644 |         10 |         23 |        677 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\JS008Display.js                                     | JavaScript         |        109 |          1 |          9 |        119 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\JS009Display.js                                     | JavaScript         |        141 |          2 |         11 |        154 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\JS011Display.js                                     | JavaScript         |        110 |          1 |          9 |        120 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\pageViewer\components\dateTranslate.js                         | JavaScript         |         16 |          0 |          1 |         17 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\advanced\_mock.js                                      | JavaScript         |         75 |          0 |          3 |         78 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\advanced\index.jsx                                     | JavaScript React   |        423 |          0 |         11 |        434 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\advanced\service.js                                    | JavaScript         |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\advanced\style.less                                    | Less               |         54 |          0 |          7 |         61 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\basic\_mock.js                                         | JavaScript         |         87 |          0 |          3 |         90 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\basic\index.jsx                                        | JavaScript React   |        225 |          0 |         12 |        237 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\basic\service.js                                       | JavaScript         |          4 |          0 |          1 |          5 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\profile\basic\style.less                                       | Less               |          7 |          0 |          2 |          9 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\result\fail\index.jsx                                          | JavaScript React   |         72 |          0 |          1 |         73 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\result\fail\index.less                                         | Less               |         10 |          0 |          2 |         12 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\result\success\index.jsx                                       | JavaScript React   |        131 |          0 |          1 |        132 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\result\success\index.less                                      | Less               |         13 |          0 |          3 |         16 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS006.js                                          | JavaScript         |        337 |         35 |         18 |        390 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS007.js                                          | JavaScript         |        889 |          5 |         12 |        906 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS008.js                                          | JavaScript         |        160 |          5 |          3 |        168 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS009.js                                          | JavaScript         |        219 |          5 |          3 |        227 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS010.js                                          | JavaScript         |        514 |         14 |          5 |        533 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS011.js                                          | JavaScript         |        168 |          5 |          3 |        176 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS012.js                                          | JavaScript         |        229 |          5 |          3 |        237 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\JS013.js                                          | JavaScript         |        429 |          7 |          4 |        440 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\testingTable\components\dateTranslate.js                       | JavaScript         |         16 |          0 |          1 |         17 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\uploads\RepoVerUpload.js                                       | JavaScript         |         55 |          0 |          3 |         58 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\uploads\ScheVerUpload.js                                       | JavaScript         |         54 |          0 |          3 |         57 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\Login\index.jsx                                           | JavaScript React   |        255 |         19 |         16 |        290 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\Login\index.less                                          | Less               |         43 |          0 |          8 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\register-result\index.jsx                                 | JavaScript React   |         33 |          0 |          3 |         36 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\register-result\style.less                                | Less               |         23 |          0 |          1 |         24 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\register\_mock.js                                         | JavaScript         |         10 |          1 |          0 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\register\index.jsx                                        | JavaScript React   |        258 |         67 |         25 |        350 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\register\service.js                                       | JavaScript         |          5 |          5 |          0 |         10 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\pages\user\register\style.less                                       | Less               |         72 |          4 |         16 |         92 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\service-worker.js                                                    | JavaScript         |         37 |         23 |          7 |         67 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\ant-design-pro\api.js                                       | JavaScript         |         44 |         31 |         11 |         86 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\ant-design-pro\index.js                                     | JavaScript         |          6 |          4 |          2 |         12 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\ant-design-pro\login.js                                     | JavaScript         |          8 |          3 |          3 |         14 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\swagger\index.js                                            | JavaScript         |          8 |          4 |          2 |         14 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\swagger\pet.js                                              | JavaScript         |         89 |         10 |         12 |        111 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\swagger\store.js                                            | JavaScript         |         30 |          6 |          6 |         42 |
+| d:\工作\软工实验\sep\SE-Project-Front\src\services\swagger\user.js                                             | JavaScript         |         60 |         10 |         10 |         80 |
+| d:\工作\软工实验\sep\SE-Project-Front\tests\PuppeteerEnvironment.js                                            | JavaScript         |         30 |          4 |          8 |         42 |
+| d:\工作\软工实验\sep\SE-Project-Front\tests\beforeTest.js                                                      | JavaScript         |         29 |          6 |          5 |         40 |
+| d:\工作\软工实验\sep\SE-Project-Front\tests\getBrowser.js                                                      | JavaScript         |         37 |          5 |          4 |         46 |
+| d:\工作\软工实验\sep\SE-Project-Front\tests\run-tests.js                                                       | JavaScript         |         37 |          8 |          6 |         51 |
+| d:\工作\软工实验\sep\SE-Project-Front\tests\setupTests.js                                                      | JavaScript         |          7 |          1 |          3 |         11 |
+| d:\工作\软工实验\sep\SE-Project-Front\代码行数统计\0627\details.md                                                   | Markdown           |        292 |          0 |          6 |        298 |
+| d:\工作\软工实验\sep\SE-Project-Front\代码行数统计\0627\diff-details.md                                              | Markdown           |          9 |          0 |          6 |         15 |
+| d:\工作\软工实验\sep\SE-Project-Front\代码行数统计\0627\diff.md                                                      | Markdown           |         12 |          0 |          7 |         19 |
+| d:\工作\软工实验\sep\SE-Project-Front\代码行数统计\0627\results.json                                                 | JSON               |          1 |          0 |          0 |          1 |
+| d:\工作\软工实验\sep\SE-Project-Front\代码行数统计\0627\results.md                                                   | Markdown           |        139 |          0 |          7 |        146 |
+| d:\工作\软工实验\sep\SE-Project-Front\需求文档.md                                                                  | Markdown           |         64 |          0 |         35 |         99 |
+| Total                                                                                                    |                    |     81,933 |      1,625 |      3,344 |     86,902 |
++----------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
