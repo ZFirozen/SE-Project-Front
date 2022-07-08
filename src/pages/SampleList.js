@@ -40,7 +40,7 @@ var defaultcolumns = [
         title: '样品个数',
         dataIndex: 'samples',
         key: 'samples',
-        render: (a) => a == null?0:a.length
+        render: (a) => a == null ? 0 : a.length
     },
 ];
 var columns = defaultcolumns
@@ -51,14 +51,14 @@ const changeColumns = () => {
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
-                render: (a) => <Button type='link' onClick={() => { history.push({ pathname: "/sample/fill", query: { sampleId: a.id } }) }}>更新</Button>
+                render: (a) => <Button type='link' name='更新' onClick={() => { history.push({ pathname: "/sample/fill", query: { sampleId: a.id } }) }}>更新</Button>
             }]
             break
         case "MARKETER":
             columns = [...defaultcolumns, {
                 title: '操作',
                 search: false,
-                render: (a) => a.stage == "RECEIVED" ? <Button type='link' onClick={() => { history.push({ pathname: "/sample/fill", query: { sampleId: a.id } }) }}>更新</Button> : null
+                render: (a) => a.stage == "RECEIVED" ? <Button type='link' name='更新' onClick={() => { history.push({ pathname: "/sample/fill", query: { sampleId: a.id } }) }}>更新</Button> : null
             }]
             break
         default:

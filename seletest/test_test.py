@@ -471,6 +471,7 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
         time.sleep(5)
+
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
@@ -503,9 +504,9 @@ class TestClass:
         fpry[6].click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "//input").send_keys(
-            "./testFiles/2021 CCF中国软件大会会议手册_v2.8.pdf"
+            "D:/工作/软工实验/sep/SE-Project-Front/seletest/testFiles/2021 CCF中国软件大会会议手册_v2.8.pdf"
         )  # 如果嫌麻烦就改成绝对路径
-        time.sleep(1)
+        time.sleep(30)
         self.logout()
         assert 1
 
@@ -621,6 +622,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).send_keys(Keys.ENTER)
+
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
@@ -635,7 +637,7 @@ class TestClass:
         fpry[7].click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "//input").send_keys(
-            "./testFiles/NST－04－JS013－2011 - 测试方案评审表.doc"
+            "D:/工作/软工实验/sep/SE-Project-Front/seletest/testFiles/NST－04－JS013－2011 - 测试方案评审表.doc"
         )  # 如果嫌麻烦就改成绝对路径
         time.sleep(1)
         self.logout()
@@ -703,6 +705,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
+        time.sleep(1)
         # JS008
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -723,6 +726,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
+        time.sleep(1)
         # JS009
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -750,6 +754,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).send_keys(Keys.ENTER)
+        time.sleep(1)
         # JS011
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -770,6 +775,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
+        time.sleep(1)
         # 状态转换
         time.sleep(1)
         self.driver.find_elements(
@@ -824,8 +830,42 @@ class TestClass:
         fpry[10].click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "//input").send_keys(
-            "./testFiles/NST－04－JS010－2011－测试报告检查表.doc"
+            "D:/工作/软工实验/sep/SE-Project-Front/seletest/testFiles/NST－04－JS010－2011－测试报告检查表.doc"
         )  # 如果嫌麻烦就改成绝对路径
+        time.sleep(1)
+        self.logout()
+        assert 1
+
+    def test_ex_1(self):
+
+        self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
+        time.sleep(1)
+        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
+        time.sleep(5)
+        self.driver.find_element(By.LINK_TEXT, "样品").click()
+        time.sleep(1)
+        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        time.sleep(5)
+        fp = self.driver.find_elements(By.NAME, "更新")
+        fp[len(fp) - 1].click()
+        time.sleep(1)
+        self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
+        )[1].click()
+        time.sleep(1)
+        self.driver.execute_script("var q=document.documentElement.scrollTop=0")
+        time.sleep(1)
+        tb = self.driver.find_elements(
+            By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
+        )
+        for i in tb:
+            i.send_keys("1")
+        time.sleep(1)
+        self.driver.find_element(
+            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
+        ).click()
         time.sleep(1)
         self.logout()
         assert 1
@@ -844,7 +884,7 @@ class TestClass:
         time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
-        time.sleep(2)
+        time.sleep(5)
         fpry = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-steps-item-container']"
         )
@@ -905,40 +945,6 @@ class TestClass:
         self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         )[4].click()
-        time.sleep(1)
-        self.logout()
-        assert 1
-
-    def test_ex_1(self):
-
-        self.driver.find_element(By.ID, "userName").send_keys(self.marketer)
-        time.sleep(1)
-        self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
-        time.sleep(1)
-        self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
-        self.driver.find_element(By.LINK_TEXT, "样品").click()
-        time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
-        fp = self.driver.find_elements(By.NAME, "更新")
-        fp[len(fp) - 1].click()
-        time.sleep(1)
-        self.driver.find_elements(
-            By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
-        )[1].click()
-        time.sleep(1)
-        self.driver.execute_script("var q=document.documentElement.scrollTop=0")
-        time.sleep(1)
-        tb = self.driver.find_elements(
-            By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
-        )
-        for i in tb:
-            i.send_keys("1")
-        time.sleep(1)
-        self.driver.find_element(
-            By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
-        ).click()
         time.sleep(1)
         self.logout()
         assert 1
