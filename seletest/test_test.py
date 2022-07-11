@@ -29,14 +29,14 @@ class TestClass:
         self.driver.get(self.url)
 
     def logout(self):
-        time.sleep(1)
+        time.sleep(3)
         self.driver.find_element(
             By.XPATH,
             "/html/body/div[1]/div/section/div[2]/header[2]/div/div[3]/div[1]/span",
         ).click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, "/html/body/div[3]/div/div/ul/li[4]").click()
-        time.sleep(1)
+        time.sleep(3)
 
     def test_1(self):
         time.sleep(2)
