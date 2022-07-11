@@ -7,7 +7,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 class TestClass:
-    url = "http://localhost:7777"
+    url = "http://210.28.133.13:21325"
+    # url = "http://localhost:7777"
     path = r"D:/chromedriver/chromedriver.exe"
     driver = webdriver.Chrome(executable_path=path)
     customer = "CUSTOMER114"
@@ -38,13 +39,13 @@ class TestClass:
         time.sleep(1)
 
     def test_1(self):
-        time.sleep(3)
+        time.sleep(2)
         self.driver.find_element(By.ID, "userName").send_keys(self.customer)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托申请").click()
@@ -88,7 +89,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         self.driver.find_element(By.ID, "software_name").send_keys("test")
@@ -127,28 +128,28 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(2)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(2)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(2)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(2)
         fp = self.driver.find_elements(By.NAME, "分派")
         fp[len(fp) - 1].click()
         time.sleep(1)
         fpry = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
-        fpry[len(fpry) - 1].click()
+        fpry[1].click()
         time.sleep(1)
         qr = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
-        qr[6].send_keys(Keys.ENTER)
-        time.sleep(3)
+        qr[4].send_keys(Keys.ENTER)  # total+1
+        time.sleep(2)
         self.logout()
         assert 1
 
@@ -159,13 +160,13 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(1)
@@ -181,7 +182,7 @@ class TestClass:
         time.sleep(1)
         tb = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-input']")
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         time.sleep(1)
         ri = self.driver.find_elements(By.CLASS_NAME, "ant-radio-input")
@@ -202,27 +203,27 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(1)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "分派")
         fp[len(fp) - 1].click()
         time.sleep(1)
         fpry = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
-        fpry[len(fpry) - 1].click()
+        fpry[1].click()
         time.sleep(1)
         qr = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
-        qr[5].send_keys(Keys.ENTER)
+        qr[4].send_keys(Keys.ENTER)
         self.logout()
         assert 1
 
@@ -233,13 +234,13 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(3)
+        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(1)
@@ -255,7 +256,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).send_keys(Keys.ENTER)
@@ -298,7 +299,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("2")
+            i.send_keys("unknown")
             time.sleep(0.2)
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
@@ -308,7 +309,7 @@ class TestClass:
         )
         print(tn)
         for i in tn:
-            i.send_keys("2")
+            i.send_keys("114")
             time.sleep(0.2)
         self.driver.find_element(By.ID, "quotationDate").send_keys("2022-07-07")
         time.sleep(1)
@@ -321,7 +322,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
-        time.sleep(3)
+        time.sleep(2)
         self.logout()
         assert 1
 
@@ -345,7 +346,7 @@ class TestClass:
         fpry[9].click()
         time.sleep(1)
         self.driver.find_element(By.CSS_SELECTOR, "[class='ant-input']").click()
-        time.sleep(3)
+        time.sleep(2)
 
         self.logout()
         assert 1
@@ -378,7 +379,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("2")
+            i.send_keys("unknown")
             time.sleep(0.2)
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
@@ -388,7 +389,7 @@ class TestClass:
         )
         print(tn)
         for i in tn:
-            i.send_keys("2")
+            i.send_keys("514")
             time.sleep(0.2)
         self.driver.find_element(By.ID, "partyB_contactEmail").send_keys("@2.com")
         time.sleep(1)
@@ -403,7 +404,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
-        time.sleep(3)
+        time.sleep(2)
 
         self.logout()
         assert 1
@@ -436,13 +437,13 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("2")
+            i.send_keys("unknown")
             time.sleep(0.2)
         tn = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-input-number-input']"
         )
         for i in tn:
-            i.send_keys("2")
+            i.send_keys("191")
             time.sleep(0.2)
         self.driver.find_element(By.ID, "partyA_contactEmail").send_keys("@2.com")
         time.sleep(1)
@@ -457,7 +458,7 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
         ).click()
-        time.sleep(5)
+        time.sleep(2)
 
         self.logout()
         assert 1
@@ -470,14 +471,14 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
 
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -493,11 +494,11 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
-        time.sleep(2)
+        time.sleep(3)
         fpry = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-steps-item-container']"
         )
@@ -517,18 +518,18 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "分派")
         fp[len(fp) - 1].click()
         time.sleep(1)
         fpry = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         )
-        fpry[len(fpry) - 1].click()
+        fpry[1].click()
         time.sleep(1)
         qr = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
@@ -545,11 +546,11 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -572,7 +573,7 @@ class TestClass:
         time.sleep(1)
         tb = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-input']")
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         pick = self.driver.find_elements(By.CSS_SELECTOR, "[class='ant-picker']")
@@ -584,23 +585,24 @@ class TestClass:
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary']"
         ).send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(2)
         self.logout()
         assert 1
 
     def test_13(self):
 
         # 合并了两个步骤
+        time.sleep(2)
         self.driver.find_element(By.ID, "userName").send_keys(self.qa)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -617,7 +619,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -626,8 +628,8 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -651,11 +653,11 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -684,7 +686,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         pick = self.driver.find_elements(
@@ -721,7 +723,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -742,14 +744,14 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         rb = self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         rb.click()
-        rb.send_keys("2")
+        rb.send_keys("unknown")
         rb.click()
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -770,7 +772,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -792,11 +794,11 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -819,8 +821,8 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -843,11 +845,11 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "样品").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "更新")
         fp[len(fp) - 1].click()
         time.sleep(1)
@@ -861,7 +863,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
         for i in tb:
-            i.send_keys("1")
+            i.send_keys("unknown")
         time.sleep(1)
         self.driver.find_element(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-primary ant-btn-lg']"
@@ -877,14 +879,14 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
-        time.sleep(5)
+        time.sleep(2)
         fpry = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-steps-item-container']"
         )
@@ -900,13 +902,13 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.CLASS_NAME, "ant-menu-submenu-inline").click()
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托列表").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(3)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(3)
         fp = self.driver.find_elements(By.NAME, "查看进度")
         fp[len(fp) - 1].click()
         time.sleep(2)
@@ -929,11 +931,11 @@ class TestClass:
         self.driver.find_element(By.ID, "userPassword").send_keys(self.password)
         time.sleep(1)
         self.driver.find_element(By.ID, "userPassword").send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(2)
         self.driver.find_element(By.LINK_TEXT, "测试项目").click()
         time.sleep(1)
-        self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
-        time.sleep(5)
+        # self.driver.find_element(By.CLASS_NAME, "ant-pagination-next").click()
+        # time.sleep(5)
         fp = self.driver.find_elements(By.NAME, "查看")
         fp[len(fp) - 1].click()
         time.sleep(2)

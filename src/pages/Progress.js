@@ -806,6 +806,17 @@ const Progress = () => {
                         })
                     }
                 }
+                else if (userRole === "QA") {
+                    if (currentStage === 2 && currentStep > 1) {
+                        // window.location.href = "/contract/display/" + contractId;
+                        history.push({
+                            pathname: "/test/schemeview",
+                            query: {
+                                schemeId: schemeId
+                            }
+                        })
+                    }
+                }
                 else {
                     message.error("您没有权限访问！");
                 }
