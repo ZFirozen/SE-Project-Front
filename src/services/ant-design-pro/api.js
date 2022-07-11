@@ -15,10 +15,11 @@ export async function currentUser(options) {
 /** 获取当前的用户信息 GET /api/account */
 
 export async function accountInfo(options) {
-  return request('/api/account', {
-    method: 'GET',
-    ...(options || {}),
-  });
+  // return request('/api/account', {
+  //   method: 'GET',
+  //   ...(options || {}),
+  // });
+  return axios.get("/api/account");
 }
 /** 退出登录接口 POST /api/login/outLogin */
 
