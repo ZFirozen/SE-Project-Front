@@ -5,6 +5,56 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
+info = [
+    "其他测试",
+    "南京大学F组",
+    "NJUF",
+    "114514",
+    "210.28.133.13:21325",
+    "9栋",
+    "毕一帆",
+    "1919810",
+    "junzhi_cn@qq.com",
+    "FibonaccciYan",
+    "214000",
+    "025-88888888",
+    "南京银行珠江路分行",
+    "62545784585254",
+    "南京大学F",
+    "在线测试系统",
+    "ver.15.876.9004",
+    "我们F组",
+    "所有人",
+    "在线测试",
+    "114",
+    "514",
+    "1919",
+    "win11",
+    "Ubuntu20.04",
+    "macosX",
+    "114",
+    "没啥",
+    "我的电脑",
+    "514",
+    "1919",
+    "无",
+    "MySys",
+    "ver1.1",
+    "JVAV",
+    "MongoDb",
+    "我不到啊",
+    "vsCode",
+    "校园网",
+    "unknown",
+    "测试",
+    "进行测试",
+    "我的依据",
+    "通过验收",
+    "电脑",
+    "文档",
+    "现在",
+]
+
 
 class TestClass:
     url = "http://210.28.133.13:21325"
@@ -27,6 +77,7 @@ class TestClass:
         self.driver.implicitly_wait(30)
         self.driver.maximize_window()
         self.driver.get(self.url)
+        time.sleep(10)
 
     def logout(self):
         time.sleep(3)
@@ -50,11 +101,9 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.LINK_TEXT, "委托申请").click()
         time.sleep(1)
-
         tj = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
         )
-        time.sleep(1)
         for i in tj:
             if i.get_attribute("textContent") != "添加一行数据":
                 tj.remove(i)
@@ -88,8 +137,10 @@ class TestClass:
         tb = self.driver.find_elements(
             By.CSS_SELECTOR, "[class='ant-input ant-input-lg']"
         )
+        ii = 0
         for i in tb:
-            i.send_keys("unknown")
+            i.send_keys(info[ii])
+            ii += 1
         time.sleep(1)
         self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         self.driver.find_element(By.ID, "software_name").send_keys("test")
@@ -104,9 +155,7 @@ class TestClass:
         time.sleep(1)
         self.driver.find_element(By.ID, "software_type").send_keys(Keys.ENTER)
         time.sleep(1)
-        self.driver.find_element(By.ID, "principal_contactEmail").send_keys(
-            "junzhi_cn@qq.com"
-        )
+        self.driver.execute_script("var q=document.documentElement.scrollTop=0")
         time.sleep(1)
         self.driver.find_element(By.ID, "principal_sigDate").click()
         time.sleep(1)
@@ -503,7 +552,7 @@ class TestClass:
             By.CSS_SELECTOR, "[class='ant-steps-item-container']"
         )
         fpry[6].click()
-        time.sleep(1)
+        time.sleep(3)
         self.driver.find_element(By.XPATH, "//input").send_keys(
             "D:/工作/软工实验/sep/SE-Project-Front/seletest/testFiles/2021 CCF中国软件大会会议手册_v2.8.pdf"
         )  # 如果嫌麻烦就改成绝对路径
