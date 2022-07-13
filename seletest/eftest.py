@@ -71,7 +71,7 @@ for i in tj:
         tj.remove(i)
     time.sleep(1)
 i = tj[0]
-ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
+ActionChains(driver).move_to_element(i).click(i).perform()
 time.sleep(1)
 tj = driver.find_elements(
     By.CSS_SELECTOR, "[class='ant-btn ant-btn-dashed ant-btn-lg']"
@@ -82,7 +82,7 @@ for i in tj:
         tj.remove(i)
     time.sleep(1)
 i = tj[2]
-ActionChains(driver).scroll_to_element(i).move_to_element(i).click(i).perform()
+ActionChains(driver).move_to_element(i).click(i).perform()
 time.sleep(1)
 driver.execute_script("var q=document.documentElement.scrollTop=0")
 time.sleep(1)
@@ -110,6 +110,8 @@ time.sleep(1)
 driver.find_element(By.ID, "software_type").send_keys(Keys.UP)
 time.sleep(1)
 driver.find_element(By.ID, "software_type").send_keys(Keys.ENTER)
+time.sleep(1)
+driver.execute_script("var q=document.documentElement.scrollTop=0")
 time.sleep(1)
 driver.find_element(By.ID, "principal_sigDate").click()
 time.sleep(1)
